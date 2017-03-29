@@ -11,6 +11,19 @@ class CoreServiceProvider extends ServiceProvider
 	 */
 	public function boot()
 	{
+        // register routes
+        if (!$this->app->routesAreCached())
+            require __DIR__ . '/../../routes/api.php';
+
+        // register migrations
+        $this->publishes([
+            __DIR__ . '/../../database/migrations/' 			=> base_path('/database/migrations'),
+        ], 'migrations');
+
+        // register seeds
+        $this->publishes([
+            __DIR__ . '/../../database/seeds/' 					=> base_path('/database/seeds')
+        ], 'seeds');
 
 	}
 
