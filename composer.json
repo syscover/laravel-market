@@ -1,5 +1,5 @@
 {
-    "name": "syscover/market",
+    "name": "syscover/pulsar-market",
     "description": "Market package",
     "keywords": ["syscover","pulsar","laravel","syscover","intranet","market"],
     "authors": [
@@ -10,6 +10,7 @@
     ],
     "require": {
         "php": ">=5.6.4",
+        "syscover/pulsar-core": "~3.0",
         "sermepa/sermepa": "^1.1",
         "paypal/rest-api-sdk-php": "*"
     },
