@@ -2,7 +2,7 @@
 
 use Illuminate\Support\ServiceProvider;
 
-class CoreServiceProvider extends ServiceProvider
+class MarketServiceProvider extends ServiceProvider
 {
 	/**
 	 * Bootstrap the application services.
@@ -17,12 +17,12 @@ class CoreServiceProvider extends ServiceProvider
 
         // register migrations
         $this->publishes([
-            __DIR__ . '/../../database/migrations/' 			=> base_path('/database/migrations'),
+            __DIR__ . '/../../database/migrations/' => base_path('/database/migrations'),
         ], 'migrations');
 
         // register seeds
         $this->publishes([
-            __DIR__ . '/../../database/seeds/' 					=> base_path('/database/seeds')
+            __DIR__ . '/../../database/seeds/' => base_path('/database/seeds')
         ], 'seeds');
 
 	}
