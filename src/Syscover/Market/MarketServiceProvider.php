@@ -25,6 +25,11 @@ class MarketServiceProvider extends ServiceProvider
             __DIR__ . '/../../database/seeds/' => base_path('/database/seeds')
         ], 'seeds');
 
+        // register config files
+        $this->publishes([
+            __DIR__ . '/../../config/pulsar.market.php' => config_path('pulsar.market.php'),
+        ]);
+
 	}
 
 	/**
