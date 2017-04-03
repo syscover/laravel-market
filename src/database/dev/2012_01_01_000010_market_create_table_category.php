@@ -47,9 +47,6 @@ class MarketCreateTableCategory extends Migration
 	 */
 	public function down()
 	{
-		if (Schema::hasTable('category'))
-		{
-			Schema::drop('category');
-		}
+	    Schema::dropIfExists('category');
 	}
 }

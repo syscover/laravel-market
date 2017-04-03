@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class MarketCreateTableProductClassTax extends Migration {
+class MarketCreateTableCustomerClassTax extends Migration {
 
     /**
      * Run the migrations.
@@ -12,9 +12,9 @@ class MarketCreateTableProductClassTax extends Migration {
      */
     public function up()
     {
-        if (! Schema::hasTable('product_class_tax'))
+        if (! Schema::hasTable('customer_class_tax'))
         {
-            Schema::create('product_class_tax', function (Blueprint $table) {
+            Schema::create('customer_class_tax', function (Blueprint $table) {
                 $table->engine = 'InnoDB';
                 
                 $table->increments('id')->unsigned();
@@ -30,9 +30,6 @@ class MarketCreateTableProductClassTax extends Migration {
      */
     public function down()
     {
-        if (Schema::hasTable('product_class_tax'))
-        {
-            Schema::drop('product_class_tax');
-        }
+        Schema::dropIfExists('customer_class_tax');
     }
 }

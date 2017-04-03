@@ -43,9 +43,6 @@ class MarketCreateTableGroupCustomerClassTax extends Migration {
 	 */
 	public function down()
 	{
-		if(Schema::hasTable('group_customer_class_tax'))
-		{
-			Schema::drop('group_customer_class_tax');
-		}
+		Schema::dropIfExists('group_customer_class_tax');
 	}
 }
