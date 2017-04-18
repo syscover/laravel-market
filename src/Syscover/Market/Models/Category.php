@@ -12,8 +12,11 @@ use Syscover\Admin\Models\Lang;
 class Category extends CoreModel
 {
 	protected $table        = 'category';
+    protected $fillable     = ['id', 'lang_id', 'parent_id', 'name', 'slug', 'active', 'description', 'data_lang', 'data'];
     public $timestamps      = false;
-    private static $rules   = [];
+    private static $rules   = [
+        'name'              => 'required|between:2,100'
+    ];
 
     public static function validate($data)
     {
@@ -22,7 +25,8 @@ class Category extends CoreModel
 
     public function scopeBuilder($query)
     {
-        return $query->join('lang', 'category.lang_id', '=', 'lang.id');
+        return $query->join('lang', 'category.lang_id', '=', 'lang.id')
+            ->select('lang.*', 'category.*', 'category.id as category_id', 'category.name as category_name', 'lang.id as lang_id', 'lang.name as lang_name');
     }
 
     public function lang()
