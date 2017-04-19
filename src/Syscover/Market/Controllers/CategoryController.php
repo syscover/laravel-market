@@ -16,14 +16,28 @@ class CategoryController extends CoreController
      */
     public function store(Request $request)
     {
-        $category= Category::create([
+        // check if there is id
+        if($request->has('id'))
+        {
+            $id     = $request->input('id');
+            $idLang = $id;
+        }
+        else
+        {
+            $id = Category::max('id');
+            $id++;
+            $idLang = null;
+        }
+
+        $category = Category::create([
+            'id'                    => $id,
             'lang_id'               => $request->input('lang_id'),
             'parent_id'             => $request->input('parent_id'),
             'name'                  => $request->input('name'),
             'slug'                  => $request->input('slug'),
             'active'                => $request->has('active'),
             'description'           => $request->input('description'),
-            'data_lang'             => Category::addLangDataRecord($request->input('lang_id'), $request->input('id'))
+            'data_lang'             => Category::addLangDataRecord($request->input('lang_id'), $idLang)
         ]);
 
         $response['status'] = "success";
