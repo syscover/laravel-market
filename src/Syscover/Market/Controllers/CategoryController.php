@@ -64,7 +64,7 @@ class CategoryController extends CoreController
             'description'           => $request->input('description'),
         ]);
 
-        $category = Category::where($request->input('id'));
+        $category = Category::find($id);
 
         $response['status'] = "success";
         $response['data']   = $category;

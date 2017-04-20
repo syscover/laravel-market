@@ -4,13 +4,13 @@ use Syscover\Core\Models\CoreModel;
 use Illuminate\Support\Facades\Validator;
 
 /**
- * Class CustomerClassTax
+ * Class ProductClassTax
  * @package Syscover\Market\Models
  */
 
-class CustomerClassTax extends CoreModel
+class ProductClassTax extends CoreModel
 {
-	protected $table        = 'customer_class_tax';
+	protected $table        = 'product_class_tax';
     protected $fillable     = ['id', 'name'];
     public $timestamps      = false;
     private static $rules   = [
