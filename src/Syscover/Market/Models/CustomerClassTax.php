@@ -14,7 +14,7 @@ class CustomerClassTax extends CoreModel
     protected $fillable     = ['id', 'name'];
     public $timestamps      = false;
     private static $rules   = [
-        'name'              => 'required|between:2,100'
+        'name' => 'required|between:2,100'
     ];
 
     public static function validate($data)

@@ -59,3 +59,27 @@ Route::post('api/v1/market/tax-rate-zone',                                  ['as
 Route::post('api/v1/market/tax-rate-zone/search',                           ['as' => 'searchMarketTaxRateZone',           'uses' => 'Syscover\Market\Controllers\TaxRateZoneController@search']);
 Route::put('api/v1/market/tax-rate-zone/{id}',                              ['as' => 'updateMarketTaxRateZone',           'uses' => 'Syscover\Market\Controllers\TaxRateZoneController@update']);
 Route::delete('api/v1/market/tax-rate-zone/{id}',                           ['as' => 'destroyMarketTaxRateZone',          'uses' => 'Syscover\Market\Controllers\TaxRateZoneController@destroy']);
+
+/*
+|----------------------------------
+| ORDER STATUS
+|----------------------------------
+*/
+Route::get('api/v1/market/order-status/{lang?}',                             ['as' => 'marketOrderStatus',                         'uses' => 'Syscover\Market\Controllers\OrderStatusController@index']);
+Route::get('api/v1/market/order-status/{id}/{lang}',                         ['as' => 'showMarketOrderStatus',                     'uses' => 'Syscover\Market\Controllers\OrderStatusController@show']);
+Route::post('api/v1/market/order-status/search',                             ['as' => 'searchMarketOrderStatus',                   'uses' => 'Syscover\Market\Controllers\OrderStatusController@search']);
+Route::post('api/v1/market/order-status',                                    ['as' => 'storeMarketOrderStatus',                    'uses' => 'Syscover\Market\Controllers\OrderStatusController@store']);
+Route::put('api/v1/market/order-status/{id}/{lang}',                         ['as' => 'updateMarketOrderStatus',                   'uses' => 'Syscover\Market\Controllers\OrderStatusController@update']);
+Route::delete('api/v1/market/order-status/{id}/{lang?}',                     ['as' => 'destroyMarketOrderStatus',                  'uses' => 'Syscover\Market\Controllers\OrderStatusController@destroy']);
+
+/*
+|----------------------------------
+| PAYMENT METHOD
+|----------------------------------
+*/
+Route::get('api/v1/market/payment-method/{lang?}',                             ['as' => 'marketPaymentMethod',                         'uses' => 'Syscover\Market\Controllers\PaymentMethodController@index']);
+Route::get('api/v1/market/payment-method/{id}/{lang}',                         ['as' => 'showMarketPaymentMethod',                     'uses' => 'Syscover\Market\Controllers\PaymentMethodController@show']);
+Route::post('api/v1/market/payment-method/search',                             ['as' => 'searchMarketPaymentMethod',                   'uses' => 'Syscover\Market\Controllers\PaymentMethodController@search']);
+Route::post('api/v1/market/payment-method',                                    ['as' => 'storeMarketPaymentMethod',                    'uses' => 'Syscover\Market\Controllers\PaymentMethodController@store']);
+Route::put('api/v1/market/payment-method/{id}/{lang}',                         ['as' => 'updateMarketPaymentMethod',                   'uses' => 'Syscover\Market\Controllers\PaymentMethodController@update']);
+Route::delete('api/v1/market/payment-method/{id}/{lang?}',                     ['as' => 'destroyMarketPaymentMethod',                  'uses' => 'Syscover\Market\Controllers\PaymentMethodController@destroy']);

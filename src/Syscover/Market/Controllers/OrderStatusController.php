@@ -2,11 +2,11 @@
 
 use Illuminate\Http\Request;
 use Syscover\Core\Controllers\CoreController;
-use Syscover\Market\Models\Category;
+use Syscover\Market\Models\OrderStatus;
 
-class CategoryController extends CoreController
+class OrderStatusController extends CoreController
 {
-    protected $model = Category::class;
+    protected $model = OrderStatus::class;
 
     /**
      * Store a newly created resource in storage.
@@ -24,24 +24,21 @@ class CategoryController extends CoreController
         }
         else
         {
-            $id = Category::max('id');
+            $id = OrderStatus::max('id');
             $id++;
             $idLang = null;
         }
 
-        $category = Category::create([
+        $orderStatus = OrderStatus::create([
             'id'                    => $id,
             'lang_id'               => $request->input('lang_id'),
-            'parent_id'             => $request->input('parent_id'),
             'name'                  => $request->input('name'),
-            'slug'                  => $request->input('slug'),
             'active'                => $request->has('active'),
-            'description'           => $request->input('description'),
-            'data_lang'             => Category::addLangDataRecord($request->input('lang_id'), $idLang)
+            'data_lang'             => OrderStatus::addLangDataRecord($request->input('lang_id'), $idLang)
         ]);
 
         $response['status'] = "success";
-        $response['data']   = $category;
+        $response['data']   = $orderStatus;
 
         return response()->json($response);
     }
@@ -56,18 +53,15 @@ class CategoryController extends CoreController
      */
     public function update(Request $request, $id, $lang)
     {
-        Category::where('id', $id)->where('lang_id', $lang)->update([
-            'parent_id'             => $request->input('parent_id'),
+        OrderStatus::where('id', $id)->where('lang_id', $lang)->update([
             'name'                  => $request->input('name'),
-            'slug'                  => $request->input('slug'),
             'active'                => $request->has('active'),
-            'description'           => $request->input('description'),
         ]);
 
-        $category = Category::where('id', $id)->where('lang_id', $lang)->first();
+        $orderStatus = OrderStatus::where('id', $id)->where('lang_id', $lang)->first();
 
         $response['status'] = "success";
-        $response['data']   = $category;
+        $response['data']   = $orderStatus;
 
         return response()->json($response);
     }

@@ -5,17 +5,19 @@ use Illuminate\Support\Facades\Validator;
 use Syscover\Admin\Models\Lang;
 
 /**
- * Class Category
+ * Class PaymentMethod
  * @package Syscover\Market\Models
  */
 
-class Category extends CoreModel
+class OrderStatus extends CoreModel
 {
-	protected $table        = 'category';
-    protected $fillable     = ['id', 'lang_id', 'parent_id', 'name', 'slug', 'active', 'description', 'data_lang', 'data'];
+	protected $table        = 'order_status';
+    protected $fillable     = ['id', 'lang_id', 'name', 'active', 'data_lang'];
     public $timestamps      = false;
+    protected $maps         = [];
+
     private static $rules   = [
-        'name' => 'required|between:2,100'
+        'name' => 'required|between:2,255'
     ];
 
     public static function validate($data)
@@ -25,8 +27,7 @@ class Category extends CoreModel
 
     public function scopeBuilder($query)
     {
-        return $query->join('lang', 'category.lang_id', '=', 'lang.id')
-            ->select('lang.*', 'category.*', 'category.id as category_id', 'category.name as category_name', 'lang.id as lang_id', 'lang.name as lang_name');
+        return $query->join('lang', 'order_status.lang_id', '=', 'lang.id');
     }
 
     public function lang()
