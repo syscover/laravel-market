@@ -25,7 +25,7 @@ class MarketCreateTableTaxRule extends Migration {
 				$table->smallInteger('priority')->unsigned();
 
 				// en el caso de aplicar varios impuestos, el orden en el que aparecerá en el caso de haber varios impuestos
-				$table->smallInteger('sort_order')->unsigned();
+				$table->smallInteger('sort')->unsigned();
 			});
 		}
 	}
