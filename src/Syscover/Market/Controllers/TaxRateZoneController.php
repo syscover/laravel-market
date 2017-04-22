@@ -21,7 +21,7 @@ class TaxRateZoneController extends CoreController
      */
     public function store(Request $request)
     {
-        $taxRateZone = TaxRateZone::create([
+        $object = TaxRateZone::create([
             'name'                  => $request->input('name'),
             'country_id'            => $request->input('country_id'),
             'territorial_area_1_id' => $request->input('territorial_area_1_id'),
@@ -32,7 +32,7 @@ class TaxRateZoneController extends CoreController
         ]);
 
         $response['status'] = "success";
-        $response['data']   = $taxRateZone;
+        $response['data']   = $object;
 
         return response()->json($response);
     }
@@ -56,10 +56,10 @@ class TaxRateZoneController extends CoreController
             'tax_rate'              => $request->input('tax_rate'),
         ]);
 
-        $taxRateZone = TaxRateZone::find($id);
+        $object = TaxRateZone::find($id);
 
         $response['status'] = "success";
-        $response['data']   = $taxRateZone;
+        $response['data']   = $object;
 
         return response()->json($response);
     }

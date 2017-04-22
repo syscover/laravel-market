@@ -29,7 +29,7 @@ class CategoryController extends CoreController
             $idLang = null;
         }
 
-        $category = Category::create([
+        $object = Category::create([
             'id'                    => $id,
             'lang_id'               => $request->input('lang_id'),
             'parent_id'             => $request->input('parent_id'),
@@ -41,7 +41,7 @@ class CategoryController extends CoreController
         ]);
 
         $response['status'] = "success";
-        $response['data']   = $category;
+        $response['data']   = $object;
 
         return response()->json($response);
     }
@@ -64,10 +64,10 @@ class CategoryController extends CoreController
             'description'           => $request->input('description'),
         ]);
 
-        $category = Category::where('id', $id)->where('lang_id', $lang)->first();
+        $object = Category::where('id', $id)->where('lang_id', $lang)->first();
 
         $response['status'] = "success";
-        $response['data']   = $category;
+        $response['data']   = $object;
 
         return response()->json($response);
     }

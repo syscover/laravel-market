@@ -16,12 +16,12 @@ class CustomerClassTaxController extends CoreController
      */
     public function store(Request $request)
     {
-        $customerClassTax = CustomerClassTax::create([
+        $object = CustomerClassTax::create([
             'name' => $request->input('name')
         ]);
 
         $response['status'] = "success";
-        $response['data']   = $customerClassTax;
+        $response['data']   = $object;
 
         return response()->json($response);
     }
@@ -39,10 +39,10 @@ class CustomerClassTaxController extends CoreController
             'name' => $request->input('name')
         ]);
 
-        $customerClassTax = CustomerClassTax::find($id);
+        $object = CustomerClassTax::find($id);
 
         $response['status'] = "success";
-        $response['data']   = $customerClassTax;
+        $response['data']   = $object;
 
         return response()->json($response);
     }

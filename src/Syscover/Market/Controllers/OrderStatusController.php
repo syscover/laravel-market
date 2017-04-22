@@ -29,7 +29,7 @@ class OrderStatusController extends CoreController
             $idLang = null;
         }
 
-        $orderStatus = OrderStatus::create([
+        $object = OrderStatus::create([
             'id'                    => $id,
             'lang_id'               => $request->input('lang_id'),
             'name'                  => $request->input('name'),
@@ -38,7 +38,7 @@ class OrderStatusController extends CoreController
         ]);
 
         $response['status'] = "success";
-        $response['data']   = $orderStatus;
+        $response['data']   = $object;
 
         return response()->json($response);
     }
@@ -58,10 +58,10 @@ class OrderStatusController extends CoreController
             'active'                => $request->has('active'),
         ]);
 
-        $orderStatus = OrderStatus::where('id', $id)->where('lang_id', $lang)->first();
+        $object = OrderStatus::where('id', $id)->where('lang_id', $lang)->first();
 
         $response['status'] = "success";
-        $response['data']   = $orderStatus;
+        $response['data']   = $object;
 
         return response()->json($response);
     }

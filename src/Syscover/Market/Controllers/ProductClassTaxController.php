@@ -16,12 +16,12 @@ class ProductClassTaxController extends CoreController
      */
     public function store(Request $request)
     {
-        $productClassTax = ProductClassTax::create([
+        $object = ProductClassTax::create([
             'name'  => $request->input('name')
         ]);
 
         $response['status'] = "success";
-        $response['data']   = $productClassTax;
+        $response['data']   = $object;
 
         return response()->json($response);
     }
@@ -39,10 +39,10 @@ class ProductClassTaxController extends CoreController
             'name' => $request->input('name')
         ]);
 
-        $productClassTax = ProductClassTax::find($id);
+        $object = ProductClassTax::find($id);
 
         $response['status'] = "success";
-        $response['data']   = $productClassTax;
+        $response['data']   = $object;
 
         return response()->json($response);
     }

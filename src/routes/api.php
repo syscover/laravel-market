@@ -2,6 +2,18 @@
 
 /*
 |----------------------------------
+| PRODUCTS
+|----------------------------------
+*/
+Route::get('api/v1/market/products/{lang?}',                                ['as' => 'marketProduct',                         'uses' => 'Syscover\Market\Controllers\ProductController@index']);
+Route::get('api/v1/market/products/{id}/{lang}',                            ['as' => 'showMarketProduct',                     'uses' => 'Syscover\Market\Controllers\ProductController@show']);
+Route::post('api/v1/market/products/search',                                ['as' => 'searchMarketProduct',                   'uses' => 'Syscover\Market\Controllers\ProductController@search']);
+Route::post('api/v1/market/products',                                       ['as' => 'storeMarketProduct',                    'uses' => 'Syscover\Market\Controllers\ProductController@store']);
+Route::put('api/v1/market/products/{id}/{lang}',                            ['as' => 'updateMarketProduct',                   'uses' => 'Syscover\Market\Controllers\ProductController@update']);
+Route::delete('api/v1/market/products/{id}/{lang?}',                        ['as' => 'destroyMarketProduct',                  'uses' => 'Syscover\Market\Controllers\ProductController@destroy']);
+
+/*
+|----------------------------------
 | CATEGORIES
 |----------------------------------
 */

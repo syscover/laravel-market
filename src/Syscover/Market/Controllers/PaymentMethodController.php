@@ -29,7 +29,7 @@ class PaymentMethodController extends CoreController
             $idLang = null;
         }
 
-        $paymentMethod = PaymentMethod::create([
+        $object = PaymentMethod::create([
             'id'                            => $id,
             'lang_id'                       => $request->input('lang_id'),
             'name'                          => $request->input('name'),
@@ -43,7 +43,7 @@ class PaymentMethodController extends CoreController
         ]);
 
         $response['status'] = "success";
-        $response['data']   = $paymentMethod;
+        $response['data']   = $object;
 
         return response()->json($response);
     }
@@ -68,10 +68,10 @@ class PaymentMethodController extends CoreController
             'active'                        => $request->has('active'),
         ]);
 
-        $paymentMethod = PaymentMethod::where('id', $id)->where('lang_id', $lang)->first();
+        $object = PaymentMethod::where('id', $id)->where('lang_id', $lang)->first();
 
         $response['status'] = "success";
-        $response['data']   = $paymentMethod;
+        $response['data']   = $object;
 
         return response()->json($response);
     }

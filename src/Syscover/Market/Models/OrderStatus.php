@@ -26,7 +26,12 @@ class OrderStatus extends CoreModel
 
     public function scopeBuilder($query)
     {
-        return $query->join('lang', 'order_status.lang_id', '=', 'lang.id');
+        return $query->join('lang', 'order_status.lang_id', '=', 'lang.id')
+            ->select(
+                'lang.*', 'order_status.*',
+                'lang.id as lang_id', 'lang.name as lang_name',
+                'order_status.id as order_status_id', 'order_status.name as order_status_name'
+            );;
     }
 
     public function lang()

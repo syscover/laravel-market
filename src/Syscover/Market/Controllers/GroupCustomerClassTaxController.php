@@ -16,13 +16,13 @@ class GroupCustomerClassTaxController extends CoreController
      */
     public function store(Request $request)
     {
-        $groupCustomerClassTax = GroupCustomerClassTax::create([
+        $object = GroupCustomerClassTax::create([
             'group_id'                  => $request->input('group_id'),
             'customer_class_tax_id'     => $request->input('customer_class_tax_id')
         ]);
 
         $response['status'] = "success";
-        $response['data']   = $groupCustomerClassTax;
+        $response['data']   = $object;
 
         return response()->json($response);
     }
@@ -40,10 +40,10 @@ class GroupCustomerClassTaxController extends CoreController
             'customer_class_tax_id' => $request->input('customer_class_tax_id')
         ]);
 
-        $groupCustomerClassTax = GroupCustomerClassTax::find($id);
+        $object = GroupCustomerClassTax::find($id);
 
         $response['status'] = "success";
-        $response['data']   = $groupCustomerClassTax;
+        $response['data']   = $object;
 
         return response()->json($response);
     }
