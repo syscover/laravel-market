@@ -33,7 +33,7 @@ class OrderStatusController extends CoreController
             'id'                    => $id,
             'lang_id'               => $request->input('lang_id'),
             'name'                  => $request->input('name'),
-            'active'                => $request->has('active'),
+            'active'                => $request->input('active'),
             'data_lang'             => OrderStatus::addLangDataRecord($request->input('lang_id'), $idLang)
         ]);
 
@@ -55,7 +55,7 @@ class OrderStatusController extends CoreController
     {
         OrderStatus::where('id', $id)->where('lang_id', $lang)->update([
             'name'                  => $request->input('name'),
-            'active'                => $request->has('active'),
+            'active'                => $request->input('active'),
         ]);
 
         $object = OrderStatus::where('id', $id)->where('lang_id', $lang)->first();

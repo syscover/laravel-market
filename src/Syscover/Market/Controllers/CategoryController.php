@@ -35,7 +35,7 @@ class CategoryController extends CoreController
             'parent_id'             => $request->input('parent_id'),
             'name'                  => $request->input('name'),
             'slug'                  => $request->input('slug'),
-            'active'                => $request->has('active'),
+            'active'                => $request->input('active'),
             'description'           => $request->input('description'),
             'data_lang'             => Category::addLangDataRecord($request->input('lang_id'), $idLang)
         ]);
@@ -60,7 +60,7 @@ class CategoryController extends CoreController
             'parent_id'             => $request->input('parent_id'),
             'name'                  => $request->input('name'),
             'slug'                  => $request->input('slug'),
-            'active'                => $request->has('active'),
+            'active'                => $request->input('active'),
             'description'           => $request->input('description'),
         ]);
 
