@@ -59,18 +59,18 @@ class MarketCreateTableOrderRow extends Migration
 				$table->text('gift_message')->nullable();
 
 				$table->foreign('lang_id', 'fk01_order_row')
-					->references('id_001')
-					->on('001_001_lang')
+					->references('id')
+					->on('lang')
 					->onDelete('restrict')
 					->onUpdate('cascade');
 				$table->foreign('order_id', 'fk02_order_row')
-					->references('id_116')
-					->on('012_116_order')
+					->references('id')
+					->on('order')
 					->onDelete('cascade')
 					->onUpdate('cascade');
 				$table->foreign('product_id', 'fk03_order_row')
-					->references('id_111')
-					->on('012_111_product')
+					->references('id')
+					->on('product')
 					->onDelete('set null')
 					->onUpdate('cascade');
 			});

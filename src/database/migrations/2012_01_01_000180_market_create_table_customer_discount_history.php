@@ -39,7 +39,7 @@ class MarketCreateTableCustomerDiscountHistory extends Migration
 				$table->integer('rule_id')->unsigned();
 				
 				$table->boolean('has_coupon')->default(false);
-				$table->string('coupon_code')->nullable();
+				$table->string('coupon_code', 150)->nullable();
 
 				// reference to table 001_017_text
 				$table->integer('name_text_id')->unsigned();

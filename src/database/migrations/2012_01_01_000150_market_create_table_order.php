@@ -29,7 +29,7 @@ class MarketCreateTableOrder extends Migration
 				$table->integer('payment_method_id')->unsigned();
 				
 				// code generate by payment platform (PayPal or Bank), field to record any payment ID transaction
-				$table->string('payment_id');
+				$table->string('payment_id', 150);
 				$table->text('comments')->nullable();
 
 				// amounts

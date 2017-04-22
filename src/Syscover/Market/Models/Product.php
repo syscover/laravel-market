@@ -27,7 +27,13 @@ class Product extends CoreModel
     public function scopeBuilder($query)
     {
         return $query->join('product_lang', 'product.id', '=', 'product_lang.id')
-            ->join('lang', 'product_lang.lang_id', '=', 'lang.id');
+            ->join('lang', 'product_lang.lang_id', '=', 'lang.id')
+            ->select(
+                'lang.*', 'product_lang.*', 'product.*',
+                'lang.id as lang_id', 'lang.name as lang_name', 'lang.active as lang_active',
+                'product_lang.id as product_lang_id',
+                'product.id as product_id', 'product.active as product_active'
+            );
     }
 
     public function lang()
