@@ -2,20 +2,19 @@
 
 use Syscover\Core\Models\CoreModel;
 use Illuminate\Support\Facades\Validator;
+use Syscover\Admin\Models\Lang;
 
 /**
- * Class ProductClassTax
+ * Class Product
  * @package Syscover\Market\Models
  */
 
-class ProductClassTax extends CoreModel
+class ProductLang extends CoreModel
 {
-	protected $table        = 'product_class_tax';
-    protected $fillable     = ['id', 'name'];
+	protected $table        = 'product_lang';
     public $timestamps      = false;
-    private static $rules   = [
-        'name' => 'required|between:2,100'
-    ];
+    protected $fillable     = ['id', 'lang_id', 'name', 'slug', 'description'];
+    private static $rules   = [];
 
     public static function validate($data)
     {
@@ -25,5 +24,10 @@ class ProductClassTax extends CoreModel
     public function scopeBuilder($query)
     {
         return $query;
+    }
+
+    public function lang()
+    {
+        return $this->belongsTo(Lang::class, 'lang_id');
     }
 }

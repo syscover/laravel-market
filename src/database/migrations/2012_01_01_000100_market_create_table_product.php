@@ -30,7 +30,7 @@ class MarketCreateTableProduct extends Migration
 
 				$table->decimal('weight', 11, 3)->default(0);
 				$table->boolean('active')->default(false);
-				$table->integer('sorting')->unsigned()->nullable();
+				$table->integer('sort')->unsigned()->nullable();
 
 				// 1 - single price
 				// 2 - undefined price
