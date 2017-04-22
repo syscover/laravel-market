@@ -15,7 +15,6 @@ class OrderStatus extends CoreModel
     protected $fillable     = ['id', 'lang_id', 'name', 'active', 'data_lang'];
     public $timestamps      = false;
     protected $maps         = [];
-
     private static $rules   = [
         'name' => 'required|between:2,255'
     ];
