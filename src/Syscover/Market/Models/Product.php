@@ -12,11 +12,11 @@ use Syscover\Admin\Models\Lang;
 class Product extends CoreModel
 {
 	protected $table        = 'product';
-    protected $fillable     = ['id', 'field_group_id', 'type_id', 'parent_product_id', 'weight', 'active', 'sort', 'price_type_id', 'subtotal', 'product_class_tax_id', 'data_lang', 'data'];
+    protected $fillable     = ['id', 'field_group_id', 'product_type_id', 'parent_product_id', 'weight', 'active', 'sort', 'price_type_id', 'subtotal', 'product_class_tax_id', 'data_lang', 'data'];
     public $timestamps      = false;
     private static $rules   = [
-        'priceType'     => 'required',
-        'productType'   => 'required',
+        'price_type_id'     => 'required',
+        'product_type_id'   => 'required',
     ];
 
     public static function validate($data)

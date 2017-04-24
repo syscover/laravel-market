@@ -15,6 +15,9 @@ class MarketServiceProvider extends ServiceProvider
         if (!$this->app->routesAreCached())
             require __DIR__ . '/../../routes/api.php';
 
+        // register translations
+        $this->loadTranslationsFrom(__DIR__ . '/../../lang', 'market');
+
         // register migrations
         $this->publishes([
             __DIR__ . '/../../database/migrations/' => base_path('/database/migrations'),
