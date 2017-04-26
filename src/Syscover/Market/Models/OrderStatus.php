@@ -14,7 +14,7 @@ class OrderStatus extends CoreModel
 	protected $table        = 'order_status';
     protected $fillable     = ['id', 'lang_id', 'name', 'active', 'data_lang'];
     public $timestamps      = false;
-    protected $maps         = [];
+    public $relations       = ['lang'];
     private static $rules   = [
         'name' => 'required|between:2,255'
     ];
@@ -27,11 +27,7 @@ class OrderStatus extends CoreModel
     public function scopeBuilder($query)
     {
         return $query->join('lang', 'order_status.lang_id', '=', 'lang.id')
-            ->select(
-                'lang.*', 'order_status.*',
-                'lang.id as lang_id', 'lang.name as lang_name',
-                'order_status.id as order_status_id', 'order_status.name as order_status_name'
-            );;
+            ->select('order_status.*');
     }
 
     public function lang()

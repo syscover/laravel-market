@@ -14,7 +14,7 @@ class PaymentMethod extends CoreModel
 	protected $table        = 'payment_method';
     protected $fillable     = ['id', 'lang_id', 'name', 'order_status_successful_id', 'minimum_price', 'maximum_price', 'instructions', 'sort', 'active', 'data_lang'];
     public $timestamps      = false;
-    protected $maps         = [];
+    public $relations       = ['lang'];
     private static $rules   = [
         'name' => 'required|between:2,255'
     ];
@@ -27,7 +27,7 @@ class PaymentMethod extends CoreModel
     public function scopeBuilder($query)
     {
         return $query->join('lang', 'payment_method.lang_id', '=', 'lang.id')
-            ->select('lang.*', 'payment_method.*', 'lang.id as lang_id', 'lang.name as lang_name', 'payment_method.id as payment_method_id', 'payment_method.name as payment_method_name');
+            ->select('payment_method.*');
     }
 
     public function lang()

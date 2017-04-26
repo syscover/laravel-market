@@ -14,6 +14,7 @@ class Category extends CoreModel
 	protected $table        = 'category';
     protected $fillable     = ['id', 'lang_id', 'parent_id', 'name', 'slug', 'active', 'description', 'data_lang', 'data'];
     public $timestamps      = false;
+    public $relations       = ['lang'];
     private static $rules   = [
         'name' => 'required|between:2,100'
     ];
@@ -26,11 +27,7 @@ class Category extends CoreModel
     public function scopeBuilder($query)
     {
         return $query->join('lang', 'category.lang_id', '=', 'lang.id')
-            ->select(
-                'lang.*', 'category.*',
-                'lang.id as lang_id', 'lang.name as lang_name',
-                'category.id as category_id', 'category.name as category_name'
-            );
+            ->select('category.*');
     }
 
     public function lang()

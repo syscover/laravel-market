@@ -2,6 +2,7 @@
 
 use Syscover\Core\Models\CoreModel;
 use Illuminate\Support\Facades\Validator;
+use Syscover\Admin\Models\Country;
 
 /**
  * Class TaxRateZone
@@ -13,6 +14,7 @@ class TaxRateZone extends CoreModel
 	protected $table        = 'tax_rate_zone';
     protected $fillable     = ['id', 'name', 'country_id', 'territorial_area_1_id', 'territorial_area_2_id', 'territorial_area_3_id', 'cp', 'tax_rate'];
     public $timestamps      = false;
+    public $relations       = ['country.lang'];
     private static $rules   = [];
 
     public static function validate($data)
@@ -22,7 +24,14 @@ class TaxRateZone extends CoreModel
 
     public function scopeBuilder($query)
     {
-        return $query;
+        return $query->join('country', 'tax_rate_zone.country_id', '=', 'country.id')
+            ->select('tax_rate_zone.*');
+    }
+
+    public function country()
+    {
+        return $this->belongsTo(Country::class, 'country_id')
+            ->where('country.lang_id', '=', base_lang()->id);
     }
 
     /**
