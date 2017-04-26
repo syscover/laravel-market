@@ -6,7 +6,7 @@
 
 **1 - After install Laravel framework, execute on console:**
 ```
-composer require syscover/pulsar-admin
+composer require syscover/pulsar-market
 ```
 
 **2 - Register service provider, on file config/app.php add to providers array**
