@@ -5,24 +5,24 @@
 | PRODUCTS
 |----------------------------------
 */
-Route::get('api/v1/market/products/{lang?}',                                ['as' => 'marketProduct',                         'uses' => 'Syscover\Market\Controllers\ProductController@index']);
-Route::get('api/v1/market/products/{id}/{lang}',                            ['as' => 'showMarketProduct',                     'uses' => 'Syscover\Market\Controllers\ProductController@show']);
-Route::post('api/v1/market/products/search',                                ['as' => 'searchMarketProduct',                   'uses' => 'Syscover\Market\Controllers\ProductController@search']);
-Route::post('api/v1/market/products',                                       ['as' => 'storeMarketProduct',                    'uses' => 'Syscover\Market\Controllers\ProductController@store']);
-Route::put('api/v1/market/products/{id}/{lang}',                            ['as' => 'updateMarketProduct',                   'uses' => 'Syscover\Market\Controllers\ProductController@update']);
-Route::delete('api/v1/market/products/{id}/{lang?}',                        ['as' => 'destroyMarketProduct',                  'uses' => 'Syscover\Market\Controllers\ProductController@destroy']);
+Route::get('api/v1/market/product/{lang?}',                                ['as' => 'marketProduct',                         'uses' => 'Syscover\Market\Controllers\ProductController@index']);
+Route::get('api/v1/market/product/{id}/{lang}',                            ['as' => 'showMarketProduct',                     'uses' => 'Syscover\Market\Controllers\ProductController@show']);
+Route::post('api/v1/market/product/search',                                ['as' => 'searchMarketProduct',                   'uses' => 'Syscover\Market\Controllers\ProductController@search']);
+Route::post('api/v1/market/product',                                       ['as' => 'storeMarketProduct',                    'uses' => 'Syscover\Market\Controllers\ProductController@store']);
+Route::put('api/v1/market/product/{id}/{lang}',                            ['as' => 'updateMarketProduct',                   'uses' => 'Syscover\Market\Controllers\ProductController@update']);
+Route::delete('api/v1/market/product/{id}/{lang?}',                        ['as' => 'destroyMarketProduct',                  'uses' => 'Syscover\Market\Controllers\ProductController@destroy']);
 
 /*
 |----------------------------------
 | CATEGORIES
 |----------------------------------
 */
-Route::get('api/v1/market/categories/{lang?}',                             ['as' => 'marketCategory',                         'uses' => 'Syscover\Market\Controllers\CategoryController@index']);
-Route::get('api/v1/market/categories/{id}/{lang}',                         ['as' => 'showMarketCategory',                     'uses' => 'Syscover\Market\Controllers\CategoryController@show']);
-Route::post('api/v1/market/categories/search',                             ['as' => 'searchMarketCategory',                   'uses' => 'Syscover\Market\Controllers\CategoryController@search']);
-Route::post('api/v1/market/categories',                                    ['as' => 'storeMarketCategory',                    'uses' => 'Syscover\Market\Controllers\CategoryController@store']);
-Route::put('api/v1/market/categories/{id}/{lang}',                         ['as' => 'updateMarketCategory',                   'uses' => 'Syscover\Market\Controllers\CategoryController@update']);
-Route::delete('api/v1/market/categories/{id}/{lang?}',                     ['as' => 'destroyMarketCategory',                  'uses' => 'Syscover\Market\Controllers\CategoryController@destroy']);
+Route::get('api/v1/market/category/{lang?}',                             ['as' => 'marketCategory',                         'uses' => 'Syscover\Market\Controllers\CategoryController@index']);
+Route::get('api/v1/market/category/{id}/{lang}',                         ['as' => 'showMarketCategory',                     'uses' => 'Syscover\Market\Controllers\CategoryController@show']);
+Route::post('api/v1/market/category/search',                             ['as' => 'searchMarketCategory',                   'uses' => 'Syscover\Market\Controllers\CategoryController@search']);
+Route::post('api/v1/market/category',                                    ['as' => 'storeMarketCategory',                    'uses' => 'Syscover\Market\Controllers\CategoryController@store']);
+Route::put('api/v1/market/category/{id}/{lang}',                         ['as' => 'updateMarketCategory',                   'uses' => 'Syscover\Market\Controllers\CategoryController@update']);
+Route::delete('api/v1/market/category/{id}/{lang?}',                     ['as' => 'destroyMarketCategory',                  'uses' => 'Syscover\Market\Controllers\CategoryController@destroy']);
 
 /*
 |----------------------------------
@@ -71,6 +71,18 @@ Route::post('api/v1/market/tax-rate-zone',                                  ['as
 Route::post('api/v1/market/tax-rate-zone/search',                           ['as' => 'searchMarketTaxRateZone',           'uses' => 'Syscover\Market\Controllers\TaxRateZoneController@search']);
 Route::put('api/v1/market/tax-rate-zone/{id}',                              ['as' => 'updateMarketTaxRateZone',           'uses' => 'Syscover\Market\Controllers\TaxRateZoneController@update']);
 Route::delete('api/v1/market/tax-rate-zone/{id}',                           ['as' => 'destroyMarketTaxRateZone',          'uses' => 'Syscover\Market\Controllers\TaxRateZoneController@destroy']);
+
+/*
+|----------------------------------
+| TAX RULE
+|----------------------------------
+*/
+Route::get('api/v1/market/tax-rule',                                        ['as' => 'marketTaxRule',                       'uses' => 'Syscover\Market\Controllers\TaxRuleController@index']);
+Route::get('api/v1/market/tax-rule/{id}',                                   ['as' => 'showMarketTaxRule',                   'uses' => 'Syscover\Market\Controllers\TaxRuleController@show']);
+Route::post('api/v1/market/tax-rule',                                       ['as' => 'storeMarketTaxRule',                  'uses' => 'Syscover\Market\Controllers\TaxRuleController@store']);
+Route::post('api/v1/market/tax-rule/search',                                ['as' => 'searchMarketTaxRule',                 'uses' => 'Syscover\Market\Controllers\TaxRuleController@search']);
+Route::put('api/v1/market/tax-rule/{id}',                                   ['as' => 'updateMarketTaxRule',                 'uses' => 'Syscover\Market\Controllers\TaxRuleController@update']);
+Route::delete('api/v1/market/tax-rule/{id}',                                ['as' => 'destroyMarketTaxRule',                'uses' => 'Syscover\Market\Controllers\TaxRuleController@destroy']);
 
 /*
 |----------------------------------
