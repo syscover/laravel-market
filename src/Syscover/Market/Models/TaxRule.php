@@ -13,7 +13,7 @@ class TaxRule extends CoreModel
 	protected $table        = 'tax_rule';
     protected $fillable     = ['id', 'name', 'translation', 'priority', 'sort'];
     public $timestamps      = false;
-    public $relations       = [];
+    public $relations       = ['taxRateZones', 'customerClassTaxes', 'productClassTaxes'];
     private static $rules   = [];
 
     public static function validate($data)
@@ -28,7 +28,9 @@ class TaxRule extends CoreModel
             ->join('tax_rules_product_class_taxes', 'tax_rule.id', '=', 'tax_rules_product_class_taxes.tax_rule_id')
             ->join('tax_rate_zone', 'tax_rules_tax_rates_zones.tax_rate_zone_id', '=', 'tax_rate_zone.id')
             ->join('customer_class_tax', 'tax_rules_customer_class_taxes.customer_class_tax_id', '=', 'customer_class_tax.id')
-            ->join('product_class_tax', 'tax_rules_product_class_taxes.product_class_tax_id', '=', 'product_class_tax.id');
+            ->join('product_class_tax', 'tax_rules_product_class_taxes.product_class_tax_id', '=', 'product_class_tax.id')
+            ->select('tax_rule.*')
+            ->groupBy('tax_rule.id', 'tax_rule.name', 'tax_rule.translation', 'tax_rule.priority', 'tax_rule.sort');
     }
 
     public function taxRateZones()

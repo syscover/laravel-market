@@ -152,11 +152,11 @@ class ProductController extends CoreController
         return $product;
     }
 
-    public function apiCheckSlug()
+    public function apiCheckSlug(Request $request)
     {
         return response()->json([
             'status'    => 'success',
-            'slug'      => ProductLang::checkSlug('slug', $this->request->input('slug'), $this->request->input('id'))
+            'slug'      => ProductLang::checkSlug('slug', $request->input('slug'), $request->input('id'))
         ]);
     }
 }
