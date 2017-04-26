@@ -16,7 +16,7 @@ class OrderStatusController extends CoreController
      */
     public function store(Request $request)
     {
-        // check if there is id
+        // check if there is id to know if is a new lang
         if($request->has('id'))
         {
             $id     = $request->input('id');

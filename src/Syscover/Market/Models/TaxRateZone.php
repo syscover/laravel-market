@@ -22,10 +22,7 @@ class TaxRateZone extends CoreModel
 
     public function scopeBuilder($query)
     {
-        return $query->join('country', function ($join) {
-            $join->on('tax_rate_zone.country_id', '=', 'country.id')
-                ->where('country.lang_id', '=', base_lang()->id);
-        });
+        return $query;
     }
 
     /**
