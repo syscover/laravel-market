@@ -15,7 +15,8 @@ class GroupCustomerClassTax extends CoreModel
     protected $fillable     = ['group_id', 'customer_class_tax_id'];
     protected $primaryKey   = 'group_id';
     public $timestamps      = false;
-    public $relations       = ['group', 'customer_class_tax'];
+    public $with            = ['group', 'customer_class_tax'];
+
     private static $rules   = [
         'group_id'              => 'required',
         'customer_class_tax_id' => 'required'

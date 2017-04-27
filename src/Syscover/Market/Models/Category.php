@@ -14,7 +14,8 @@ class Category extends CoreModel
 	protected $table        = 'category';
     protected $fillable     = ['id', 'lang_id', 'parent_id', 'name', 'slug', 'active', 'description', 'data_lang', 'data'];
     public $timestamps      = false;
-    public $relations       = ['lang'];
+    public $with            = ['lang'];
+
     private static $rules   = [
         'name' => 'required|between:2,100'
     ];

@@ -14,6 +14,7 @@ class CartPriceRule extends CoreModel
 	protected $table        = 'cart_price_rule';
     protected $fillable     = ['id', 'name_text_id', 'description_text_id', 'active', 'has_coupon', 'coupon_code', 'combinable', 'uses_coupon', 'uses_customer', 'total_used', 'enable_from', 'enable_from_text', 'enable_to', 'enable_to_text', 'apply', 'discount_type_id', 'discount_fixed_amount', 'discount_percentage', 'maximum_discount_amount', 'apply_shipping_amount', 'free_shipping', 'rules', 'data_lang'];
     public $timestamps      = false;
+
     private static $rules   = [
         'name'              => 'required',
         'discount_type_id'  => 'required'

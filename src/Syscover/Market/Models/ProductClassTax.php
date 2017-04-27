@@ -13,6 +13,7 @@ class ProductClassTax extends CoreModel
 	protected $table        = 'product_class_tax';
     protected $fillable     = ['id', 'name'];
     public $timestamps      = false;
+
     private static $rules   = [
         'name' => 'required|between:2,100'
     ];

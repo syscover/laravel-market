@@ -62,14 +62,14 @@ ORDER_ID_PREFIX=ORDER
 To set default country to calculate tax, you can use this parameter, for example to change to US, set this value on you .env file
 
 ```
-TAX_COUNTRY=US
+TAX_COUNTRY_DEFAULT=US
 ```
 
 ### Default customer class tax [default value 1]
 Set default ID customer class value for calculate tax amount of products
 
 ```
-TAX_CUSTOMER_CLASS=1
+TAX_CUSTOMER_CLASS_DEFAULT=1
 ```
 
 ### Set product price tax [default value 1]

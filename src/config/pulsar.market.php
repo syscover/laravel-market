@@ -26,6 +26,37 @@ return [
     ],
 
     //******************************************************************************************************************
+    //***   Tax values
+    //******************************************************************************************************************
+
+    // Tax default values
+    'taxCountryDefault'             => env('TAX_COUNTRY_DEFAULT', 'ES'),        // default country tax to calculate prices
+    'taxCustomerClassDefault'       => env('TAX_CUSTOMER_CLASS_DEFAULT', 1),    // default customer tax class to calculate tax
+
+    // Type prices for products
+    'productPricesValues'           => [
+        (object)['id' => 1,      'name' => 'market::pulsar.excluding_tax'],
+        (object)['id' => 2,      'name' => 'market::pulsar.including_tax']
+    ],
+    'taxProductPrices'              => env('TAX_PRODUCT_PRICES', 1),            // Product prices type
+    'taxProductDisplayPrices'       => env('TAX_PRODUCT_DISPLAY_PRICES', 1),    // How to display product prices
+
+    // Type prices for shipping
+    'shippingPricesValues'          => [
+        (object)['id' => 1,      'name' => 'market::pulsar.excluding_tax'],
+        (object)['id' => 2,      'name' => 'market::pulsar.including_tax']
+    ],
+    'taxShippingPrices'             => env('TAX_SHIPPING_PRICES', 1),           // Shipping prices type
+    'taxShippingDisplayPrices'      => env('TAX_SHIPPING_DISPLAY_PRICES', 1),   // How to display shipping prices
+
+
+
+
+
+
+
+
+    //******************************************************************************************************************
     //***   Discount type on shopping cart
     //******************************************************************************************************************
     'discountTypes'                => [
@@ -44,30 +75,6 @@ return [
         (object)['id' => 2,      'name' => 'market::pulsar.catalog_price_rule'],
         (object)['id' => 3,      'name' => 'market::pulsar.customer_price_rule'],
     ],
-
-    //******************************************************************************************************************
-    //***   Tax values
-    //******************************************************************************************************************
-    'productPricesValues'           => [
-        (object)['id' => 1,      'name' => 'market::pulsar.excluding_tax'],
-        (object)['id' => 2,      'name' => 'market::pulsar.including_tax']
-    ],
-    'shippingPricesValues'          => [
-        (object)['id' => 1,      'name' => 'market::pulsar.excluding_tax'],
-        (object)['id' => 2,      'name' => 'market::pulsar.including_tax']
-    ],
-
-    // Tax default values
-    'taxCountry'                    => env('TAX_COUNTRY', 'ES'),        // country from take tax
-    'taxCustomerClass'              => env('TAX_CUSTOMER_CLASS', 1),    // customer group ID to taka for calculate tax
-
-    // Type of prices
-    'taxProductPrices'              => env('TAX_PRODUCT_PRICES', 1),
-    'taxShippingPrices'             => env('TAX_SHIPPING_PRICES', 1),
-
-    // Display prices
-    'taxProductDisplayPrices'       => env('TAX_PRODUCT_DISPLAY_PRICES', 1),
-    'taxShippingDisplayPrices'      => env('TAX_SHIPPING_DISPLAY_PRICES', 1),
 
     //******************************************************************************************************************
     //***   PayPal settings

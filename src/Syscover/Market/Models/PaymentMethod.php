@@ -14,7 +14,8 @@ class PaymentMethod extends CoreModel
 	protected $table        = 'payment_method';
     protected $fillable     = ['id', 'lang_id', 'name', 'order_status_successful_id', 'minimum_price', 'maximum_price', 'instructions', 'sort', 'active', 'data_lang'];
     public $timestamps      = false;
-    public $relations       = ['lang'];
+    public $with            = ['lang'];
+
     private static $rules   = [
         'name' => 'required|between:2,255'
     ];

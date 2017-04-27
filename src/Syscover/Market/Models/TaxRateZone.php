@@ -14,7 +14,8 @@ class TaxRateZone extends CoreModel
 	protected $table        = 'tax_rate_zone';
     protected $fillable     = ['id', 'name', 'country_id', 'territorial_area_1_id', 'territorial_area_2_id', 'territorial_area_3_id', 'cp', 'tax_rate'];
     public $timestamps      = false;
-    public $relations       = ['country.lang'];
+    public $with            = ['country.lang'];
+
     private static $rules   = [];
 
     public static function validate($data)

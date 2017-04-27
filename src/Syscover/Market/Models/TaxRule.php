@@ -13,7 +13,8 @@ class TaxRule extends CoreModel
 	protected $table        = 'tax_rule';
     protected $fillable     = ['id', 'name', 'translation', 'priority', 'sort'];
     public $timestamps      = false;
-    public $relations       = ['taxRateZones', 'customerClassTaxes', 'productClassTaxes'];
+    public $with            = ['taxRateZones', 'customerClassTaxes', 'productClassTaxes'];
+
     private static $rules   = [];
 
     public static function validate($data)

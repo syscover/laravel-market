@@ -14,6 +14,7 @@ class ProductsCategories extends CoreModel
     protected $primaryKey   = 'product_id';
     protected $fillable     = ['product_id', 'category_id'];
     public $timestamps      = false;
+
     private static $rules   = [];
 
     public static function validate($data)

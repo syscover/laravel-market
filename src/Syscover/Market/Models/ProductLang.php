@@ -14,6 +14,7 @@ class ProductLang extends CoreModel
 	protected $table        = 'product_lang';
     public $timestamps      = false;
     protected $fillable     = ['id', 'lang_id', 'name', 'slug', 'description'];
+
     private static $rules   = [];
 
     public static function validate($data)
