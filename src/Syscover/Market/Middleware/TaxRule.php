@@ -35,8 +35,8 @@ class TaxRule
         if(session('pulsar.market.taxRules') === null)
         {
             $taxRules = TaxRuleModel::builder()
-                ->where('country_id', config('pulsar.market.taxCountry'))
-                ->where('customer_class_tax_id', config('pulsar.market.taxCustomerClass'))
+                ->where('country_id', config('pulsar.market.taxCountryDefault'))
+                ->where('customer_class_tax_id', config('pulsar.market.taxCustomerClassDefault'))
                 ->orderBy('priority', 'asc')
                 ->get();
 

@@ -142,15 +142,20 @@ class Product extends CoreModel
         // taxAmount property
         if($key === 'tax_amount')
         {
-            $taxes = TaxRuleService::taxCalculateOverSubtotal($this->subtotal, $this->tax_rules->where('product_class_tax_id', $this->product_class_tax_id));
-
+            $taxes = TaxRuleService::taxCalculateOverSubtotal($this->subtotal, $this->tax_rules);
             return $taxes->sum('taxAmount');
         }
 
         if($key === 'tax_rules')
         {
             $sessionTaxRules = session('pulsar.market.taxRules');
-            return $sessionTaxRules->where('product_class_tax_id', $this->product_class_tax_id)->sortBy('priority');
+
+            $sessionTaxRules->transform(function ($taxRule, $key) {
+                if($taxRule->productClassTaxes->where('id', $this->product_class_tax_id)->count() > 0)
+                    return $taxRule;
+            });
+
+            return $sessionTaxRules->sortBy('priority');
 
             // TODO comprobar rendimiento
             /*$this->tax_rules = TaxRule::builder()
