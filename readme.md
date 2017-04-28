@@ -37,7 +37,7 @@ php artisan migrate --path=database/migrations/updates
 
 **7 - Register middleware pulsar.taxRule on file app/Http/Kernel.php add to routeMiddleware array**
 ```
-'pulsar.taxRule' => \Syscover\Market\Middleware\TaxRule::class,
+'pulsar.tax.rule' => \Syscover\Market\Middleware\TaxRule::class,
 ```
 
 
