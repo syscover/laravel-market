@@ -1,6 +1,7 @@
 <?php namespace Syscover\Market\Middleware;
 
 use Closure;
+use Syscover\Market\Models\TaxRule as TaxRuleModel;
 
 class TaxRule
 {
@@ -20,15 +21,28 @@ class TaxRule
             if(! empty($customer->country_id))
             {
                 // set country tax rule
-                config(['pulsar.market.taxCountry' => $customer->country_id]);
+                config(['pulsar.market.taxCountryDefault' => $customer->country_id]);
             }
 
-            if($customer->classTax != null)
+            if($customer->class_tax != null)
             {
                 // set group customer
-                config(['pulsar.market.taxCustomerClass' => $customer->class_tax]);
+                config(['pulsar.market.taxCustomerClassDefault' => $customer->class_tax]);
             }
         }
+
+        // Set tax rules in session
+        if(session('pulsar.market.taxRules') === null)
+        {
+            $taxRules = TaxRuleModel::builder()
+                ->where('country_id', config('pulsar.market.taxCountry'))
+                ->where('customer_class_tax_id', config('pulsar.market.taxCustomerClass'))
+                ->orderBy('priority', 'asc')
+                ->get();
+
+            session(['pulsar.market.taxRules' => $taxRules]);
+        }
+
         return $next($request);
     }
 }
