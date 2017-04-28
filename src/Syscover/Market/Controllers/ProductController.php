@@ -102,7 +102,7 @@ class ProductController extends CoreController
     public function update(Request $request, $id, $lang)
     {
         // update product
-        Product::where('id', $id)->update([
+        Product::where('product.id', $id)->update([
             'field_group_id'        => $request->input('field_group_id'),
             'product_type_id'       => $request->input('product_type_id'),
             'parent_product_id'     => $request->input('parent_product_id'),
@@ -110,12 +110,12 @@ class ProductController extends CoreController
             'active'                => $request->input('active'),
             'sort'                  => $request->input('sort'),
             'price_type_id'         => $request->input('price_type_id'),
-            //'subtotal'              => $this->getSubtotalOverTotal($request),
+            'subtotal'              => $this->getSubtotalOverTotal($request),
             'product_class_tax_id'  => $request->input('product_class_tax_id')
         ]);
 
-        ProductLang::where('id', $id)
-            ->where('lang_id', $lang)
+        ProductLang::where('product_lang.id', $id)
+            ->where('product_lang.lang_id', $lang)
             ->update([
                 'name'          => $request->input('name'),
                 'slug'          => $request->input('slug'),

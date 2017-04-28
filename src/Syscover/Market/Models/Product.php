@@ -93,8 +93,8 @@ class Product extends CoreModel
                 if($this->tax_rules === null)
                 {
                     $this->tax_rules = TaxRule::builder()
-                        ->where('country_id', config('market.taxCountry'))
-                        ->where('customer_class_tax_id', config('market.taxCustomerClass'))
+                        ->where('country_id', config('pulsar.market.taxCountry'))
+                        ->where('customer_class_tax_id', config('pulsar.market.taxCustomerClass'))
                         ->where('product_class_tax_id', $this->product_class_tax_id)
                         ->orderBy('priority', 'asc')
                         ->get();

@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Syscover\Core\Controllers\CoreController;
 use Syscover\Market\Models\TaxRule;
+use Syscover\Market\Services\TaxRuleService;
 
 /**
  * Class TaxRuleController
@@ -62,6 +63,51 @@ class TaxRuleController extends CoreController
 
         $response['status'] = "success";
         $response['data']   = $object;
+
+        return response()->json($response);
+    }
+
+    public function getProductTaxes(Request $request)
+    {
+        // Set variable data
+        $parameters         = $request->input('parameters');
+        $price              = $parameters['price'];
+        $productClassTax    = $parameters['productClassTax'];
+
+
+        $taxRules = TaxRule::builder()
+            ->where('country_id', config('pulsar.market.taxCountryDefault'))
+            ->where('customer_class_tax_id', config('pulsar.market.taxCustomerClassDefault'))
+            ->where('product_class_tax_id', $productClassTax)
+            ->orderBy('priority', 'asc')
+            ->get();
+
+        if((int) config('pulsar.market.taxProductPrices') == TaxRuleService::PRICE_WITHOUT_TAX)
+        {
+            $taxes      = TaxRuleService::taxCalculateOverSubtotal($price, $taxRules);
+            $taxAmount  = $taxes->sum('taxAmount');
+            $subtotal   = $price;
+            $total      = $subtotal + $taxAmount;
+
+        }
+        elseif ((int) config('pulsar.market.taxProductPrices') == TaxRuleService::PRICE_WITH_TAX)
+        {
+            $taxes      = TaxRuleService::taxCalculateOverTotal($price, $taxRules);
+            $taxAmount  = $taxes->sum('taxAmount');
+            $total      = $price;
+            $subtotal   = $total - $taxAmount;
+        }
+
+        $response['status'] = "success";
+        $response['data']   = [
+            'taxes'             => $taxes,
+            'subtotal'          => $subtotal,
+            'taxAmount'         => $taxAmount,
+            'total'             => $total,
+            'subtotalFormat'    => number_format($subtotal, 2, ',', '.'),
+            'taxAmountFormat'   => number_format($taxAmount, 2, ',', '.'),
+            'totalFormat'       => number_format($total, 2, ',', '.'),
+        ];
 
         return response()->json($response);
     }

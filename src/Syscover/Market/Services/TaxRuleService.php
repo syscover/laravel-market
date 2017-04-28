@@ -23,7 +23,7 @@ class TaxRuleService
 
         foreach ($taxRules as $taxRule)
         {
-            $taxRate = $taxRule->tax_rate / 100;
+            $taxRate = $taxRule->taxRateZones->sum('tax_rate') / 100;
 
             // check priority
             if($taxRule->priority > $priority)
@@ -58,7 +58,7 @@ class TaxRuleService
 
         foreach ($taxRules->reverse() as $taxRule)
         {
-            $taxRate = $taxRule->tax_rate / 100;
+            $taxRate = $taxRule->taxRateZones->sum('tax_rate') / 100;
 
             // check priority
             if($taxRule->priority < $priority || ($priority === 0 && $taxRule->priority > 0))

@@ -83,6 +83,7 @@ Route::post('api/v1/market/tax-rule',                                       ['as
 Route::post('api/v1/market/tax-rule/search',                                ['as' => 'searchMarketTaxRule',                 'uses' => 'Syscover\Market\Controllers\TaxRuleController@search']);
 Route::put('api/v1/market/tax-rule/{id}',                                   ['as' => 'updateMarketTaxRule',                 'uses' => 'Syscover\Market\Controllers\TaxRuleController@update']);
 Route::delete('api/v1/market/tax-rule/{id}',                                ['as' => 'destroyMarketTaxRule',                'uses' => 'Syscover\Market\Controllers\TaxRuleController@destroy']);
+Route::post('api/v1/market/tax-rule/product-taxes',                         ['as' => 'productTaxesMarketTaxRule',           'uses' => 'Syscover\Market\Controllers\TaxRuleController@getProductTaxes']);
 
 /*
 |----------------------------------
