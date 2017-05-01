@@ -36,7 +36,7 @@ class ProductController extends CoreController
                 'active'                => $request->input('active'),
                 'sort'                  => $request->input('sort'),
                 'price_type_id'         => $request->input('price_type_id'),
-                'subtotal'              => $this->getSubtotalOverTotal($request),
+                'subtotal'              => $request->input('subtotal'),
                 'product_class_tax_id'  => $request->input('product_class_tax_id')
             ]);
 
@@ -110,7 +110,7 @@ class ProductController extends CoreController
             'active'                => $request->input('active'),
             'sort'                  => $request->input('sort'),
             'price_type_id'         => $request->input('price_type_id'),
-            'subtotal'              => $this->getSubtotalOverTotal($request),
+            'subtotal'              => $request->input('subtotal'),
             'product_class_tax_id'  => $request->input('product_class_tax_id')
         ]);
 
@@ -143,47 +143,6 @@ class ProductController extends CoreController
         $response['data']   = $product;
 
         return response()->json($response);
-    }
-
-    protected function getSubtotalOverTotal($request)
-    {
-        $subtotal = null;
-        if($request->has('price'))
-        {
-            if($request->has('productClassTax'))
-            {
-                // get tax rules of product
-                $taxRules = TaxRule::builder()
-                    ->where('country_id', config('pulsar.market.taxCountryDefault'))
-                    ->where('customer_class_tax_id', config('pulsar.market.taxCustomerClassDefault'))
-                    ->where('product_class_tax_id_107', $request->input('productClassTax'))
-                    ->orderBy('priority', 'asc')
-                    ->get();
-
-                if((int)config('pulsar.market.taxProductPrices') == TaxRuleService::PRICE_WITH_TAX)
-                {
-                    $taxes      = TaxRuleService::taxCalculateOverTotal((float)$request->input('price'), $taxRules);
-                    $taxAmount  = $taxes->sum('taxAmount');
-                }
-                else
-                {
-                    $taxAmount = 0;
-                }
-                $subtotal = (float)$request->input('price') - $taxAmount;
-            }
-            else
-            {
-                $subtotal = $request->input('price');
-            }
-        }
-        else
-        {
-            // if hasn't price, get precisionSubtotal input
-            // convert possible string with comma and dots to float val
-            $subtotal = Miscellaneous::tofloat($request->input('precisionSubtotal'));
-        }
-
-        return $subtotal;
     }
 
 //    public function showCustom($parameters, $product)
