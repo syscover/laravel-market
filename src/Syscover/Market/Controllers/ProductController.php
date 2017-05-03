@@ -4,8 +4,6 @@ use Illuminate\Http\Request;
 use Syscover\Core\Controllers\CoreController;
 use Syscover\Market\Models\Product;
 use Syscover\Market\Models\ProductLang;
-use Syscover\Market\Models\TaxRule;
-use Syscover\Market\Services\TaxRuleService;
 
 /**
  * Class ProductController
@@ -144,15 +142,6 @@ class ProductController extends CoreController
 
         return response()->json($response);
     }
-
-//    public function showCustom($parameters, $product)
-//    {
-//        // add categories to object
-//        $product->categories = $product->categories()->where('lang_id', $parameters['lang'])->get();
-//        $product->categories_id = $product->categories->pluck('id');
-//
-//        return $product;
-//    }
 
     public function apiCheckSlug(Request $request)
     {
