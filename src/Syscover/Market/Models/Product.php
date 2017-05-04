@@ -37,7 +37,7 @@ class Product extends CoreModel
 
     public function scopeBuilder($query)
     {
-        return $query->select('product_lang.*', 'product.*');
+        return $query;
     }
 
     public function lang()

@@ -27,8 +27,7 @@ class PaymentMethod extends CoreModel
 
     public function scopeBuilder($query)
     {
-        return $query->join('lang', 'payment_method.lang_id', '=', 'lang.id')
-            ->select('payment_method.*');
+        return $query;
     }
 
     public function lang()

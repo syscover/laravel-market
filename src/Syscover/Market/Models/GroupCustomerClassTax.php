@@ -31,7 +31,8 @@ class GroupCustomerClassTax extends CoreModel
 
     public function scopeBuilder($query)
     {
-        return $query->join('group', 'group_customer_class_tax.group_id', '=', 'group.id')
+        return $query
+            ->join('group', 'group_customer_class_tax.group_id', '=', 'group.id')
             ->join('customer_class_tax', 'group_customer_class_tax.customer_class_tax_id', '=', 'customer_class_tax.id')
             ->select('group_customer_class_tax.*', 'group.id');
     }

@@ -27,8 +27,7 @@ class Category extends CoreModel
 
     public function scopeBuilder($query)
     {
-        return $query->join('lang', 'category.lang_id', '=', 'lang.id')
-            ->select('category.*');
+        return $query;
     }
 
     public function lang()
