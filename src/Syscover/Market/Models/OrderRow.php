@@ -31,7 +31,7 @@ class OrderRow extends CoreModel
                 else
                     // always need filter by lang, because order form,
                     // need filter your order rows by lang without pass lang variable
-                    $join->where('product_lang.lang_id', '=', base_lang()->id);
+                    $join->where('product_lang.lang_id', '=', base_lang());
             });
     }
 

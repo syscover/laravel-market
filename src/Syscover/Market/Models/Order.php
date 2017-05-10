@@ -39,11 +39,11 @@ class Order extends CoreModel
         return $query->join('customer', 'order.customer_id', '=', 'customer.id')
             ->join('payment_method', function ($join) {
                  $join->on('order.payment_method_id', '=', 'payment_method.id')
-                     ->where('payment_method.lang_id', '=', base_lang()->id);
+                     ->where('payment_method.lang_id', '=', base_lang());
             })
             ->join('order_status', function ($join) {
                 $join->on('order.status_id', '=', 'order_status.id')
-                    ->where('order_status.lang_id', '=', base_lang()->id);
+                    ->where('order_status.lang_id', '=', base_lang());
             });
     }
 

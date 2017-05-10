@@ -27,7 +27,7 @@ class TaxRateZone extends CoreModel
     {
         return $query->join('country', function ($join) {
                 $join->on('tax_rate_zone.country_id', '=', 'country.id')
-                    ->where('country.lang_id', '=', base_lang()->id);
+                    ->where('country.lang_id', '=', base_lang());
             })
             ->select('tax_rate_zone.*');
     }
@@ -35,7 +35,7 @@ class TaxRateZone extends CoreModel
     public function country()
     {
         return $this->belongsTo(Country::class, 'country_id')
-            ->where('country.lang_id', '=', base_lang()->id);
+            ->where('country.lang_id', '=', base_lang());
     }
 
     /**
