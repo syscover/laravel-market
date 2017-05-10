@@ -21,7 +21,7 @@ class MarketCreateTableProductLang extends Migration
 				$table->string('lang_id', 2);
 				$table->string('name');
 				$table->string('slug');
-				$table->text('description');
+				$table->text('description')->nullable();
 				
 				$table->foreign('id', 'fk01_product_lang')
 					->references('id')

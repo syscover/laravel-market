@@ -49,7 +49,7 @@ class ProductController extends CoreController
         }
 
         // update product with data lang
-        Product::where('id', $id)->update([
+        Product::where('product.id', $id)->update([
             'data_lang' => Product::addLangDataRecord($request->input('lang_id'), $idLang),
         ]);
 
