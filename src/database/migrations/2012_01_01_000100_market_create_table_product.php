@@ -41,8 +41,8 @@ class MarketCreateTableProduct extends Migration
 				// taxes
 				$table->integer('product_class_tax_id')->unsigned()->nullable();
 
-				$table->string('data_lang')->nullable();
-				$table->text('data')->nullable();
+				$table->json('data_lang')->nullable();
+				$table->json('data')->nullable();
 
 				$table->foreign('field_group_id', 'fk01_product')
 					->references('id')

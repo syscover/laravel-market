@@ -24,7 +24,7 @@ class MarketCreateTableOrderRow extends Migration
 
 				$table->string('name')->nullable();
 				$table->text('description')->nullable();
-				$table->text('data')->nullable();
+				$table->json('data')->nullable();
 
 				// amounts
 				$table->decimal('price', 12, 4); 								        // unit price

@@ -24,7 +24,7 @@ class MarketCreateTableOrder extends Migration
 				$table->integer('status_id')->unsigned();
 				$table->string('ip');
 
-				$table->text('data')->nullable();
+				$table->json('data')->nullable();
 
 				$table->integer('payment_method_id')->unsigned();
 				

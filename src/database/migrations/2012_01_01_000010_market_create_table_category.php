@@ -26,8 +26,8 @@ class MarketCreateTableCategory extends Migration
 				$table->boolean('active');
 				$table->text('description')->nullable();
 
-				$table->string('data_lang', 255)->nullable();
-				$table->text('data')->nullable();
+				$table->json('data_lang', 255)->nullable();
+				$table->json('data')->nullable();
 				
 				$table->foreign('lang_id', 'fk01_category')
 					->references('id')

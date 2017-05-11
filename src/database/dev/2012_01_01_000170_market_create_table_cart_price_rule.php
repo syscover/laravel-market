@@ -72,7 +72,7 @@ class MarketCreateTableCartPriceRule extends Migration
 				$table->text('rules')->nullable();
 
 				// campo que contiene json con la información de idiomas creados
-				$table->string('data_lang')->nullable();
+				$table->json('data_lang')->nullable();
 
 				// índice para mejorar las búsquedas de los códigos de cupón
 				$table->index('coupon_code', 'ix01_cart_price_rule');
