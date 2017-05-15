@@ -13,7 +13,10 @@ class ProductLang extends CoreModel
 {
 	protected $table        = 'product_lang';
     public $timestamps      = false;
-    protected $fillable     = ['id', 'lang_id', 'name', 'slug', 'description'];
+    protected $casts        = [
+        'data' => 'array'
+    ];
+    protected $fillable     = ['id', 'lang_id', 'name', 'slug', 'description', 'data'];
 
     private static $rules   = [];
 

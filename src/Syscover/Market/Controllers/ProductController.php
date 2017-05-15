@@ -1,6 +1,7 @@
 <?php namespace Syscover\Market\Controllers;
 
 use Illuminate\Http\Request;
+use Syscover\Admin\Models\Field;
 use Syscover\Core\Controllers\CoreController;
 use Syscover\Market\Models\Product;
 use Syscover\Market\Models\ProductLang;
@@ -39,21 +40,20 @@ class ProductController extends CoreController
             ]);
 
             $id     = $product->id;
-            $idLang = null;
+            $idAux = null;
         }
         else
         {
             // create product with other language
             $id     = $request->input('id');
-            $idLang = $id;
+            $idAux = $id;
         }
 
         // update product with data lang
-        Product::where('product.id', $id)->update([
-            'data_lang' => Product::addLangDataRecord($request->input('lang_id'), $idLang),
-        ]);
+        $product->data_lang =  Product::addLangDataRecord($request->input('lang_id'), $idAux);
+        $product->save();
 
-        ProductLang::create([
+        $productLang = ProductLang::create([
             'id'            => $id,
             'lang_id'       => $request->input('lang_id'),
             'name'          => $request->input('name'),
@@ -77,7 +77,22 @@ class ProductController extends CoreController
         //AttachmentLibrary::storeAttachments($attachments, $this->package, 'market-product', $id, $this->request->input('lang'));
 
         // set custom fields
-        //if(!empty($this->request->input('customFieldGroup')))
+        if($request->has('field_group_id'))
+        {
+            $fields = Field::where('field_group_id', $request->input('field_group_id'))->get();
+            $data = [];
+            foreach ($fields as $field)
+            {
+                $data['properties'][$field->name] = $request->input($field->name);
+            }
+
+            $productLang->data = $data;
+            $productLang->save();
+
+            ProductLang::where('id', $id)->where('lang_id', $request->input('lang_id'))->update([
+                'data' => json_encode($data)
+            ]);
+        }
           //  CustomFieldResultLibrary::storeCustomFieldResults($this->request, $this->request->input('customFieldGroup'), 'market-product', $id, $this->request->input('lang'));
 
 
