@@ -49,9 +49,10 @@ class ProductController extends CoreController
             $idAux = $id;
         }
 
-        // update product with data lang
-        $product->data_lang =  Product::addLangDataRecord($request->input('lang_id'), $idAux);
-        $product->save();
+        // update product with data
+        Product::where('product.id', $idAux)->where('lang_id', $request->input('lang_id'))->update([
+            'data_lang' => json_encode(Product::addLangDataRecord($request->input('lang_id'), $idAux))
+        ]);
 
         $productLang = ProductLang::create([
             'id'            => $id,
@@ -159,10 +160,6 @@ class ProductController extends CoreController
             {
                 $data['properties'][$field->name] = $request->input($field->name);
             }
-
-            
-            //$productLang->data = $data;
-            //$productLang->save();
 
             ProductLang::where('id', $id)->where('lang_id', $request->input('lang_id'))->update([
                 'data' => json_encode($data)
