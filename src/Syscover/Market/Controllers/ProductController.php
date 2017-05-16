@@ -93,8 +93,6 @@ class ProductController extends CoreController
                 'data' => json_encode($data)
             ]);
         }
-          //  CustomFieldResultLibrary::storeCustomFieldResults($this->request, $this->request->input('customFieldGroup'), 'market-product', $id, $this->request->input('lang'));
-
 
         $object = $product;
 
@@ -150,6 +148,25 @@ class ProductController extends CoreController
         {
             $product->categories()
                 ->detach();
+        }
+
+        // set custom fields
+        if($request->has('field_group_id'))
+        {
+            $fields = Field::where('field_group_id', $request->input('field_group_id'))->get();
+            $data = [];
+            foreach ($fields as $field)
+            {
+                $data['properties'][$field->name] = $request->input($field->name);
+            }
+
+            
+            //$productLang->data = $data;
+            //$productLang->save();
+
+            ProductLang::where('id', $id)->where('lang_id', $request->input('lang_id'))->update([
+                'data' => json_encode($data)
+            ]);
         }
 
         $response['status'] = "success";
