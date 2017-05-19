@@ -18,6 +18,7 @@ class MarketTableSeeder extends Seeder
         $this->call(MarketGroupCustomerClassTaxSeeder::class);
         $this->call(MarketProductClassTaxSeeder::class);
         $this->call(MarketTaxRateZoneSeeder::class);
+        $this->call(MarketTaxRuleSeeder::class);
 
         Model::reguard();
     }
