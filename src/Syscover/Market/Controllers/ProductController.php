@@ -5,6 +5,7 @@ use Syscover\Admin\Models\Field;
 use Syscover\Core\Controllers\CoreController;
 use Syscover\Market\Models\Product;
 use Syscover\Market\Models\ProductLang;
+use Syscover\Admin\Services\AttachmentService;
 
 /**
  * Class ProductController
@@ -74,8 +75,9 @@ class ProductController extends CoreController
         }
 
         // set attachments
-        //$attachments = json_decode($request->input('attachments'));
-        //AttachmentLibrary::storeAttachments($attachments, $this->package, 'market-product', $id, $this->request->input('lang'));
+        $attachments = json_decode($request->input('attachments'));
+        $attachments = AttachmentService::storeAttachmentsLibrary($attachments);
+        AttachmentService::storeAttachments($attachments, 'storage/app/public/market/products', 'market-product', $product->id,  $product->lang_id);
 
         // set custom fields
         if($request->has('field_group_id'))
