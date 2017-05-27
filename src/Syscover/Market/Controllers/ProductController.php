@@ -41,19 +41,14 @@ class ProductController extends CoreController
             ]);
 
             $id     = $product->id;
-            $idAux = null;
+            $idAux  = null;
         }
         else
         {
             // create product with other language
             $id     = $request->input('id');
-            $idAux = $id;
+            $idAux  = $id;
         }
-
-        // update product with data
-        Product::where('product.id', $idAux)->where('lang_id', $request->input('lang_id'))->update([
-            'data_lang' => json_encode(Product::addLangDataRecord($request->input('lang_id'), $idAux))
-        ]);
 
         $productLang = ProductLang::create([
             'id'            => $id,
@@ -61,6 +56,11 @@ class ProductController extends CoreController
             'name'          => $request->input('name'),
             'slug'          => $request->input('slug'),
             'description'   => $request->input('description'),
+        ]);
+
+        // update data_lang after create ProductLang because yu
+        Product::where('product.id', $id)->update([
+            'data_lang' => json_encode(Product::addLangDataRecord($request->input('lang_id'), $idAux))
         ]);
 
         $product = Product::builder()
@@ -75,9 +75,14 @@ class ProductController extends CoreController
         }
 
         // set attachments
-        $attachments = json_decode($request->input('attachments'));
-        $attachments = AttachmentService::storeAttachmentsLibrary($attachments);
-        AttachmentService::storeAttachments($attachments, 'storage/app/public/market/products', 'market-product', $product->id,  $product->lang_id);
+        if($request->has('attachments'))
+        {
+            $attachments = json_decode($request->input('attachments'));
+            // first save libraries to get id
+            $attachments = AttachmentService::storeAttachmentsLibrary($attachments);
+            // then save attachments
+            AttachmentService::storeAttachments($attachments, 'storage/app/public/market/products', 'storage/market/products', $this->model, $product->id,  $product->lang_id);
+        }
 
         // set custom fields
         if($request->has('field_group_id'))
@@ -151,6 +156,16 @@ class ProductController extends CoreController
         {
             $product->categories()
                 ->detach();
+        }
+
+        // set attachments
+        if($request->has('attachments'))
+        {
+            $attachments = json_decode($request->input('attachments'));
+            // first save libraries to get id
+            $attachments = AttachmentService::storeAttachmentsLibrary($attachments);
+            // then save attachments
+            AttachmentService::storeAttachments($attachments, 'storage/app/public/market/products', 'storage/market/products', $this->model, $product->id,  $product->lang_id);
         }
 
         // set custom fields

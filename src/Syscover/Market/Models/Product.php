@@ -1,5 +1,6 @@
 <?php namespace Syscover\Market\Models;
 
+use Syscover\Admin\Models\Attachment;
 use Syscover\Core\Models\CoreModel;
 use Illuminate\Support\Facades\Validator;
 use Syscover\Admin\Models\Lang;
@@ -13,15 +14,15 @@ use Syscover\Market\Services\TaxRuleService;
 
 class Product extends CoreModel
 {
-	protected $table            = 'product';
-    protected $fillable         = ['id', 'field_group_id', 'product_type_id', 'parent_product_id', 'weight', 'active', 'sort', 'price_type_id', 'subtotal', 'product_class_tax_id', 'data_lang', 'data'];
-    public $timestamps          = false;
+	protected $table        = 'product';
+    protected $fillable     = ['id', 'field_group_id', 'product_type_id', 'parent_product_id', 'weight', 'active', 'sort', 'price_type_id', 'subtotal', 'product_class_tax_id', 'data_lang', 'data'];
+    public $timestamps      = false;
     protected $casts        = [
         'active'    => 'boolean',
         'data_lang' => 'array',
         'data'      => 'array'
     ];
-    public $with                = ['lang'];
+    public $with                = ['lang', 'attachments'];
     public $lazyRelations       = ['categories'];
 
     private static $rules       = [
@@ -54,6 +55,12 @@ class Product extends CoreModel
     {
         return $this->belongsToMany(Category::class, 'products_categories', 'product_id', 'category_id')
             ->where('category.lang_id', $this->lang_id);
+    }
+
+    public function attachments()
+    {
+        return $this->morphMany(Attachment::class, 'object')
+            ->orderBy('sort', 'asc');
     }
 
     /**
