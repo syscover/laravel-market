@@ -189,6 +189,11 @@ class ProductController extends CoreController
         return response()->json($response);
     }
 
+    public function destroyCustom($parameters)
+    {
+        AttachmentService::deleteAttachment($parameters['id'], $this->model, $parameters['lang']);
+    }
+
     public function apiCheckSlug(Request $request)
     {
         return response()->json([
