@@ -75,11 +75,11 @@ class ProductController extends CoreController
         }
 
         // set attachments
-        if($request->has('attachments'))
+        if(is_array($request->input('attachments')))
         {
-            $attachments = json_decode($request->input('attachments'));
             // first save libraries to get id
-            $attachments = AttachmentService::storeAttachmentsLibrary($attachments);
+            $attachments = AttachmentService::storeAttachmentsLibrary($request->input('attachments'));
+
             // then save attachments
             AttachmentService::storeAttachments($attachments, 'storage/app/public/market/products', 'storage/market/products', $this->model, $product->id,  $product->lang_id);
         }
@@ -159,13 +159,13 @@ class ProductController extends CoreController
         }
 
         // set attachments
-        if($request->has('attachments'))
+        if(is_array($request->input('attachments')))
         {
-            $attachments = json_decode($request->input('attachments'));
             // first save libraries to get id
-            $attachments = AttachmentService::storeAttachmentsLibrary($attachments);
+            $attachments = AttachmentService::storeAttachmentsLibrary($request->input('attachments'));
+
             // then save attachments
-            AttachmentService::storeAttachments($attachments, 'storage/app/public/market/products', 'storage/market/products', $this->model, $product->id,  $product->lang_id);
+            AttachmentService::updateAttachments($attachments, 'storage/app/public/market/products', 'storage/market/products', $this->model, $product->id,  $product->lang_id);
         }
 
         // set custom fields

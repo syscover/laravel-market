@@ -60,6 +60,7 @@ class Product extends CoreModel
     public function attachments()
     {
         return $this->morphMany(Attachment::class, 'object')
+            ->where('attachment.lang_id', $this->lang_id)
             ->orderBy('sort', 'asc');
     }
 
