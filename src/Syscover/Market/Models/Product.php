@@ -1,11 +1,12 @@
 <?php namespace Syscover\Market\Models;
 
+use Illuminate\Support\Facades\Validator;
 use Syscover\Admin\Models\Attachment;
 use Syscover\Core\Models\CoreModel;
-use Illuminate\Support\Facades\Validator;
 use Syscover\Admin\Models\Lang;
 use Syscover\Core\Scopes\TableLangScope;
 use Syscover\Market\Services\TaxRuleService;
+use Syscover\Admin\Traits\CustomizableFields;
 
 /**
  * Class Product
@@ -14,6 +15,8 @@ use Syscover\Market\Services\TaxRuleService;
 
 class Product extends CoreModel
 {
+    use CustomizableFields;
+
 	protected $table        = 'product';
     protected $fillable     = ['id', 'field_group_id', 'product_type_id', 'parent_product_id', 'weight', 'active', 'sort', 'price_type_id', 'subtotal', 'product_class_tax_id', 'data_lang', 'data'];
     public $timestamps      = false;
@@ -22,7 +25,7 @@ class Product extends CoreModel
         'data_lang' => 'array',
         'data'      => 'array'
     ];
-    public $with                = ['lang', 'attachments'];
+    public $with                = ['lang', 'attachments', 'fieldGroup'];
     public $lazyRelations       = ['categories'];
 
     private static $rules       = [
@@ -169,16 +172,6 @@ class Product extends CoreModel
             });
 
             return $sessionTaxRules->sortBy('priority');
-
-            // TODO comprobar rendimiento
-            /*$this->tax_rules = TaxRule::builder()
-                ->where('country_id', config('pulsar.market.taxCountryDefault'))
-                ->where('customer_class_tax_id', config('pulsar.market.taxCustomerClassDefault'))
-                ->where('product_class_tax_id', $this->product_class_tax_id)
-                ->orderBy('priority', 'asc')
-                ->get();*/
-
-            //return $this->tax_rules;
         }
 
         // call parent method in model
