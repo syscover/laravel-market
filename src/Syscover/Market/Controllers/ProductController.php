@@ -191,7 +191,7 @@ class ProductController extends CoreController
 
     public function destroyCustom($parameters)
     {
-        AttachmentService::deleteAttachment($parameters['id'], $this->model, $parameters['lang']);
+        AttachmentService::deleteAttachments($parameters['id'], $this->model, $parameters['lang']);
     }
 
     public function apiCheckSlug(Request $request)
