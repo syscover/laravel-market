@@ -182,6 +182,22 @@ class ProductController extends CoreController
                 'data' => json_encode($data)
             ]);
         }
+        elseif(isset($product->data['properties']))
+        {
+            $data = $product->data;
+            unset($data['properties']);
+
+            // delete properties from all languages
+            ProductLang::where('product_lang.id', $id)
+                ->update([
+                    'data' => json_encode($data)
+                ]);
+
+            $product = Product::builder()
+                ->where('product.id', $id)
+                ->where('product_lang.lang_id', $lang)
+                ->first();
+        }
 
         $response['status'] = "success";
         $response['data']   = $product;

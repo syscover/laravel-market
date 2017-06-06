@@ -25,7 +25,12 @@ class Product extends CoreModel
         'data_lang' => 'array',
         'data'      => 'array'
     ];
-    public $with                = ['lang', 'attachments', 'fieldGroup'];
+    public $with                = [
+        'lang',
+        'attachments',
+        'fieldGroup',
+        'products'
+    ];
     public $lazyRelations       = ['categories'];
 
     private static $rules       = [
@@ -54,6 +59,12 @@ class Product extends CoreModel
         return $this->belongsTo(Lang::class, 'lang_id');
     }
 
+    public function products()
+    {
+        return $this->hasMany(Product::class, 'parent_product_id', 'id');
+            //->where('product_lang.lang_id', $this->lang_id);
+    }
+
     public function categories()
     {
         return $this->belongsToMany(Category::class, 'products_categories', 'product_id', 'category_id')
@@ -66,6 +77,26 @@ class Product extends CoreModel
             ->where('attachment.lang_id', $this->lang_id)
             ->orderBy('sort', 'asc');
     }
+
+    public function whereChildrenProperty($property, $value)
+    {
+        $response = collect();
+
+        foreach ($this->products as $product)
+        {
+            if(
+                isset($product->data['properties']) &&
+                isset($product->data['properties'][$property]) &&
+                $product->data['properties'][$property] === $value
+            )
+            {
+               $response->push($product);
+            }
+        }
+        return $response;
+    }
+
+
 
     /**
      * Returns formatted product price.
