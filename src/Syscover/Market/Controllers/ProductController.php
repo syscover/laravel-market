@@ -29,6 +29,7 @@ class ProductController extends CoreController
         {
             // create new product
             $product = Product::create([
+                'code'                  => $request->input('code'),
                 'field_group_id'        => $request->input('field_group_id'),
                 'product_type_id'       => $request->input('product_type_id'),
                 'parent_product_id'     => $request->input('parent_product_id'),
@@ -50,12 +51,25 @@ class ProductController extends CoreController
             $idAux  = $id;
         }
 
-        $productLang = ProductLang::create([
+        // get custom fields
+        $data = [];
+        if($request->has('field_group_id'))
+        {
+            $fields = Field::where('field_group_id', $request->input('field_group_id'))->get();
+            foreach ($fields as $field)
+            {
+                $data['properties'][$field->name] = $request->input($field->name);
+            }
+        }
+
+        // create product lang
+        ProductLang::create([
             'id'            => $id,
             'lang_id'       => $request->input('lang_id'),
             'name'          => $request->input('name'),
             'slug'          => $request->input('slug'),
             'description'   => $request->input('description'),
+            'data'          => $data
         ]);
 
         // update data_lang after create ProductLang because yu
@@ -84,24 +98,6 @@ class ProductController extends CoreController
             AttachmentService::storeAttachments($attachments, 'storage/app/public/market/products', 'storage/market/products', $this->model, $product->id,  $product->lang_id);
         }
 
-        // set custom fields
-        if($request->has('field_group_id'))
-        {
-            $fields = Field::where('field_group_id', $request->input('field_group_id'))->get();
-            $data = [];
-            foreach ($fields as $field)
-            {
-                $data['properties'][$field->name] = $request->input($field->name);
-            }
-
-            $productLang->data = $data;
-            $productLang->save();
-
-            ProductLang::where('id', $id)->where('lang_id', $request->input('lang_id'))->update([
-                'data' => json_encode($data)
-            ]);
-        }
-
         $object = $product;
 
         $response['status'] = "success";
@@ -122,6 +118,7 @@ class ProductController extends CoreController
     {
         // update product
         Product::where('product.id', $id)->update([
+            'code'                  => $request->input('code'),
             'field_group_id'        => $request->input('field_group_id'),
             'product_type_id'       => $request->input('product_type_id'),
             'parent_product_id'     => $request->input('parent_product_id'),
@@ -133,12 +130,25 @@ class ProductController extends CoreController
             'product_class_tax_id'  => $request->input('product_class_tax_id')
         ]);
 
+        // get custom fields
+        $data = [];
+        if($request->has('field_group_id'))
+        {
+            $fields = Field::where('field_group_id', $request->input('field_group_id'))->get();
+            foreach ($fields as $field)
+            {
+                $data['properties'][$field->name] = $request->input($field->name);
+            }
+        }
+
+        // update product lang
         ProductLang::where('product_lang.id', $id)
             ->where('product_lang.lang_id', $lang)
             ->update([
                 'name'          => $request->input('name'),
                 'slug'          => $request->input('slug'),
-                'description'   => $request->input('description')
+                'description'   => $request->input('description'),
+                'data'          => json_encode($data)
             ]);
 
         $product = Product::builder()
@@ -168,20 +178,6 @@ class ProductController extends CoreController
             AttachmentService::updateAttachments($attachments, 'storage/app/public/market/products', 'storage/market/products', $this->model, $product->id,  $product->lang_id);
         }
 
-        // set custom fields
-        if($request->has('field_group_id'))
-        {
-            $fields = Field::where('field_group_id', $request->input('field_group_id'))->get();
-            $data = [];
-            foreach ($fields as $field)
-            {
-                $data['properties'][$field->name] = $request->input($field->name);
-            }
-
-            ProductLang::where('id', $id)->where('lang_id', $request->input('lang_id'))->update([
-                'data' => json_encode($data)
-            ]);
-        }
         elseif(isset($product->data['properties']))
         {
             $data = $product->data;

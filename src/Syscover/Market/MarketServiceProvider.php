@@ -12,16 +12,13 @@ class MarketServiceProvider extends ServiceProvider
 	public function boot()
 	{
         // register routes
-        if (!$this->app->routesAreCached())
-            require __DIR__ . '/../../routes/api.php';
+        $this->loadRoutesFrom(__DIR__ . '/../../routes/api.php');
+
+        // register migrations
+        $this->loadMigrationsFrom(__DIR__.'/../../database/migrations');
 
         // register translations
         $this->loadTranslationsFrom(__DIR__ . '/../../lang', 'market');
-
-        // register migrations
-        $this->publishes([
-            __DIR__ . '/../../database/migrations/' => base_path('/database/migrations'),
-        ], 'migrations');
 
         // register seeds
         $this->publishes([

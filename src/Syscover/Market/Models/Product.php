@@ -3,10 +3,10 @@
 use Illuminate\Support\Facades\Validator;
 use Syscover\Admin\Models\Attachment;
 use Syscover\Core\Models\CoreModel;
-use Syscover\Admin\Models\Lang;
 use Syscover\Core\Scopes\TableLangScope;
 use Syscover\Market\Services\TaxRuleService;
 use Syscover\Admin\Traits\CustomizableFields;
+use Syscover\Admin\Traits\Translatable;
 
 /**
  * Class Product
@@ -16,16 +16,17 @@ use Syscover\Admin\Traits\CustomizableFields;
 class Product extends CoreModel
 {
     use CustomizableFields;
+    use Translatable;
 
 	protected $table        = 'product';
-    protected $fillable     = ['id', 'field_group_id', 'product_type_id', 'parent_product_id', 'weight', 'active', 'sort', 'price_type_id', 'subtotal', 'product_class_tax_id', 'data_lang', 'data'];
+    protected $fillable     = ['id', 'code', 'field_group_id', 'product_type_id', 'parent_product_id', 'weight', 'active', 'sort', 'price_type_id', 'subtotal', 'product_class_tax_id', 'data_lang', 'data'];
     public $timestamps      = false;
     protected $casts        = [
         'active'    => 'boolean',
         'data_lang' => 'array',
         'data'      => 'array'
     ];
-    public $with                = [
+    public $with = [
         'lang',
         'attachments',
         'fieldGroup',
@@ -52,11 +53,6 @@ class Product extends CoreModel
     public function scopeBuilder($query)
     {
         return $query;
-    }
-
-    public function lang()
-    {
-        return $this->belongsTo(Lang::class, 'lang_id');
     }
 
     public function products()

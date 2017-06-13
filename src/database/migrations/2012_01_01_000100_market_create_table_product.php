@@ -18,6 +18,7 @@ class MarketCreateTableProduct extends Migration
 				$table->engine = 'InnoDB';
 
 				$table->increments('id')->unsigned();
+                $table->string('code', 25)->nullable();
 				$table->integer('field_group_id')->unsigned()->nullable();
 
 				// 1 - downloaded
@@ -44,6 +45,7 @@ class MarketCreateTableProduct extends Migration
 				$table->json('data_lang')->nullable();
 				$table->json('data')->nullable();
 
+                $table->index(['code'], 'ix01_product');
 				$table->foreign('field_group_id', 'fk01_product')
 					->references('id')
 					->on('field_group')

@@ -2,7 +2,7 @@
 
 use Syscover\Core\Models\CoreModel;
 use Illuminate\Support\Facades\Validator;
-use Syscover\Admin\Models\Lang;
+use Syscover\Admin\Traits\Translatable;
 
 /**
  * Class Product
@@ -11,6 +11,8 @@ use Syscover\Admin\Models\Lang;
 
 class ProductLang extends CoreModel
 {
+    use Translatable;
+
 	protected $table        = 'product_lang';
     public $timestamps      = false;
     protected $casts        = [
@@ -28,10 +30,5 @@ class ProductLang extends CoreModel
     public function scopeBuilder($query)
     {
         return $query;
-    }
-
-    public function lang()
-    {
-        return $this->belongsTo(Lang::class, 'lang_id');
     }
 }

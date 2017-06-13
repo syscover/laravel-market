@@ -2,7 +2,7 @@
 
 use Syscover\Core\Models\CoreModel;
 use Illuminate\Support\Facades\Validator;
-use Syscover\Admin\Models\Lang;
+use Syscover\Admin\Traits\Translatable;
 
 /**
  * Class PaymentMethod
@@ -11,6 +11,8 @@ use Syscover\Admin\Models\Lang;
 
 class OrderStatus extends CoreModel
 {
+    use Translatable;
+
 	protected $table        = 'order_status';
     protected $fillable     = ['id', 'lang_id', 'name', 'active', 'data_lang'];
     public $timestamps      = false;
@@ -32,10 +34,5 @@ class OrderStatus extends CoreModel
     public function scopeBuilder($query)
     {
         return $query;
-    }
-
-    public function lang()
-    {
-        return $this->belongsTo(Lang::class, 'lang_id');
     }
 }
