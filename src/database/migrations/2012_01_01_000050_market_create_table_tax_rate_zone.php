@@ -26,6 +26,9 @@ class MarketCreateTableTaxRateZone extends Migration {
 				$table->string('cp')->nullable();
                 $table->decimal('tax_rate', 10, 2)->default(0);
 
+                $table->timestamps();
+                $table->softDeletes();
+
 				$table->foreign('country_id', 'fk01_tax_rate_zone')
 					->references('id')
 					->on('country')

@@ -28,7 +28,7 @@ class ProductController extends CoreController
         if(! $request->has('id'))
         {
             // create new product
-            $product = Product::create([
+            $object = Product::create([
                 'code'                  => $request->input('code'),
                 'field_group_id'        => $request->input('field_group_id'),
                 'product_type_id'       => $request->input('product_type_id'),
@@ -41,7 +41,7 @@ class ProductController extends CoreController
                 'product_class_tax_id'  => $request->input('product_class_tax_id')
             ]);
 
-            $id     = $product->id;
+            $id     = $object->id;
             $idAux  = null;
         }
         else
@@ -77,16 +77,13 @@ class ProductController extends CoreController
             'data_lang' => json_encode(Product::addLangDataRecord($request->input('lang_id'), $idAux))
         ]);
 
-        $product = Product::builder()
+        $object = Product::builder()
             ->where('product.id', $id)
             ->where('product_lang.lang_id', $request->input('lang_id'))
             ->first();
 
         // set categories
-        if(is_array($request->input('categories_id')))
-        {
-            $product->categories()->sync($request->input('categories_id'));
-        }
+        $this->setCategories($object, $request);
 
         // set attachments
         if(is_array($request->input('attachments')))
@@ -95,10 +92,8 @@ class ProductController extends CoreController
             $attachments = AttachmentService::storeAttachmentsLibrary($request->input('attachments'));
 
             // then save attachments
-            AttachmentService::storeAttachments($attachments, 'storage/app/public/market/products', 'storage/market/products', $this->model, $product->id,  $product->lang_id);
+            AttachmentService::storeAttachments($attachments, 'storage/app/public/market/products', 'storage/market/products', $this->model, $object->id,  $object->lang_id);
         }
-
-        $object = $product;
 
         $response['status'] = "success";
         $response['data']   = $object;
@@ -151,22 +146,13 @@ class ProductController extends CoreController
                 'data'          => json_encode($data)
             ]);
 
-        $product = Product::builder()
+        $object = Product::builder()
             ->where('product.id', $id)
             ->where('product_lang.lang_id', $lang)
             ->first();
 
         // categories
-        if(is_array($request->input('categories_id')))
-        {
-            $product->categories()
-                ->sync($request->input('categories_id'));
-        }
-        else
-        {
-            $product->categories()
-                ->detach();
-        }
+        $this->setCategories($object, $request);
 
         // set attachments
         if(is_array($request->input('attachments')))
@@ -175,12 +161,12 @@ class ProductController extends CoreController
             $attachments = AttachmentService::storeAttachmentsLibrary($request->input('attachments'));
 
             // then save attachments
-            AttachmentService::updateAttachments($attachments, 'storage/app/public/market/products', 'storage/market/products', $this->model, $product->id,  $product->lang_id);
+            AttachmentService::updateAttachments($attachments, 'storage/app/public/market/products', 'storage/market/products', $this->model, $object->id,  $object->lang_id);
         }
 
-        elseif(isset($product->data['properties']))
+        elseif(isset($object->data['properties']))
         {
-            $data = $product->data;
+            $data = $object->data;
             unset($data['properties']);
 
             // delete properties from all languages
@@ -189,28 +175,26 @@ class ProductController extends CoreController
                     'data' => json_encode($data)
                 ]);
 
-            $product = Product::builder()
+            $object = Product::builder()
                 ->where('product.id', $id)
                 ->where('product_lang.lang_id', $lang)
                 ->first();
         }
 
         $response['status'] = "success";
-        $response['data']   = $product;
+        $response['data']   = $object;
 
         return response()->json($response);
     }
 
+    // when delete product, we destroy all attachments
     public function destroyCustom($parameters)
     {
         AttachmentService::deleteAttachments($parameters['id'], $this->model, $parameters['lang']);
     }
 
-    public function apiCheckSlug(Request $request)
+    private function setCategories($object, $request)
     {
-        return response()->json([
-            'status'    => 'success',
-            'slug'      => ProductLang::checkSlug('slug', $request->input('slug'), $request->input('id'))
-        ]);
+        $object->categories()->sync($request->input('categories_id'));
     }
 }

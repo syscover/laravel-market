@@ -29,6 +29,9 @@ class MarketCreateTablePaymentMethod extends Migration
 				$table->integer('sort')->unsigned()->nullable();
 				$table->boolean('active');
 				$table->json('data_lang')->nullable();
+
+                $table->timestamps();
+                $table->softDeletes();
 				
 				$table->foreign('lang_id', 'fk01_payment_method')
 					->references('id')

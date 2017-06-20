@@ -26,6 +26,9 @@ class MarketCreateTableTaxRule extends Migration {
 
 				// en el caso de aplicar varios impuestos, el orden en el que aparecerá en el caso de haber varios impuestos
 				$table->smallInteger('sort')->unsigned();
+
+                $table->timestamps();
+                $table->softDeletes();
 			});
 		}
 	}

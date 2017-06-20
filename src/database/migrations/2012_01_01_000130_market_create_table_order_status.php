@@ -22,6 +22,9 @@ class MarketCreateTableOrderStatus extends Migration
 				$table->string('name');
 				$table->boolean('active');
 				$table->json('data_lang')->nullable();
+
+                $table->timestamps();
+                $table->softDeletes();
 				
 				$table->foreign('lang_id', 'fk01_order_status')
 					->references('id')

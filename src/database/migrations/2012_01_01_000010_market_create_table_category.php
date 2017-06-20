@@ -20,14 +20,15 @@ class MarketCreateTableCategory extends Migration
 				$table->integer('id')->unsigned();
 				$table->string('lang_id', 2);
 				$table->integer('parent_id')->unsigned()->nullable();
-
 				$table->string('name');
 				$table->string('slug');
 				$table->boolean('active');
 				$table->text('description')->nullable();
-
 				$table->json('data_lang', 255)->nullable();
 				$table->json('data')->nullable();
+
+                $table->timestamps();
+                $table->softDeletes();
 				
 				$table->foreign('lang_id', 'fk01_category')
 					->references('id')
