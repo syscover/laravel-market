@@ -18,6 +18,9 @@
     "autoload": {
         "psr-4": {
             "Syscover\\Market\\": "src/Syscover/Market"
-        }
+        },
+        "classmap": [
+            "src/Syscover/Market"
+        ]
     }
 }

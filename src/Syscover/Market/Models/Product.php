@@ -19,7 +19,7 @@ class Product extends CoreModel
     use Translatable;
 
 	protected $table        = 'product';
-    protected $fillable     = ['id', 'code', 'field_group_id', 'product_type_id', 'parent_product_id', 'weight', 'active', 'sort', 'price_type_id', 'subtotal', 'product_class_tax_id', 'data_lang', 'data'];
+	protected $fillable     = ['id', 'code', 'field_group_id', 'product_type_id', 'parent_product_id', 'weight', 'active', 'sort', 'price_type_id', 'subtotal', 'product_class_tax_id', 'data_lang', 'data'];
     public $timestamps      = false;
     protected $casts        = [
         'active'    => 'boolean',
