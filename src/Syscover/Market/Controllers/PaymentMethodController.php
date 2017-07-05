@@ -20,13 +20,11 @@ class PaymentMethodController extends CoreController
         if($request->has('id'))
         {
             $id     = $request->input('id');
-            $idLang = $id;
         }
         else
         {
             $id = PaymentMethod::max('id');
             $id++;
-            $idLang = null;
         }
 
         $object = PaymentMethod::create([
@@ -39,7 +37,7 @@ class PaymentMethodController extends CoreController
             'instructions'                  => $request->input('instructions'),
             'sort'                          => $request->input('sort'),
             'active'                        => $request->has('active'),
-            'data_lang'                     => PaymentMethod::addLangDataRecord($request->input('lang_id'), $idLang)
+            'data_lang'                     => PaymentMethod::addLangDataRecord($request->input('lang_id'), $id)
         ]);
 
         $response['status'] = "success";

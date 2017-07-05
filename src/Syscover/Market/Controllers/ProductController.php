@@ -42,13 +42,11 @@ class ProductController extends CoreController
             ]);
 
             $id     = $object->id;
-            $idAux  = null;
         }
         else
         {
             // create product with other language
             $id     = $request->input('id');
-            $idAux  = $id;
         }
 
         // get custom fields
@@ -74,7 +72,7 @@ class ProductController extends CoreController
 
         // update data_lang after create ProductLang because yu
         Product::where('product.id', $id)->update([
-            'data_lang' => json_encode(Product::addLangDataRecord($request->input('lang_id'), $idAux))
+            'data_lang' => json_encode(Product::addLangDataRecord($request->input('lang_id'), $id))
         ]);
 
         $object = Product::builder()

@@ -19,14 +19,12 @@ class OrderStatusController extends CoreController
         // check if there is id to know if is a new lang
         if($request->has('id'))
         {
-            $id     = $request->input('id');
-            $idAux  = $id;
+            $id = $request->input('id');
         }
         else
         {
             $id = OrderStatus::max('id');
             $id++;
-            $idAux = null;
         }
 
         $object = OrderStatus::create([
@@ -34,7 +32,7 @@ class OrderStatusController extends CoreController
             'lang_id'               => $request->input('lang_id'),
             'name'                  => $request->input('name'),
             'active'                => $request->input('active'),
-            'data_lang'             => OrderStatus::addLangDataRecord($request->input('lang_id'), $idAux)
+            'data_lang'             => OrderStatus::addLangDataRecord($request->input('lang_id'), $id)
         ]);
 
         $response['status'] = "success";
