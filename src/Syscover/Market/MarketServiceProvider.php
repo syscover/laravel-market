@@ -1,6 +1,7 @@
 <?php namespace Syscover\Market;
 
 use Illuminate\Support\ServiceProvider;
+use Syscover\Market\GraphQL\MarketGraphQLServiceProvider;
 
 class MarketServiceProvider extends ServiceProvider
 {
@@ -30,6 +31,9 @@ class MarketServiceProvider extends ServiceProvider
             __DIR__ . '/../../config/pulsar.market.php' => config_path('pulsar.market.php'),
         ]);
 
+        // register GraphQL types and schema
+        MarketGraphQLServiceProvider::bootGraphQLTypes();
+        MarketGraphQLServiceProvider::bootGraphQLSchema();
 	}
 
 	/**
