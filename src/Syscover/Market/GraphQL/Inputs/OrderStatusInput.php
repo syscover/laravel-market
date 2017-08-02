@@ -2,7 +2,6 @@
 
 use GraphQL\Type\Definition\Type;
 use Folklore\GraphQL\Support\Type as GraphQLType;
-use Syscover\Core\GraphQL\Types\AnyType;
 
 class OrderStatusInput extends GraphQLType
 {
@@ -17,7 +16,7 @@ class OrderStatusInput extends GraphQLType
     {
         return [
             'id' => [
-                'type' => app(AnyType::class),
+                'type' => Type::int(),
                 'description' => 'The id of order status'
             ],
             'lang_id' => [
