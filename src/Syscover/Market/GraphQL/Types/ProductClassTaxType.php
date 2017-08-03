@@ -1,9 +1,7 @@
 <?php namespace Syscover\Market\GraphQL\Types;
 
-use GraphQL;
 use GraphQL\Type\Definition\Type;
 use Folklore\GraphQL\Support\Type as GraphQLType;
-use Syscover\Core\GraphQL\Types\AnyType;
 
 class ProductClassTaxType extends GraphQLType {
 
@@ -16,7 +14,7 @@ class ProductClassTaxType extends GraphQLType {
     {
         return [
             'id' => [
-                'type' => Type::nonNull(app(AnyType::class)),
+                'type' => Type::nonNull(Type::int()),
                 'description' => 'The id of product class tax'
             ],
             'name' => [
@@ -24,9 +22,5 @@ class ProductClassTaxType extends GraphQLType {
                 'description' => 'The name of product class tax'
             ]
         ];
-    }
-
-    public function interfaces() {
-        return [GraphQL::type('CoreObjectInterface')];
     }
 }

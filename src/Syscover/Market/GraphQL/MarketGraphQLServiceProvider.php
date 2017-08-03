@@ -21,6 +21,10 @@ class MarketGraphQLServiceProvider
         // PRODUCT CLASS TAX
         GraphQL::addType(\Syscover\Market\GraphQL\Types\ProductClassTaxType::class, 'MarketProductClassTax');
         GraphQL::addType(\Syscover\Market\GraphQL\Inputs\ProductClassTaxInput::class, 'MarketProductClassTaxInput');
+
+        // GROUP CUSTOMER CLASS TAX
+        //GraphQL::addType(\Syscover\Market\GraphQL\Types\GroupCustomerClassTaxType::class, 'MarketGroupCustomerClassTax');
+        //GraphQL::addType(\Syscover\Market\GraphQL\Inputs\GroupCustomerClassTaxInput::class, 'MarketGroupCustomerClassTaxInput');
     }
 
     public static function bootGraphQLSchema()
@@ -46,6 +50,9 @@ class MarketGraphQLServiceProvider
                 'marketProductClassTaxesPagination'     => \Syscover\Market\GraphQL\Queries\ProductClassTaxesPaginationQuery::class,
                 'marketProductClassTaxes'               => \Syscover\Market\GraphQL\Queries\ProductClassTaxesQuery::class,
                 'marketProductClassTax'                 => \Syscover\Market\GraphQL\Queries\ProductClassTaxQuery::class,
+
+                // GROUP CUSTOMER CLASS TAX
+                //'marketGroupCustomerClassTaxesPagination'    => \Syscover\Market\GraphQL\Queries\GroupCustomerClassTaxesPaginationQuery::class,
             ],
             'mutation' => [
                 // ORDER STATUS

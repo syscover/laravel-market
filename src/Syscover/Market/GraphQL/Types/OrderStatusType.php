@@ -1,9 +1,7 @@
 <?php namespace Syscover\Market\GraphQL\Types;
 
-use GraphQL;
 use GraphQL\Type\Definition\Type;
 use Folklore\GraphQL\Support\Type as GraphQLType;
-use Syscover\Core\GraphQL\Types\AnyType;
 
 class OrderStatusType extends GraphQLType {
 
@@ -16,7 +14,7 @@ class OrderStatusType extends GraphQLType {
     {
         return [
             'id' => [
-                'type' => Type::nonNull(app(AnyType::class)),
+                'type' => Type::nonNull(Type::int()),
                 'description' => 'The id of order status'
             ],
             'lang_id' => [
@@ -36,9 +34,5 @@ class OrderStatusType extends GraphQLType {
                 'description' => 'JSON string that contain information about object translations'
             ]
         ];
-    }
-
-    public function interfaces() {
-        return [GraphQL::type('CoreObjectInterface')];
     }
 }
