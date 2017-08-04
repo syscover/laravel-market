@@ -34,7 +34,7 @@ class GroupCustomerClassTax extends CoreModel
         return $query
             ->join('group', 'group_customer_class_tax.group_id', '=', 'group.id')
             ->join('customer_class_tax', 'group_customer_class_tax.customer_class_tax_id', '=', 'customer_class_tax.id')
-            ->select('group_customer_class_tax.*', 'group.id');
+            ->select('group.*', 'customer_class_tax.*', 'group_customer_class_tax.*', 'group.name as group_name', 'customer_class_tax.name as customer_class_tax_name');
     }
 
     public function group()

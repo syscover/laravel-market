@@ -23,8 +23,8 @@ class MarketGraphQLServiceProvider
         GraphQL::addType(\Syscover\Market\GraphQL\Inputs\ProductClassTaxInput::class, 'MarketProductClassTaxInput');
 
         // GROUP CUSTOMER CLASS TAX
-        //GraphQL::addType(\Syscover\Market\GraphQL\Types\GroupCustomerClassTaxType::class, 'MarketGroupCustomerClassTax');
-        //GraphQL::addType(\Syscover\Market\GraphQL\Inputs\GroupCustomerClassTaxInput::class, 'MarketGroupCustomerClassTaxInput');
+        GraphQL::addType(\Syscover\Market\GraphQL\Types\GroupCustomerClassTaxType::class, 'MarketGroupCustomerClassTax');
+        GraphQL::addType(\Syscover\Market\GraphQL\Inputs\GroupCustomerClassTaxInput::class, 'MarketGroupCustomerClassTaxInput');
     }
 
     public static function bootGraphQLSchema()
@@ -32,48 +32,55 @@ class MarketGraphQLServiceProvider
         GraphQL::addSchema('default', array_merge_recursive(GraphQL::getSchemas()['default'], [
             'query' => [
                 // ORDER STATUS
-                'marketOrderStatusesPagination'         => \Syscover\Market\GraphQL\Queries\OrderStatusesPaginationQuery::class,
-                'marketOrderStatuses'                   => \Syscover\Market\GraphQL\Queries\OrderStatusesQuery::class,
-                'marketOrderStatus'                     => \Syscover\Market\GraphQL\Queries\OrderStatusQuery::class,
+                'marketOrderStatusesPagination'             => \Syscover\Market\GraphQL\Queries\OrderStatusesPaginationQuery::class,
+                'marketOrderStatuses'                       => \Syscover\Market\GraphQL\Queries\OrderStatusesQuery::class,
+                'marketOrderStatus'                         => \Syscover\Market\GraphQL\Queries\OrderStatusQuery::class,
 
                 // PAYMENT METHOD
-                'marketPaymentMethodsPagination'        => \Syscover\Market\GraphQL\Queries\PaymentMethodsPaginationQuery::class,
-                'marketPaymentMethods'                  => \Syscover\Market\GraphQL\Queries\PaymentMethodsQuery::class,
-                'marketPaymentMethod'                   => \Syscover\Market\GraphQL\Queries\PaymentMethodQuery::class,
+                'marketPaymentMethodsPagination'            => \Syscover\Market\GraphQL\Queries\PaymentMethodsPaginationQuery::class,
+                'marketPaymentMethods'                      => \Syscover\Market\GraphQL\Queries\PaymentMethodsQuery::class,
+                'marketPaymentMethod'                       => \Syscover\Market\GraphQL\Queries\PaymentMethodQuery::class,
 
                 // CUSTOMER CLASS TAX
-                'marketCustomerClassTaxesPagination'    => \Syscover\Market\GraphQL\Queries\CustomerClassTaxesPaginationQuery::class,
-                'marketCustomerClassTaxes'              => \Syscover\Market\GraphQL\Queries\CustomerClassTaxesQuery::class,
-                'marketCustomerClassTax'                => \Syscover\Market\GraphQL\Queries\CustomerClassTaxQuery::class,
+                'marketCustomerClassTaxesPagination'        => \Syscover\Market\GraphQL\Queries\CustomerClassTaxesPaginationQuery::class,
+                'marketCustomerClassTaxes'                  => \Syscover\Market\GraphQL\Queries\CustomerClassTaxesQuery::class,
+                'marketCustomerClassTax'                    => \Syscover\Market\GraphQL\Queries\CustomerClassTaxQuery::class,
 
                 // PRODUCT CLASS TAX
-                'marketProductClassTaxesPagination'     => \Syscover\Market\GraphQL\Queries\ProductClassTaxesPaginationQuery::class,
-                'marketProductClassTaxes'               => \Syscover\Market\GraphQL\Queries\ProductClassTaxesQuery::class,
-                'marketProductClassTax'                 => \Syscover\Market\GraphQL\Queries\ProductClassTaxQuery::class,
+                'marketProductClassTaxesPagination'         => \Syscover\Market\GraphQL\Queries\ProductClassTaxesPaginationQuery::class,
+                'marketProductClassTaxes'                   => \Syscover\Market\GraphQL\Queries\ProductClassTaxesQuery::class,
+                'marketProductClassTax'                     => \Syscover\Market\GraphQL\Queries\ProductClassTaxQuery::class,
 
                 // GROUP CUSTOMER CLASS TAX
-                //'marketGroupCustomerClassTaxesPagination'    => \Syscover\Market\GraphQL\Queries\GroupCustomerClassTaxesPaginationQuery::class,
+                'marketGroupCustomerClassTaxesPagination'   => \Syscover\Market\GraphQL\Queries\GroupCustomerClassTaxesPaginationQuery::class,
+                'marketGroupCustomerClassTaxes'             => \Syscover\Market\GraphQL\Queries\GroupCustomerClassTaxesQuery::class,
+                'marketGroupCustomerClassTax'               => \Syscover\Market\GraphQL\Queries\GroupCustomerClassTaxQuery::class,
             ],
             'mutation' => [
                 // ORDER STATUS
-                'marketAddOrderStatus'                  => \Syscover\Market\GraphQL\Mutations\AddOrderStatusMutation::class,
-                'marketUpdateOrderStatus'               => \Syscover\Market\GraphQL\Mutations\UpdateOrderStatusMutation::class,
-                'marketDeleteOrderStatus'               => \Syscover\Market\GraphQL\Mutations\DeleteOrderStatusMutation::class,
+                'marketAddOrderStatus'                      => \Syscover\Market\GraphQL\Mutations\AddOrderStatusMutation::class,
+                'marketUpdateOrderStatus'                   => \Syscover\Market\GraphQL\Mutations\UpdateOrderStatusMutation::class,
+                'marketDeleteOrderStatus'                   => \Syscover\Market\GraphQL\Mutations\DeleteOrderStatusMutation::class,
 
                 // PAYMENT METHOD
-                'marketAddPaymentMethod'                => \Syscover\Market\GraphQL\Mutations\AddPaymentMethodMutation::class,
-                'marketUpdatePaymentMethod'             => \Syscover\Market\GraphQL\Mutations\UpdatePaymentMethodMutation::class,
-                'marketDeletePaymentMethod'             => \Syscover\Market\GraphQL\Mutations\DeletePaymentMethodMutation::class,
+                'marketAddPaymentMethod'                    => \Syscover\Market\GraphQL\Mutations\AddPaymentMethodMutation::class,
+                'marketUpdatePaymentMethod'                 => \Syscover\Market\GraphQL\Mutations\UpdatePaymentMethodMutation::class,
+                'marketDeletePaymentMethod'                 => \Syscover\Market\GraphQL\Mutations\DeletePaymentMethodMutation::class,
 
                 // CUSTOMER CLASS TAX
-                'marketAddCustomerClassTax'             => \Syscover\Market\GraphQL\Mutations\AddCustomerClassTaxMutation::class,
-                'marketUpdateCustomerClassTax'          => \Syscover\Market\GraphQL\Mutations\UpdateCustomerClassTaxMutation::class,
-                'marketDeleteCustomerClassTax'          => \Syscover\Market\GraphQL\Mutations\DeleteCustomerClassTaxMutation::class,
+                'marketAddCustomerClassTax'                 => \Syscover\Market\GraphQL\Mutations\AddCustomerClassTaxMutation::class,
+                'marketUpdateCustomerClassTax'              => \Syscover\Market\GraphQL\Mutations\UpdateCustomerClassTaxMutation::class,
+                'marketDeleteCustomerClassTax'              => \Syscover\Market\GraphQL\Mutations\DeleteCustomerClassTaxMutation::class,
 
                 // PRODUCT CLASS TAX
-                'marketAddProductClassTax'              => \Syscover\Market\GraphQL\Mutations\AddProductClassTaxMutation::class,
-                'marketUpdateProductClassTax'           => \Syscover\Market\GraphQL\Mutations\UpdateProductClassTaxMutation::class,
-                'marketDeleteProductClassTax'           => \Syscover\Market\GraphQL\Mutations\DeleteProductClassTaxMutation::class,
+                'marketAddProductClassTax'                  => \Syscover\Market\GraphQL\Mutations\AddProductClassTaxMutation::class,
+                'marketUpdateProductClassTax'               => \Syscover\Market\GraphQL\Mutations\UpdateProductClassTaxMutation::class,
+                'marketDeleteProductClassTax'               => \Syscover\Market\GraphQL\Mutations\DeleteProductClassTaxMutation::class,
+
+                // GROUP CUSTOMER CLASS TAX
+                'marketAddGroupCustomerClassTax'            => \Syscover\Market\GraphQL\Mutations\AddGroupCustomerClassTaxMutation::class,
+                'marketUpdateGroupCustomerClassTax'         => \Syscover\Market\GraphQL\Mutations\UpdateGroupCustomerClassTaxMutation::class,
+                'marketDeleteGroupCustomerClassTax'         => \Syscover\Market\GraphQL\Mutations\DeleteGroupCustomerClassTaxMutation::class,
             ]
         ]));
     }
