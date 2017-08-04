@@ -25,6 +25,10 @@ class MarketGraphQLServiceProvider
         // GROUP CUSTOMER CLASS TAX
         GraphQL::addType(\Syscover\Market\GraphQL\Types\GroupCustomerClassTaxType::class, 'MarketGroupCustomerClassTax');
         GraphQL::addType(\Syscover\Market\GraphQL\Inputs\GroupCustomerClassTaxInput::class, 'MarketGroupCustomerClassTaxInput');
+
+        // TAX RATE ZONE
+        GraphQL::addType(\Syscover\Market\GraphQL\Types\TaxRateZoneType::class, 'MarketTaxRateZone');
+        GraphQL::addType(\Syscover\Market\GraphQL\Inputs\TaxRateZoneInput::class, 'MarketTaxRateZoneInput');
     }
 
     public static function bootGraphQLSchema()
@@ -55,6 +59,11 @@ class MarketGraphQLServiceProvider
                 'marketGroupCustomerClassTaxesPagination'   => \Syscover\Market\GraphQL\Queries\GroupCustomerClassTaxesPaginationQuery::class,
                 'marketGroupCustomerClassTaxes'             => \Syscover\Market\GraphQL\Queries\GroupCustomerClassTaxesQuery::class,
                 'marketGroupCustomerClassTax'               => \Syscover\Market\GraphQL\Queries\GroupCustomerClassTaxQuery::class,
+
+                // TAX RATE ZONE
+                'marketTaxRateZonesPagination'              => \Syscover\Market\GraphQL\Queries\TaxRateZonesPaginationQuery::class,
+                'marketTaxRateZones'                        => \Syscover\Market\GraphQL\Queries\TaxRateZonesQuery::class,
+                'marketTaxRateZone'                         => \Syscover\Market\GraphQL\Queries\TaxRateZoneQuery::class,
             ],
             'mutation' => [
                 // ORDER STATUS
@@ -81,6 +90,11 @@ class MarketGraphQLServiceProvider
                 'marketAddGroupCustomerClassTax'            => \Syscover\Market\GraphQL\Mutations\AddGroupCustomerClassTaxMutation::class,
                 'marketUpdateGroupCustomerClassTax'         => \Syscover\Market\GraphQL\Mutations\UpdateGroupCustomerClassTaxMutation::class,
                 'marketDeleteGroupCustomerClassTax'         => \Syscover\Market\GraphQL\Mutations\DeleteGroupCustomerClassTaxMutation::class,
+
+                // TAX RATE ZONE
+                'marketAddTaxRateZone'                      => \Syscover\Market\GraphQL\Mutations\AddTaxRateZoneMutation::class,
+                'marketUpdateTaxRateZone'                   => \Syscover\Market\GraphQL\Mutations\UpdateTaxRateZoneMutation::class,
+                'marketDeleteTaxRateZone'                   => \Syscover\Market\GraphQL\Mutations\DeleteTaxRateZoneMutation::class,
             ]
         ]));
     }
