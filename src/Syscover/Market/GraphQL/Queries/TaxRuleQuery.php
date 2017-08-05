@@ -4,18 +4,18 @@ use GraphQL;
 use GraphQL\Type\Definition\Type;
 use Folklore\GraphQL\Support\Query;
 use Syscover\Core\Services\SQLService;
-use Syscover\Market\Models\TaxRateZone;
+use Syscover\Market\Models\TaxRule;
 
-class TaxRateZonesQuery extends Query
+class TaxRuleQuery extends Query
 {
     protected $attributes = [
-        'name'          => 'TaxRateZonesQuery',
-        'description'   => 'Query to get tax rate zones'
+        'name'          => 'TaxRuleQuery',
+        'description'   => 'Query to get a tax rule'
     ];
 
     public function type()
     {
-        return Type::listOf(GraphQL::type('MarketTaxRateZone'));
+        return GraphQL::type('MarketTaxRule');
     }
 
     public function args()
@@ -31,14 +31,8 @@ class TaxRateZonesQuery extends Query
 
     public function resolve($root, $args)
     {
-        $query = TaxRateZone::builder();
+        $query = SQLService::getQueryFiltered(TaxRule::builder(), $args['sql']);
 
-        if(isset($args['sql']))
-        {
-            $query = SQLService::getQueryFiltered($query, $args['sql']);
-            $query = SQLService::getQueryOrderedAndLimited($query, $args['sql']);
-        }
-
-        return $query->get();
+        return $query->first();
     }
 }

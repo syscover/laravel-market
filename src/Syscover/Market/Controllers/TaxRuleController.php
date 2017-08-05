@@ -29,9 +29,9 @@ class TaxRuleController extends CoreController
             'sort'          => $request->input('sort')
         ]);
 
-        $object->taxRateZones()->sync($request->input('tax_rate_zones_id'));
-        $object->customerClassTaxes()->sync($request->input('customer_class_taxes_id'));
-        $object->productClassTaxes()->sync($request->input('product_class_taxes_id'));
+        $object->tax_rate_zones()->sync($request->input('tax_rate_zones_id'));
+        $object->customer_class_taxes()->sync($request->input('customer_class_taxes_id'));
+        $object->product_class_taxes()->sync($request->input('product_class_taxes_id'));
 
         $response['status'] = "success";
         $response['data']   = $object;
@@ -57,9 +57,9 @@ class TaxRuleController extends CoreController
 
         $object = TaxRule::find($id);
 
-        $object->taxRateZones()->sync($request->input('tax_rate_zones_id'));
-        $object->customerClassTaxes()->sync($request->input('customer_class_taxes_id'));
-        $object->productClassTaxes()->sync($request->input('product_class_taxes_id'));
+        $object->tax_rate_zones()->sync($request->input('tax_rate_zones_id'));
+        $object->customer_class_taxes()->sync($request->input('customer_class_taxes_id'));
+        $object->product_class_taxes()->sync($request->input('product_class_taxes_id'));
 
         $response['status'] = "success";
         $response['data']   = $object;

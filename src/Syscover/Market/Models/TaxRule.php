@@ -13,7 +13,7 @@ class TaxRule extends CoreModel
 	protected $table        = 'tax_rule';
     protected $fillable     = ['id', 'name', 'translation', 'priority', 'sort'];
     public $timestamps      = false;
-    public $with            = ['taxRateZones', 'customerClassTaxes', 'productClassTaxes'];
+    public $with            = ['tax_rate_zones', 'customer_class_taxes', 'product_class_taxes'];
 
     private static $rules   = [];
 
@@ -34,17 +34,17 @@ class TaxRule extends CoreModel
             ->groupBy('tax_rule.id', 'tax_rule.name', 'tax_rule.translation', 'tax_rule.priority', 'tax_rule.sort');
     }
 
-    public function taxRateZones()
+    public function tax_rate_zones()
     {
         return $this->belongsToMany(TaxRateZone::class, 'tax_rules_tax_rates_zones', 'tax_rule_id', 'tax_rate_zone_id');
     }
 
-    public function customerClassTaxes()
+    public function customer_class_taxes()
     {
         return $this->belongsToMany(CustomerClassTax::class, 'tax_rules_customer_class_taxes', 'tax_rule_id', 'customer_class_tax_id');
     }
     
-    public function productClassTaxes()
+    public function product_class_taxes()
     {
         return $this->belongsToMany(ProductClassTax::class, 'tax_rules_product_class_taxes', 'tax_rule_id', 'product_class_tax_id');
     }

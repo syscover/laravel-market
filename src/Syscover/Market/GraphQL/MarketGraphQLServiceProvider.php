@@ -29,6 +29,15 @@ class MarketGraphQLServiceProvider
         // TAX RATE ZONE
         GraphQL::addType(\Syscover\Market\GraphQL\Types\TaxRateZoneType::class, 'MarketTaxRateZone');
         GraphQL::addType(\Syscover\Market\GraphQL\Inputs\TaxRateZoneInput::class, 'MarketTaxRateZoneInput');
+
+        // TAX RULE
+        GraphQL::addType(\Syscover\Market\GraphQL\Types\TaxRuleType::class, 'MarketTaxRule');
+        GraphQL::addType(\Syscover\Market\GraphQL\Inputs\TaxRuleInput::class, 'MarketTaxRuleInput');
+
+        // CATEGORY
+        GraphQL::addType(\Syscover\Market\GraphQL\Types\CategoryType::class, 'MarketCategory');
+
+        // PRODUCT
     }
 
     public static function bootGraphQLSchema()
@@ -64,6 +73,15 @@ class MarketGraphQLServiceProvider
                 'marketTaxRateZonesPagination'              => \Syscover\Market\GraphQL\Queries\TaxRateZonesPaginationQuery::class,
                 'marketTaxRateZones'                        => \Syscover\Market\GraphQL\Queries\TaxRateZonesQuery::class,
                 'marketTaxRateZone'                         => \Syscover\Market\GraphQL\Queries\TaxRateZoneQuery::class,
+
+                // TAX RULE
+                'marketTaxRulesPagination'                  => \Syscover\Market\GraphQL\Queries\TaxRulesPaginationQuery::class,
+                'marketTaxRules'                            => \Syscover\Market\GraphQL\Queries\TaxRulesQuery::class,
+                'marketTaxRule'                             => \Syscover\Market\GraphQL\Queries\TaxRuleQuery::class,
+
+                // CATEGORY
+
+                // PRODUCT
             ],
             'mutation' => [
                 // ORDER STATUS
@@ -95,6 +113,15 @@ class MarketGraphQLServiceProvider
                 'marketAddTaxRateZone'                      => \Syscover\Market\GraphQL\Mutations\AddTaxRateZoneMutation::class,
                 'marketUpdateTaxRateZone'                   => \Syscover\Market\GraphQL\Mutations\UpdateTaxRateZoneMutation::class,
                 'marketDeleteTaxRateZone'                   => \Syscover\Market\GraphQL\Mutations\DeleteTaxRateZoneMutation::class,
+
+                // TAX RULE
+                'marketAddTaxRule'                          => \Syscover\Market\GraphQL\Mutations\AddTaxRuleMutation::class,
+                'marketUpdateTaxRule'                       => \Syscover\Market\GraphQL\Mutations\UpdateTaxRuleMutation::class,
+                'marketDeleteTaxRule'                       => \Syscover\Market\GraphQL\Mutations\DeleteTaxRuleMutation::class,
+
+                // CATEGORY
+
+                // PRODUCT
             ]
         ]));
     }
