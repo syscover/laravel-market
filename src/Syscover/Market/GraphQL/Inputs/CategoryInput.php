@@ -1,25 +1,27 @@
-<?php namespace Syscover\Market\GraphQL\Types;
+<?php namespace Syscover\Market\GraphQL\Inputs;
 
 use GraphQL\Type\Definition\Type;
 use Folklore\GraphQL\Support\Type as GraphQLType;
 use Syscover\Core\GraphQL\ScalarTypes\ObjectType;
 
-class CategoryType extends GraphQLType {
+class CategoryInput extends GraphQLType {
 
     protected $attributes = [
         'name'          => 'Category',
-        'description'   => 'Category of product'
+        'description'   => 'Category that user can to do in application'
     ];
+
+    protected $inputObject = true;
 
     public function fields()
     {
         return [
             'id' => [
-                'type' => Type::nonNull(Type::int()),
+                'type' => Type::int(),
                 'description' => 'The id of category'
             ],
             'lang_id' => [
-                'type' => Type::nonNull(Type::string()),
+                'type' => Type::string(),
                 'description' => 'lang of category'
             ],
             'parent_id' => [
@@ -27,11 +29,11 @@ class CategoryType extends GraphQLType {
                 'description' => 'parent category'
             ],
             'name' => [
-                'type' => Type::nonNull(Type::string()),
+                'type' => Type::string(),
                 'description' => 'The name of category'
             ],
             'slug' => [
-                'type' => Type::nonNull(Type::string()),
+                'type' => Type::string(),
                 'description' => 'The name of category'
             ],
             'active' => [
@@ -48,7 +50,7 @@ class CategoryType extends GraphQLType {
             ],
             'data' => [
                 'type' => app(ObjectType::class),
-                'description' => 'JSON string'
+                'description' => 'JSON string that contain information about object translations'
             ]
         ];
     }

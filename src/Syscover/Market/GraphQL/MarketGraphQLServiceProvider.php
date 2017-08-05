@@ -36,8 +36,10 @@ class MarketGraphQLServiceProvider
 
         // CATEGORY
         GraphQL::addType(\Syscover\Market\GraphQL\Types\CategoryType::class, 'MarketCategory');
+        GraphQL::addType(\Syscover\Market\GraphQL\Inputs\CategoryInput::class, 'MarketCategoryInput');
 
         // PRODUCT
+
     }
 
     public static function bootGraphQLSchema()
@@ -80,6 +82,9 @@ class MarketGraphQLServiceProvider
                 'marketTaxRule'                             => \Syscover\Market\GraphQL\Queries\TaxRuleQuery::class,
 
                 // CATEGORY
+                'marketCategoriesPagination'                => \Syscover\Market\GraphQL\Queries\CategoriesPaginationQuery::class,
+                'marketCategories'                          => \Syscover\Market\GraphQL\Queries\CategoriesQuery::class,
+                'marketCategory'                            => \Syscover\Market\GraphQL\Queries\CategoryQuery::class,
 
                 // PRODUCT
             ],
@@ -120,6 +125,9 @@ class MarketGraphQLServiceProvider
                 'marketDeleteTaxRule'                       => \Syscover\Market\GraphQL\Mutations\DeleteTaxRuleMutation::class,
 
                 // CATEGORY
+                'marketAddCategory'                         => \Syscover\Market\GraphQL\Mutations\AddCategoryMutation::class,
+                'marketUpdateCategory'                      => \Syscover\Market\GraphQL\Mutations\UpdateCategoryMutation::class,
+                'marketDeleteCategory'                      => \Syscover\Market\GraphQL\Mutations\DeleteCategoryMutation::class,
 
                 // PRODUCT
             ]
