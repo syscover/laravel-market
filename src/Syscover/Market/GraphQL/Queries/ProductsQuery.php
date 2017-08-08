@@ -4,18 +4,18 @@ use GraphQL;
 use GraphQL\Type\Definition\Type;
 use Folklore\GraphQL\Support\Query;
 use Syscover\Core\Services\SQLService;
-use Syscover\Market\Models\Category;
+use Syscover\Market\Models\Product;
 
-class CategoryQuery extends Query
+class ProductsQuery extends Query
 {
     protected $attributes = [
-        'name'          => 'CategoryQuery',
-        'description'   => 'Query to get a category'
+        'name'          => 'ProductsQuery',
+        'description'   => 'Query to get products'
     ];
 
     public function type()
     {
-        return GraphQL::type('MarketCategory');
+        return Type::listOf(GraphQL::type('MarketProduct'));
     }
 
     public function args()
@@ -31,8 +31,14 @@ class CategoryQuery extends Query
 
     public function resolve($root, $args)
     {
-        $query = SQLService::getQueryFiltered(Category::builder(), $args['sql']);
+        $query = Product::builder();
 
-        return $query->first();
+        if(isset($args['sql']))
+        {
+            $query = SQLService::getQueryFiltered($query, $args['sql']);
+            $query = SQLService::getQueryOrderedAndLimited($query, $args['sql']);
+        }
+
+        return $query->get();
     }
 }

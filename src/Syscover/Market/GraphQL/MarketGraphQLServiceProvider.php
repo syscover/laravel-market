@@ -39,6 +39,8 @@ class MarketGraphQLServiceProvider
         GraphQL::addType(\Syscover\Market\GraphQL\Inputs\CategoryInput::class, 'MarketCategoryInput');
 
         // PRODUCT
+        GraphQL::addType(\Syscover\Market\GraphQL\Types\ProductType::class, 'MarketProduct');
+        GraphQL::addType(\Syscover\Market\GraphQL\Inputs\ProductInput::class, 'MarketProductInput');
 
     }
 
@@ -87,6 +89,12 @@ class MarketGraphQLServiceProvider
                 'marketCategory'                            => \Syscover\Market\GraphQL\Queries\CategoryQuery::class,
 
                 // PRODUCT
+                'marketProductsPagination'                  => \Syscover\Market\GraphQL\Queries\ProductsPaginationQuery::class,
+                'marketProducts'                            => \Syscover\Market\GraphQL\Queries\ProductsQuery::class,
+                'marketProduct'                             => \Syscover\Market\GraphQL\Queries\ProductQuery::class,
+
+                // PRODUCT TAXES
+                'marketProductTaxes'                        => \Syscover\Market\GraphQL\Queries\ProductTaxesQuery::class,
             ],
             'mutation' => [
                 // ORDER STATUS
@@ -130,6 +138,9 @@ class MarketGraphQLServiceProvider
                 'marketDeleteCategory'                      => \Syscover\Market\GraphQL\Mutations\DeleteCategoryMutation::class,
 
                 // PRODUCT
+                'marketAddProduct'                         => \Syscover\Market\GraphQL\Mutations\AddProductMutation::class,
+                'marketUpdateProduct'                      => \Syscover\Market\GraphQL\Mutations\UpdateProductMutation::class,
+                'marketDeleteProduct'                      => \Syscover\Market\GraphQL\Mutations\DeleteProductMutation::class,
             ]
         ]));
     }
