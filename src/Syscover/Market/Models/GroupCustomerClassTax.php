@@ -11,7 +11,7 @@ use Syscover\Crm\Models\Group;
 
 class GroupCustomerClassTax extends CoreModel
 {
-    protected $table        = 'group_customer_class_tax';
+    protected $table        = 'market_group_customer_class_tax';
     protected $fillable     = ['group_id', 'customer_class_tax_id'];
     protected $primaryKey   = 'group_id';
     public $timestamps      = false;
@@ -32,9 +32,9 @@ class GroupCustomerClassTax extends CoreModel
     public function scopeBuilder($query)
     {
         return $query
-            ->join('group', 'group_customer_class_tax.group_id', '=', 'group.id')
-            ->join('customer_class_tax', 'group_customer_class_tax.customer_class_tax_id', '=', 'customer_class_tax.id')
-            ->select('group.*', 'customer_class_tax.*', 'group_customer_class_tax.*', 'group.name as group_name', 'customer_class_tax.name as customer_class_tax_name');
+            ->join('crm_group', 'market_group_customer_class_tax.group_id', '=', 'crm_group.id')
+            ->join('market_customer_class_tax', 'market_group_customer_class_tax.customer_class_tax_id', '=', 'market_customer_class_tax.id')
+            ->select('crm_group.*', 'market_customer_class_tax.*', 'market_group_customer_class_tax.*', 'crm_group.name as group_name', 'market_customer_class_tax.name as customer_class_tax_name');
     }
 
     public function group()

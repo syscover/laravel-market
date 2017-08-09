@@ -23,15 +23,15 @@ class OrderRow extends CoreModel
 
     public function scopeBuilder($query, $lang = null)
     {
-        return $query->leftJoin('product', 'order_row.product_id', '=', 'product.id')
+        return $query->leftJoin('market_product', 'order_row.product_id', '=', 'market_product.id')
             ->leftJoin('product_lang', function($join) use ($lang) {
-                $join->on('product.id', '=', 'product_lang.id');
+                $join->on('market_product.id', '=', 'market_product_lang.id');
                 if($lang !== null)
-                    $join->where('product_lang.lang_id', '=', $lang);
+                    $join->where('market_product_lang.lang_id', '=', $lang);
                 else
                     // always need filter by lang, because order form,
                     // need filter your order rows by lang without pass lang variable
-                    $join->where('product_lang.lang_id', '=', base_lang());
+                    $join->where('market_product_lang.lang_id', '=', base_lang());
             });
     }
 

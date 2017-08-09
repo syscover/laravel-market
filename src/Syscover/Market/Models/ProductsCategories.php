@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Validator;
 
 class ProductsCategories extends CoreModel
 {
-	protected $table        = 'products_categories';
+	protected $table        = 'market_products_categories';
     protected $primaryKey   = 'product_id';
     protected $fillable     = ['product_id', 'category_id'];
     public $timestamps      = false;
@@ -24,14 +24,14 @@ class ProductsCategories extends CoreModel
 
     public function scopeBuilder($query, $lang = null)
     {
-        return $query->join('product', 'products_categories.product_id', '=', 'product.id')
-            ->leftJoin('product_lang', function($join) use ($lang) {
-                $join->on('product.id', '=', 'product_lang.id');
-                if($lang !== null)  $join->where('product_lang.lang_id', '=', $lang);
+        return $query->join('market_product', 'market_products_categories.product_id', '=', 'market_product.id')
+            ->leftJoin('market_product_lang', function($join) use ($lang) {
+                $join->on('market_product.id', '=', 'market_product_lang.id');
+                if($lang !== null)  $join->where('market_product_lang.lang_id', '=', $lang);
             })
-            ->join('category', function($join) use ($lang) {
-                $join->on('products_categories.category_id', '=', 'category.id');
-                if($lang !== null)  $join->where('category.lang_id', '=', $lang);
+            ->join('market_category', function($join) use ($lang) {
+                $join->on('market_products_categories.category_id', '=', 'market_category.id');
+                if($lang !== null)  $join->where('market_category.lang_id', '=', $lang);
             });
     }
 }

@@ -12,9 +12,9 @@ class MarketCreateTableCustomerClassTax extends Migration {
      */
     public function up()
     {
-        if (! Schema::hasTable('customer_class_tax'))
+        if (! Schema::hasTable('market_customer_class_tax'))
         {
-            Schema::create('customer_class_tax', function (Blueprint $table) {
+            Schema::create('market_customer_class_tax', function (Blueprint $table) {
                 $table->engine = 'InnoDB';
                 
                 $table->increments('id')->unsigned();
@@ -33,6 +33,6 @@ class MarketCreateTableCustomerClassTax extends Migration {
      */
     public function down()
     {
-        Schema::dropIfExists('customer_class_tax');
+        Schema::dropIfExists('market_customer_class_tax');
     }
 }

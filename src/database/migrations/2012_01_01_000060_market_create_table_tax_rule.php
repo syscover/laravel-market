@@ -12,9 +12,9 @@ class MarketCreateTableTaxRule extends Migration {
 	 */
 	public function up()
 	{
-		if(! Schema::hasTable('tax_rule'))
+		if(! Schema::hasTable('market_tax_rule'))
 		{
-			Schema::create('tax_rule', function (Blueprint $table) {
+			Schema::create('market_tax_rule', function (Blueprint $table) {
 				$table->engine = 'InnoDB';
 
 				$table->increments('id')->unsigned();
@@ -40,6 +40,6 @@ class MarketCreateTableTaxRule extends Migration {
 	 */
 	public function down()
 	{
-        Schema::dropIfExists('tax_rule');
+        Schema::dropIfExists('market_tax_rule');
 	}
 }

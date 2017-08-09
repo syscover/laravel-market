@@ -12,9 +12,9 @@ class MarketCreateTableOrderStatus extends Migration
 	 */
 	public function up()
 	{
-		if (! Schema::hasTable('order_status'))
+		if (! Schema::hasTable('market_order_status'))
 		{
-			Schema::create('order_status', function (Blueprint $table) {
+			Schema::create('market_order_status', function (Blueprint $table) {
 				$table->engine = 'InnoDB';
 
 				$table->integer('id')->unsigned();
@@ -26,13 +26,13 @@ class MarketCreateTableOrderStatus extends Migration
                 $table->timestamps();
                 $table->softDeletes();
 				
-				$table->foreign('lang_id', 'fk01_order_status')
+				$table->foreign('lang_id', 'fk01_market_order_status')
 					->references('id')
-					->on('lang')
+					->on('admin_lang')
 					->onDelete('restrict')
 					->onUpdate('cascade');
 
-				$table->primary(['id', 'lang_id'], 'pk01_order_status');
+				$table->primary(['id', 'lang_id'], 'pk01_market_order_status');
 			});
 		}
 	}
@@ -44,6 +44,6 @@ class MarketCreateTableOrderStatus extends Migration
 	 */
 	public function down()
 	{
-		Schema::dropIfExists('order_status');
+		Schema::dropIfExists('market_order_status');
 	}
 }

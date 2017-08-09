@@ -18,7 +18,7 @@ class Product extends CoreModel
     use CustomizableFields;
     use Translatable;
 
-	protected $table        = 'product';
+	protected $table        = 'market_product';
 	protected $fillable     = ['id', 'code', 'field_group_id', 'product_type_id', 'parent_product_id', 'weight', 'active', 'sort', 'price_type_id', 'subtotal', 'product_class_tax_id', 'data_lang', 'data'];
     public $timestamps      = false;
     protected $casts        = [
@@ -28,11 +28,11 @@ class Product extends CoreModel
     ];
     public $with = [
         'lang',
-        'attachments',
         'fieldGroup',
+        'categories',
         'products'
     ];
-    public $lazyRelations       = ['categories'];
+    public $lazyRelations       = ['attachments'];
 
     private static $rules       = [
         'price_type_id'         => 'required',
@@ -58,19 +58,18 @@ class Product extends CoreModel
     public function products()
     {
         return $this->hasMany(Product::class, 'parent_product_id', 'id');
-            //->where('product_lang.lang_id', $this->lang_id);
+            //->where('market_product_lang.lang_id', $this->lang_id);
     }
 
     public function categories()
     {
-        return $this->belongsToMany(Category::class, 'products_categories', 'product_id', 'category_id')
-            ->where('category.lang_id', $this->lang_id);
+        return $this->belongsToMany(Category::class, 'market_products_categories', 'product_id', 'category_id');
     }
 
     public function attachments()
     {
         return $this->morphMany(Attachment::class, 'object')
-            ->where('attachment.lang_id', $this->lang_id)
+            ->where('admin_attachment.lang_id', $this->lang_id)
             ->orderBy('sort', 'asc');
     }
 
@@ -194,7 +193,7 @@ class Product extends CoreModel
             $sessionTaxRules = session('pulsar.market.taxRules');
 
             $sessionTaxRules->transform(function ($taxRule, $key) {
-                if($taxRule->product_class_taxes->where('id', $this->product_class_tax_id)->count() > 0)
+                if($taxRule->product_class_axes->where('id', $this->product_class_tax_id)->count() > 0)
                     return $taxRule;
             });
 

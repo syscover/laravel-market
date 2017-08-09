@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Validator;
 
 class CustomerClassTax extends CoreModel
 {
-	protected $table        = 'customer_class_tax';
+	protected $table        = 'market_customer_class_tax';
     protected $fillable     = ['id', 'name'];
     public $timestamps      = false;
 

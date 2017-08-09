@@ -12,9 +12,9 @@ class MarketCreateTableCategory extends Migration
 	 */
 	public function up()
 	{
-		if (! Schema::hasTable('category'))
+		if (! Schema::hasTable('market_category'))
 		{
-			Schema::create('category', function (Blueprint $table) {
+			Schema::create('market_category', function (Blueprint $table) {
 				$table->engine = 'InnoDB';
 				
 				$table->integer('id')->unsigned();
@@ -30,13 +30,13 @@ class MarketCreateTableCategory extends Migration
                 $table->timestamps();
                 $table->softDeletes();
 				
-				$table->foreign('lang_id', 'fk01_category')
+				$table->foreign('lang_id', 'fk01_market_category')
 					->references('id')
 					->on('lang')
 					->onDelete('restrict')
 					->onUpdate('cascade');
 
-				$table->primary(['id', 'lang_id'], 'pk01_category');
+				$table->primary(['id', 'lang_id'], 'pk01_market_category');
 			});
 		}
 	}
@@ -48,6 +48,6 @@ class MarketCreateTableCategory extends Migration
 	 */
 	public function down()
 	{
-	    Schema::dropIfExists('category');
+	    Schema::dropIfExists('market_category');
 	}
 }

@@ -13,7 +13,7 @@ class OrderStatus extends CoreModel
 {
     use Translatable;
 
-	protected $table        = 'order_status';
+	protected $table        = 'market_order_status';
     protected $fillable     = ['id', 'lang_id', 'name', 'active', 'data_lang'];
     public $timestamps      = false;
     protected $casts        = [

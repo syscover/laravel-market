@@ -12,15 +12,15 @@ class MarketCreateTableProductsCategories extends Migration {
 	 */
 	public function up()
 	{
-		if (! Schema::hasTable('products_categories')) 
+		if (! Schema::hasTable('market_products_categories'))
 		{
-			Schema::create('products_categories', function (Blueprint $table) {
+			Schema::create('market_products_categories', function (Blueprint $table) {
 				$table->engine = 'InnoDB';
 				
 				$table->integer('product_id')->unsigned();
 				$table->integer('category_id')->unsigned();
 
-				$table->primary(['product_id', 'category_id'], 'pk01_products_categories');
+				$table->primary(['product_id', 'category_id'], 'pk01_market_products_categories');
 			});
 		}
 	}
@@ -32,6 +32,6 @@ class MarketCreateTableProductsCategories extends Migration {
 	 */
 	public function down()
 	{
-		Schema::dropIfExists('products_categories');
+		Schema::dropIfExists('market_products_categories');
 	}
 }

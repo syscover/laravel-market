@@ -71,13 +71,13 @@ class ProductController extends CoreController
         ]);
 
         // update data_lang after create ProductLang because yu
-        Product::where('product.id', $id)->update([
+        Product::where('market_product.id', $id)->update([
             'data_lang' => json_encode(Product::addLangDataRecord($request->input('lang_id'), $id))
         ]);
 
         $object = Product::builder()
-            ->where('product.id', $id)
-            ->where('product_lang.lang_id', $request->input('lang_id'))
+            ->where('market_product.id', $id)
+            ->where('market_product_lang.lang_id', $request->input('lang_id'))
             ->first();
 
         // set categories
@@ -110,7 +110,7 @@ class ProductController extends CoreController
     public function update(Request $request, $id, $lang)
     {
         // update product
-        Product::where('product.id', $id)->update([
+        Product::where('market_product.id', $id)->update([
             'code'                  => $request->input('code'),
             'field_group_id'        => $request->input('field_group_id'),
             'product_type_id'       => $request->input('product_type_id'),
@@ -135,8 +135,8 @@ class ProductController extends CoreController
         }
 
         // update product lang
-        ProductLang::where('product_lang.id', $id)
-            ->where('product_lang.lang_id', $lang)
+        ProductLang::where('market_product_lang.id', $id)
+            ->where('market_product_lang.lang_id', $lang)
             ->update([
                 'name'          => $request->input('name'),
                 'slug'          => $request->input('slug'),
@@ -145,8 +145,8 @@ class ProductController extends CoreController
             ]);
 
         $object = Product::builder()
-            ->where('product.id', $id)
-            ->where('product_lang.lang_id', $lang)
+            ->where('market_product.id', $id)
+            ->where('market_product_lang.lang_id', $lang)
             ->first();
 
         // categories
@@ -174,8 +174,8 @@ class ProductController extends CoreController
                 ]);
 
             $object = Product::builder()
-                ->where('product.id', $id)
-                ->where('product_lang.lang_id', $lang)
+                ->where('market_product.id', $id)
+                ->where('market_product_lang.lang_id', $lang)
                 ->first();
         }
 

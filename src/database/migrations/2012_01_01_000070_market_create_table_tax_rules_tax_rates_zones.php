@@ -12,15 +12,15 @@ class MarketCreateTableTaxRulesTaxRatesZones extends Migration {
 	 */
 	public function up()
 	{
-		if(! Schema::hasTable('tax_rules_tax_rates_zones'))
+		if(! Schema::hasTable('market_tax_rules_tax_rates_zones'))
 		{
-			Schema::create('tax_rules_tax_rates_zones', function (Blueprint $table) {
+			Schema::create('market_tax_rules_tax_rates_zones', function (Blueprint $table) {
 				$table->engine = 'InnoDB';
 
 				$table->integer('tax_rule_id')->unsigned();
 				$table->integer('tax_rate_zone_id')->unsigned();
 
-				$table->primary(['tax_rule_id', 'tax_rate_zone_id'], 'pk01_tax_rules_tax_rates_zones');
+				$table->primary(['tax_rule_id', 'tax_rate_zone_id'], 'pk01_market_tax_rules_tax_rates_zones');
 			});
 		}
 	}
@@ -32,6 +32,6 @@ class MarketCreateTableTaxRulesTaxRatesZones extends Migration {
 	 */
 	public function down()
 	{
-        Schema::dropIfExists('tax_rules_tax_rates_zones');
+        Schema::dropIfExists('market_tax_rules_tax_rates_zones');
 	}
 }

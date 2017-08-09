@@ -13,7 +13,7 @@ class Category extends CoreModel
 {
     use Translatable;
 
-	protected $table        = 'category';
+	protected $table        = 'market_category';
     protected $fillable     = ['id', 'lang_id', 'parent_id', 'name', 'slug', 'active', 'description', 'data_lang', 'data'];
     public $timestamps      = false;
     protected $casts        = [

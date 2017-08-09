@@ -36,6 +36,10 @@ class ProductInput extends GraphQLType {
                 'type' => Type::string(),
                 'description' => 'bar code'
             ],
+            'categories_id' => [
+                'type' => Type::listOf(Type::int()),
+                'description' => 'Id of categories of product'
+            ],
             'field_group_id' => [
                 'type' => Type::int(),
                 'description' => 'Id of field group'
@@ -63,6 +67,10 @@ class ProductInput extends GraphQLType {
             'price_type_id' => [
                 'type' => Type::nonNull(Type::int()),
                 'description' => 'Id of parent product'
+            ],
+            'price' => [
+                'type' => Type::float(),
+                'description' => 'price of product'
             ],
             'subtotal' => [
                 'type' => Type::float(),

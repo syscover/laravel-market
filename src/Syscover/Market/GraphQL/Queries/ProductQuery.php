@@ -32,7 +32,9 @@ class ProductQuery extends Query
     public function resolve($root, $args)
     {
         $query = SQLService::getQueryFiltered(Product::builder(), $args['sql']);
+        $object = $query->first();
+        $object->load('attachments');
 
-        return $query->first();
+        return $object;
     }
 }

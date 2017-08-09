@@ -12,9 +12,9 @@ class MarketCreateTablePaymentMethod extends Migration
 	 */
 	public function up()
 	{
-		if (! Schema::hasTable('payment_method'))
+		if (! Schema::hasTable('market_payment_method'))
 		{
-			Schema::create('payment_method', function (Blueprint $table) {
+			Schema::create('market_payment_method', function (Blueprint $table) {
 				$table->engine = 'InnoDB';
 
 				$table->integer('id')->unsigned();
@@ -33,14 +33,14 @@ class MarketCreateTablePaymentMethod extends Migration
                 $table->timestamps();
                 $table->softDeletes();
 				
-				$table->foreign('lang_id', 'fk01_payment_method')
+				$table->foreign('lang_id', 'fk01_market_payment_method')
 					->references('id')
-					->on('lang')
+					->on('admin_lang')
 					->onDelete('restrict')
 					->onUpdate('cascade');
-				$table->foreign('order_status_successful_id', 'fk02_payment_method')
+				$table->foreign('order_status_successful_id', 'fk02_market_payment_method')
 					->references('id')
-					->on('order_status')
+					->on('market_order_status')
 					->onDelete('restrict')
 					->onUpdate('cascade');
 
@@ -56,6 +56,6 @@ class MarketCreateTablePaymentMethod extends Migration
 	 */
 	public function down()
 	{
-		Schema::dropIfExists('payment_method');
+		Schema::dropIfExists('market_payment_method');
 	}
 }

@@ -12,9 +12,9 @@ class MarketCreateTableTaxRateZone extends Migration {
 	 */
 	public function up()
 	{
-		if(! Schema::hasTable('tax_rate_zone'))
+		if(! Schema::hasTable('market_tax_rate_zone'))
 		{
-			Schema::create('tax_rate_zone', function (Blueprint $table) {
+			Schema::create('market_tax_rate_zone', function (Blueprint $table) {
 				$table->engine = 'InnoDB';
 
 				$table->increments('id')->unsigned();
@@ -29,24 +29,24 @@ class MarketCreateTableTaxRateZone extends Migration {
                 $table->timestamps();
                 $table->softDeletes();
 
-				$table->foreign('country_id', 'fk01_tax_rate_zone')
+				$table->foreign('country_id', 'fk01_market_tax_rate_zone')
 					->references('id')
-					->on('country')
+					->on('admin_country')
 					->onDelete('restrict')
 					->onUpdate('cascade');
-				$table->foreign('territorial_area_1_id', 'fk02_tax_rate_zone')
+				$table->foreign('territorial_area_1_id', 'fk02_market_tax_rate_zone')
 					->references('id')
-					->on('territorial_area_1')
+					->on('admin_territorial_area_1')
 					->onDelete('restrict')
 					->onUpdate('cascade');
-				$table->foreign('territorial_area_2_id', 'fk03_tax_rate_zone')
+				$table->foreign('territorial_area_2_id', 'fk03_market_tax_rate_zone')
 					->references('id')
-					->on('territorial_area_2')
+					->on('admin_territorial_area_2')
 					->onDelete('restrict')
 					->onUpdate('cascade');
-				$table->foreign('territorial_area_3_id', 'fk04_tax_rate_zone')
+				$table->foreign('territorial_area_3_id', 'fk04_market_tax_rate_zone')
 					->references('id')
-					->on('territorial_area_3')
+					->on('admin_territorial_area_3')
 					->onDelete('restrict')
 					->onUpdate('cascade');
 			});
@@ -60,6 +60,6 @@ class MarketCreateTableTaxRateZone extends Migration {
 	 */
 	public function down()
 	{
-        Schema::dropIfExists('tax_rate_zone');
+        Schema::dropIfExists('market_tax_rate_zone');
 	}
 }

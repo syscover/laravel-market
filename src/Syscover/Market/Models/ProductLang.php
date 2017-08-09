@@ -13,7 +13,7 @@ class ProductLang extends CoreModel
 {
     use Translatable;
 
-	protected $table        = 'product_lang';
+	protected $table        = 'market_product_lang';
     public $timestamps      = false;
     protected $casts        = [
         'data' => 'array'

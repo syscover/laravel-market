@@ -35,6 +35,10 @@ class ProductType extends GraphQLType {
                 'type' => Type::string(),
                 'description' => 'bar code'
             ],
+            'categories' => [
+                'type' => Type::listOf(GraphQL::type('MarketCategory')),
+                'description' => 'Categories of product'
+            ],
             'field_group_id' => [
                 'type' => Type::int(),
                 'description' => 'Id of field group'
@@ -88,5 +92,10 @@ class ProductType extends GraphQLType {
                 'description' => 'List of attachments that has this article'
             ]
         ];
+    }
+
+    public function resolveCategoriesField($object, $args)
+    {
+        return $object->categories->where('lang_id', $object->lang_id);
     }
 }

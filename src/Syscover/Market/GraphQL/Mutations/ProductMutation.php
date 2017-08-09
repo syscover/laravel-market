@@ -5,6 +5,7 @@ use GraphQL\Type\Definition\Type;
 use Folklore\GraphQL\Support\Mutation;
 use Syscover\Admin\Services\AttachmentService;
 use Syscover\Core\Services\SQLService;
+use Syscover\Market\Models\ProductLang;
 use Syscover\Market\Models\Tag;
 use Syscover\Market\Models\Product;
 
@@ -50,14 +51,14 @@ class AddProductMutation extends ProductMutation
         ProductLang::create($args['object']);
 
         // update data_lang after create ProductLang because yu
-        Product::where('product.id', $args['object']['lang_id'])->update([
+        Product::where('market_product.id', $args['object']['lang_id'])->update([
             'data_lang' => json_encode(Product::addLangDataRecord($args['object']['lang_id'], $args['object']['id']))
         ]);
 
         // get object with builder, to get every relations
         $object = Product::builder()
-            ->where('product.id', $args['object']['id'])
-            ->where('product_lang.lang_id', $args['object']['lang_id'])
+            ->where('market_product.id', $args['object']['id'])
+            ->where('market_product_lang.lang_id', $args['object']['lang_id'])
             ->first();
 
         // set categories
@@ -87,7 +88,7 @@ class UpdateProductMutation extends ProductMutation
     public function resolve($root, $args)
     {
         // update product
-        Product::where('id', $args['object']['id'])->update([
+        Product::where('market_product.id', $args['object']['id'])->update([
             'code'                  => $args['object']['code'],
             'field_group_id'        => $args['object']['field_group_id'],
             'product_type_id'       => $args['object']['product_type_id'],
@@ -105,8 +106,8 @@ class UpdateProductMutation extends ProductMutation
         if(isset($args['object']['field_group_id'])) $data['customFields'] = $args['object']['customFields'];
 
         // update product lang
-        ProductLang::where('product_lang.id', $args['object']['id'])
-            ->where('product_lang.lang_id', $args['object']['lang_id'])
+        ProductLang::where('market_product_lang.id', $args['object']['id'])
+            ->where('market_product_lang.lang_id', $args['object']['lang_id'])
             ->update([
                 'name'          => $args['object']['name'],
                 'slug'          => $args['object']['slug'],
@@ -115,8 +116,8 @@ class UpdateProductMutation extends ProductMutation
             ]);
 
         $object = Product::builder()
-            ->where('product.id', $args['object']['id'])
-            ->where('product_lang.lang_id', $args['object']['lang_id'])
+            ->where('market_product.id', $args['object']['id'])
+            ->where('market_product_lang.lang_id', $args['object']['lang_id'])
             ->first();
 
         // set categories

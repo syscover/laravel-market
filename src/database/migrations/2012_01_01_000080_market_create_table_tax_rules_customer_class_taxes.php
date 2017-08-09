@@ -12,15 +12,15 @@ class MarketCreateTableTaxRulesCustomerClassTaxes extends Migration {
 	 */
 	public function up()
 	{
-		if(! Schema::hasTable('tax_rules_customer_class_taxes'))
+		if(! Schema::hasTable('market_tax_rules_customer_class_taxes'))
 		{
-			Schema::create('tax_rules_customer_class_taxes', function (Blueprint $table) {
+			Schema::create('market_tax_rules_customer_class_taxes', function (Blueprint $table) {
 				$table->engine = 'InnoDB';
 
 				$table->integer('tax_rule_id')->unsigned();
 				$table->integer('customer_class_tax_id')->unsigned();
 
-				$table->primary(['tax_rule_id', 'customer_class_tax_id'], 'pk01_tax_rules_customer_class_taxes');
+				$table->primary(['tax_rule_id', 'customer_class_tax_id'], 'pk01_market_tax_rules_customer_class_taxes');
 			});
 		}
 	}
@@ -32,6 +32,6 @@ class MarketCreateTableTaxRulesCustomerClassTaxes extends Migration {
 	 */
 	public function down()
 	{
-        Schema::dropIfExists('tax_rules_customer_class_taxes');
+        Schema::dropIfExists('market_tax_rules_customer_class_taxes');
 	}
 }

@@ -12,9 +12,9 @@ class MarketCreateTableProduct extends Migration
 	 */
 	public function up()
 	{
-		if (! Schema::hasTable('product'))
+		if (! Schema::hasTable('market_product'))
 		{
-			Schema::create('product', function (Blueprint $table) {
+			Schema::create('market_product', function (Blueprint $table) {
 				$table->engine = 'InnoDB';
 
 				$table->increments('id')->unsigned();
@@ -46,14 +46,14 @@ class MarketCreateTableProduct extends Migration
 				$table->json('data')->nullable();
 
                 $table->index(['code'], 'ix01_product');
-				$table->foreign('field_group_id', 'fk01_product')
+				$table->foreign('field_group_id', 'fk01_market_product')
 					->references('id')
-					->on('field_group')
+					->on('admin_field_group')
 					->onDelete('restrict')
 					->onUpdate('cascade');
-				$table->foreign('product_class_tax_id', 'fk02_product')
+				$table->foreign('product_class_tax_id', 'fk02_market_product')
 					->references('id')
-					->on('product_class_tax')
+					->on('market_product_class_tax')
 					->onDelete('restrict')
 					->onUpdate('cascade');
 			});
@@ -67,6 +67,6 @@ class MarketCreateTableProduct extends Migration
 	 */
 	public function down()
 	{
-        Schema::dropIfExists('product');
+        Schema::dropIfExists('market_product');
 	}
 }
