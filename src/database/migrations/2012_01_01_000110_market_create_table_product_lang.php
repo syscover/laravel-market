@@ -29,12 +29,12 @@ class MarketCreateTableProductLang extends Migration
 				
 				$table->foreign('id', 'fk01_market_product_lang')
 					->references('id')
-					->on('product')
+					->on('market_product')
 					->onDelete('cascade')
 					->onUpdate('cascade');
 				$table->foreign('lang_id', 'fk02_market_product_lang')
 					->references('id')
-					->on('lang')
+					->on('admin_lang')
 					->onDelete('restrict')
 					->onUpdate('cascade');
 				

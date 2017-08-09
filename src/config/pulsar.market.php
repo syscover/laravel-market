@@ -30,16 +30,16 @@ return [
     //******************************************************************************************************************
 
     // Tax default values
-    'taxCountryDefault'             => env('TAX_COUNTRY_DEFAULT', 'ES'),        // default country tax to calculate prices
-    'taxCustomerClassDefault'       => env('TAX_CUSTOMER_CLASS_DEFAULT', 1),    // default customer tax class to calculate tax
+    'defaultTaxCountry'             => env('DEFAULT_COUNTRY_TAX', 'ES'),        // default country tax to calculate prices
+    'defaultClassCustomerTax'       => env('DEFAULT_CLASS_CUSTOMER_TAX', 1),    // default customer tax class to calculate tax
 
     // Type prices for products
     'productPricesValues'           => [
         (object)['id' => 1,      'name' => 'market::pulsar.excluding_tax'],
         (object)['id' => 2,      'name' => 'market::pulsar.including_tax']
     ],
-    'taxProductPrices'              => env('TAX_PRODUCT_PRICES', 1),            // Product prices type
-    'taxProductDisplayPrices'       => env('TAX_PRODUCT_DISPLAY_PRICES', 1),    // How to display product prices
+    'productTaxPrices'              => env('PRODUCT_TAX_PRICES', 1),            // Product prices type
+    'productTaxDisplayPrices'       => env('PRODUCT_TAX_DISPLAY_PRICES', 1),    // How to display product prices
 
     // Type prices for shipping
     'shippingPricesValues'          => [

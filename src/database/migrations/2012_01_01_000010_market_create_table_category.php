@@ -32,7 +32,7 @@ class MarketCreateTableCategory extends Migration
 				
 				$table->foreign('lang_id', 'fk01_market_category')
 					->references('id')
-					->on('lang')
+					->on('admin_lang')
 					->onDelete('restrict')
 					->onUpdate('cascade');
 

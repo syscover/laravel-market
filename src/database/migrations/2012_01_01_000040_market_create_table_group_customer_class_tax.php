@@ -22,12 +22,12 @@ class MarketCreateTableGroupCustomerClassTax extends Migration {
 				
 				$table->foreign('group_id', 'fk01_market_group_customer_class_tax')
 					->references('id')
-					->on('group')
+					->on('crm_group')
 					->onDelete('cascade')
 					->onUpdate('cascade');
 				$table->foreign('customer_class_tax_id', 'fk02_market_group_customer_class_tax')
 					->references('id')
-					->on('customer_class_tax')
+					->on('market_customer_class_tax')
 					->onDelete('cascade')
 					->onUpdate('cascade');
 

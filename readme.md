@@ -16,7 +16,7 @@ Syscover\Market\MarketServiceProvider::class,
 
 **3 - Execute publish command**
 ```
-php artisan vendor:publish
+php artisan vendor:publish --provider="Syscover\Market\MarketServiceProvider"
 ```
 
 **4 - Execute optimize command load new classes**
@@ -62,14 +62,14 @@ ORDER_ID_PREFIX=ORDER
 To set default country to calculate tax, you can use this parameter, for example to change to US, set this value on you .env file
 
 ```
-TAX_COUNTRY_DEFAULT=US
+DEFAULT_COUNTRY_TAX=US
 ```
 
 ### Default customer class tax [default value 1]
 Set default ID customer class value for calculate tax amount of products
 
 ```
-TAX_CUSTOMER_CLASS_DEFAULT=1
+DEFAULT_CLASS_CUSTOMER_TAX=1
 ```
 
 ### Set product price tax [default value 1]
@@ -79,7 +79,7 @@ You have this values:
 * Value: 2 *Including tax*
 
 ```
-TAX_PRODUCT_PRICES=1
+PRODUCT_TAX_PRICES=1
 ```
 
 ### Set shipping price tax [default value 1]
@@ -98,7 +98,7 @@ You have this values:
 * Value: 2 *Including tax*
 
 ```
-TAX_PRODUCT_DISPLAY_PRICES=1
+PRODUCT_TAX_DISPLAY_PRICES=1
 ```
 
 ### Set shipping display price tax [default value 1]

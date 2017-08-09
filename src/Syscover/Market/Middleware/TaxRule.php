@@ -21,13 +21,13 @@ class TaxRule
             if(! empty($customer->country_id))
             {
                 // set country tax rule
-                config(['pulsar.market.taxCountryDefault' => $customer->country_id]);
+                config(['pulsar.market.defaultTaxCountry' => $customer->country_id]);
             }
 
             if($customer->class_tax != null)
             {
                 // set group customer
-                config(['pulsar.market.taxCustomerClassDefault' => $customer->class_tax]);
+                config(['pulsar.market.defaultClassCustomerTax' => $customer->class_tax]);
             }
         }
 
@@ -35,8 +35,8 @@ class TaxRule
         if(session('pulsar.market.taxRules') === null)
         {
             $taxRules = TaxRuleModel::builder()
-                ->where('country_id', config('pulsar.market.taxCountryDefault'))
-                ->where('customer_class_tax_id', config('pulsar.market.taxCustomerClassDefault'))
+                ->where('country_id', config('pulsar.market.defaultTaxCountry'))
+                ->where('customer_class_tax_id', config('pulsar.market.defaultClassCustomerTax'))
                 ->orderBy('priority', 'asc')
                 ->get();
 
