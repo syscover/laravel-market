@@ -5,6 +5,7 @@ use GraphQL\Type\Definition\Type;
 use Folklore\GraphQL\Support\Mutation;
 use Syscover\Core\Services\SQLService;
 use Syscover\Market\Models\Category;
+use Syscover\Market\Services\CategoryService;
 
 class CategoryMutation extends Mutation
 {
@@ -33,17 +34,7 @@ class AddCategoryMutation extends CategoryMutation
 
     public function resolve($root, $args)
     {
-        if(! isset($args['object']['id']))
-        {
-            $id = Category::max('id');
-            $id++;
-
-            $args['object']['id'] = $id;
-        }
-
-        $args['object']['data_lang'] = Category::addLangDataRecord($args['object']['lang_id'], $args['object']['id']);
-
-        return Category::create($args['object']);
+        return CategoryService::create($args['object']);
     }
 }
 
@@ -56,11 +47,7 @@ class UpdateCategoryMutation extends CategoryMutation
 
     public function resolve($root, $args)
     {
-        Category::where('id', $args['object']['id'])
-            ->where('lang_id', $args['object']['lang_id'])
-            ->update($args['object']);
-
-        return Category::find($args['object']['id']);
+        return CategoryService::update($args['object'], $args['object']['id'], $args['object']['lang_id']);
     }
 }
 
