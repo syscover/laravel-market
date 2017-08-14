@@ -91,8 +91,8 @@ class UpdateProductMutation extends ProductMutation
         Product::where('market_product.id', $args['object']['id'])->update([
             'code'                  => $args['object']['code'],
             'field_group_id'        => $args['object']['field_group_id'],
-            'product_type_id'       => $args['object']['product_type_id'],
-            'parent_product_id'     => $args['object']['parent_product_id'],
+            'type_id'               => $args['object']['type_id'],
+            'parent_id'             => $args['object']['parent_id'],
             'weight'                => $args['object']['weight'],
             'active'                => $args['object']['active'],
             'sort'                  => $args['object']['sort'],

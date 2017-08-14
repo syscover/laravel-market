@@ -19,7 +19,7 @@ class Product extends CoreModel
     use Translatable;
 
 	protected $table        = 'market_product';
-	protected $fillable     = ['id', 'code', 'field_group_id', 'product_type_id', 'parent_product_id', 'weight', 'active', 'sort', 'price_type_id', 'subtotal', 'product_class_tax_id', 'data_lang', 'data'];
+	protected $fillable     = ['id', 'code', 'field_group_id', 'type_id', 'parent_id', 'weight', 'active', 'sort', 'price_type_id', 'subtotal', 'product_class_tax_id', 'data_lang', 'data'];
     public $timestamps      = false;
     protected $casts        = [
         'active'    => 'boolean',
@@ -36,7 +36,7 @@ class Product extends CoreModel
 
     private static $rules       = [
         'price_type_id'         => 'required',
-        'product_type_id'       => 'required',
+        'type_id'               => 'required',
     ];
 
     public static function validate($data)
@@ -57,7 +57,7 @@ class Product extends CoreModel
 
     public function products()
     {
-        return $this->hasMany(Product::class, 'parent_product_id', 'id');
+        return $this->hasMany(Product::class, 'parent_id', 'id');
             //->where('market_product_lang.lang_id', $this->lang_id);
     }
 

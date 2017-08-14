@@ -24,10 +24,10 @@ class MarketCreateTableProduct extends Migration
 				// 1 - downloaded
 				// 2 - transportable
 				// 3 - downloaded and transportable
-				$table->tinyInteger('product_type_id')->unsigned();
+				$table->tinyInteger('type_id')->unsigned();
 
 				// set parent product and config like subproduct
-				$table->integer('parent_product_id')->unsigned()->nullable();
+				$table->integer('parent_id')->unsigned()->nullable();
 
 				$table->decimal('weight', 11, 3)->default(0);
 				$table->boolean('active')->default(false);

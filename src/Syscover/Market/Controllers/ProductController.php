@@ -31,8 +31,8 @@ class ProductController extends CoreController
             $object = Product::create([
                 'code'                  => $request->input('code'),
                 'field_group_id'        => $request->input('field_group_id'),
-                'product_type_id'       => $request->input('product_type_id'),
-                'parent_product_id'     => $request->input('parent_product_id'),
+                'type_id'               => $request->input('type_id'),
+                'parent_id'     => $request->input('parent_id'),
                 'weight'                => $request->input('weight'),
                 'active'                => $request->input('active'),
                 'sort'                  => $request->input('sort'),
@@ -113,8 +113,8 @@ class ProductController extends CoreController
         Product::where('market_product.id', $id)->update([
             'code'                  => $request->input('code'),
             'field_group_id'        => $request->input('field_group_id'),
-            'product_type_id'       => $request->input('product_type_id'),
-            'parent_product_id'     => $request->input('parent_product_id'),
+            'type_id'               => $request->input('type_id'),
+            'parent_id'             => $request->input('parent_id'),
             'weight'                => $request->input('weight'),
             'active'                => $request->input('active'),
             'sort'                  => $request->input('sort'),

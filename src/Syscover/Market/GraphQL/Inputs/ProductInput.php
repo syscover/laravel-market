@@ -44,11 +44,11 @@ class ProductInput extends GraphQLType {
                 'type' => Type::int(),
                 'description' => 'Id of field group'
             ],
-            'product_type_id' => [
+            'type_id' => [
                 'type' => Type::nonNull(Type::int()),
                 'description' => 'Id of product type'
             ],
-            'parent_product_id' => [
+            'parent_id' => [
                 'type' => Type::int(),
                 'description' => 'Id of parent product'
             ],
