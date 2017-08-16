@@ -12,7 +12,7 @@ class CategoryService
      */
     public static function create($object)
     {
-        if(! isset($object['id']))
+        if(empty($object['id']))
         {
             $id = Category::max('id');
             $id++;
