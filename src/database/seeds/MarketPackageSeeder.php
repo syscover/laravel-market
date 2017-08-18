@@ -8,7 +8,7 @@ class MarketPackageSeeder extends Seeder
     public function run()
     {
         Package::insert([
-            ['id' => '12', 'name' => 'Market Package', 'root' => 'market', 'sort' => 12, 'active' => false]
+            ['id' => 150, 'name' => 'Market Package', 'root' => 'market', 'sort' => 150, 'active' => true]
         ]);
     }
 }
