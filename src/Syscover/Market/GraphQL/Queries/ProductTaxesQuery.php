@@ -24,11 +24,17 @@ class ProductTaxesQuery extends Query
         return [
             'price' => [
                 'name'          => 'price',
-                'type'          => Type::float(),
+                'type'          => Type::nonNull(Type::float()),
                 'description'   => 'subtotal price'
             ],
             'productClassTax' => [
                 'name'          => 'productClassTax',
+                'type'          => Type::int(),
+                'description'   => 'Product class tax'
+            ],
+            // force to calculate price over PRICE_WITHOUT_TAX or PRICE_WITH_TAX, when show product the price always is PRICE_WITHOUT_TAX
+            'productTaxPrices' => [
+                'name'          => 'productTaxPrices',
                 'type'          => Type::int(),
                 'description'   => 'Product class tax'
             ]
@@ -40,6 +46,7 @@ class ProductTaxesQuery extends Query
         $price              = $args['price'];
         $productClassTax    = $args['productClassTax'];
 
+        // get tax rules
         $taxRules = TaxRule::builder()
             ->where('country_id', config('pulsar.market.defaultTaxCountry'))
             ->where('customer_class_tax_id', config('pulsar.market.defaultClassCustomerTax'))
@@ -47,9 +54,10 @@ class ProductTaxesQuery extends Query
             ->orderBy('priority', 'asc')
             ->get();
 
-
-
-        if((int) config('pulsar.market.productTaxPrices') == TaxRuleService::PRICE_WITHOUT_TAX)
+        if(
+            isset($args['productTaxPrices']) &&  $args['productTaxPrices'] == TaxRuleService::PRICE_WITHOUT_TAX ||
+            (int) config('pulsar.market.productTaxPrices') == TaxRuleService::PRICE_WITHOUT_TAX
+        )
         {
             $taxes      = TaxRuleService::taxCalculateOverSubtotal($price, $taxRules);
             $taxAmount  = $taxes->sum('taxAmount');
@@ -57,7 +65,10 @@ class ProductTaxesQuery extends Query
             $total      = $subtotal + $taxAmount;
 
         }
-        elseif ((int) config('pulsar.market.productTaxPrices') == TaxRuleService::PRICE_WITH_TAX)
+        elseif (
+            isset($args['productTaxPrices']) &&  $args['productTaxPrices'] == TaxRuleService::PRICE_WITH_TAX ||
+            (int) config('pulsar.market.productTaxPrices') == TaxRuleService::PRICE_WITH_TAX
+        )
         {
             $taxes      = TaxRuleService::taxCalculateOverTotal($price, $taxRules);
             $taxAmount  = $taxes->sum('taxAmount');
