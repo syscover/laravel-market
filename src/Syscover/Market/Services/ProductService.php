@@ -27,7 +27,7 @@ class ProductService
         if(isset($object['field_group_id'])) $object['data']['customFields'] = $object['customFields'];
 
         // create product lang
-        ProductLang::create($object);
+        $product = ProductLang::create($object); // overwrite product to get lang_id
 
         // update data_lang after create ProductLang
         Product::where('market_product.id', $object['lang_id'])

@@ -58,7 +58,6 @@ class Product extends CoreModel
     public function products()
     {
         return $this->hasMany(Product::class, 'parent_id', 'id');
-            //->where('market_product_lang.lang_id', $this->lang_id);
     }
 
     public function categories()
