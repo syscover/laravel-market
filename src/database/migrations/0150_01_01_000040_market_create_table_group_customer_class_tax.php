@@ -19,6 +19,9 @@ class MarketCreateTableGroupCustomerClassTax extends Migration {
 
 				$table->integer('group_id')->unsigned();
 				$table->integer('customer_class_tax_id')->unsigned();
+
+                $table->timestamps();
+                $table->softDeletes();
 				
 				$table->foreign('group_id', 'fk01_market_group_customer_class_tax')
 					->references('id')

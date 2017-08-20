@@ -15,7 +15,6 @@ class OrderStatus extends CoreModel
 
 	protected $table        = 'market_order_status';
     protected $fillable     = ['id', 'lang_id', 'name', 'active', 'data_lang'];
-    public $timestamps      = false;
     protected $casts        = [
         'active'    => 'boolean',
         'data_lang' => 'array'

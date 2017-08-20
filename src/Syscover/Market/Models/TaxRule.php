@@ -12,7 +12,6 @@ class TaxRule extends CoreModel
 {
 	protected $table        = 'market_tax_rule';
     protected $fillable     = ['id', 'name', 'translation', 'priority', 'sort'];
-    public $timestamps      = false;
     public $with            = ['tax_rate_zones', 'customer_class_taxes', 'product_class_taxes'];
 
     private static $rules   = [];

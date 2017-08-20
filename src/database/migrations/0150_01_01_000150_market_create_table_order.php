@@ -108,6 +108,9 @@ class MarketCreateTableOrder extends Migration
 				$table->string('shipping_longitude')->nullable();
 
                 $table->text('shipping_comments')->nullable();
+
+                $table->timestamps();
+                $table->softDeletes();
 				
 				// order relations
 				$table->foreign('customer_id', 'fk01_market_order')

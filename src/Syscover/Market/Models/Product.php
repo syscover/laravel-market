@@ -20,7 +20,6 @@ class Product extends CoreModel
 
 	protected $table        = 'market_product';
 	protected $fillable     = ['id', 'code', 'field_group_id', 'type_id', 'parent_id', 'weight', 'active', 'sort', 'price_type_id', 'subtotal', 'product_class_tax_id', 'data_lang', 'data'];
-    public $timestamps      = false;
     protected $casts        = [
         'active'    => 'boolean',
         'data_lang' => 'array',
@@ -47,7 +46,7 @@ class Product extends CoreModel
     protected static function boot()
     {
         parent::boot();
-        static::addGlobalScope(new TableLangScope);
+        static::addGlobalScope(new TableLangScope); // Add join with admin_table in all queries
     }
 
     public function scopeBuilder($query)

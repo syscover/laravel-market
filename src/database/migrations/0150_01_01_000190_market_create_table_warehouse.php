@@ -7,9 +7,9 @@ class MarketCreateTableWarehouse extends Migration
 {
 	public function up()
 	{
-		if (! Schema::hasTable('warehouse'))
+		if (! Schema::hasTable('market_warehouse'))
 		{
-			Schema::create('warehouse', function (Blueprint $table) {
+			Schema::create('market_warehouse', function (Blueprint $table) {
 				$table->engine = 'InnoDB';
 
 				$table->increments('id')->unsigned();
@@ -27,24 +27,27 @@ class MarketCreateTableWarehouse extends Migration
 				$table->string('longitude')->nullable();
 				$table->boolean('active');
 
-				$table->foreign('country_id', 'fk01_warehouse')
+                $table->timestamps();
+                $table->softDeletes();
+
+				$table->foreign('country_id', 'fk01_market_warehouse')
 					->references('id')
-					->on('country')
+					->on('admin_country')
 					->onDelete('restrict')
 					->onUpdate('cascade');
-				$table->foreign('territorial_area_1_id', 'fk02_warehouse')
+				$table->foreign('territorial_area_1_id', 'fk02_market_warehouse')
 					->references('id')
-					->on('territorial_area_1')
+					->on('admin_territorial_area_1')
 					->onDelete('restrict')
 					->onUpdate('cascade');
-				$table->foreign('territorial_area_2_id', 'fk03_warehouse')
+				$table->foreign('territorial_area_2_id', 'fk03_market_warehouse')
 					->references('id')
-					->on('territorial_area_2')
+					->on('admin_territorial_area_2')
 					->onDelete('restrict')
 					->onUpdate('cascade');
-				$table->foreign('territorial_area_3_id', 'fk04_warehouse')
+				$table->foreign('territorial_area_3_id', 'fk04_market_warehouse')
 					->references('id')
-					->on('territorial_area_3')
+					->on('admin_territorial_area_3')
 					->onDelete('restrict')
 					->onUpdate('cascade');
 			});
@@ -58,6 +61,6 @@ class MarketCreateTableWarehouse extends Migration
 	 */
 	public function down()
 	{
-		Schema::dropIfExists('warehouse');
+		Schema::dropIfExists('market_warehouse');
 	}
 }

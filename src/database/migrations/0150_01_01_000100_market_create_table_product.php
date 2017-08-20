@@ -45,6 +45,9 @@ class MarketCreateTableProduct extends Migration
 				$table->json('data_lang')->nullable();
 				$table->json('data')->nullable();
 
+                $table->timestamps();
+                $table->softDeletes();
+
                 $table->index(['code'], 'ix01_product');
 				$table->foreign('field_group_id', 'fk01_market_product')
 					->references('id')

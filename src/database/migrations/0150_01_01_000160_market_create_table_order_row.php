@@ -73,6 +73,9 @@ class MarketCreateTableOrderRow extends Migration
 				$table->text('gift_message')->nullable();
                 $table->text('gift_comments')->nullable();
 
+                $table->timestamps();
+                $table->softDeletes();
+
 
 				$table->foreign('lang_id', 'fk01_market_order_row')
 					->references('id')

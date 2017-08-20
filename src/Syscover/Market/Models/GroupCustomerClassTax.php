@@ -14,7 +14,6 @@ class GroupCustomerClassTax extends CoreModel
     protected $table        = 'market_group_customer_class_tax';
     protected $fillable     = ['group_id', 'customer_class_tax_id'];
     protected $primaryKey   = 'group_id';
-    public $timestamps      = false;
     public $with            = ['group', 'customer_class_tax'];
 
     private static $rules   = [

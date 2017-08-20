@@ -15,7 +15,6 @@ class Category extends CoreModel
 
 	protected $table        = 'market_category';
     protected $fillable     = ['id', 'lang_id', 'parent_id', 'name', 'slug', 'active', 'description', 'data_lang', 'data'];
-    public $timestamps      = false;
     protected $casts        = [
         'active'    => 'boolean',
         'data_lang' => 'array',
