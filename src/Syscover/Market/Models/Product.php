@@ -30,7 +30,8 @@ class Product extends CoreModel
         'lang',
         'fieldGroup',
         'categories',
-        'products'
+        'products',
+        'product'
     ];
     public $lazyRelations       = ['attachments'];
 
@@ -58,6 +59,11 @@ class Product extends CoreModel
     public function products()
     {
         return $this->hasMany(Product::class, 'parent_id', 'id');
+    }
+
+    public function product()
+    {
+        return $this->belongsTo(Product::class, 'parent_id');
     }
 
     public function categories()
