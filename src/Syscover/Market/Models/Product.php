@@ -30,8 +30,7 @@ class Product extends CoreModel
         'lang',
         'fieldGroup',
         'categories',
-        'products',
-        'product'
+        'products'
     ];
     public $lazyRelations       = ['attachments'];
 
