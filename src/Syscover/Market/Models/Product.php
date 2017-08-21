@@ -3,7 +3,6 @@
 use Illuminate\Support\Facades\Validator;
 use Syscover\Admin\Models\Attachment;
 use Syscover\Core\Models\CoreModel;
-use Syscover\Core\Scopes\TableLangScope;
 use Syscover\Market\Services\TaxRuleService;
 use Syscover\Admin\Traits\CustomizableFields;
 use Syscover\Admin\Traits\Translatable;
@@ -43,15 +42,9 @@ class Product extends CoreModel
         return Validator::make($data, static::$rules);
 	}
 
-    protected static function boot()
-    {
-        parent::boot();
-        static::addGlobalScope(new TableLangScope); // Add join with admin_table in all queries
-    }
-
     public function scopeBuilder($query)
     {
-        return $query;
+        return $query->join('market_product_lang', 'market_product.id', '=', 'market_product_lang.id');
     }
 
     public function products()
