@@ -42,6 +42,13 @@ class MarketGraphQLServiceProvider
         GraphQL::addType(\Syscover\Market\GraphQL\Types\ProductType::class, 'MarketProduct');
         GraphQL::addType(\Syscover\Market\GraphQL\Inputs\ProductInput::class, 'MarketProductInput');
 
+        // WAREHOUSE
+        GraphQL::addType(\Syscover\Market\GraphQL\Types\WarehouseType::class, 'MarketWarehouse');
+        GraphQL::addType(\Syscover\Market\GraphQL\Inputs\WarehouseInput::class, 'MarketWarehouseInput');
+
+        // STOCK
+        GraphQL::addType(\Syscover\Market\GraphQL\Types\StockType::class, 'MarketStock');
+        GraphQL::addType(\Syscover\Market\GraphQL\Inputs\StockInput::class, 'MarketStockInput');
     }
 
     public static function bootGraphQLSchema()
@@ -95,6 +102,11 @@ class MarketGraphQLServiceProvider
 
                 // PRODUCT TAXES
                 'marketProductTaxes'                        => \Syscover\Market\GraphQL\Queries\ProductTaxesQuery::class,
+
+                // WAREHOUSE
+                'marketWarehousesPagination'                => \Syscover\Market\GraphQL\Queries\WarehousesPaginationQuery::class,
+                'marketWarehouses'                          => \Syscover\Market\GraphQL\Queries\WarehousesQuery::class,
+                'marketWarehouse'                           => \Syscover\Market\GraphQL\Queries\WarehouseQuery::class,
             ],
             'mutation' => [
                 // ORDER STATUS
@@ -138,9 +150,14 @@ class MarketGraphQLServiceProvider
                 'marketDeleteCategory'                      => \Syscover\Market\GraphQL\Mutations\DeleteCategoryMutation::class,
 
                 // PRODUCT
-                'marketAddProduct'                         => \Syscover\Market\GraphQL\Mutations\AddProductMutation::class,
-                'marketUpdateProduct'                      => \Syscover\Market\GraphQL\Mutations\UpdateProductMutation::class,
-                'marketDeleteProduct'                      => \Syscover\Market\GraphQL\Mutations\DeleteProductMutation::class,
+                'marketAddProduct'                          => \Syscover\Market\GraphQL\Mutations\AddProductMutation::class,
+                'marketUpdateProduct'                       => \Syscover\Market\GraphQL\Mutations\UpdateProductMutation::class,
+                'marketDeleteProduct'                       => \Syscover\Market\GraphQL\Mutations\DeleteProductMutation::class,
+
+                // WAREHOUSE
+                'marketAddWarehouse'                        => \Syscover\Market\GraphQL\Mutations\AddWarehouseMutation::class,
+                'marketUpdateWarehouse'                     => \Syscover\Market\GraphQL\Mutations\UpdateWarehouseMutation::class,
+                'marketDeleteWarehouse'                     => \Syscover\Market\GraphQL\Mutations\DeleteWarehouseMutation::class,
             ]
         ]));
     }
