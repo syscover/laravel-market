@@ -13,11 +13,11 @@ class Warehouse extends CoreModel
 	protected $table        = 'market_warehouse';
 	protected $fillable     = ['id', 'name', 'country_id', 'territorial_area_1_id', 'territorial_area_2_id', 'territorial_area_3_id', 'cp', 'locality', 'address', 'latitude', 'longitude', 'active'];
     protected $casts        = [
-        'active'    => 'boolean'
+        'active' => 'boolean'
     ];
     public $with = [];
     private static $rules       = [
-        'name'         => 'required'
+        'name' => 'required'
     ];
 
     public static function validate($data)

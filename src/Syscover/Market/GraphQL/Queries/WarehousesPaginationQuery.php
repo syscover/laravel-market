@@ -21,11 +21,6 @@ class WarehousesPaginationQuery extends Query
     public function args()
     {
         return [
-            'filters' => [
-                'name'          => 'filters',
-                'type'          => Type::listOf(GraphQL::type('CoreSQLQueryInput')),
-                'description'   => 'to filter queries'
-            ],
             'sql' => [
                 'name'          => 'sql',
                 'type'          => Type::listOf(GraphQL::type('CoreSQLQueryInput')),
@@ -36,13 +31,13 @@ class WarehousesPaginationQuery extends Query
 
     public function resolve($root, $args)
     {
-        $query = SQLService::getQueryFiltered(Warehouse::builder(), $args['sql'], $args['filters']);
+        $query = SQLService::getQueryFiltered(Warehouse::builder(), $args['sql']);
 
         // count records filtered
         $filtered = $query->count();
 
         // N total records
-        $total = SQLService::countPaginateTotalRecords(Warehouse::builder(), $args['filters']);
+        $total = SQLService::countPaginateTotalRecords(Warehouse::builder());
 
         return (Object) [
             'total'     => $total,

@@ -47,7 +47,7 @@ class WarehouseType extends GraphQLType
                 'type' => Type::string(),
                 'description' => 'Locality of warehouse'
             ],
-            'warehouse' => [
+            'address' => [
                 'type' => Type::string(),
                 'description' => 'Address of warehouse'
             ],
