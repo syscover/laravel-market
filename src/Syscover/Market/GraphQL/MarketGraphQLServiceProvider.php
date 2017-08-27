@@ -107,6 +107,11 @@ class MarketGraphQLServiceProvider
                 'marketWarehousesPagination'                => \Syscover\Market\GraphQL\Queries\WarehousesPaginationQuery::class,
                 'marketWarehouses'                          => \Syscover\Market\GraphQL\Queries\WarehousesQuery::class,
                 'marketWarehouse'                           => \Syscover\Market\GraphQL\Queries\WarehouseQuery::class,
+
+                // STOCK
+                'marketStocksPagination'                    => \Syscover\Market\GraphQL\Queries\StocksPaginationQuery::class,
+                'marketStocks'                              => \Syscover\Market\GraphQL\Queries\StocksQuery::class,
+                'marketStock'                               => \Syscover\Market\GraphQL\Queries\StockQuery::class,
             ],
             'mutation' => [
                 // ORDER STATUS
@@ -158,6 +163,11 @@ class MarketGraphQLServiceProvider
                 'marketAddWarehouse'                        => \Syscover\Market\GraphQL\Mutations\AddWarehouseMutation::class,
                 'marketUpdateWarehouse'                     => \Syscover\Market\GraphQL\Mutations\UpdateWarehouseMutation::class,
                 'marketDeleteWarehouse'                     => \Syscover\Market\GraphQL\Mutations\DeleteWarehouseMutation::class,
+
+                // STOCK
+                'marketAddStock'                            => \Syscover\Market\GraphQL\Mutations\AddStockMutation::class,
+                'marketUpdateStock'                         => \Syscover\Market\GraphQL\Mutations\UpdateStockMutation::class,
+                'marketDeleteStock'                         => \Syscover\Market\GraphQL\Mutations\DeleteStockMutation::class,
             ]
         ]));
     }

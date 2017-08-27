@@ -4,18 +4,18 @@ use GraphQL;
 use GraphQL\Type\Definition\Type;
 use Folklore\GraphQL\Support\Query;
 use Syscover\Core\Services\SQLService;
-use Syscover\Market\Models\Warehouse;
+use Syscover\Market\Models\Stock;
 
-class WarehousesQuery extends Query
+class StockQuery extends Query
 {
     protected $attributes = [
-        'name'          => 'WarehousesQuery',
-        'description'   => 'Query to get warehouses'
+        'name'          => 'StockQuery',
+        'description'   => 'Query to get a stock'
     ];
 
     public function type()
     {
-        return Type::listOf(GraphQL::type('MarketWarehouse'));
+        return GraphQL::type('MarketStock');
     }
 
     public function args()
@@ -31,14 +31,8 @@ class WarehousesQuery extends Query
 
     public function resolve($root, $args)
     {
-        $query = Warehouse::builder();
+        $query = SQLService::getQueryFiltered(Stock::builder(), $args['sql']);
 
-        if(isset($args['sql']))
-        {
-            $query = SQLService::getQueryFiltered($query, $args['sql']);
-            $query = SQLService::getQueryOrderedAndLimited($query, $args['sql']);
-        }
-
-        return $query->get();
+        return $query->first();
     }
 }
