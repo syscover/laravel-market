@@ -18,6 +18,8 @@ class MarketCreateTableStock extends Migration
                 $table->decimal('stock', 11, 3)->default(0);
                 $table->decimal('minimum_stock', 11, 3)->default(0);
 
+                $table->timestamps();
+
 				$table->foreign('warehouse_id', 'fk01_market_stock')
 					->references('id')
 					->on('market_warehouse')
