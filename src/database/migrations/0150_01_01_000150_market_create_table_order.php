@@ -106,7 +106,6 @@ class MarketCreateTableOrder extends Migration
 				$table->string('shipping_address')->nullable();
 				$table->string('shipping_latitude')->nullable();
 				$table->string('shipping_longitude')->nullable();
-
                 $table->text('shipping_comments')->nullable();
 
                 $table->timestamps();
