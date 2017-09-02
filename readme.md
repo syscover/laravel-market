@@ -9,44 +9,31 @@
 composer require syscover/pulsar-market
 ```
 
-**2 - Register service provider, on file config/app.php add to providers array**
-```
-Syscover\Market\MarketServiceProvider::class,
-```
-
-**3 - Execute publish command**
+**2 - Execute publish command**
 ```
 php artisan vendor:publish --provider="Syscover\Market\MarketServiceProvider"
 ```
 
-**4 - Execute optimize command load new classes**
+**3 - Execute optimize command load new classes**
 ```
 php artisan optimize
 ```
 
-**5 - And execute migrations and seed database**
+**4 - And execute migrations and seed database**
 ```
 php artisan migrate
 php artisan db:seed --class="MarketTableSeeder"
 ```
 
-**6 - Execute command to load all updates**
+**5 - Execute command to load all updates**
 ```
 php artisan migrate --path=database/migrations/updates
 ```
 
-**7 - Register middleware pulsar.taxRule on file app/Http/Kernel.php add to routeMiddleware array**
+**6 - Register middleware pulsar.taxRule on file app/Http/Kernel.php add to routeMiddleware array**
 ```
 'pulsar.tax.rule' => \Syscover\Market\Middleware\TaxRule::class,
 ```
-
-
-## Activate Package
-Access to Pulsar Panel, and go to:
- 
-Administration-> Permissions-> Profiles, and set all permissions to your profile by clicking on the open lock.<br>
-
-Go to Administration -> Packages, edit the package installed and activate it.
 
 
 ## General configuration environment values
