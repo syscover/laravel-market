@@ -56,7 +56,7 @@ class MarketCreateTableOrderRow extends Migration
                 //****************
                 //* taxes
                 //****************
-                $table->text('tax_rules');                                                      // json that contain array with tax rules
+                $table->json('tax_rules');                                                      // json that contain array with tax rules
                 $table->decimal('tax_amount', 12, 4);                              // tax amount over this row with discounts apply
 
                 //****************
@@ -67,7 +67,7 @@ class MarketCreateTableOrderRow extends Migration
                 //****************
                 //* gift
                 //****************
-				$table->boolean('has_gift');
+				$table->boolean('has_gift')->default(false);
 				$table->string('gift_from')->nullable();
 				$table->string('gift_to')->nullable();
 				$table->text('gift_message')->nullable();

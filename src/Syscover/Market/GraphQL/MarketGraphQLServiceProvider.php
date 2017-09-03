@@ -49,6 +49,13 @@ class MarketGraphQLServiceProvider
         // STOCK
         GraphQL::addType(\Syscover\Market\GraphQL\Types\StockType::class, 'MarketStock');
         GraphQL::addType(\Syscover\Market\GraphQL\Inputs\StockInput::class, 'MarketStockInput');
+
+        // ORDER
+        GraphQL::addType(\Syscover\Market\GraphQL\Types\OrderType::class, 'MarketOrder');
+
+        // ORDER ROW
+        GraphQL::addType(\Syscover\Market\GraphQL\Types\OrderRowType::class, 'MarketOrderRow');
+
     }
 
     public static function bootGraphQLSchema()

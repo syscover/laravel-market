@@ -21,27 +21,27 @@ class MarketCreateTableOrder extends Migration
 				$table->timestamp('date');
 				$table->integer('payment_method_id')->unsigned();
 				$table->integer('status_id')->unsigned();
-				$table->string('ip');
+				$table->string('ip')->nullable();
 				$table->json('data')->nullable();
 				$table->text('comments')->nullable();
 
-                $table->string('transaction_id', 150);                                          // code generate by payment platform (PayPal or Bank), field to record any payment ID transaction
+                $table->string('transaction_id')->nullable();                               // code generate by payment platform (PayPal or Bank), field to record any payment ID transaction
 
                 //****************
                 //* amounts
                 //****************
-                $table->decimal('discount_amount', 12, 4);                                // total amount to discount, fixed plus percentage discounts
-				$table->decimal('subtotal_with_discounts', 12, 4);                        // subtotal with discounts applied
-                $table->decimal('tax_amount', 12, 4);                                     // total tax amount
-                $table->decimal('cart_items_total_without_discounts', 12, 4);		       // total of cart items. Amount with tax, without discount and without shipping
-				$table->decimal('subtotal', 12, 4);										   // amount without tax and without shipping
-                $table->decimal('shipping_amount', 12, 4);							       // shipping amount
-                $table->decimal('total', 12, 4);										   // subtotal and shipping amount with tax
+                $table->decimal('discount_amount', 12, 4);                     // total amount to discount, fixed plus percentage discounts
+				$table->decimal('subtotal_with_discounts', 12, 4);             // subtotal with discounts applied
+                $table->decimal('tax_amount', 12, 4);                          // total tax amount
+                $table->decimal('cart_items_total_without_discounts', 12, 4);	// total of cart items. Amount with tax, without discount and without shipping
+				$table->decimal('subtotal', 12, 4);								// amount without tax and without shipping
+                $table->decimal('shipping_amount', 12, 4);			            // shipping amount
+                $table->decimal('total', 12, 4);								// subtotal and shipping amount with tax
 
                 //****************
                 //* gift
                 //****************
-                $table->boolean('has_gift');
+                $table->boolean('has_gift')->default(false);
                 $table->string('gift_from')->nullable();
                 $table->string('gift_to')->nullable();
                 $table->text('gift_message')->nullable();
@@ -50,8 +50,8 @@ class MarketCreateTableOrder extends Migration
                 //****************
                 //* customer
                 //****************
-				$table->integer('customer_id')->unsigned()->nullable();
-                $table->integer('customer_group_id')->unsigned()->nullable();
+				$table->integer('customer_id')->unsigned();                                 // Customer ID
+                $table->integer('customer_group_id')->unsigned();                           // Group ID
 				$table->string('customer_company')->nullable();
 				$table->string('customer_tin')->nullable();
 				$table->string('customer_name')->nullable();
@@ -63,15 +63,14 @@ class MarketCreateTableOrder extends Migration
 				//****************
                 //* invoice data
                 //****************
-				$table->boolean('has_invoice');											// check if this order has invoice
-				$table->boolean('invoiced')->default(false);							    // check if has been created invoice on billing program
-                $table->string('invoice_number')->nullable();                           // if has invoice, set invoice number
-
+				$table->boolean('has_invoice')->default(false);	    					    // Check if this order has invoice
+				$table->boolean('invoiced')->default(false);							        // Check if has been created invoice on billing program
+                $table->string('invoice_number')->nullable();                               // If has invoice, set invoice number
                 $table->string('invoice_company')->nullable();
                 $table->string('invoice_tin')->nullable();
                 $table->string('invoice_name')->nullable();
                 $table->string('invoice_surname')->nullable();
-                $table->string('invoice_email');
+                $table->string('invoice_email')->nullable();
                 $table->string('invoice_mobile')->nullable();
                 $table->string('invoice_phone')->nullable();
                 $table->string('invoice_country_id', 2)->nullable();
@@ -83,14 +82,12 @@ class MarketCreateTableOrder extends Migration
 				$table->string('invoice_address')->nullable();
 				$table->string('invoice_latitude')->nullable();
 				$table->string('invoice_longitude')->nullable();
-
                 $table->text('invoice_comments')->nullable();
 
                 //****************
                 //* shipping data
                 //****************
-				$table->boolean('has_shipping');
-
+				$table->boolean('has_shipping')->default(false);
 				$table->string('shipping_company')->nullable();
 				$table->string('shipping_name')->nullable();
 				$table->string('shipping_surname')->nullable();
