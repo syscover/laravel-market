@@ -30,24 +30,24 @@ return [
     //******************************************************************************************************************
 
     // Tax default values
-    'defaultTaxCountry'             => env('DEFAULT_COUNTRY_TAX', 'ES'),        // default country tax to calculate prices
-    'defaultClassCustomerTax'       => env('DEFAULT_CLASS_CUSTOMER_TAX', 1),    // default customer tax class to calculate tax
+    'defaultTaxCountry'             => env('MARKET_DEFAULT_COUNTRY_TAX', 'ES'),        // default country tax to calculate prices
+    'defaultClassCustomerTax'       => env('MARKET_DEFAULT_CLASS_CUSTOMER_TAX', 1),    // default customer tax class to calculate tax
 
     // Type prices for products
     'productPricesValues'           => [
         (object)['id' => 1,      'name' => 'market::pulsar.excluding_tax'],
         (object)['id' => 2,      'name' => 'market::pulsar.including_tax']
     ],
-    'productTaxPrices'              => env('PRODUCT_TAX_PRICES', 1),            // Product prices type
-    'productTaxDisplayPrices'       => env('PRODUCT_TAX_DISPLAY_PRICES', 1),    // How to display product prices
+    'productTaxPrices'              => env('MARKET_PRODUCT_TAX_PRICES', 1),            // Product prices type
+    'productTaxDisplayPrices'       => env('MARKET_PRODUCT_TAX_DISPLAY_PRICES', 1),    // How to display product prices
 
     // Type prices for shipping
     'shippingPricesValues'          => [
         (object)['id' => 1,      'name' => 'market::pulsar.excluding_tax'],
         (object)['id' => 2,      'name' => 'market::pulsar.including_tax']
     ],
-    'taxShippingPrices'             => env('TAX_SHIPPING_PRICES', 1),           // Shipping prices type
-    'taxShippingDisplayPrices'      => env('TAX_SHIPPING_DISPLAY_PRICES', 1),   // How to display shipping prices
+    'taxShippingPrices'             => env('MARKET_TAX_SHIPPING_PRICES', 1),           // Shipping prices type
+    'taxShippingDisplayPrices'      => env('MARKET_TAX_SHIPPING_DISPLAY_PRICES', 1),   // How to display shipping prices
 
 
 
