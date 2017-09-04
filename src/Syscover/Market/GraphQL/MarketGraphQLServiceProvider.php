@@ -52,10 +52,11 @@ class MarketGraphQLServiceProvider
 
         // ORDER
         GraphQL::addType(\Syscover\Market\GraphQL\Types\OrderType::class, 'MarketOrder');
+        GraphQL::addType(\Syscover\Market\GraphQL\Inputs\OrderInput::class, 'MarketOrderInput');
 
         // ORDER ROW
         GraphQL::addType(\Syscover\Market\GraphQL\Types\OrderRowType::class, 'MarketOrderRow');
-
+        GraphQL::addType(\Syscover\Market\GraphQL\Types\OrderRowInput::class, 'MarketOrderRowInput');
     }
 
     public static function bootGraphQLSchema()
@@ -119,6 +120,17 @@ class MarketGraphQLServiceProvider
                 'marketStocksPagination'                    => \Syscover\Market\GraphQL\Queries\StocksPaginationQuery::class,
                 'marketStocks'                              => \Syscover\Market\GraphQL\Queries\StocksQuery::class,
                 'marketStock'                               => \Syscover\Market\GraphQL\Queries\StockQuery::class,
+
+                // ORDER
+                'marketOrdersPagination'                    => \Syscover\Market\GraphQL\Queries\OrdersPaginationQuery::class,
+                'marketOrders'                              => \Syscover\Market\GraphQL\Queries\OrdersQuery::class,
+                'marketOrder'                               => \Syscover\Market\GraphQL\Queries\OrderQuery::class,
+
+                // ORDER ROW
+                'marketOrderRowsPagination'                 => \Syscover\Market\GraphQL\Queries\OrderRowsPaginationQuery::class,
+                'marketOrderRows'                           => \Syscover\Market\GraphQL\Queries\OrderRowsQuery::class,
+                'marketOrderRow'                            => \Syscover\Market\GraphQL\Queries\OrderRowQuery::class,
+
             ],
             'mutation' => [
                 // ORDER STATUS
@@ -175,6 +187,11 @@ class MarketGraphQLServiceProvider
                 'marketAddStock'                            => \Syscover\Market\GraphQL\Mutations\AddStockMutation::class,
                 'marketUpdateStock'                         => \Syscover\Market\GraphQL\Mutations\UpdateStockMutation::class,
                 'marketDeleteStock'                         => \Syscover\Market\GraphQL\Mutations\DeleteStockMutation::class,
+
+                // ORDER
+                'marketAddOrder'                            => \Syscover\Market\GraphQL\Mutations\AddOrderMutation::class,
+                'marketUpdateOrder'                         => \Syscover\Market\GraphQL\Mutations\UpdateOrderMutation::class,
+                'marketDeleteOrder'                         => \Syscover\Market\GraphQL\Mutations\DeleteOrderMutation::class,
             ]
         ]));
     }

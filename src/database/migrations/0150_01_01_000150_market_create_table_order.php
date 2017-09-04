@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use \Illuminate\Support\Facades\DB;
 
 class MarketCreateTableOrder extends Migration
 {
@@ -18,25 +19,25 @@ class MarketCreateTableOrder extends Migration
 				$table->engine = 'InnoDB';
 
 				$table->increments('id')->unsigned();
-				$table->timestamp('date');
+				$table->timestamp('date')->default(DB::raw('CURRENT_TIMESTAMP'));
 				$table->integer('payment_method_id')->unsigned();
 				$table->integer('status_id')->unsigned();
 				$table->string('ip')->nullable();
 				$table->json('data')->nullable();
 				$table->text('comments')->nullable();
 
-                $table->string('transaction_id')->nullable();                               // code generate by payment platform (PayPal or Bank), field to record any payment ID transaction
+                $table->string('transaction_id')->nullable();                                               // code generate by payment platform (PayPal or Bank), field to record any payment ID transaction
 
                 //****************
                 //* amounts
                 //****************
-                $table->decimal('discount_amount', 12, 4);                     // total amount to discount, fixed plus percentage discounts
-				$table->decimal('subtotal_with_discounts', 12, 4);             // subtotal with discounts applied
-                $table->decimal('tax_amount', 12, 4);                          // total tax amount
-                $table->decimal('cart_items_total_without_discounts', 12, 4);	// total of cart items. Amount with tax, without discount and without shipping
-				$table->decimal('subtotal', 12, 4);								// amount without tax and without shipping
-                $table->decimal('shipping_amount', 12, 4);			            // shipping amount
-                $table->decimal('total', 12, 4);								// subtotal and shipping amount with tax
+                $table->decimal('discount_amount', 12, 4)->default(0);                         // total amount to discount, fixed plus percentage discounts
+				$table->decimal('subtotal_with_discounts', 12, 4)->default(0);                 // subtotal with discounts applied
+                $table->decimal('tax_amount', 12, 4)->default(0);                              // total tax amount
+                $table->decimal('cart_items_total_without_discounts', 12, 4)->default(0);      // total of cart items. Amount with tax, without discount and without shipping
+				$table->decimal('subtotal', 12, 4)->default(0);					                // amount without tax and without shipping
+                $table->decimal('shipping_amount', 12, 4)->default(0);			                // shipping amount
+                $table->decimal('total', 12, 4)->default(0); 				                    // subtotal and shipping amount with tax
 
                 //****************
                 //* gift
