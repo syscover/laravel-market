@@ -13,7 +13,7 @@
         "syscover/pulsar-core": "dev-master",
         "syscover/pulsar-crm": "dev-master",
         "syscover/pulsar-shopping-cart": "dev-master",
-        "sermepa/sermepa": "^1.1",
+        "ssheduardo/redsys-laravel": "~1.2",
         "paypal/rest-api-sdk-php": "*"
     },
     "autoload": {

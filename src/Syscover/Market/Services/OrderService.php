@@ -124,4 +124,95 @@ class OrderService
 
         return Order::find($object->get('id'));
     }
+
+    public static function orderBuilder($data, $customer, $cart, $shipping, $invoice, $ip)
+    {
+        $data = collect($data);
+
+        return [
+            'date'                                          => $data->get('date'),                                 // if date not exist create current date automatically
+            'payment_method_id'                             => $data->get('payment_method_id'),
+            'status_id'                                     => $data->get('status_id'),
+            'ip'                                            => $ip,
+            'data'                                          => $data->get('data'),
+            'comments'                                      => $data->get('comments'),
+
+            //****************
+            //* amounts
+            //****************
+            'discount_amount'                               => $cart->discountAmount,                                   // total amount to discount, fixed plus percentage discounts
+            'subtotal_with_discounts'                       => $cart->subtotalWithDiscounts,                            // subtotal with discounts applied
+            'tax_amount'                                    => $cart->taxAmount,                                        // total tax amount
+            'cart_items_total_without_discounts'            => $cart->cartItemsTotalWithoutDiscounts,                   // total of cart items. Amount with tax, without discount and without shipping
+            'subtotal'                                      => $cart->subtotal,                                         // amount without tax and without shipping
+            'shipping_amount'                               => $cart->hasFreeShipping()? 0 :  $cart->shippingAmount,    // shipping amount
+            'total'                                         => $cart->total,
+
+            //****************
+            //* gift
+            //****************
+            'has_gift'                                      => $data->has('has_gift'),
+            'gift_from'                                     => $data->get('gift_from'),
+            'gift_to'                                       => $data->get('gift_to'),
+            'gift_message'                                  => $data->get('gift_message'),
+
+            //****************
+            //* customer
+            //****************
+            'customer_id'                                   => $customer->id,
+            'customer_group_id'                             => $customer->group_id,
+            'customer_company'                              => $customer->company,
+            'customer_tin'                                  => $customer->tin,
+            'customer_name'                                 => $customer->name,
+            'customer_surname'                              => $customer->surname,
+            'customer_email'                                => $customer->email,
+            'customer_mobile'                               => $customer->mobile,
+            'customer_phone'                                => $customer->phone,
+
+            //****************
+            //* invoice data
+            //****************
+            'has_invoice'                                   => $invoice->get('has_invoice'),
+            'invoiced'                                      => $invoice->get('invoiced'),
+            'invoice_number'                                => $invoice->get('number'),
+            'invoice_company'                               => $invoice->get('company'),
+            'invoice_tin'                                   => $invoice->get('tin'),
+            'invoice_name'                                  => $invoice->get('name'),
+            'invoice_surname'                               => $invoice->get('surname'),
+            'invoice_email'                                 => $invoice->get('email'),
+            'invoice_mobile'                                => $invoice->get('mobile'),
+            'invoice_phone'                                 => $invoice->get('phone'),
+            'invoice_country_id'                            => $invoice->get('country_id'),
+            'invoice_territorial_area_1_id'                 => $invoice->get('territorial_area_1_id'),
+            'invoice_territorial_area_2_id'                 => $invoice->get('territorial_area_2_id'),
+            'invoice_territorial_area_3_id'                 => $invoice->get('territorial_area_3_id'),
+            'invoice_cp'                                    => $invoice->get('cp'),
+            'invoice_locality'                              => $invoice->get('locality'),
+            'invoice_address'                               => $invoice->get('address'),
+            'invoice_latitude'                              => $invoice->get('latitude'),
+            'invoice_longitude'                             => $invoice->get('longitude'),
+            'invoice_comments'                              => $invoice->get('comments'),
+
+            //****************
+            //* shipping data
+            //****************
+            'has_shipping'                                  => $shipping->get('has_shipping'),
+            'shipping_company'                              => $shipping->get('company'),
+            'shipping_name'                                 => $shipping->get('name'),
+            'shipping_surname'                              => $shipping->get('surname'),
+            'shipping_email'                                => $shipping->get('email'),
+            'shipping_mobile'                               => $shipping->get('mobile'),
+            'shipping_phone'                                => $shipping->get('phone'),
+            'shipping_country_id'                           => $shipping->get('country_id'),
+            'shipping_territorial_area_1_id'                => $shipping->get('territorial_area_1_id'),
+            'shipping_territorial_area_2_id'                => $shipping->get('territorial_area_2_id'),
+            'shipping_territorial_area_3_id'                => $shipping->get('territorial_area_3_id'),
+            'shipping_cp'                                   => $shipping->get('cp'),
+            'shipping_locality'                             => $shipping->get('locality'),
+            'shipping_address'                              => $shipping->get('address'),
+            'shipping_latitude'                             => $shipping->get('latitude'),
+            'shipping_longitude'                            => $shipping->get('longitude'),
+            'shipping_comments'                             => $shipping->get('comments'),
+        ];
+    }
 }
