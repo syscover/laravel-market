@@ -80,17 +80,17 @@ return [
     //***   PayPal settings
     //******************************************************************************************************************
     // PAYPAL MODE, sandbox | live
-    'payPalMode'                    => env('PAYPAL_MODE', ''),
+    'payPalMode'                    => env('MARKET_PAYPAL_MODE', ''),
 
     // SANDBOX
-    'payPalSandboxWebProfile'       => env('PAYPAL_SANDBOX_WEB_PROFILE', ''),
-    'payPalSandboxClientId'         => env('PAYPAL_SANDBOX_CLIENT_ID', ''),
-    'payPalSandboxSecret'           => env('PAYPAL_SANDBOX_SECRET', ''),
+    'payPalSandboxWebProfile'       => env('MARKET_PAYPAL_SANDBOX_WEB_PROFILE', ''),
+    'payPalSandboxClientId'         => env('MARKET_PAYPAL_SANDBOX_CLIENT_ID', ''),
+    'payPalSandboxSecret'           => env('MARKET_PAYPAL_SANDBOX_SECRET', ''),
 
     // LIVE
-    'payPalLiveWebProfile'          => env('PAYPAL_LIVE_WEB_PROFILE', ''),
-    'payPalLiveClientId'            => env('PAYPAL_LIVE_CLIENT_ID', ''),
-    'payPalLiveSecret'              => env('PAYPAL_LIVE_SECRET_KEY', ''),
+    'payPalLiveWebProfile'          => env('MARKET_PAYPAL_LIVE_WEB_PROFILE', ''),
+    'payPalLiveClientId'            => env('MARKET_PAYPAL_LIVE_CLIENT_ID', ''),
+    'payPalLiveSecret'              => env('MARKET_PAYPAL_LIVE_SECRET_KEY', ''),
 
     // LADING PAGE TYPES TO PAYPAL WEB PROFILE
     'payPalLandingPageTypes'        => [
@@ -116,12 +116,12 @@ return [
     'redsysMode'                    => env('MARKET_REDSYS_MODE', ''),
 
     // TEST
-    'redsysTestMerchantName'        => env('REDSYS_TEST_MERCHANT_NAME', ''),
-    'redsysTestMerchantCode'        => env('REDSYS_TEST_MERCHANT_CODE', ''),
-    'redsysTestKey'                 => env('REDSYS_TEST_KEY', ''),
+    'redsysTestMerchantName'        => env('MARKET_REDSYS_TEST_MERCHANT_NAME', ''),
+    'redsysTestMerchantCode'        => env('MARKET_REDSYS_TEST_MERCHANT_CODE', ''),
+    'redsysTestKey'                 => env('MARKET_REDSYS_TEST_KEY', ''),
 
     // LIVE
-    'redsysLiveMerchantName'        => env('REDSYS_LIVE_MERCHANT_NAME', ''),
-    'redsysLiveMerchantCode'        => env('REDSYS_LIVE_MERCHANT_CODE', ''),
-    'redsysLiveKey'                 => env('REDSYS_LIVE_KEY', ''),
+    'redsysLiveMerchantName'        => env('MARKET_REDSYS_LIVE_MERCHANT_NAME', ''),
+    'redsysLiveMerchantCode'        => env('MARKET_REDSYS_LIVE_MERCHANT_CODE', ''),
+    'redsysLiveKey'                 => env('MARKET_REDSYS_LIVE_KEY', ''),
 ];
