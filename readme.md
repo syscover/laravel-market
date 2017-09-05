@@ -42,7 +42,7 @@ We indicate configuration variables available, to change them what you should do
 ### Order id prefix [default value empty]
 You can set a prefix for all your orders, for example, if you can set on all you orders the prefix ORDER, set this value on you .env file
 ```
-ORDER_ID_PREFIX=ORDER
+MARKET_ORDER_ID_PREFIX=ORDER
 ```
 
 ### Tax default country [default value ES]
@@ -126,7 +126,7 @@ PAYPAL_LIVE_SECRET_KEY=xXxXxXxXxXxXxXxXxXxXxXxXxXxXxXxXx
 * Value: test *for testing or development environments* 
 * Value: live *for production environments* 
 ```
-REDSYS_MODE=test
+MARKET_REDSYS_MODE=test
 ```
 
 ### Redsys test values
