@@ -23,12 +23,5 @@
         "classmap": [
             "src/Syscover/Market"
         ]
-    },
-    "extra": {
-        "laravel": {
-            "providers": [
-                "Syscover\\Market\\MarketServiceProvider"
-            ]
-        }
     }
 }
