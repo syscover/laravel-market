@@ -3,6 +3,9 @@
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\Log;
+use Ssheduardo\Redsys\Facades\Redsys;
+use Syscover\Market\Models\Order;
+use Syscover\Market\Services\RedsysService;
 
 class RedsysController extends BaseController
 {
@@ -11,35 +14,30 @@ class RedsysController extends BaseController
         // log
         Log::info('Enter in marketRedsysNotification route whit parameters', $request->all());
 
+        $params = RedsysService::parameters();
+
         try
         {
-            // package obtain from , https://github.com/ssheduardo/sermepa
-            $redsys     = new Tpv();
-            $parameters = $redsys->getMerchantParameters($request->input('Ds_MerchantParameters'));
+            $parameters = Redsys::getMerchantParameters($request->input('Ds_MerchantParameters'));
             $DsResponse = $parameters['Ds_Response'];
             $DsResponse += 0;
 
-            if($redsys->check(config('market.redsysMode') == 'live'? config('market.redsysLiveKey') : config('market.redsysTestKey'), $request->all()) && $DsResponse <= 99)
+            if(Redsys::check($params->key, $request->all()) && $DsResponse <= 99)
             {
-                $nOrder = str_replace(config('market.orderIdPrefix'), '', $parameters['Ds_Order']);
+                $nOrder = str_replace($params->pefix, '', $parameters['Ds_Order']);
 
                 // get order
                 $order = Order::builder()
-                    ->where('id_116', $nOrder)
+                    ->where('id', $nOrder)
                     ->first();
 
                 // change order status to next status, depending on your method of payment
-                Order::where('id_116', $nOrder)->update([
-                    // get next status
-                    'status_id_116' => $order->order_status_successful_id_115
+                Order::where('id', $nOrder)->update([
+                    'status_id' => $order->order_status_successful_id
                 ]);
 
-                //*******************************************************
-                // If you wan send confirmation email, this is the place
-                //*******************************************************
-
                 // log register on order
-                Order::setOrderLog($nOrder, trans('market::pulsar.message_tpv_payment_successful'));
+                $order->setOrderLog(trans('market::pulsar.message_redsys_payment_successful'));
 
                 return response()->json([
                     'status'    => 'success'
@@ -47,15 +45,16 @@ class RedsysController extends BaseController
             }
             else
             {
-                return response()->json([
-                    'status'    => 'error',
-                    'error'     => $DsResponse
-                ]);
+                Log::error('Error in marketRedsysNotification route whit parameters', $DsResponse);
             }
         }
         catch(\Exception $e)
         {
-            echo $e->getMessage();
+            Log::error('Error exception in marketRedsysNotification route', $e->getMessage());
+            return response()->json([
+                'status'    => 'error',
+                'message'   => $e->getMessage()
+            ]);
         }
     }
 }

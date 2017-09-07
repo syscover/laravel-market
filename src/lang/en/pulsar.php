@@ -1,5 +1,6 @@
 <?php
 
 return [
-    'order_payment' => 'Order payment :order'
+    'message_redsys_payment_successful'     => 'TPV payment successful',
+    'order_payment'                         => 'Order payment :order'
 ];
