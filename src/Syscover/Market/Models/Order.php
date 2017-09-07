@@ -1,5 +1,6 @@
 <?php namespace Syscover\Market\Models;
 
+use Carbon\Carbon;
 use Syscover\Core\Models\CoreModel;
 use Illuminate\Support\Facades\Validator;
 use Syscover\Crm\Models\Customer;
@@ -61,27 +62,21 @@ class Order extends CoreModel
         return $this->belongsTo(Customer::class, 'customer_id');
     }
 
-    public static function setOrderLog($id, $message)
+    public function setOrderLog($message)
     {
-        $order = Order::find($id);
+        $dataOrder = json_decode($this->data, true);
 
-        if($order != null)
-        {
-            $dataOrder = json_decode($order->data, true);
+        if(! isset($dataOrder['log']))
+            $dataOrder['log'] = [];
 
-            if(! isset($dataOrder['log']))
-                $dataOrder['log'] = [];
+        array_unshift($dataOrder['log'], [
+            'time'      => Carbon::now(),
+            'status'    => $this->status_id,
+            'message'   => $message
+        ]);
 
-            array_unshift($dataOrder['log'], [
-                'time'      => date('U'),
-                'status'    => $order->status_id,
-                'message'   => $message
-            ]);
-
-            $order->data = json_encode($dataOrder);
-
-            $order->save();
-        }
+        $this->data = json_encode($dataOrder);
+        $this->save();
     }
 
     /**

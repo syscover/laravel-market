@@ -114,14 +114,29 @@ return [
     //******************************************************************************************************************
     // Redsys mode, test | live
     'redsysMode'                    => env('MARKET_REDSYS_MODE', ''),
+    'redsysAsyncRoute'              => env('MARKET_REDSYS_ASYNC_ROUTE', 'marketRedsysNotification'),
+    'redsysOKRoute'                 => env('MARKET_REDSYS_OK_ROUTE', 'marketRedsysOK'),
+    'redsysKORoute'                 => env('MARKET_REDSYS_KO_ROUTE', 'marketRedsysKO'),
 
     // TEST
     'redsysTestMerchantName'        => env('MARKET_REDSYS_TEST_MERCHANT_NAME', ''),
+    'redsysTestDescriptionTrans'    => env('MARKET_REDSYS_TEST_DESCRIPTION_TRANS', 'market:pulsar.order_payment'),
     'redsysTestMerchantCode'        => env('MARKET_REDSYS_TEST_MERCHANT_CODE', ''),
+    'redsysTestTerminal'            => env('MARKET_REDSYS_TEST_TERMINAL', ''),
+    'redsysTestCurrency'            => env('MARKET_REDSYS_TEST_CURRENCY', ''),
     'redsysTestKey'                 => env('MARKET_REDSYS_TEST_KEY', ''),
+    'redsysTestMethod'              => env('MARKET_REDSYS_TEST_METHOD', 'T'),
+    'redsysTestTransactionType'     => env('MARKET_REDSYS_TEST_TRANSACTION_TYPE', '0'),
+    'redsysTestVersion'             => env('MARKET_REDSYS_TEST_VERSION', 'HMAC_SHA256_V1'),
 
     // LIVE
     'redsysLiveMerchantName'        => env('MARKET_REDSYS_LIVE_MERCHANT_NAME', ''),
+    'redsysLiveDescriptionTrans'    => env('MARKET_REDSYS_LIVE_DESCRIPTION_TRANS', 'market:pulsar.order_payment'),
     'redsysLiveMerchantCode'        => env('MARKET_REDSYS_LIVE_MERCHANT_CODE', ''),
+    'redsysLiveTerminal'            => env('MARKET_REDSYS_LIVE_TERMINAL', ''),
+    'redsysLiveCurrency'            => env('MARKET_REDSYS_LIVE_CURRENCY', ''),
     'redsysLiveKey'                 => env('MARKET_REDSYS_LIVE_KEY', ''),
+    'redsysLiveMethod'              => env('MARKET_REDSYS_LIVE_METHOD', 'T'),
+    'redsysLiveTransactionType'     => env('MARKET_REDSYS_LIVE_TRANSACTION_TYPE', '0'),
+    'redsysLiveVersion'             => env('MARKET_REDSYS_LIVE_VERSION', 'HMAC_SHA256_V1'),
 ];
