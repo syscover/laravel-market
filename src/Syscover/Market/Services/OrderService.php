@@ -19,6 +19,20 @@ class OrderService
         if(empty($object['customer_group_id'])) throw new \Exception('customer_group_id is required');
         if(empty($object['customer_email']))    throw new \Exception('customer_email is required');
 
+        // prevent not null values
+        if(array_key_exists('date', $object) && $object['date'] === null) unset($object['date']);
+        if(array_key_exists('discount_amount', $object) && $object['discount_amount'] === null) unset($object['discount_amount']);
+        if(array_key_exists('subtotal_with_discounts', $object) && $object['subtotal_with_discounts'] === null) unset($object['subtotal_with_discounts']);
+        if(array_key_exists('tax_amount', $object) && $object['tax_amount'] === null) unset($object['tax_amount']);
+        if(array_key_exists('cart_items_total_without_discounts', $object) && $object['cart_items_total_without_discounts'] === null) unset($object['cart_items_total_without_discounts']);
+        if(array_key_exists('subtotal', $object) && $object['subtotal'] === null) unset($object['subtotal']);
+        if(array_key_exists('shipping_amount', $object) && $object['shipping_amount'] === null) unset($object['shipping_amount']);
+        if(array_key_exists('total', $object) && $object['total'] === null) unset($object['total']);
+        if(array_key_exists('has_gift', $object) && $object['has_gift'] === null) unset($object['has_gift']);
+        if(array_key_exists('has_invoice', $object) && $object['has_invoice'] === null) unset($object['has_invoice']);
+        if(array_key_exists('invoiced', $object) && $object['invoiced'] === null) unset($object['invoiced']);
+        if(array_key_exists('has_shipping', $object) && $object['has_shipping'] === null) unset($object['has_shipping']);
+
         return Order::create($object);
     }
 

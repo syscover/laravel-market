@@ -20,6 +20,16 @@ class OrderRowService
      */
     public static function insert($items)
     {
+        foreach ($items as &$item)
+        {
+            // prevent not null values
+            if(array_key_exists('has_gift', $item) && $item['has_gift'] === null) unset($item['has_gift']);
+
+            if($item['data'] !== null) $item['data'] = json_encode($item['data']);
+            $item['tax_rules'] = json_encode($item['tax_rules']);
+
+        }
+
         return OrderRow::insert($items);
     }
 

@@ -111,4 +111,7 @@ Route::group(['middleware' => ['jwt.auth', 'jwt.refresh']], function () {
     Route::delete('api/v1/market/payment-method/{id}/{lang?}',                     ['as' => 'destroyMarketPaymentMethod',                  'uses' => 'Syscover\Market\Controllers\PaymentMethodController@destroy']);
 });
 
-Route::post('api/v1/market/redsys/notification',                                    ['as' => 'marketRedsysNotification',                    'uses' => 'Syscover\Market\Controllers\RedsysController@index']);
+// REDSYS
+Route::post('api/v1/market/redsys/notification',                                    ['as' => 'marketRedsysNotification',            'uses' => 'Syscover\Market\Controllers\RedsysController@index']);
+Route::get('api/v1/market/redsys/successful',                                       ['as' => 'marketRedsysSuccessful',              'uses' => 'Syscover\Market\Controllers\RedsysController@paymentSuccessful']);
+Route::get('api/v1/market/redsys/error',                                            ['as' => 'marketRedsysError',                   'uses' => 'Syscover\Market\Controllers\RedsysController@paymentError']);

@@ -57,4 +57,61 @@ class RedsysController extends BaseController
             ]);
         }
     }
+
+    public function paymentSuccessful(Request $request)
+    {
+        // log
+        Log::info('Enter in marketRedsysSuccessful route whit parameters', $request->all());
+
+        $params = RedsysService::parameters();
+
+        try {
+            $parameters = Redsys::getMerchantParameters($request->input("Ds_MerchantParameters"));
+            $DsResponse = $parameters["Ds_Response"];
+            $DsResponse += 0;
+
+            if(Redsys::check($params->key, $request->all()) && $DsResponse <= 99)
+            {
+//                return redirect()->route('clubViewOrder-' . user_lang(), [
+//                    'order' => str_replace($params->suffix, '', $parameters['Ds_Order'])
+//                ]);
+                dd('ok');
+            }
+            else
+            {
+                Log::error('Error in marketRedsysSuccessful route whit parameters', $DsResponse);
+                dd('error');
+                //return redirect()->route('error-' . user_lang());
+            }
+        }
+        catch (\Exception $e)
+        {
+            Log::error('Error exception in marketRedsysSuccessful route', $e->getMessage());
+
+            return response()->json([
+                'status'    => 'error',
+                'message'   => $e->getMessage()
+            ]);
+        }
+    }
+
+    public function paymentError(Request $request)
+    {
+        dd('ERRORRRR');
+        try
+        {
+            $parameters = Redsys::getMerchantParameters($request->input("Ds_MerchantParameters"));
+
+            //$nOrder     = str_replace(config('market.orderIdPrefix'), '', $parameters['Ds_Order']);
+
+            // set log error in order
+            //Order::setOrderLog($nOrder, trans('market::pulsar.message_tpv_payment_error', ['error' => $parameters['Ds_Response']]));
+
+            //return redirect()->route('error-' . user_lang());
+        }
+        catch(\Exception $e)
+        {
+            //echo $e->getMessage();
+        }
+    }
 }
