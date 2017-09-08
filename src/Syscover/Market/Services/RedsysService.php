@@ -1,9 +1,17 @@
 <?php namespace Syscover\Market\Services;
 
+use Illuminate\Support\Facades\Log;
 use Ssheduardo\Redsys\Facades\Redsys;
+use Syscover\Market\Models\Order;
 
 class RedsysService
 {
+    /**
+     * Create payment across Redsys
+     *
+     * @param $order
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public static function createPayment($order)
     {
         try{
@@ -41,6 +49,85 @@ class RedsysService
         }
     }
 
+    /**
+     * Actions to do when Redsys response is successful
+     *
+     * @param $request
+     * @return \Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model|null|static|static[]
+     * @throws \Exception
+     */
+    public static function successful($request)
+    {
+        // log
+        Log::info('Enter in RedsysService::successful service whit parameters', $request->all());
+
+        $params = RedsysService::parameters();
+
+        try {
+            $parameters = Redsys::getMerchantParameters($request->input('Ds_MerchantParameters'));
+            $DsResponse = $parameters['Ds_Response'];
+            $DsResponse += 0;
+
+            if (Redsys::check($params->key, $request->all()) && $DsResponse <= 99)
+            {
+                // get order ID
+                $orderId =  str_replace(config('pulsar.market.orderIdSuffix'), '', $parameters['Ds_Order']);
+
+                $order = Order::find($orderId);
+
+                return $order;
+            }
+            else
+            {
+                return null;
+            }
+        }
+        catch (\Exception $e)
+        {
+            throw new \Exception('To get Redsys successful response: ' . $e->getMessage());
+        }
+    }
+
+    /**
+     * Actions to do when Redsys response is error
+     *
+     * @param $request
+     * @return \Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model|null|static|static[]
+     * @throws \Exception
+     */
+    public static function error($request)
+    {
+        // log
+        Log::info('Enter in RedsysService::error service whit parameters', $request->all());
+
+        try {
+            $parameters = Redsys::getMerchantParameters($request->input('Ds_MerchantParameters'));
+
+            // get order ID
+            $orderId = str_replace(config('pulsar.market.orderIdSuffix'), '', $parameters['Ds_Order']);
+
+            $order = Order::find($orderId);
+
+            // set log error in order
+            $order->setOrderLog(__('market::pulsar.message_redsys_payment_error', [
+                'error' => $parameters['Ds_Response']
+            ]));
+
+            return $order;
+
+        }
+        catch (\Exception $e)
+        {
+            throw new \Exception('To get Redsys error response: ' . $e->getMessage());
+        }
+    }
+
+    /**
+     * Get Redsys parameters
+     *
+     * @return object
+     * @throws \Exception
+     */
     public static function parameters()
     {
         if(config('pulsar.market.redsysMode') == 'test')
@@ -88,6 +175,12 @@ class RedsysService
         }
     }
 
+    /**
+     * get order ID formated for Redsys
+     *
+     * @param $id
+     * @return string
+     */
     private static function getOrderId($id)
     {
         if(strlen($id) < 4) $id = str_pad($id, 4, '0', STR_PAD_LEFT);

@@ -120,6 +120,17 @@ MARKET_PAYPAL_LIVE_CLIENT_ID=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 MARKET_PAYPAL_LIVE_SECRET_KEY=xXxXxXxXxXxXxXxXxXxXxXxXxXxXxXxXx
 ```
 
+### PayPal translations
+If you want set shipping description in PayPal you mus to create the next key in common.php language file
+```
+paypal_shipping_description
+```
+
+If you want set item list description in PayPal you mus to create the next key in common.php language file
+```
+paypal_item_list_description
+```
+
 ## Redsys environment values
 
 ### Set Redsys mode

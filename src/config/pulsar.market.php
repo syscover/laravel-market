@@ -81,6 +81,8 @@ return [
     //******************************************************************************************************************
     // PAYPAL MODE, sandbox | live
     'payPalMode'                    => env('MARKET_PAYPAL_MODE', ''),
+    'payPalSuccessfulRoute'         => env('MARKET_PAYPAL_SUCCESSFUL_ROUTE', 'marketPayPalSuccessful'),
+    'payPalErrorRoute'              => env('MARKET_PAYPAL_ERROR_ROUTE', 'marketPayPalError'),
 
     // SANDBOX
     'payPalSandboxWebProfile'       => env('MARKET_PAYPAL_SANDBOX_WEB_PROFILE', ''),

@@ -36,18 +36,19 @@ class Order extends CoreModel
     public function scopeBuilder($query)
     {
         // we not relate to countries, because there are two countries which relate, invoice and shipping, has not been found to create aliases on columns within a join
-        return $query->join('customer', 'order.customer_id', '=', 'customer.id')
-            ->join('payment_method', function ($join) {
-                 $join->on('order.payment_method_id', '=', 'payment_method.id')
-                     ->where('payment_method.lang_id', '=', base_lang());
+        return $query->join('crm_customer', 'market_order.customer_id', '=', 'crm_customer.id')
+            ->join('market_payment_method', function ($join) {
+                 $join->on('market_order.payment_method_id', '=', 'market_payment_method.id')
+                     ->where('market_payment_method.lang_id', '=', base_lang());
             })
-            ->join('order_status', function ($join) {
-                $join->on('order.status_id', '=', 'order_status.id')
-                    ->where('order_status.lang_id', '=', base_lang());
-            });
+            ->join('market_order_status', function ($join) {
+                $join->on('market_order.status_id', '=', 'market_order_status.id')
+                    ->where('market_order_status.lang_id', '=', base_lang());
+            })
+            ->select('crm_customer.*', 'market_payment_method.*', 'market_order_status.*', 'market_order.*', 'crm_customer.id as crm_customer_id', 'market_payment_method.id as market_payment_method_id', 'market_order_status.id as market_order_status_id', 'market_order.id as market_order_id');
     }
 
-    public function orderRows()
+    public function rows()
     {
         return $this->hasMany(OrderRow::class, 'order_id');
     }

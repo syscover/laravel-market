@@ -1,17 +1,20 @@
 <?php namespace Syscover\Market\Services;
 
+use Syscover\Market\Models\Order;
+
 class PayPalService
 {
+    /**
+     * Create payment across PayPal
+     *
+     * @param $order
+     */
     public static function createPayment($order)
     {
         // log register on order
         $order->setOrderLog(trans('market::pulsar.message_customer_go_to_paypal'));
 
-        $orderId = self::getOrderId($order->id);
-
-        return view('core::common.display', [
-            'content' => self::executeRedirection($orderId . config('pulsar.market.orderIdSuffix'))
-        ]);
+        self::executeRedirection($order->id);
     }
 
     /**
@@ -19,10 +22,10 @@ class PayPalService
      *
      * @return string
      */
-    private static function executeRedirection($order)
+    private static function executeRedirection($orderId)
     {
-        echo self::createForm($order);
-        echo '<script>document.forms["paypalForm"].submit();</script>';
+        $form =  self::createForm($orderId);
+        echo $form . '<script>document.forms["paypalForm"].submit();</script>';
     }
 
     /**
@@ -30,22 +33,44 @@ class PayPalService
      *
      * @return string
      */
-    private static function createForm($order)
+    private static function createForm($orderId)
     {
         $form='
-            <form id="paypalForm" action="' . route('createMarketPayPalPayment') . '" method="post">
+            <form id="paypalForm" action="' . route('marketPayPalCreatePayment') . '" method="post">
                 <input type="hidden" name="_token" value="' . csrf_token() . '"/>
-                <input type="hidden" name="_order" value="' . $order . '"/>
+                <input type="hidden" name="_order" value="' . $orderId . '"/>
             </form>
         ';
 
         return $form;
     }
 
-    private static function getOrderId($id)
+    /**
+     * Actions to do when PayPal response is successful
+     *
+     * @param $request
+     * @return \Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model|null|static|static[]
+     */
+    public static function successful($request)
     {
-        if(strlen($id) < 4) $id = str_pad($id, 4, '0', STR_PAD_LEFT);
+        $order = Order::find($request->input('order'));
+        $order->setOrderLog(__('market::pulsar.message_paypal_payment_successful'));
 
-        return $id;
+        return $order;
+    }
+
+    /**
+     * Actions to do when PayPal response is error
+     *
+     *
+     * @param $request
+     * @return \Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model|null|static|static[]
+     */
+    public static function error($request)
+    {
+        $order = Order::find($request->input('order'));
+        $order->setOrderLog(__('market::pulsar.message_paypal_payment_error'));
+
+        return $order;
     }
 }

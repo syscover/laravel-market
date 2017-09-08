@@ -106,12 +106,7 @@ Route::group(['middleware' => ['jwt.auth', 'jwt.refresh']], function () {
     Route::get('api/v1/market/payment-method/{lang?}',                             ['as' => 'marketPaymentMethod',                         'uses' => 'Syscover\Market\Controllers\PaymentMethodController@index']);
     Route::get('api/v1/market/payment-method/{id}/{lang}',                         ['as' => 'showMarketPaymentMethod',                     'uses' => 'Syscover\Market\Controllers\PaymentMethodController@show']);
     Route::post('api/v1/market/payment-method/search',                             ['as' => 'searchMarketPaymentMethod',                   'uses' => 'Syscover\Market\Controllers\PaymentMethodController@search']);
-    Route::post('api/v1/market/payment-method',                                    ['as' => 'storeMarketPaymentMethod',                    'uses' => 'Syscover\Market\Controllers\PaymentMethodController@store']);
-    Route::put('api/v1/market/payment-method/{id}/{lang}',                         ['as' => 'updateMarketPaymentMethod',                   'uses' => 'Syscover\Market\Controllers\PaymentMethodController@update']);
-    Route::delete('api/v1/market/payment-method/{id}/{lang?}',                     ['as' => 'destroyMarketPaymentMethod',                  'uses' => 'Syscover\Market\Controllers\PaymentMethodController@destroy']);
+    Route::post('api/v1/market/payment-method',                                    'Syscover\Market\Controllers\PaymentMethodController@store')->name('storeMarketPaymentMethod');
+    Route::put('api/v1/market/payment-method/{id}/{lang}',                         'Syscover\Market\Controllers\PaymentMethodController@update')->name('updateMarketPaymentMethod');
+    Route::delete('api/v1/market/payment-method/{id}/{lang?}',                     'Syscover\Market\Controllers\PaymentMethodController@destroy')->name('destroyMarketPaymentMethod');
 });
-
-// REDSYS
-Route::post('api/v1/market/redsys/notification',                                    ['as' => 'marketRedsysNotification',            'uses' => 'Syscover\Market\Controllers\RedsysController@index']);
-Route::get('api/v1/market/redsys/successful',                                       ['as' => 'marketRedsysSuccessful',              'uses' => 'Syscover\Market\Controllers\RedsysController@paymentSuccessful']);
-Route::get('api/v1/market/redsys/error',                                            ['as' => 'marketRedsysError',                   'uses' => 'Syscover\Market\Controllers\RedsysController@paymentError']);

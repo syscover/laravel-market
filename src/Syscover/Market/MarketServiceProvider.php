@@ -14,6 +14,7 @@ class MarketServiceProvider extends ServiceProvider
 	{
         // register routes
         $this->loadRoutesFrom(__DIR__ . '/../../routes/api.php');
+        $this->loadRoutesFrom(__DIR__ . '/../../routes/web.php');
 
         // register migrations
         $this->loadMigrationsFrom(__DIR__.'/../../database/migrations');
