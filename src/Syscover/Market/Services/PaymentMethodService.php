@@ -34,7 +34,6 @@ class PaymentMethodService
     {
         // pass object to collection
         $object = collect($object);
-        
 
         PaymentMethod::where('id', $id)
             ->where('lang_id', $lang)
