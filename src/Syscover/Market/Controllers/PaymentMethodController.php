@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Syscover\Core\Controllers\CoreController;
 use Syscover\Market\Models\PaymentMethod;
+use Syscover\Market\Services\PaymentMethodService;
 
 class PaymentMethodController extends CoreController
 {
@@ -16,32 +17,8 @@ class PaymentMethodController extends CoreController
      */
     public function store(Request $request)
     {
-        // check if there is id
-        if($request->has('id'))
-        {
-            $id     = $request->input('id');
-        }
-        else
-        {
-            $id = PaymentMethod::max('id');
-            $id++;
-        }
-
-        $object = PaymentMethod::create([
-            'id'                            => $id,
-            'lang_id'                       => $request->input('lang_id'),
-            'name'                          => $request->input('name'),
-            'order_status_successful_id'    => $request->input('order_status_successful_id'),
-            'minimum_price'                 => $request->input('minimum_price'),
-            'maximum_price'                 => $request->input('maximum_price'),
-            'instructions'                  => $request->input('instructions'),
-            'sort'                          => $request->input('sort'),
-            'active'                        => $request->has('active'),
-            'data_lang'                     => PaymentMethod::addLangDataRecord($request->input('lang_id'), $id)
-        ]);
-
         $response['status'] = "success";
-        $response['data']   = $object;
+        $response['data']   = PaymentMethodService::create($response->all());
 
         return response()->json($response);
     }
@@ -56,20 +33,8 @@ class PaymentMethodController extends CoreController
      */
     public function update(Request $request, $id, $lang)
     {
-        PaymentMethod::where('id', $id)->where('lang_id', $lang)->update([
-            'name'                          => $request->input('name'),
-            'order_status_successful_id'    => $request->input('order_status_successful_id'),
-            'minimum_price'                 => $request->input('minimum_price'),
-            'maximum_price'                 => $request->input('maximum_price'),
-            'instructions'                  => $request->input('instructions'),
-            'sort'                          => $request->input('sort'),
-            'active'                        => $request->has('active'),
-        ]);
-
-        $object = PaymentMethod::where('id', $id)->where('lang_id', $lang)->first();
-
         $response['status'] = "success";
-        $response['data']   = $object;
+        $response['data']   = PaymentMethodService::update($response->all(), $id, $lang);
 
         return response()->json($response);
     }

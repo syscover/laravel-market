@@ -5,6 +5,7 @@ use GraphQL\Type\Definition\Type;
 use Folklore\GraphQL\Support\Mutation;
 use Syscover\Core\Services\SQLService;
 use Syscover\Market\Models\PaymentMethod;
+use Syscover\Market\Services\PaymentMethodService;
 
 class PaymentMethodMutation extends Mutation
 {
@@ -33,17 +34,7 @@ class AddPaymentMethodMutation extends PaymentMethodMutation
 
     public function resolve($root, $args)
     {
-        if(! isset($args['object']['id']))
-        {
-            $id = PaymentMethod::max('id');
-            $id++;
-
-            $args['object']['id'] = $id;
-        }
-
-        $args['object']['data_lang'] = PaymentMethod::addLangDataRecord($args['object']['lang_id'], $args['object']['id']);
-
-        return PaymentMethod::create($args['object']);
+        return PaymentMethodService::create($args['object']);
     }
 }
 
@@ -56,13 +47,7 @@ class UpdatePaymentMethodMutation extends PaymentMethodMutation
 
     public function resolve($root, $args)
     {
-        PaymentMethod::where('id', $args['object']['id'])
-            ->where('lang_id', $args['object']['lang_id'])
-            ->update($args['object']);
-
-        return PaymentMethod::where('id', $args['object']['id'])
-            ->where('lang_id', $args['object']['lang_id'])
-            ->first();
+        return PaymentMethodService::update($args['object'], $args['object']['id'], $args['object']['lang_id']);
     }
 }
 

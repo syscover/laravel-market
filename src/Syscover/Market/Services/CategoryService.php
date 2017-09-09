@@ -45,6 +45,8 @@ class CategoryService
                 'description'           => $object->get('description'),
             ]);
 
-        return Category::find($object->get('id'));
+        return Category::where('id', $id)
+            ->where('lang_id', $lang)
+            ->first();
     }
 }

@@ -27,7 +27,6 @@ class OrderRowService
 
             if($item['data'] !== null) $item['data'] = json_encode($item['data']);
             $item['tax_rules'] = json_encode($item['tax_rules']);
-
         }
 
         return OrderRow::insert($items);
