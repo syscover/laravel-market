@@ -59,6 +59,7 @@ class PaymentMethodService
         {
             RedsysService::createPayment($order);
         }
+
         // PayPal Payment
         elseif($request->input('payment_method_id') === '2')
         {
