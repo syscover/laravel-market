@@ -15,7 +15,7 @@ class Order extends CoreModel
 	protected $table        = 'market_order';
     protected $fillable     = ['id', 'date', 'date_text', 'status_id', 'ip', 'data', 'payment_method_id', 'payment_id', 'comments', 'subtotal', 'discount_amount', 'subtotal_with_discounts', 'tax_amount', 'cart_items_total_without_discounts', 'shipping_amount', 'total', 'has_gift', 'gift_from', 'gift_to', 'gift_message', 'customer_id', 'customer_group_id', 'customer_company', 'customer_tin', 'customer_name', 'customer_surname', 'customer_email', 'customer_phone', 'customer_mobile', 'invoice_country_id', 'invoice_territorial_area_1_id', 'invoice_territorial_area_2_id', 'invoice_territorial_area_3_id', 'invoice_cp', 'invoice_locality', 'invoice_address', 'invoice_latitude', 'invoice_longitude', 'has_invoice', 'invoiced', 'has_shipping', 'shipping_company', 'shipping_name', 'shipping_surname', 'shipping_email', 'shipping_phone', 'shipping_mobile', 'shipping_country_id', 'shipping_territorial_area_1_id', 'shipping_territorial_area_2_id', 'shipping_territorial_area_3_id', 'shipping_cp', 'shipping_locality', 'shipping_address', 'shipping_latitude', 'shipping_longitude'];
     protected $casts        = [
-        'data'      => 'array'
+        'data' => 'array'
     ];
     private static $rules   = [
         'status'            => 'required',
