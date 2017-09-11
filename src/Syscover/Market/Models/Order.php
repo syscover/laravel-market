@@ -50,6 +50,11 @@ class Order extends CoreModel
             ->select('crm_customer.*', 'market_payment_method.*', 'market_order_status.*', 'market_order.*', 'crm_customer.id as crm_customer_id', 'market_payment_method.id as market_payment_method_id', 'market_order_status.id as market_order_status_id', 'market_order.id as market_order_id');
     }
 
+    public function status()
+    {
+        return $this->hasOne(OrderStatus::class, 'status_id');
+    }
+
     public function rows()
     {
         return $this->hasMany(OrderRow::class, 'order_id');
