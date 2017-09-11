@@ -161,6 +161,19 @@ class Order extends CoreModel
     }
 
     /**
+     * Get total without shipping
+     *
+     * @param   int     $decimals
+     * @param   string  $decimalPoint
+     * @param   string  $thousandSeparator
+     * @return  string
+     */
+    public function getTotalWithoutShipping($decimals = 2, $decimalPoint = ',', $thousandSeparator = '.')
+    {
+        return number_format($this->total - $this->shipping_amount, $decimals, $decimalPoint, $thousandSeparator);
+    }
+
+    /**
      * Get format total
      *
      * @param   int     $decimals
