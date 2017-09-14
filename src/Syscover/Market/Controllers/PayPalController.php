@@ -24,17 +24,17 @@ class PayPalController extends BaseController
     public function __construct(Request $request)
     {
         // Set mode
-        if(config('pulsar.market.payPalMode') == 'live')
+        if(config('pulsar-market.payPalMode') == 'live')
         {
-            $this->webProfile   = config('pulsar.market.payPalLiveWebProfile');
-            $clientID           = config('pulsar.market.payPalLiveClientId');
-            $secret             = config('pulsar.market.payPalLiveSecret');
+            $this->webProfile   = config('pulsar-market.payPalLiveWebProfile');
+            $clientID           = config('pulsar-market.payPalLiveClientId');
+            $secret             = config('pulsar-market.payPalLiveSecret');
         }
-        elseif(config('pulsar.market.payPalMode') == 'sandbox')
+        elseif(config('pulsar-market.payPalMode') == 'sandbox')
         {
-            $this->webProfile   = config('pulsar.market.payPalSandboxWebProfile');
-            $clientID           = config('pulsar.market.payPalSandboxClientId');
-            $secret             = config('pulsar.market.payPalSandboxSecret');
+            $this->webProfile   = config('pulsar-market.payPalSandboxWebProfile');
+            $clientID           = config('pulsar-market.payPalSandboxClientId');
+            $secret             = config('pulsar-market.payPalSandboxSecret');
         }
         else
         {
@@ -46,7 +46,7 @@ class PayPalController extends BaseController
 
         // SDK configuration
         $this->apiContext->setConfig([
-            'mode'                      => config('pulsar.market.payPalMode'),    // Specify mode, sandbox or live
+            'mode'                      => config('pulsar-market.payPalMode'),    // Specify mode, sandbox or live
             'http.ConnectionTimeOut'    => 30,                                  // Specify the max request time in seconds
             'log.LogEnabled'            => true,                                // Whether want to log to a file
             'log.FileName'              => storage_path() . '/logs/paypal.log', // Specify the file that want to write on
@@ -211,11 +211,11 @@ class PayPalController extends BaseController
                 $order->save();
             }
 
-            $route = route(config('pulsar.market.payPalSuccessfulRoute'));
+            $route = route(config('pulsar-market.payPalSuccessfulRoute'));
         }
         else
         {
-            $route = route(config('pulsar.market.payPalErrorRoute'));
+            $route = route(config('pulsar-market.payPalErrorRoute'));
         }
 
         echo '

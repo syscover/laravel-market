@@ -71,7 +71,7 @@ class RedsysService
             if (Redsys::check($params->key, $request->all()) && $DsResponse <= 99)
             {
                 // get order ID
-                $orderId =  str_replace(config('pulsar.market.orderIdSuffix'), '', $parameters['Ds_Order']);
+                $orderId =  str_replace(config('pulsar-market.orderIdSuffix'), '', $parameters['Ds_Order']);
 
                 $order = Order::find($orderId);
 
@@ -104,7 +104,7 @@ class RedsysService
             $parameters = Redsys::getMerchantParameters($request->input('Ds_MerchantParameters'));
 
             // get order ID
-            $orderId = str_replace(config('pulsar.market.orderIdSuffix'), '', $parameters['Ds_Order']);
+            $orderId = str_replace(config('pulsar-market.orderIdSuffix'), '', $parameters['Ds_Order']);
 
             $order = Order::find($orderId);
 
@@ -130,43 +130,43 @@ class RedsysService
      */
     public static function parameters()
     {
-        if(config('pulsar.market.redsysMode') == 'test')
+        if(config('pulsar-market.redsysMode') == 'test')
         {
             return (object)[
-                'suffix'                    => config('pulsar.market.orderIdSuffix'),
-                'environment'               => config('pulsar.market.redsysMode'),
-                'key'                       => config('pulsar.market.redsysTestKey'),
-                'merchantName'              => config('pulsar.market.redsysTestMerchantName'),
-                'merchantCode'              => config('pulsar.market.redsysTestMerchantCode'),
-                'currency'                  => config('pulsar.market.redsysTestCurrency'),
-                'terminal'                  => config('pulsar.market.redsysTestTerminal'),
-                'method'                    => config('pulsar.market.redsysTestMethod'),
-                'transactionType'           => config('pulsar.market.redsysTestTransactionType'),
-                'version'                   => config('pulsar.market.redsysTestVersion'),
-                'descriptionTrans'          => config('pulsar.market.redsysTestDescriptionTrans'),
-                'redsysAsyncRoute'          => config('pulsar.market.redsysAsyncRoute'),
-                'redsysSuccessfulRoute'     => config('pulsar.market.redsysSuccessfulRoute'),
-                'redsysErrorRoute'          => config('pulsar.market.redsysErrorRoute'),
+                'suffix'                    => config('pulsar-market.orderIdSuffix'),
+                'environment'               => config('pulsar-market.redsysMode'),
+                'key'                       => config('pulsar-market.redsysTestKey'),
+                'merchantName'              => config('pulsar-market.redsysTestMerchantName'),
+                'merchantCode'              => config('pulsar-market.redsysTestMerchantCode'),
+                'currency'                  => config('pulsar-market.redsysTestCurrency'),
+                'terminal'                  => config('pulsar-market.redsysTestTerminal'),
+                'method'                    => config('pulsar-market.redsysTestMethod'),
+                'transactionType'           => config('pulsar-market.redsysTestTransactionType'),
+                'version'                   => config('pulsar-market.redsysTestVersion'),
+                'descriptionTrans'          => config('pulsar-market.redsysTestDescriptionTrans'),
+                'redsysAsyncRoute'          => config('pulsar-market.redsysAsyncRoute'),
+                'redsysSuccessfulRoute'     => config('pulsar-market.redsysSuccessfulRoute'),
+                'redsysErrorRoute'          => config('pulsar-market.redsysErrorRoute'),
 
             ];
         }
         elseif(config('market.redsysMode') == 'live')
         {
             return (object)[
-                'suffix'                    => config('pulsar.market.orderIdSuffix'),
-                'environment'               => config('pulsar.market.redsysMode'),
-                'key'                       => config('pulsar.market.redsysLiveKey'),
-                'merchantName'              => config('pulsar.market.redsysLiveMerchantName'),
-                'merchantCode'              => config('pulsar.market.redsysLiveMerchantCode'),
-                'currency'                  => config('pulsar.market.redsysLiveCurrency'),
-                'terminal'                  => config('pulsar.market.redsysLiveTerminal'),
-                'method'                    => config('pulsar.market.redsysLiveMethod'),
-                'transactionType'           => config('pulsar.market.redsysLiveTransactionType'),
-                'version'                   => config('pulsar.market.redsysLiveVersion'),
-                'descriptionTrans'          => config('pulsar.market.redsysLiveDescriptionTrans'),
-                'redsysAsyncRoute'          => config('pulsar.market.redsysAsyncRoute'),
-                'redsysSuccessfulRoute'     => config('pulsar.market.redsysSuccessfulRoute'),
-                'redsysErrorRoute'          => config('pulsar.market.redsysErrorRoute'),
+                'suffix'                    => config('pulsar-market.orderIdSuffix'),
+                'environment'               => config('pulsar-market.redsysMode'),
+                'key'                       => config('pulsar-market.redsysLiveKey'),
+                'merchantName'              => config('pulsar-market.redsysLiveMerchantName'),
+                'merchantCode'              => config('pulsar-market.redsysLiveMerchantCode'),
+                'currency'                  => config('pulsar-market.redsysLiveCurrency'),
+                'terminal'                  => config('pulsar-market.redsysLiveTerminal'),
+                'method'                    => config('pulsar-market.redsysLiveMethod'),
+                'transactionType'           => config('pulsar-market.redsysLiveTransactionType'),
+                'version'                   => config('pulsar-market.redsysLiveVersion'),
+                'descriptionTrans'          => config('pulsar-market.redsysLiveDescriptionTrans'),
+                'redsysAsyncRoute'          => config('pulsar-market.redsysAsyncRoute'),
+                'redsysSuccessfulRoute'     => config('pulsar-market.redsysSuccessfulRoute'),
+                'redsysErrorRoute'          => config('pulsar-market.redsysErrorRoute'),
             ];
         }
         else

@@ -21,26 +21,26 @@ class TaxRule
             if(! empty($customer->country_id))
             {
                 // set country tax rule
-                config(['pulsar.market.defaultTaxCountry' => $customer->country_id]);
+                config(['pulsar-market.defaultTaxCountry' => $customer->country_id]);
             }
 
             if($customer->class_tax != null)
             {
                 // set group customer
-                config(['pulsar.market.defaultClassCustomerTax' => $customer->class_tax]);
+                config(['pulsar-market.defaultClassCustomerTax' => $customer->class_tax]);
             }
         }
 
         // Set tax rules in session
-        if(session('pulsar.market.taxRules') === null)
+        if(session('pulsar-market.taxRules') === null)
         {
             $taxRules = TaxRuleModel::builder()
-                ->where('country_id', config('pulsar.market.defaultTaxCountry'))
-                ->where('customer_class_tax_id', config('pulsar.market.defaultClassCustomerTax'))
+                ->where('country_id', config('pulsar-market.defaultTaxCountry'))
+                ->where('customer_class_tax_id', config('pulsar-market.defaultClassCustomerTax'))
                 ->orderBy('priority', 'asc')
                 ->get();
 
-            session(['pulsar.market.taxRules' => $taxRules]);
+            session(['pulsar-market.taxRules' => $taxRules]);
         }
 
         return $next($request);

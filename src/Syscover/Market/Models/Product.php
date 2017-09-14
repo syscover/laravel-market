@@ -152,11 +152,11 @@ class Product extends CoreModel
         // price of product
         if($key === 'price')
         {
-            if(config('pulsar.market.productTaxDisplayPrices') == TaxRuleService::PRICE_WITHOUT_TAX)
+            if(config('pulsar-market.productTaxDisplayPrices') == TaxRuleService::PRICE_WITHOUT_TAX)
             {
                 return $this->subtotal;
             }
-            elseif(config('pulsar.market.productTaxDisplayPrices') == TaxRuleService::PRICE_WITH_TAX)
+            elseif(config('pulsar-market.productTaxDisplayPrices') == TaxRuleService::PRICE_WITH_TAX)
             {
                 return $this->total; // call magic method
             }
@@ -186,7 +186,7 @@ class Product extends CoreModel
 
         if($key === 'tax_rules')
         {
-            $sessionTaxRules = session('pulsar.market.taxRules');
+            $sessionTaxRules = session('pulsar-market.taxRules');
 
             $sessionTaxRules->transform(function ($taxRule, $key) {
                 if($taxRule->product_class_taxes->where('id', $this->product_class_tax_id)->count() > 0)

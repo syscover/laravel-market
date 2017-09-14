@@ -47,15 +47,15 @@ class ProductTaxesQuery extends Query
 
         // get tax rules
         $taxRules = TaxRule::builder()
-            ->where('country_id', config('pulsar.market.defaultTaxCountry'))
-            ->where('customer_class_tax_id', config('pulsar.market.defaultClassCustomerTax'))
+            ->where('country_id', config('pulsar-market.defaultTaxCountry'))
+            ->where('customer_class_tax_id', config('pulsar-market.defaultClassCustomerTax'))
             ->where('product_class_tax_id', $productClassTax)
             ->orderBy('priority', 'asc')
             ->get();
 
         if(
             isset($args['productTaxPrices']) &&  $args['productTaxPrices'] == TaxRuleService::PRICE_WITHOUT_TAX ||
-            (int) config('pulsar.market.productTaxPrices') == TaxRuleService::PRICE_WITHOUT_TAX
+            (int) config('pulsar-market.productTaxPrices') == TaxRuleService::PRICE_WITHOUT_TAX
         )
         {
             $taxes      = TaxRuleService::taxCalculateOverSubtotal($price, $taxRules);
@@ -66,7 +66,7 @@ class ProductTaxesQuery extends Query
         }
         elseif (
             isset($args['productTaxPrices']) &&  $args['productTaxPrices'] == TaxRuleService::PRICE_WITH_TAX ||
-            (int) config('pulsar.market.productTaxPrices') == TaxRuleService::PRICE_WITH_TAX
+            (int) config('pulsar-market.productTaxPrices') == TaxRuleService::PRICE_WITH_TAX
         )
         {
             $taxes      = TaxRuleService::taxCalculateOverTotal($price, $taxRules);
