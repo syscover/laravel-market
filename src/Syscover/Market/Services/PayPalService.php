@@ -56,6 +56,11 @@ class PayPalService
         $order = Order::find($request->input('order'));
         $order->setOrderLog(__('market::pulsar.message_paypal_payment_successful'));
 
+        // change order status
+        $paymentMethod      = $order->payment_method;
+        $order->status_id   = $paymentMethod->order_status_successful_id;
+        $order->save();
+
         return $order;
     }
 

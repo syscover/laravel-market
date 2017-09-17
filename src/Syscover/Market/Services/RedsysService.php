@@ -76,8 +76,9 @@ class RedsysService
                 $order = Order::find($orderId);
 
                 // change order status
-                $paymentMethod      = $order->paymentMethod;
+                $paymentMethod      = $order->payment_method;
                 $order->status_id   = $paymentMethod->order_status_successful_id;
+                $order->save();
 
                 return $order;
             }
