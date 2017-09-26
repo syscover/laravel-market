@@ -12,6 +12,8 @@ return [
     'paypal_item_list_description'                  => 'Productos',
     'paypal_shipping_description'                   => 'Transporte',
     'service'                                       => 'Servicio',
+    'single_price'                                  => 'Precio único',
+    'undefined_price'                               => 'Precio indefinido',
     'transportable'								    => 'Transportable',
     'transportable_downloadable'				    => 'Transportable y descargable',
 ];
