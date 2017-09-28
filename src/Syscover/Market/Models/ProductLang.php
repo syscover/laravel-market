@@ -1,7 +1,8 @@
 <?php namespace Syscover\Market\Models;
 
-use Syscover\Core\Models\CoreModel;
 use Illuminate\Support\Facades\Validator;
+use Syscover\Core\Models\CoreModel;
+use Syscover\Admin\Traits\Slugable;
 use Syscover\Admin\Traits\Translatable;
 
 /**
@@ -11,7 +12,7 @@ use Syscover\Admin\Traits\Translatable;
 
 class ProductLang extends CoreModel
 {
-    use Translatable;
+    use Translatable, Slugable;
 
 	protected $table        = 'market_product_lang';
     protected $casts        = [
