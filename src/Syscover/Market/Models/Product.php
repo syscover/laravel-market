@@ -14,8 +14,7 @@ use Syscover\Admin\Traits\Translatable;
 
 class Product extends CoreModel
 {
-    use CustomizableFields;
-    use Translatable;
+    use CustomizableFields, Translatable;
 
 	protected $table        = 'market_product';
 	protected $fillable     = ['id', 'code', 'field_group_id', 'type_id', 'parent_id', 'weight', 'active', 'sort', 'price_type_id', 'subtotal', 'product_class_tax_id', 'data_lang', 'data'];
