@@ -16,10 +16,11 @@ class ProductLang extends CoreModel
     use CustomizableValues, Translatable, Slugable;
 
 	protected $table        = 'market_product_lang';
+    protected $fillable     = ['id', 'lang_id', 'name', 'slug', 'description', 'data'];
+    public $incrementing    = false;
     protected $casts        = [
         'data' => 'array'
     ];
-    protected $fillable     = ['id', 'lang_id', 'name', 'slug', 'description', 'data'];
 
     private static $rules   = [];
 

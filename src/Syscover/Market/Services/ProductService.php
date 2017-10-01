@@ -9,7 +9,7 @@ class ProductService
 {
     /**
      * Function to create a product
-     * @param   array                           $object
+     * @param   array   $object
      * @return  \Syscover\Market\Models\Product
      * @throws  \Exception
      */
@@ -27,8 +27,8 @@ class ProductService
         if(isset($object['field_group_id'])) $object['data']['customFields'] = $object['customFields'];
 
         // create product lang
-        $product = ProductLang::create($object); // overwrite product to get lang_id
-
+        $product = ProductLang::create($object);
+        
         // update data_lang after create ProductLang
         Product::where('market_product.id', $object['lang_id'])
             ->update([
