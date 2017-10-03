@@ -28,7 +28,7 @@ class ProductService
 
         // create product lang
         $product = ProductLang::create($object);
-        
+
         // update data_lang after create ProductLang
         Product::where('market_product.id', $object['lang_id'])
             ->update([
