@@ -53,7 +53,8 @@ class Product extends CoreModel
 
     public function product()
     {
-        return $this->belongsTo(Product::class, 'parent_id')->builder();
+        return $this->belongsTo(Product::class, 'parent_id')
+            ->builder();
     }
 
     public function categories()
