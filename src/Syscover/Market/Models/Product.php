@@ -27,6 +27,7 @@ class Product extends CoreModel
         'lang',
         'fieldGroup',
         'categories',
+        'stocks',
         'products'
     ];
     public $lazyRelations       = ['attachments'];
@@ -67,6 +68,11 @@ class Product extends CoreModel
         return $this->morphMany(Attachment::class, 'object')
             ->where('admin_attachment.lang_id', $this->lang_id)
             ->orderBy('sort', 'asc');
+    }
+
+    public function stocks()
+    {
+        return $this->hasMany(Stock::class, 'product_id', 'id')->builder();
     }
 
     public function whereChildrenProperty($property, $value)
