@@ -11,7 +11,8 @@ use Syscover\Core\Models\CoreModel;
 class Stock extends CoreModel
 {
 	protected $table        = 'market_stock';
-	protected $fillable     = ['id', 'warehouse_id', 'product_id', 'stock', 'minimum_stock'];
+	protected $fillable     = ['warehouse_id', 'product_id', 'stock', 'minimum_stock'];
+    protected $primaryKey   = 'warehouse_id';
     protected $casts        = [
         'stock' => 'float',
         'minimum_stock' => 'float'

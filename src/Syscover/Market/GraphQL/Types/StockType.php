@@ -13,10 +13,6 @@ class StockType extends GraphQLType
     public function fields()
     {
         return [
-            'id' => [
-                'type' => Type::nonNull(Type::int()),
-                'description' => 'The id of stock'
-            ],
             'warehouse_id' => [
                 'type' => Type::nonNull(Type::int()),
                 'description' => 'The id of warehouse'

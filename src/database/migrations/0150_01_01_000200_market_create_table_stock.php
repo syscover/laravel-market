@@ -12,7 +12,6 @@ class MarketCreateTableStock extends Migration
 			Schema::create('market_stock', function (Blueprint $table) {
 				$table->engine = 'InnoDB';
 
-				$table->increments('id')->unsigned();
                 $table->integer('warehouse_id')->unsigned();
                 $table->integer('product_id')->unsigned();
                 $table->decimal('stock', 11, 3)->default(0);
@@ -31,6 +30,8 @@ class MarketCreateTableStock extends Migration
                     ->on('market_product')
                     ->onDelete('cascade')
                     ->onUpdate('cascade');
+
+                $table->primary(['warehouse_id', 'product_id'], 'pk01_market_stock');
 			});
 		}
 	}

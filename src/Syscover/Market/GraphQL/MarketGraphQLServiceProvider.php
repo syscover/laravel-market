@@ -184,9 +184,7 @@ class MarketGraphQLServiceProvider
                 'marketDeleteWarehouse'                     => \Syscover\Market\GraphQL\Mutations\DeleteWarehouseMutation::class,
 
                 // STOCK
-                'marketAddStock'                            => \Syscover\Market\GraphQL\Mutations\AddStockMutation::class,
-                'marketUpdateStock'                         => \Syscover\Market\GraphQL\Mutations\UpdateStockMutation::class,
-                'marketDeleteStock'                         => \Syscover\Market\GraphQL\Mutations\DeleteStockMutation::class,
+                'marketSetStock'                            => \Syscover\Market\GraphQL\Mutations\SetStockMutation::class,
 
                 // ORDER
                 'marketAddOrder'                            => \Syscover\Market\GraphQL\Mutations\AddOrderMutation::class,
