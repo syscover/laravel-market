@@ -49,7 +49,8 @@ class Product extends CoreModel
 
     public function products()
     {
-        return $this->hasMany(Product::class, 'parent_id', 'id')->builder();
+        return $this->hasMany(Product::class, 'parent_id', 'id')
+            ->builder();
     }
 
     public function product()
@@ -72,7 +73,14 @@ class Product extends CoreModel
 
     public function stocks()
     {
-        return $this->hasMany(Stock::class, 'product_id', 'id')->builder();
+        return $this->hasMany(Stock::class, 'product_id', 'id');
+    }
+
+    public function getTotalStock()
+    {
+        return $this->stocks->reduce(function($value, $item) {
+            return $value + $item->stock;
+        });
     }
 
     public function whereChildrenProperty($property, $value)
