@@ -5,6 +5,7 @@ use Syscover\Admin\Models\Attachment;
 use Syscover\Core\Models\CoreModel;
 use Syscover\Market\Services\TaxRuleService;
 use Syscover\Admin\Traits\CustomizableFields;
+use Syscover\Admin\Traits\CustomizableValues;
 use Syscover\Admin\Traits\Translatable;
 
 /**
@@ -14,6 +15,8 @@ use Syscover\Admin\Traits\Translatable;
 
 class Product extends CoreModel
 {
+    // magic method __get is overwrite in bottom
+    use CustomizableValues;
     use CustomizableFields, Translatable;
 
 	protected $table        = 'market_product';
@@ -76,30 +79,25 @@ class Product extends CoreModel
         return $this->hasMany(Stock::class, 'product_id', 'id');
     }
 
-    public function getTotalStock()
-    {
-        return $this->stocks->reduce(function($value, $item) {
-            return $value + $item->stock;
-        });
-    }
 
-    public function whereChildrenProperty($property, $value)
-    {
-        $response = collect();
 
-        foreach ($this->products as $product)
-        {
-            if(
-                isset($product->data['properties']) &&
-                isset($product->data['properties'][$property]) &&
-                $product->data['properties'][$property] === $value
-            )
-            {
-               $response->push($product);
-            }
-        }
-        return $response;
-    }
+//    public function whereChildrenProperty($property, $value)
+//    {
+//        $response = collect();
+//
+//        foreach ($this->products as $product)
+//        {
+//            if(
+//                isset($product->data['properties']) &&
+//                isset($product->data['properties'][$property]) &&
+//                $product->data['properties'][$property] === $value
+//            )
+//            {
+//               $response->push($product);
+//            }
+//        }
+//        return $response;
+//    }
 
 
 
@@ -156,15 +154,27 @@ class Product extends CoreModel
     }
 
     /**
+     * Return total stock of all warehouses
+     *
+     * @return int
+     */
+    public function getTotalStock()
+    {
+        return $this->stocks->reduce(function($value, $item) {
+            return $value + $item->stock;
+        });
+    }
+
+    /**
      * Dynamically access route parameters.
      *
-     * @param  string  $key
+     * @param  string  $name
      * @return mixed
      */
-    public function __get($key)
+    public function __get($name)
     {
         // price of product
-        if($key === 'price')
+        if($name === 'price')
         {
             if(config('pulsar-market.productTaxDisplayPrices') == TaxRuleService::PRICE_WITHOUT_TAX)
             {
@@ -177,7 +187,7 @@ class Product extends CoreModel
         }
 
         // total price
-        if($key === 'total')
+        if($name === 'total')
         {
             if($this->tax_amount !== null)
             {
@@ -192,17 +202,17 @@ class Product extends CoreModel
         }
 
         // taxAmount property
-        if($key === 'tax_amount')
+        if($name === 'tax_amount')
         {
             $taxes = TaxRuleService::taxCalculateOverSubtotal($this->subtotal, $this->tax_rules);
             return $taxes->sum('taxAmount');
         }
 
-        if($key === 'tax_rules')
+        if($name === 'tax_rules')
         {
             $sessionTaxRules = session('pulsar-market.taxRules');
 
-            $sessionTaxRules->transform(function ($taxRule, $key) {
+            $sessionTaxRules->transform(function ($taxRule, $name) {
                 if($taxRule->product_class_taxes->where('id', $this->product_class_tax_id)->count() > 0)
                     return $taxRule;
             });
@@ -210,7 +220,16 @@ class Product extends CoreModel
             return $sessionTaxRules->sortBy('priority');
         }
 
-        // call parent method in model
-        return parent::getAttribute($key);
+        // custom fields
+        if(
+            isset($this->data['customFields']) &&
+            is_array($this->data['customFields']) &&
+            array_key_exists($name, $this->data['customFields'])
+        )
+        {
+            return $this->data['customFields'][$name];
+        }
+
+        return parent::__get($name);
     }
 }
