@@ -78,7 +78,7 @@ class DeleteProductMutation extends ProductMutation
     public function resolve($root, $args)
     {
         // destroy object
-        $object = SQLService::destroyRecord($args['id'], Product::class, $args['lang']);
+        $object = SQLService::destroyRecord($args['id'], Product::class, $args['lang'], ProductLang::class);
 
         // destroy attachments
         AttachmentService::deleteAttachments($args['id'], Product::class, $args['lang']);
