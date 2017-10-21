@@ -18,7 +18,8 @@ class Order extends CoreModel
         'data' => 'array'
     ];
     public $with = [
-        'payment_method'
+        'payment_method',
+        'statuses'
     ];
     private static $rules   = [
         'status'            => 'required',
@@ -53,9 +54,9 @@ class Order extends CoreModel
             ->select('crm_customer.*', 'market_payment_method.*', 'market_order_status.*', 'market_order.*', 'crm_customer.id as crm_customer_id', 'market_payment_method.id as market_payment_method_id', 'market_order_status.id as market_order_status_id', 'market_order.id as market_order_id');
     }
 
-    public function status()
+    public function statuses()
     {
-        return $this->hasOne(OrderStatus::class, 'id','status_id');
+        return $this->hasMany(OrderStatus::class, 'id','status_id');
     }
 
     public function payment_method()
