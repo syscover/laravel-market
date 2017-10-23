@@ -18,7 +18,7 @@ class Order extends CoreModel
         'data' => 'array'
     ];
     public $with = [
-        'payment_method',
+        'payment_methods',
         'statuses'
     ];
     private static $rules   = [
@@ -59,9 +59,9 @@ class Order extends CoreModel
         return $this->hasMany(OrderStatus::class, 'id','status_id');
     }
 
-    public function payment_method()
+    public function payment_methods()
     {
-        return $this->hasOne(PaymentMethod::class, 'id', 'payment_method_id');
+        return $this->hasMany(PaymentMethod::class, 'id', 'payment_method_id');
     }
 
     public function rows()
