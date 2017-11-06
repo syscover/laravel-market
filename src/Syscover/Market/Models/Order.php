@@ -92,8 +92,9 @@ class Order extends CoreModel
             'message'   => $message
         ]);
 
-        $this->data = json_encode($dataOrder);
-        $this->save();
+        Order::where('id', $this->id)->update([
+            'data' => json_encode($dataOrder)
+        ]);
     }
 
     /**
