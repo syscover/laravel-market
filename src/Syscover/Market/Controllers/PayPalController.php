@@ -208,8 +208,10 @@ class PayPalController extends BaseController
             if(! empty($order->order_status_successful_id))
             {
                 // set next status to complete payment method
-                $order->status_id = $order->order_status_successful_id;
-                $order->save();
+                Order::where('id', $order->id)
+                    ->update([
+                        'status_id' => $order->order_status_successful_id
+                    ]);
             }
 
             $route = route(config('pulsar-market.payPalSuccessfulRoute'));
