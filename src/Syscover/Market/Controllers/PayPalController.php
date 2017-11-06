@@ -171,9 +171,10 @@ class PayPalController extends BaseController
         }
 
         // record payment id on order
-        $order->transaction_id = $payment->getId();
-        $order->save();
-
+        Order::where('id', $order->id)
+            ->update([
+                'transaction_id' => $payment->getId()
+            ]);
 
         if(isset($redirectUrl))
         {
