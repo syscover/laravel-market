@@ -31,7 +31,7 @@ class Product extends CoreModel
         'fieldGroup',
         'categories',
         'stocks',
-        'products'
+        'children_products'
     ];
     public $lazyRelations       = ['attachments'];
 
@@ -50,13 +50,13 @@ class Product extends CoreModel
         return $query->join('market_product_lang', 'market_product.id', '=', 'market_product_lang.id');
     }
 
-    public function products()
+    public function children_products()
     {
         return $this->hasMany(Product::class, 'parent_id', 'id')
             ->builder();
     }
 
-    public function product()
+    public function parent_product()
     {
         return $this->belongsTo(Product::class, 'parent_id')
             ->builder();
