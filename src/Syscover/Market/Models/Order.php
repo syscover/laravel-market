@@ -81,10 +81,9 @@ class Order extends CoreModel
 
     public function setOrderLog($message)
     {
-        $dataOrder = json_decode($this->data, true);
+        $dataOrder = $this->data['log'];
 
-        if(! isset($dataOrder['log']))
-            $dataOrder['log'] = [];
+        if(! isset($dataOrder['log'])) $dataOrder['log'] = [];
 
         array_unshift($dataOrder['log'], [
             'time'      => Carbon::now(),
