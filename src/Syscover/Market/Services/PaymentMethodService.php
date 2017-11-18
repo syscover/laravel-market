@@ -19,7 +19,7 @@ class PaymentMethodService
             $object['id'] = $id;
         }
 
-        $object['data_lang'] = PaymentMethod::addLangDataRecord($object['lang_id'], $object['id']);
+        $object['data_lang'] = PaymentMethod::addDataLang($object['lang_id'], $object['id']);
         
         return PaymentMethod::create($object);
     }

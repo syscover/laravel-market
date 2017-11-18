@@ -1,5 +1,6 @@
 <?php namespace Syscover\Market\GraphQL\Types;
 
+use GraphQL;
 use GraphQL\Type\Definition\Type;
 use Folklore\GraphQL\Support\Type as GraphQLType;
 
@@ -44,6 +45,10 @@ class OrderType extends GraphQLType
             'transaction_id' => [
                 'type' => Type::string(),
                 'description' => 'Transaction ID generate by PayPal or any payment method'
+            ],
+            'rows' => [
+                'type' => Type::listOf(GraphQL::type('MarketOrderRow')),
+                'description' => 'Rows of order'
             ],
 
             //****************
@@ -298,5 +303,10 @@ class OrderType extends GraphQLType
                 'description' => 'Comments of shipping'
             ],
         ];
+    }
+
+    public function resolveRowsField($object, $args)
+    {
+        return $object->rows;
     }
 }

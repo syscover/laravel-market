@@ -32,7 +32,7 @@ class OrderStatusController extends CoreController
             'lang_id'               => $request->input('lang_id'),
             'name'                  => $request->input('name'),
             'active'                => $request->input('active'),
-            'data_lang'             => OrderStatus::addLangDataRecord($request->input('lang_id'), $id)
+            'data_lang'             => OrderStatus::addDataLang($request->input('lang_id'), $id)
         ]);
 
         $response['status'] = "success";

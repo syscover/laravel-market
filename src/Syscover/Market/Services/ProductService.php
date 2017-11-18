@@ -32,7 +32,7 @@ class ProductService
         // update data_lang after create ProductLang
         Product::where('market_product.id', $object['lang_id'])
             ->update([
-                'data_lang' => json_encode(Product::addLangDataRecord($object['lang_id'], $object['id']))
+                'data_lang' => json_encode(Product::addDataLang($object['lang_id'], $object['id']))
             ]);
 
         // get object with builder, to get every relations

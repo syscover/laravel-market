@@ -19,7 +19,7 @@ class CategoryService
             $object['id'] = $id;
         }
 
-        $object['data_lang'] = Category::addLangDataRecord($object['lang_id'], $object['id']);
+        $object['data_lang'] = Category::addDataLang($object['lang_id'], $object['id']);
 
         return Category::create($object);
     }

@@ -41,7 +41,7 @@ class AddOrderStatusMutation extends OrderStatusMutation
             $args['object']['id'] = $id;
         }
 
-        $args['object']['data_lang'] = OrderStatus::addLangDataRecord($args['object']['lang_id'], $args['object']['id']);
+        $args['object']['data_lang'] = OrderStatus::addDataLang($args['object']['lang_id'], $args['object']['id']);
 
         return OrderStatus::create($args['object']);
     }
