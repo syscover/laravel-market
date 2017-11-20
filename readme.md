@@ -27,7 +27,7 @@ php artisan db:seed --class="MarketTableSeeder"
 
 **5 - Execute command to load all updates**
 ```
-php artisan migrate --path=database/migrations/updates
+php artisan migrate --path=vendor/syscover/pulsar-market/src/database/migrations/updates
 ```
 
 **6 - Register middleware pulsar.taxRule on file app/Http/Kernel.php add to routeMiddleware array**

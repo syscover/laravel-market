@@ -20,7 +20,12 @@ class ProductService
         {
             // create new product
             $product = Product::create($object);
-            $object['id'] = $product->id;
+            $object['object_id'] = $product->id;
+        }
+        else
+        {
+            $object['object_id'] = $object['id'];
+            unset($object['id']);
         }
 
         // get custom fields
@@ -29,15 +34,12 @@ class ProductService
         // create product lang
         $product = ProductLang::create($object);
 
-        // update data_lang after create ProductLang
-        Product::where('market_product.id', $object['lang_id'])
-            ->update([
-                'data_lang' => json_encode(Product::addDataLang($object['lang_id'], $object['id']))
-            ]);
+        // product already is create, it's not necessary update product with data_lang value
+        Product::addDataLang($object['lang_id'], $object['object_id'], 'id');
 
         // get object with builder, to get every relations
         $product = Product::builder()
-            ->where('market_product.id', $product->id)
+            ->where('market_product.id', $product->object_id)
             ->where('market_product_lang.lang_id', $product->lang_id)
             ->first();
 
@@ -59,16 +61,14 @@ class ProductService
 
     /**
      * @param   array     $object     contain properties of product
-     * @param   int       $id         id of product
-     * @param   string    $lang       lang of product
      * @return  \Syscover\Market\Models\Product
      */
-    public static function update($object, $id, $lang)
+    public static function update($object)
     {
         $object = collect($object);
 
         // update product
-        Product::where('market_product.id', $id)
+        Product::where('market_product.id', $object->get('id'))
             ->update([
                 'code'                  =>  $object->get('code'),
                 'field_group_id'        =>  $object->get('field_group_id'),
@@ -87,8 +87,8 @@ class ProductService
         if($object->has('field_group_id')) $data['customFields'] = $object->get('customFields');
 
         // update product lang
-        ProductLang::where('market_product_lang.id', $id)
-            ->where('market_product_lang.lang_id', $lang)
+        ProductLang::where('market_product_lang.object_id', $object->get('object_id'))
+            ->where('market_product_lang.lang_id', $object->get('lang_id'))
             ->update([
                 'name'          => $object->get('name'),
                 'slug'          => $object->get('slug'),
@@ -97,8 +97,8 @@ class ProductService
             ]);
 
         $product = Product::builder()
-            ->where('market_product.id', $id)
-            ->where('market_product_lang.lang_id', $lang)
+            ->where('market_product.id', $object->get('id'))
+            ->where('market_product_lang.lang_id', $object->get('lang_id'))
             ->first();
 
         // set categories

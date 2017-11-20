@@ -20,6 +20,10 @@ class ProductInput extends GraphQLType {
                 'type' => Type::int(),
                 'description' => 'The id of product'
             ],
+            'object_id' => [
+                'type' => Type::int(),
+                'description' => 'The id of product for translate object'
+            ],
             'lang_id' => [
                 'type' => Type::string(),
                 'description' => 'lang of product'

@@ -17,7 +17,7 @@ class MarketCreateTableTaxRateZone extends Migration {
 			Schema::create('market_tax_rate_zone', function (Blueprint $table) {
 				$table->engine = 'InnoDB';
 
-				$table->increments('id')->unsigned();
+				$table->increments('id');
 				$table->string('name');
 				$table->string('country_id', 2);
 				$table->string('territorial_area_1_id', 6)->nullable();

@@ -50,7 +50,7 @@ class UpdateProductMutation extends ProductMutation
 
     public function resolve($root, $args)
     {
-        return ProductService::update($args['object'], $args['object']['id'], $args['object']['lang_id']);
+        return ProductService::update($args['object']);
     }
 }
 
@@ -64,12 +64,12 @@ class DeleteProductMutation extends ProductMutation
     public function args()
     {
         return [
-            'id' => [
-                'name' => 'id',
-                'type' => Type::nonNull(Type::string())
+            'object_id' => [
+                'name' => 'object_id',
+                'type' => Type::nonNull(Type::int())
             ],
-            'lang' => [
-                'name' => 'lang',
+            'lang_id' => [
+                'name' => 'lang_id',
                 'type' => Type::nonNull(Type::string())
             ]
         ];
@@ -78,10 +78,10 @@ class DeleteProductMutation extends ProductMutation
     public function resolve($root, $args)
     {
         // destroy object
-        $object = SQLService::destroyRecord($args['id'], Product::class, $args['lang'], ProductLang::class);
+        $object = SQLService::destroyRecord($args['object_id'], Product::class, $args['lang_id'], ProductLang::class);
 
         // destroy attachments
-        AttachmentService::deleteAttachments($args['id'], Product::class, $args['lang']);
+        AttachmentService::deleteAttachments($args['object_id'], Product::class, $args['lang_id']);
 
         return $object;
     }

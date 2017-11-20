@@ -15,7 +15,6 @@ use Syscover\Admin\Traits\Translatable;
 
 class Product extends CoreModel
 {
-    // magic method __get is overwrite in bottom
     use CustomizableValues;
     use CustomizableFields, Translatable;
 
@@ -47,7 +46,8 @@ class Product extends CoreModel
 
     public function scopeBuilder($query)
     {
-        return $query->join('market_product_lang', 'market_product.id', '=', 'market_product_lang.id');
+        return $query->join('market_product_lang', 'market_product.id', '=', 'market_product_lang.object_id')
+            ->select('market_product_lang.*', 'market_product.*', 'market_product_lang.id as market_product_lang_id', 'market_product.id as market_product_id');
     }
 
     public function children_products()

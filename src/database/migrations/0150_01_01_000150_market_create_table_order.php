@@ -18,7 +18,7 @@ class MarketCreateTableOrder extends Migration
 			Schema::create('market_order', function (Blueprint $table) {
 				$table->engine = 'InnoDB';
 
-				$table->increments('id')->unsigned();
+				$table->increments('id');
 				$table->timestamp('date')->default(DB::raw('CURRENT_TIMESTAMP'));
 				$table->integer('payment_method_id')->unsigned();
 				$table->integer('status_id')->unsigned();

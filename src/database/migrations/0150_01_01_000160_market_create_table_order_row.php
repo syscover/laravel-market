@@ -17,7 +17,7 @@ class MarketCreateTableOrderRow extends Migration
 			Schema::create('market_order_row', function (Blueprint $table) {
 				$table->engine = 'InnoDB';
 
-				$table->increments('id')->unsigned();
+				$table->increments('id');
 				$table->string('lang_id', 2);
 				$table->integer('order_id')->unsigned();
 				$table->integer('product_id')->nullable()->unsigned();

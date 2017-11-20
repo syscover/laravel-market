@@ -19,6 +19,10 @@ class ProductType extends GraphQLType {
                 'type' => Type::nonNull(Type::int()),
                 'description' => 'The id of product'
             ],
+            'object_id' => [
+                'type' => Type::nonNull(Type::int()),
+                'description' => 'The id of product for translate object'
+            ],
             'lang_id' => [
                 'type' => Type::nonNull(Type::string()),
                 'description' => 'lang of product'

@@ -12,7 +12,7 @@ class MarketCreateTableWarehouse extends Migration
 			Schema::create('market_warehouse', function (Blueprint $table) {
 				$table->engine = 'InnoDB';
 
-				$table->increments('id')->unsigned();
+				$table->increments('id');
 				$table->string('name');
 
 				// geolocation data
