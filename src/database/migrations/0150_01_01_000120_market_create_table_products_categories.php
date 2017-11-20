@@ -18,9 +18,9 @@ class MarketCreateTableProductsCategories extends Migration {
 				$table->engine = 'InnoDB';
 				
 				$table->integer('product_id')->unsigned();
-				$table->integer('category_id')->unsigned();
+				$table->integer('category_object_id')->unsigned();
 
-				$table->primary(['product_id', 'category_id'], 'pk01_market_products_categories');
+				$table->primary(['product_id', 'category_object_id'], 'pk01_market_products_categories');
 			});
 		}
 	}

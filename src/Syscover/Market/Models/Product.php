@@ -62,9 +62,20 @@ class Product extends CoreModel
             ->builder();
     }
 
+//    public function categories()
+//    {
+//        return $this->belongsToMany(Category::class, 'market_products_categories', 'product_id', 'category_id');
+//    }
     public function categories()
     {
-        return $this->belongsToMany(Category::class, 'market_products_categories', 'product_id', 'category_id');
+        return $this->belongsToMany(
+            Category::class,
+            'market_products_categories',
+            'product_id',
+            'category_object_id',
+            'id',
+            'object_id'
+        );
     }
 
     public function attachments()
