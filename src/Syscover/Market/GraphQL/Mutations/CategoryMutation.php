@@ -47,7 +47,7 @@ class UpdateCategoryMutation extends CategoryMutation
 
     public function resolve($root, $args)
     {
-        return CategoryService::update($args['object'], $args['object']['id'], $args['object']['lang_id']);
+        return CategoryService::update($args['object']);
     }
 }
 
@@ -61,12 +61,12 @@ class DeleteCategoryMutation extends CategoryMutation
     public function args()
     {
         return [
-            'id' => [
-                'name' => 'id',
-                'type' => Type::nonNull(Type::string())
+            'object_id' => [
+                'name' => 'object_id',
+                'type' => Type::nonNull(Type::int())
             ],
-            'lang' => [
-                'name' => 'lang',
+            'lang_id' => [
+                'name' => 'lang_id',
                 'type' => Type::nonNull(Type::string())
             ]
         ];
@@ -74,7 +74,7 @@ class DeleteCategoryMutation extends CategoryMutation
 
     public function resolve($root, $args)
     {
-        $object = SQLService::destroyRecord($args['id'], Category::class, $args['lang']);
+        $object = SQLService::destroyRecord($args['object_id'], Category::class, $args['lang_id']);
 
         return $object;
     }

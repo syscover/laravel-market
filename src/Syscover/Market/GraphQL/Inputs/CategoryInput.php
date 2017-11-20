@@ -20,6 +20,10 @@ class CategoryInput extends GraphQLType {
                 'type' => Type::int(),
                 'description' => 'The id of category'
             ],
+            'object_id' => [
+                'type' => Type::int(),
+                'description' => 'The id of category for translate object'
+            ],
             'lang_id' => [
                 'type' => Type::string(),
                 'description' => 'lang of category'

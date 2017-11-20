@@ -14,7 +14,7 @@ class Category extends CoreModel
     use Translatable;
 
 	protected $table        = 'market_category';
-    protected $fillable     = ['id', 'lang_id', 'parent_id', 'name', 'slug', 'active', 'description', 'data_lang', 'data'];
+    protected $fillable     = ['id', 'object_id' ,'lang_id', 'parent_id', 'name', 'slug', 'active', 'description', 'data_lang', 'data'];
     protected $casts        = [
         'active'    => 'boolean',
         'data_lang' => 'array',
