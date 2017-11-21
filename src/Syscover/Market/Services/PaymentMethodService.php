@@ -12,31 +12,28 @@ class PaymentMethodService
      */
     public static function create($object)
     {
-        if(empty($object['id']))
+        if(empty($object['object_id']))
         {
-            $id = PaymentMethod::max('id');
+            $id = PaymentMethod::max('object_id');
             $id++;
-            $object['id'] = $id;
+            $object['object_id'] = $id;
         }
 
-        $object['data_lang'] = PaymentMethod::addDataLang($object['lang_id'], $object['id']);
+        $object['data_lang'] = PaymentMethod::addDataLang($object['lang_id'], $object['object_id']);
         
         return PaymentMethod::create($object);
     }
 
     /**
      * @param   array     $object     contain properties of payment method
-     * @param   int       $id         id of payment method
-     * @param   string    $lang       lang of payment method
      * @return  \Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model|null|static|static[]
      */
-    public static function update($object, $id, $lang)
+    public static function update($object)
     {
         // pass object to collection
         $object = collect($object);
 
-        PaymentMethod::where('id', $id)
-            ->where('lang_id', $lang)
+        PaymentMethod::where('id', $object->get('id'))
             ->update([
                 'name'                          => $object->get('name'),
                 'order_status_successful_id'    => $object->get('order_status_successful_id'),
@@ -47,8 +44,7 @@ class PaymentMethodService
                 'active'                        => $object->get('active'),
             ]);
 
-        return PaymentMethod::where('id', $id)
-            ->where('lang_id', $lang)
+        return PaymentMethod::where('id', $object->get('id'))
             ->first();
     }
 

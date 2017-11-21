@@ -19,6 +19,10 @@ class PaymentMethodInput extends GraphQLType
                 'type' => Type::int(),
                 'description' => 'The id of payment method'
             ],
+            'object_id' => [
+                'type' => Type::int(),
+                'description' => 'The id of payment method for translate object'
+            ],
             'lang_id' => [
                 'type' => Type::string(),
                 'description' => 'Lang of payment method'

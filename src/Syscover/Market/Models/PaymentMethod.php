@@ -14,7 +14,7 @@ class PaymentMethod extends CoreModel
     use Translatable;
 
 	protected $table        = 'market_payment_method';
-    protected $fillable     = ['id', 'lang_id', 'name', 'order_status_successful_id', 'minimum_price', 'maximum_price', 'instructions', 'sort', 'active', 'data_lang'];
+    protected $fillable     = ['id', 'object_id', 'lang_id', 'name', 'order_status_successful_id', 'minimum_price', 'maximum_price', 'instructions', 'sort', 'active', 'data_lang'];
     protected $casts        = [
         'active'    => 'boolean',
         'data_lang' => 'array'

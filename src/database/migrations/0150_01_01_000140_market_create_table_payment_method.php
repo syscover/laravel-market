@@ -17,7 +17,8 @@ class MarketCreateTablePaymentMethod extends Migration
 			Schema::create('market_payment_method', function (Blueprint $table) {
 				$table->engine = 'InnoDB';
 
-				$table->integer('id')->unsigned();
+                $table->increments('id');
+                $table->integer('object_id')->unsigned();
 				$table->string('lang_id', 2);
 				$table->string('name');
 				
@@ -44,7 +45,7 @@ class MarketCreateTablePaymentMethod extends Migration
 					->onDelete('restrict')
 					->onUpdate('cascade');
 
-				$table->primary(['id', 'lang_id'], 'pk01_payment_method');
+                $table->index(['object_id', 'lang_id'], 'ix01_market_payment_method');
 			});
 		}
 	}

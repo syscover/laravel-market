@@ -18,7 +18,7 @@ class PaymentMethodController extends CoreController
     public function store(Request $request)
     {
         $response['status'] = "success";
-        $response['data']   = PaymentMethodService::create($response->all());
+        $response['data']   = PaymentMethodService::create($request->all());
 
         return response()->json($response);
     }
@@ -27,14 +27,12 @@ class PaymentMethodController extends CoreController
      * Update the specified resource in storage.
      *
      * @param   \Illuminate\Http\Request  $request
-     * @param   int     $id
-     * @param   string  $lang
      * @return  \Illuminate\Http\JsonResponse
      */
-    public function update(Request $request, $id, $lang)
+    public function update(Request $request)
     {
         $response['status'] = "success";
-        $response['data']   = PaymentMethodService::update($response->all(), $id, $lang);
+        $response['data']   = PaymentMethodService::update($request->all());
 
         return response()->json($response);
     }

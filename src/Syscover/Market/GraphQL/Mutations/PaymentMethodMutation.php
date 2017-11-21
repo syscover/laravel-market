@@ -47,7 +47,7 @@ class UpdatePaymentMethodMutation extends PaymentMethodMutation
 
     public function resolve($root, $args)
     {
-        return PaymentMethodService::update($args['object'], $args['object']['id'], $args['object']['lang_id']);
+        return PaymentMethodService::update($args['object']);
     }
 }
 
@@ -61,12 +61,12 @@ class DeletePaymentMethodMutation extends PaymentMethodMutation
     public function args()
     {
         return [
-            'id' => [
-                'name' => 'id',
-                'type' => Type::nonNull(Type::string())
+            'object_id' => [
+                'name' => 'object_id',
+                'type' => Type::nonNull(Type::int())
             ],
-            'lang' => [
-                'name' => 'lang',
+            'lang_id' => [
+                'name' => 'lang_id',
                 'type' => Type::nonNull(Type::string())
             ]
         ];
@@ -74,7 +74,7 @@ class DeletePaymentMethodMutation extends PaymentMethodMutation
 
     public function resolve($root, $args)
     {
-        $object = SQLService::destroyRecord($args['id'], PaymentMethod::class, $args['lang']);
+        $object = SQLService::destroyRecord($args['object_id'], PaymentMethod::class, $args['lang_id']);
 
         return $object;
     }

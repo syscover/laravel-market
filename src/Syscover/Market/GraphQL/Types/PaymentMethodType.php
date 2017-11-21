@@ -17,6 +17,10 @@ class PaymentMethodType extends GraphQLType {
                 'type' => Type::nonNull(Type::int()),
                 'description' => 'The id of order status'
             ],
+            'object_id' => [
+                'type' => Type::nonNull(Type::int()),
+                'description' => 'The id of payment method for translate object'
+            ],
             'lang_id' => [
                 'type' => Type::nonNull(Type::string()),
                 'description' => 'Lang of order status'
