@@ -102,7 +102,7 @@ class ProductService
             ->first();
 
         // set categories
-        $product->categories()->sync($object->get('categories_id'));
+        $product->categories()->sync($object->get('categories_object_id'));
 
         // set attachments
         if(is_array($object->get('attachments')))

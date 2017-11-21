@@ -19,6 +19,10 @@ class OrderStatusInput extends GraphQLType
                 'type' => Type::int(),
                 'description' => 'The id of order status'
             ],
+            'object_id' => [
+                'type' => Type::int(),
+                'description' => 'The id of order status for translate object'
+            ],
             'lang_id' => [
                 'type' => Type::string(),
                 'description' => 'Lang of order status'

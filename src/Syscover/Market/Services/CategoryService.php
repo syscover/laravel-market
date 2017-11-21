@@ -34,7 +34,6 @@ class CategoryService
         $object = collect($object);
 
         Category::where('id', $object->get('id'))
-            ->where('lang_id', $object->get('lang_id'))
             ->update([
                 'parent_id'             => $object->get('parent_id'),
                 'name'                  => $object->get('name'),
@@ -44,7 +43,6 @@ class CategoryService
             ]);
 
         return Category::where('id', $object->get('id'))
-            ->where('lang_id', $object->get('lang_id'))
             ->first();
     }
 }

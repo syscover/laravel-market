@@ -17,6 +17,10 @@ class OrderStatusType extends GraphQLType {
                 'type' => Type::nonNull(Type::int()),
                 'description' => 'The id of order status'
             ],
+            'object_id' => [
+                'type' => Type::nonNull(Type::int()),
+                'description' => 'The id of order status for translate object'
+            ],
             'lang_id' => [
                 'type' => Type::nonNull(Type::string()),
                 'description' => 'Lang of order status'

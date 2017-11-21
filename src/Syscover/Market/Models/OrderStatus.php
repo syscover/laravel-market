@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Validator;
 use Syscover\Admin\Traits\Translatable;
 
 /**
- * Class PaymentMethod
+ * Class OrderStatus
  * @package Syscover\Market\Models
  */
 
@@ -14,7 +14,7 @@ class OrderStatus extends CoreModel
     use Translatable;
 
 	protected $table        = 'market_order_status';
-    protected $fillable     = ['id', 'lang_id', 'name', 'active', 'data_lang'];
+    protected $fillable     = ['id', 'object_id', 'lang_id', 'name', 'active', 'data_lang'];
     protected $casts        = [
         'active'    => 'boolean',
         'data_lang' => 'array'

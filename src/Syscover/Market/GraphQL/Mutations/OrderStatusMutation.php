@@ -5,6 +5,7 @@ use GraphQL\Type\Definition\Type;
 use Folklore\GraphQL\Support\Mutation;
 use Syscover\Core\Services\SQLService;
 use Syscover\Market\Models\OrderStatus;
+use Syscover\Market\Services\OrderStatusService;
 
 class OrderStatusMutation extends Mutation
 {
@@ -33,17 +34,7 @@ class AddOrderStatusMutation extends OrderStatusMutation
 
     public function resolve($root, $args)
     {
-        if(! isset($args['object']['id']))
-        {
-            $id = OrderStatus::max('id');
-            $id++;
-
-            $args['object']['id'] = $id;
-        }
-
-        $args['object']['data_lang'] = OrderStatus::addDataLang($args['object']['lang_id'], $args['object']['id']);
-
-        return OrderStatus::create($args['object']);
+        return OrderStatusService::create($args['object']);
     }
 }
 
@@ -56,13 +47,7 @@ class UpdateOrderStatusMutation extends OrderStatusMutation
 
     public function resolve($root, $args)
     {
-        OrderStatus::where('id', $args['object']['id'])
-            ->where('lang_id', $args['object']['lang_id'])
-            ->update($args['object']);
-
-        return OrderStatus::where('id', $args['object']['id'])
-            ->where('lang_id', $args['object']['lang_id'])
-            ->first();
+        return OrderStatusService::update($args['object']);
     }
 }
 
@@ -76,12 +61,12 @@ class DeleteOrderStatusMutation extends OrderStatusMutation
     public function args()
     {
         return [
-            'id' => [
-                'name' => 'id',
-                'type' => Type::nonNull(Type::string())
+            'object_id' => [
+                'name' => 'object_id',
+                'type' => Type::nonNull(Type::int())
             ],
-            'lang' => [
-                'name' => 'lang',
+            'lang_id' => [
+                'name' => 'lang_id',
                 'type' => Type::nonNull(Type::string())
             ]
         ];
@@ -89,7 +74,7 @@ class DeleteOrderStatusMutation extends OrderStatusMutation
 
     public function resolve($root, $args)
     {
-        $object = SQLService::destroyRecord($args['id'], OrderStatus::class, $args['lang']);
+        $object = SQLService::destroyRecord($args['object_id'], OrderStatus::class, $args['lang_id']);
 
         return $object;
     }

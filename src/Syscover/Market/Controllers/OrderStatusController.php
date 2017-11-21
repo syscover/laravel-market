@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Syscover\Core\Controllers\CoreController;
 use Syscover\Market\Models\OrderStatus;
+use Syscover\Market\Services\OrderStatusService;
 
 class OrderStatusController extends CoreController
 {
@@ -16,27 +17,8 @@ class OrderStatusController extends CoreController
      */
     public function store(Request $request)
     {
-        // check if there is id to know if is a new lang
-        if($request->has('id'))
-        {
-            $id = $request->input('id');
-        }
-        else
-        {
-            $id = OrderStatus::max('id');
-            $id++;
-        }
-
-        $object = OrderStatus::create([
-            'id'                    => $id,
-            'lang_id'               => $request->input('lang_id'),
-            'name'                  => $request->input('name'),
-            'active'                => $request->input('active'),
-            'data_lang'             => OrderStatus::addDataLang($request->input('lang_id'), $id)
-        ]);
-
         $response['status'] = "success";
-        $response['data']   = $object;
+        $response['data']   = OrderStatusService::create($request->all());
 
         return response()->json($response);
     }
@@ -45,21 +27,12 @@ class OrderStatusController extends CoreController
      * Update the specified resource in storage.
      *
      * @param   \Illuminate\Http\Request  $request
-     * @param   int     $id
-     * @param   string  $lang
      * @return  \Illuminate\Http\JsonResponse
      */
-    public function update(Request $request, $id, $lang)
+    public function update(Request $request)
     {
-        OrderStatus::where('id', $id)->where('lang_id', $lang)->update([
-            'name'                  => $request->input('name'),
-            'active'                => $request->input('active'),
-        ]);
-
-        $object = OrderStatus::where('id', $id)->where('lang_id', $lang)->first();
-
         $response['status'] = "success";
-        $response['data']   = $object;
+        $response['data']   = OrderStatusService::update($request->all());
 
         return response()->json($response);
     }

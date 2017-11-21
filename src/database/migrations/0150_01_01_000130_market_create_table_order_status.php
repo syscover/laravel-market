@@ -17,7 +17,8 @@ class MarketCreateTableOrderStatus extends Migration
 			Schema::create('market_order_status', function (Blueprint $table) {
 				$table->engine = 'InnoDB';
 
-				$table->integer('id')->unsigned();
+                $table->increments('id');
+				$table->integer('object_id')->unsigned();
 				$table->string('lang_id', 2);
 				$table->string('name');
 				$table->boolean('active');
@@ -32,7 +33,7 @@ class MarketCreateTableOrderStatus extends Migration
 					->onDelete('restrict')
 					->onUpdate('cascade');
 
-				$table->primary(['id', 'lang_id'], 'pk01_market_order_status');
+                $table->index(['object_id', 'lang_id'], 'ix01_market_order_status');
 			});
 		}
 	}

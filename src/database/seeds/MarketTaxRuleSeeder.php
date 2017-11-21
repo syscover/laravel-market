@@ -9,7 +9,7 @@ class MarketTaxRuleSeeder extends Seeder {
     public function run()
     {
         TaxRule::insert([
-            ['id' => 1, 'name' =>  'IVA 21 - Particular customer', 'translation' => 'web.iva', 'priority' => 0, 'sort' => 0]
+            ['id' => 1, 'name' => 'IVA 21 - Particular customer', 'translation' => 'web.iva', 'priority' => 0, 'sort' => 0]
         ]);
 
         DB::table('market_tax_rules_customer_class_taxes')->insert([
@@ -26,7 +26,6 @@ class MarketTaxRuleSeeder extends Seeder {
             'tax_rule_id' => 1,
             'tax_rate_zone_id' => 1
         ]);
-
     }
 }
 
