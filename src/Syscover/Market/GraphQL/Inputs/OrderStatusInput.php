@@ -15,13 +15,13 @@ class OrderStatusInput extends GraphQLType
     public function fields()
     {
         return [
+            'ix' => [
+                'type' => Type::int(),
+                'description' => 'The index of order status'
+            ],
             'id' => [
                 'type' => Type::int(),
                 'description' => 'The id of order status'
-            ],
-            'object_id' => [
-                'type' => Type::int(),
-                'description' => 'The id of order status for translate object'
             ],
             'lang_id' => [
                 'type' => Type::string(),

@@ -17,8 +17,8 @@ class MarketCreateTableProductLang extends Migration
 			Schema::create('market_product_lang', function (Blueprint $table) {
 				$table->engine = 'InnoDB';
 
-                $table->increments('id');
-				$table->integer('object_id')->unsigned();
+                $table->increments('ix');
+				$table->integer('id')->unsigned();
 				$table->string('lang_id', 2);
 				$table->string('name');
 				$table->string('slug');
@@ -28,7 +28,7 @@ class MarketCreateTableProductLang extends Migration
                 $table->timestamps();
                 $table->softDeletes();
 				
-				$table->foreign('object_id', 'fk01_market_product_lang')
+				$table->foreign('id', 'fk01_market_product_lang')
 					->references('id')
 					->on('market_product')
 					->onDelete('cascade')
@@ -39,7 +39,7 @@ class MarketCreateTableProductLang extends Migration
 					->onDelete('restrict')
 					->onUpdate('cascade');
 
-                $table->index(['object_id', 'lang_id'], 'ix01_market_product_lang');
+                $table->index(['id', 'lang_id'], 'ix01_market_product_lang');
 			});
 		}
 	}

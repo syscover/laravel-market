@@ -46,7 +46,7 @@ class Product extends CoreModel
 
     public function scopeBuilder($query)
     {
-        return $query->join('market_product_lang', 'market_product.id', '=', 'market_product_lang.object_id')
+        return $query->join('market_product_lang', 'market_product.id', '=', 'market_product_lang.id')
             ->select('market_product_lang.*', 'market_product.*', 'market_product_lang.id as market_product_lang_id', 'market_product.id as market_product_id');
     }
 
@@ -62,25 +62,27 @@ class Product extends CoreModel
             ->builder();
     }
 
-//    public function categories()
-//    {
-//        return $this->belongsToMany(Category::class, 'market_products_categories', 'product_id', 'category_id');
-//    }
     public function categories()
     {
         return $this->belongsToMany(
             Category::class,
             'market_products_categories',
             'product_id',
-            'category_object_id',
+            'category_id',
             'id',
-            'object_id'
+            'id'
         );
     }
 
     public function attachments()
     {
-        return $this->morphMany(Attachment::class, 'object')
+        return $this->morphMany(
+            Attachment::class,
+            'object',
+            'object_type',
+            'object_id',
+            'id'
+        )
             ->where('admin_attachment.lang_id', $this->lang_id)
             ->orderBy('sort', 'asc');
     }
@@ -89,28 +91,6 @@ class Product extends CoreModel
     {
         return $this->hasMany(Stock::class, 'product_id', 'id');
     }
-
-
-
-//    public function whereChildrenProperty($property, $value)
-//    {
-//        $response = collect();
-//
-//        foreach ($this->products as $product)
-//        {
-//            if(
-//                isset($product->data['properties']) &&
-//                isset($product->data['properties'][$property]) &&
-//                $product->data['properties'][$property] === $value
-//            )
-//            {
-//               $response->push($product);
-//            }
-//        }
-//        return $response;
-//    }
-
-
 
     /**
      * Returns formatted product price.

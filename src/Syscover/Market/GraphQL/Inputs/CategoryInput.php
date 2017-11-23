@@ -16,13 +16,13 @@ class CategoryInput extends GraphQLType {
     public function fields()
     {
         return [
+            'ix' => [
+                'type' => Type::int(),
+                'description' => 'The index of category'
+            ],
             'id' => [
                 'type' => Type::int(),
                 'description' => 'The id of category'
-            ],
-            'object_id' => [
-                'type' => Type::int(),
-                'description' => 'The id of category for translate object'
             ],
             'lang_id' => [
                 'type' => Type::string(),

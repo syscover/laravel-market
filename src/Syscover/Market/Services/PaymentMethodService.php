@@ -12,14 +12,14 @@ class PaymentMethodService
      */
     public static function create($object)
     {
-        if(empty($object['object_id']))
+        if(empty($object['id']))
         {
-            $id = PaymentMethod::max('object_id');
+            $id = PaymentMethod::max('id');
             $id++;
-            $object['object_id'] = $id;
+            $object['id'] = $id;
         }
 
-        $object['data_lang'] = PaymentMethod::addDataLang($object['lang_id'], $object['object_id']);
+        $object['data_lang'] = PaymentMethod::addDataLang($object['lang_id'], $object['id']);
         
         return PaymentMethod::create($object);
     }

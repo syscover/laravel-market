@@ -14,7 +14,8 @@ class OrderStatus extends CoreModel
     use Translatable;
 
 	protected $table        = 'market_order_status';
-    protected $fillable     = ['id', 'object_id', 'lang_id', 'name', 'active', 'data_lang'];
+    protected $primaryKey   = 'ix';
+    protected $fillable     = ['ix', 'id', 'lang_id', 'name', 'active', 'data_lang'];
     protected $casts        = [
         'active'    => 'boolean',
         'data_lang' => 'array'

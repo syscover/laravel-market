@@ -20,12 +20,7 @@ class ProductService
         {
             // create new product
             $product = Product::create($object);
-            $object['object_id'] = $product->id;
-        }
-        else
-        {
-            $object['object_id'] = $object['id'];
-            unset($object['id']);
+            $object['id'] = $product->id;
         }
 
         // get custom fields
@@ -35,11 +30,11 @@ class ProductService
         $product = ProductLang::create($object);
 
         // product already is create, it's not necessary update product with data_lang value
-        Product::addDataLang($object['lang_id'], $object['object_id'], 'id');
+        Product::addDataLang($object['lang_id'], $object['id']);
 
         // get object with builder, to get every relations
         $product = Product::builder()
-            ->where('market_product.id', $product->object_id)
+            ->where('market_product.id', $product->id)
             ->where('market_product_lang.lang_id', $product->lang_id)
             ->first();
 
@@ -87,7 +82,7 @@ class ProductService
         if($object->has('field_group_id')) $data['customFields'] = $object->get('customFields');
 
         // update product lang
-        ProductLang::where('market_product_lang.object_id', $object->get('object_id'))
+        ProductLang::where('market_product_lang.id', $object->get('id'))
             ->where('market_product_lang.lang_id', $object->get('lang_id'))
             ->update([
                 'name'          => $object->get('name'),
@@ -102,7 +97,7 @@ class ProductService
             ->first();
 
         // set categories
-        $product->categories()->sync($object->get('categories_object_id'));
+        $product->categories()->sync($object->get('categories_id'));
 
         // set attachments
         if(is_array($object->get('attachments')))

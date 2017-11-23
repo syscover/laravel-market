@@ -13,13 +13,13 @@ class PaymentMethodType extends GraphQLType {
     public function fields()
     {
         return [
+            'ix' => [
+                'type' => Type::nonNull(Type::int()),
+                'description' => 'The index of order status'
+            ],
             'id' => [
                 'type' => Type::nonNull(Type::int()),
-                'description' => 'The id of order status'
-            ],
-            'object_id' => [
-                'type' => Type::nonNull(Type::int()),
-                'description' => 'The id of payment method for translate object'
+                'description' => 'The id of payment method'
             ],
             'lang_id' => [
                 'type' => Type::nonNull(Type::string()),

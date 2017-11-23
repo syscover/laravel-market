@@ -17,16 +17,15 @@ class MarketUpdateV2 extends Migration
 	 */
 	public function up()
 	{
-        if(! Schema::hasColumn('market_category', 'object_id'))
+        if(! Schema::hasColumn('market_category', 'ix'))
         {
             Schema::table('market_category', function (Blueprint $table) {
                 $table->dropPrimary('PRIMARY');
-                $table->renameColumn('id', 'object_id');
             });
 
             Schema::table('market_category', function (Blueprint $table) {
-                $table->increments('id')->first();
-                $table->index(['object_id', 'lang_id'], 'ix01_market_product_lang');
+                $table->increments('ix')->first();
+                $table->index(['id', 'lang_id'], 'ix01_market_product_lang');
             });
         }
 	}

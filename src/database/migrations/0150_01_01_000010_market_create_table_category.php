@@ -17,8 +17,8 @@ class MarketCreateTableCategory extends Migration
 			Schema::create('market_category', function (Blueprint $table) {
 				$table->engine = 'InnoDB';
 				
-				$table->integer('id')->unsigned();
-				$table->string('lang_id', 2);
+				$table->integer('ix')->unsigned();
+				$table->string('id', 2);
 				$table->integer('parent_id')->unsigned()->nullable();
 				$table->string('name');
 				$table->string('slug');
@@ -36,7 +36,7 @@ class MarketCreateTableCategory extends Migration
 					->onDelete('restrict')
 					->onUpdate('cascade');
 
-				$table->primary(['id', 'lang_id'], 'pk01_market_category');
+                $table->index(['id', 'lang_id'], 'ix01_market_product_lang');
 			});
 		}
 	}

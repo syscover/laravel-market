@@ -12,14 +12,14 @@ class OrderStatusService
      */
     public static function create($object)
     {
-        if(empty($object['object_id']))
+        if(empty($object['id']))
         {
-            $id = OrderStatus::max('object_id');
+            $id = OrderStatus::max('id');
             $id++;
-            $object['object_id'] = $id;
+            $object['id'] = $id;
         }
 
-        $object['data_lang'] = OrderStatus::addDataLang($object['lang_id'], $object['object_id']);
+        $object['data_lang'] = OrderStatus::addDataLang($object['lang_id'], $object['id']);
 
         return OrderStatus::create($object);
     }

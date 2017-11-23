@@ -15,13 +15,13 @@ class PaymentMethodInput extends GraphQLType
     public function fields()
     {
         return [
+            'ix' => [
+                'type' => Type::int(),
+                'description' => 'The index of payment method'
+            ],
             'id' => [
                 'type' => Type::int(),
                 'description' => 'The id of payment method'
-            ],
-            'object_id' => [
-                'type' => Type::int(),
-                'description' => 'The id of payment method for translate object'
             ],
             'lang_id' => [
                 'type' => Type::string(),
