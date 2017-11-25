@@ -47,12 +47,16 @@ class Product extends CoreModel
     public function scopeBuilder($query)
     {
         return $query->join('market_product_lang', 'market_product.id', '=', 'market_product_lang.id')
-            ->select('market_product_lang.*', 'market_product.*', 'market_product_lang.id as market_product_lang_id', 'market_product.id as market_product_id');
+            ->select('market_product.*', 'market_product_lang.*', 'market_product_lang.data as market_product_lang_data', 'market_product.data as market_product_data');
     }
 
     public function children_products()
     {
-        return $this->hasMany(Product::class, 'parent_id', 'id')
+        return $this->hasMany(
+            Product::class,
+            'parent_id',
+            'id'
+            )
             ->builder();
     }
 
