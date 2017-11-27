@@ -63,7 +63,7 @@ class DeleteOrderMutation extends OrderMutation
         return [
             'id' => [
                 'name' => 'id',
-                'type' => Type::nonNull(Type::string())
+                'type' => Type::nonNull(Type::int())
             ]
         ];
     }
