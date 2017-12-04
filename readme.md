@@ -14,23 +14,18 @@ composer require syscover/pulsar-market
 php artisan vendor:publish --provider="Syscover\Market\MarketServiceProvider"
 ```
 
-**3 - Execute optimize command load new classes**
-```
-php artisan optimize
-```
-
-**4 - And execute migrations and seed database**
+**3 - And execute migrations and seed database**
 ```
 php artisan migrate
 php artisan db:seed --class="MarketTableSeeder"
 ```
 
-**5 - Execute command to load all updates**
+**4 - Execute command to load all updates**
 ```
 php artisan migrate --path=vendor/syscover/pulsar-market/src/database/migrations/updates
 ```
 
-**6 - Register middleware pulsar.taxRule on file app/Http/Kernel.php add to routeMiddleware array**
+**5 - Register middleware pulsar.taxRule on file app/Http/Kernel.php add to routeMiddleware array**
 ```
 'pulsar.tax.rule' => \Syscover\Market\Middleware\TaxRule::class,
 ```

@@ -19,6 +19,7 @@ class MarketCreateTableCategory extends Migration
 				
 				$table->integer('ix')->unsigned();
 				$table->string('id', 2);
+                $table->string('lang_id', 2);
 				$table->integer('parent_id')->unsigned()->nullable();
 				$table->string('name');
 				$table->string('slug');
