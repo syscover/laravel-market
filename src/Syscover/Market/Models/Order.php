@@ -86,7 +86,7 @@ class Order extends CoreModel
         if(! isset($dataOrder['log'])) $dataOrder['log'] = [];
 
         array_unshift($dataOrder['log'], [
-            'time'      => Carbon::now(),
+            'time'      => Carbon::now(config('app.timezone')),
             'status'    => $this->status_id,
             'message'   => $message
         ]);
