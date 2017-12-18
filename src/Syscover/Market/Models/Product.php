@@ -216,14 +216,16 @@ class Product extends CoreModel
         }
 
         // custom fields
-//        if(
-//            isset($this->data['customFields']) &&
-//            is_array($this->data['customFields']) &&
-//            array_key_exists($name, $this->data['customFields'])
-//        )
-//        {
-//            return $this->data['customFields'][$name];
-//        }
+        $data = $this->getAttribute('data');
+
+        if(
+            isset($data['customFields']) &&
+            is_array($data['customFields']) &&
+            array_key_exists($name, $data['customFields'])
+        )
+        {
+            return $data['customFields'][$name];
+        }
 
         return parent::__get($name);
     }
