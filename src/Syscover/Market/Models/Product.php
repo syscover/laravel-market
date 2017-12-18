@@ -56,8 +56,8 @@ class Product extends CoreModel
             Product::class,
             'parent_id',
             'id'
-            );
-            //->builder();
+            )
+            ->builder();
     }
 
     public function parent_product()
@@ -216,14 +216,14 @@ class Product extends CoreModel
         }
 
         // custom fields
-        if(
-            isset($this->data['customFields']) &&
-            is_array($this->data['customFields']) &&
-            array_key_exists($name, $this->data['customFields'])
-        )
-        {
-            return $this->data['customFields'][$name];
-        }
+//        if(
+//            isset($this->data['customFields']) &&
+//            is_array($this->data['customFields']) &&
+//            array_key_exists($name, $this->data['customFields'])
+//        )
+//        {
+//            return $this->data['customFields'][$name];
+//        }
 
         return parent::__get($name);
     }
