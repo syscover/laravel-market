@@ -56,8 +56,8 @@ class Product extends CoreModel
             Product::class,
             'parent_id',
             'id'
-            )
-            ->builder();
+            );
+            //->builder();
     }
 
     public function parent_product()
