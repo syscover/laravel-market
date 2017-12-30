@@ -1,6 +1,12 @@
 <?php
 
 return [
+    'discount_percentage'						    => 'Porcentaje de descuento',
+    'discount_type'								    => 'Tipo de descuento',
+    'discount_fixed_amount_subtotal'                => 'Cantidad fija de descuento sobre el subtotal',
+    'discount_fixed_amount_total'                   => 'Cantidad fija de descuento sobre el total',
+    'discount_percentage_subtotal'					=> 'Porcentaje de descuento sobre el subtotal',
+    'discount_percentage_total'					    => 'Porcentaje de descuento sobre el total',
     'downloadable'								    => 'Descargable',
     'message_customer_go_to_paypal'                 => 'El cliente entra en PayPal',
     'message_customer_go_to_tpv_error'              => 'Error al ir a la TPV, Error: :error',
@@ -16,4 +22,5 @@ return [
     'undefined_price'                               => 'Precio indefinido',
     'transportable'								    => 'Transportable',
     'transportable_downloadable'				    => 'Transportable y descargable',
+    'without_discount'					            => 'Sin descuento',
 ];
