@@ -143,6 +143,9 @@ class OrderService
     {
         $data = collect($data);
 
+        if(! $data->get('payment_method_id')) throw new \Exception('You must set payment_method_id field');
+        if(! $data->get('status_id')) throw new \Exception('You must set status_id field');
+
         return [
             'date'                                          => $data->get('date'),                                 // if date not exist create current date automatically
             'payment_method_id'                             => $data->get('payment_method_id'),
