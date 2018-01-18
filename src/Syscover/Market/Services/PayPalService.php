@@ -32,7 +32,7 @@ class PayPalService
     private static function executeRedirection($orderId)
     {
         $form =  self::createForm($orderId);
-        echo $form . '<script>document.forms["paypalForm"].submit();</script>';
+        echo $form . '<script>document.forms["marketPaymentForm"].submit();</script>';
     }
 
     /**
@@ -43,7 +43,7 @@ class PayPalService
     private static function createForm($orderId)
     {
         $form='
-            <form id="paypalForm" action="' . route('market.paypal.create.payment') . '" method="post">
+            <form id="marketPaymentForm" action="' . route('market.paypal.create.payment') . '" method="post">
                 <input type="hidden" name="_token" value="' . csrf_token() . '">
                 <input type="hidden" name="_order" value="' . $orderId . '">
             </form>
