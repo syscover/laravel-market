@@ -12,7 +12,7 @@ class RedsysController extends BaseController
     public function index(Request $request)
     {
         // log
-        Log::info('Enter in marketRedsysNotification route whit parameters', $request->all());
+        Log::info('Enter in market.redsys.notification route whit parameters', $request->all());
 
         $params = RedsysService::parameters();
 
@@ -45,12 +45,12 @@ class RedsysController extends BaseController
             }
             else
             {
-                Log::error('Error in marketRedsysNotification route whit parameters', $DsResponse);
+                Log::error('Error in market.redsys.notification route whit parameters', $DsResponse);
             }
         }
         catch(\Exception $e)
         {
-            Log::error('Error exception in marketRedsysNotification route', $e->getMessage());
+            Log::error('Error exception in market.redsys.notification route', $e->getMessage());
 
             return response()->json([
                 'status'    => 'error',

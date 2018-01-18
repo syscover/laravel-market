@@ -10,9 +10,10 @@ class RedsysService
      * Create payment across Redsys
      *
      * @param $order
+     * @param $xhr
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public static function createPayment($order)
+    public static function createPayment($order, $xhr)
     {
         try{
             $params     = RedsysService::parameters();
@@ -34,12 +35,17 @@ class RedsysService
             Redsys::setEnviroment($params->environment);
             Redsys::setMerchantSignature(Redsys::generateMerchantSignature($params->key));      // key
 
-            return view('core::common.display', [
-                'content' => Redsys::executeRedirection()
-            ]);
+            if($xhr)
+            {
+                return Redsys::createForm();
+            }
+            else {
+                return view('core::common.display', [
+                    'content' => Redsys::executeRedirection()
+                ]);
+            }
         }
-        catch(\Exception $e)
-        {
+        catch(\Exception $e) {
             // log register on order
             $order->setOrderLog(trans('market::pulsar.message_customer_go_to_tpv_error', [
                 'error' => $e->getMessage()

@@ -118,7 +118,7 @@ return [
     //******************************************************************************************************************
     // Redsys mode, test | live
     'redsysMode'                    => env('MARKET_REDSYS_MODE', ''),
-    'redsysAsyncRoute'              => env('MARKET_REDSYS_ASYNC_ROUTE', 'marketRedsysNotification'),
+    'redsysAsyncRoute'              => env('MARKET_REDSYS_ASYNC_ROUTE', 'market.redsys.notification'),
     'redsysSuccessfulRoute'         => env('MARKET_REDSYS_SUCCESSFUL_ROUTE', 'marketRedsysSuccessful'),
     'redsysErrorRoute'              => env('MARKET_REDSYS_ERROR_ROUTE', 'marketRedsysError'),
 

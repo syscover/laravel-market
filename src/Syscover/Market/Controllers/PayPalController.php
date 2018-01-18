@@ -140,8 +140,8 @@ class PayPalController extends BaseController
         // config URL request
         $redirectUrls = new RedirectUrls();
         $redirectUrls
-            ->setReturnUrl(route('marketPayPalResponse'))
-            ->setCancelUrl(route('marketPayPalResponse'));
+            ->setReturnUrl(route('market.paypal.response'))
+            ->setCancelUrl(route('market.paypal.response'));
 
         // create payment
         $payment = new Payment();

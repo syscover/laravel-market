@@ -8,13 +8,20 @@ class PayPalService
      * Create payment across PayPal
      *
      * @param $order
+     * @param $xhr
+     * @return string
      */
-    public static function createPayment($order)
+    public static function createPayment($order, $xhr)
     {
         // log register on order
         $order->setOrderLog(trans('market::pulsar.message_customer_go_to_paypal'));
 
-        self::executeRedirection($order->id);
+        if($xhr) {
+            return self::createForm($order->id);
+        }
+        else {
+            self::executeRedirection($order->id);
+        }
     }
 
     /**
@@ -36,9 +43,9 @@ class PayPalService
     private static function createForm($orderId)
     {
         $form='
-            <form id="paypalForm" action="' . route('marketPayPalCreatePayment') . '" method="post">
-                <input type="hidden" name="_token" value="' . csrf_token() . '"/>
-                <input type="hidden" name="_order" value="' . $orderId . '"/>
+            <form id="paypalForm" action="' . route('market.paypal.create.payment') . '" method="post">
+                <input type="hidden" name="_token" value="' . csrf_token() . '">
+                <input type="hidden" name="_order" value="' . $orderId . '">
             </form>
         ';
 

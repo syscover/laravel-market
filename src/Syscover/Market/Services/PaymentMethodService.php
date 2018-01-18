@@ -48,18 +48,18 @@ class PaymentMethodService
             ->first();
     }
 
-    public static function managePaymentMethod($request, $order)
+    public static function managePaymentMethod($request, $order, $xhr = false)
     {
         // Redsys Payment (debit and credit cart)
         if($request->input('payment_method_id') === '1')
         {
-            RedsysService::createPayment($order);
+            RedsysService::createPayment($order, $xhr);
         }
 
         // PayPal Payment
         elseif($request->input('payment_method_id') === '2')
         {
-            PayPalService::createPayment($order);
+            PayPalService::createPayment($order, $xhr);
         }
     }
 }
