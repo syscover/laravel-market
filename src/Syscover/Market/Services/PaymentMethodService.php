@@ -53,13 +53,13 @@ class PaymentMethodService
         // Redsys Payment (debit and credit cart)
         if($request->input('payment_method_id') === '1')
         {
-            RedsysService::createPayment($order, $xhr);
+            return RedsysService::createPayment($order, $xhr);
         }
 
         // PayPal Payment
         elseif($request->input('payment_method_id') === '2')
         {
-            PayPalService::createPayment($order, $xhr);
+            return PayPalService::createPayment($order, $xhr);
         }
     }
 }

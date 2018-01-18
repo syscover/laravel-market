@@ -20,7 +20,7 @@ class PayPalService
             return self::createForm($order->id);
         }
         else {
-            self::executeRedirection($order->id);
+            return self::executeRedirection($order->id);
         }
     }
 
