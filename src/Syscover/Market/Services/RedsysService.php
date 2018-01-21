@@ -83,7 +83,7 @@ class RedsysService
                 $order = Order::find((int)$orderId);
 
                 // change order status
-                $paymentMethod      = $order->payment_methods->first();
+                $paymentMethod      = $order->payment_methods->where('lang_id', user_lang())->first();
                 $order->status_id   = $paymentMethod->order_status_successful_id;
                 $order->save();
 
