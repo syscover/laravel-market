@@ -80,10 +80,10 @@ class RedsysService
                 // get order ID
                 $orderId =  str_replace(config('pulsar-market.orderIdSuffix'), '', $parameters['Ds_Order']);
 
-                $order = Order::find($orderId);
+                $order = Order::find((int)$orderId);
 
                 // change order status
-                $paymentMethod      = $order->payment_method;
+                $paymentMethod      = $order->payment_methods->first();
                 $order->status_id   = $paymentMethod->order_status_successful_id;
                 $order->save();
 
