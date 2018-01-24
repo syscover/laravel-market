@@ -37,9 +37,9 @@ class TaxRateZoneType extends GraphQLType {
                 'type' => Type::string(),
                 'description' => 'The id of territorial area 3 of country'
             ],
-            'cp' => [
+            'zip' => [
                 'type' => Type::string(),
-                'description' => 'The cp of tax zone'
+                'description' => 'The ZIP of tax zone'
             ],
             'tax_rate' => [
                 'type' => Type::float(),

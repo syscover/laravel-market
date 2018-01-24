@@ -32,7 +32,7 @@ class WarehouseService
                 'territorial_area_1_id' => $object->get('territorial_area_1_id'),
                 'territorial_area_2_id' => $object->get('territorial_area_2_id'),
                 'territorial_area_3_id' => $object->get('territorial_area_3_id'),
-                'cp'                    => $object->get('cp'),
+                'zip'                   => $object->get('zip'),
                 'locality'              => $object->get('locality'),
                 'address'               => $object->get('address'),
                 'latitude'              => $object->get('latitude'),

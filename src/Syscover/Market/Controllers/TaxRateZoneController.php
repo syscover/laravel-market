@@ -27,7 +27,7 @@ class TaxRateZoneController extends CoreController
             'territorial_area_1_id' => $request->input('territorial_area_1_id'),
             'territorial_area_2_id' => $request->input('territorial_area_2_id'),
             'territorial_area_3_id' => $request->input('territorial_area_3_id'),
-            'cp'                    => $request->input('cp'),
+            'zip'                   => $request->input('zip'),
             'tax_rate'              => $request->input('tax_rate'),
         ]);
 
@@ -52,7 +52,7 @@ class TaxRateZoneController extends CoreController
             'territorial_area_1_id' => $request->input('territorial_area_1_id'),
             'territorial_area_2_id' => $request->input('territorial_area_2_id'),
             'territorial_area_3_id' => $request->input('territorial_area_3_id'),
-            'cp'                    => $request->input('cp'),
+            'zip'                   => $request->input('zip'),
             'tax_rate'              => $request->input('tax_rate'),
         ]);
 

@@ -41,9 +41,9 @@ class WarehouseInput extends GraphQLType
                 'type' => Type::string(),
                 'description' => 'The territorial area 3 id of warehouse'
             ],
-            'cp' => [
+            'zip' => [
                 'type' => Type::string(),
-                'description' => 'The cp of warehouse'
+                'description' => 'The ZIP of warehouse'
             ],
             'locality' => [
                 'type' => Type::string(),

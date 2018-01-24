@@ -11,7 +11,7 @@ use Syscover\Core\Models\CoreModel;
 class Warehouse extends CoreModel
 {
 	protected $table        = 'market_warehouse';
-	protected $fillable     = ['id', 'name', 'country_id', 'territorial_area_1_id', 'territorial_area_2_id', 'territorial_area_3_id', 'cp', 'locality', 'address', 'latitude', 'longitude', 'active'];
+	protected $fillable     = ['id', 'name', 'country_id', 'territorial_area_1_id', 'territorial_area_2_id', 'territorial_area_3_id', 'zip', 'locality', 'address', 'latitude', 'longitude', 'active'];
     protected $casts        = [
         'active' => 'boolean'
     ];

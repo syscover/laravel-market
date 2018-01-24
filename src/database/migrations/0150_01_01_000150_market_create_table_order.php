@@ -78,7 +78,7 @@ class MarketCreateTableOrder extends Migration
 				$table->string('invoice_territorial_area_1_id', 6)->nullable();
 				$table->string('invoice_territorial_area_2_id', 10)->nullable();
 				$table->string('invoice_territorial_area_3_id', 10)->nullable();
-				$table->string('invoice_cp')->nullable();
+				$table->string('invoice_zip')->nullable();
 				$table->string('invoice_locality')->nullable();
 				$table->string('invoice_address')->nullable();
 				$table->string('invoice_latitude')->nullable();
@@ -99,7 +99,7 @@ class MarketCreateTableOrder extends Migration
 				$table->string('shipping_territorial_area_1_id', 6)->nullable();
 				$table->string('shipping_territorial_area_2_id', 10)->nullable();
 				$table->string('shipping_territorial_area_3_id', 10)->nullable();
-				$table->string('shipping_cp')->nullable();
+				$table->string('shipping_zip')->nullable();
 				$table->string('shipping_locality')->nullable();
 				$table->string('shipping_address')->nullable();
 				$table->string('shipping_latitude')->nullable();

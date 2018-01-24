@@ -203,9 +203,9 @@ class OrderInput extends GraphQLType
                 'type' => Type::string(),
                 'description' => 'Territorial area 3 id of invoice'
             ],
-            'invoice_cp' => [
+            'invoice_zip' => [
                 'type' => Type::string(),
-                'description' => 'CP of invoice'
+                'description' => 'ZIP of invoice'
             ],
             'invoice_locality' => [
                 'type' => Type::string(),
@@ -275,9 +275,9 @@ class OrderInput extends GraphQLType
                 'type' => Type::string(),
                 'description' => 'The territorial area 3 id of shipping'
             ],
-            'shipping_cp' => [
+            'shipping_zip' => [
                 'type' => Type::string(),
-                'description' => 'CP of shipping'
+                'description' => 'ZIP of shipping'
             ],
             'shipping_locality' => [
                 'type' => Type::string(),

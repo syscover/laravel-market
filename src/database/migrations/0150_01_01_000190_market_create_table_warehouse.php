@@ -20,7 +20,7 @@ class MarketCreateTableWarehouse extends Migration
 				$table->string('territorial_area_1_id', 6)->nullable();
 				$table->string('territorial_area_2_id', 10)->nullable();
 				$table->string('territorial_area_3_id', 10)->nullable();
-				$table->string('cp')->nullable();
+				$table->string('zip')->nullable();
 				$table->string('locality')->nullable();
 				$table->string('address')->nullable();
 				$table->string('latitude')->nullable();
