@@ -5,6 +5,11 @@ use Illuminate\Database\Migrations\Migration;
 
 class MarketUpdateV5 extends Migration
 {
+    public function __construct()
+    {
+        DB::getDoctrineSchemaManager()->getDatabasePlatform()->registerDoctrineTypeMapping('json', 'string');
+    }
+
 	/**
 	 * Run the migrations.
 	 *
