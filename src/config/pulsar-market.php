@@ -60,15 +60,6 @@ return [
     'taxShippingPrices'             => env('MARKET_TAX_SHIPPING_PRICES', 1),           // Shipping prices type
     'taxShippingDisplayPrices'      => env('MARKET_TAX_SHIPPING_DISPLAY_PRICES', 1),   // How to display shipping prices
 
-
-
-
-
-
-
-
-
-
     //******************************************************************************************************************
     //***   Discounts rules families
     //******************************************************************************************************************
@@ -77,6 +68,15 @@ return [
         (object)['id' => 2,      'name' => 'market::pulsar.catalog_price_rule'],
         (object)['id' => 3,      'name' => 'market::pulsar.customer_price_rule'],
     ],
+
+
+
+
+
+
+
+
+
 
     //******************************************************************************************************************
     //***   PayPal settings

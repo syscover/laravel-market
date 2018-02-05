@@ -18,13 +18,21 @@ class MarketCreateTableCartPriceRule extends Migration
 				$table->engine = 'InnoDB';
 
                 $table->increments('id')->unsigned();
+
                 $table->json('name')->nullable(); // name value in different languages
                 $table->json('description')->nullable(); //description value in different languages
 
                 $table->boolean('active');
 
+                // groups that could apply the discount
+                $table->json('groups_id')->nullable();
+                // customers that could apply the discount
+                $table->json('customers_id')->nullable();
+
                 // define if this rule can to be combined with other rule
                 $table->boolean('combinable');
+                // order to apply discounts
+                $table->integer('priority')->unsigned()->nullable();
 
                 $table->boolean('has_coupon');
                 $table->string('coupon_code')->nullable();
@@ -39,6 +47,9 @@ class MarketCreateTableCartPriceRule extends Migration
 
                 $table->timestamp('enable_from')->nullable();
                 $table->timestamp('enable_to')->nullable();
+
+                // check if this rules are valid to apply this discount
+                $table->json('condition_rules')->nullable();
 
                 // see config/pulsar-market.php section Discount type on shopping cart
                 // 1 - without discount
@@ -62,8 +73,8 @@ class MarketCreateTableCartPriceRule extends Migration
                 // this discount has free transportation
                 $table->boolean('free_shipping');
 
-                // rules, field for a future implementation of rules
-                $table->json('rules')->nullable();
+                // products where will be applied this discounts
+                $table->json('product_rules')->nullable();
 
                 $table->json('data_lang')->nullable();
 
