@@ -57,6 +57,10 @@ class MarketGraphQLServiceProvider
         // ORDER ROW
         GraphQL::addType(\Syscover\Market\GraphQL\Types\OrderRowType::class, 'MarketOrderRow');
         GraphQL::addType(\Syscover\Market\GraphQL\Inputs\OrderRowInput::class, 'MarketOrderRowInput');
+
+        // CART PRICE RULE
+        GraphQL::addType(\Syscover\Market\GraphQL\Types\CartPriceRuleType::class, 'MarketCartPriceRule');
+        GraphQL::addType(\Syscover\Market\GraphQL\Inputs\CartPriceRuleInput::class, 'MarketCartPriceRuleInput');
     }
 
     public static function bootGraphQLSchema()
@@ -130,6 +134,11 @@ class MarketGraphQLServiceProvider
                 'marketOrderRowsPagination'                 => \Syscover\Market\GraphQL\Queries\OrderRowsPaginationQuery::class,
                 'marketOrderRows'                           => \Syscover\Market\GraphQL\Queries\OrderRowsQuery::class,
                 'marketOrderRow'                            => \Syscover\Market\GraphQL\Queries\OrderRowQuery::class,
+
+                // CART PRICE RULE
+                'marketCartPriceRulesPagination'            => \Syscover\Market\GraphQL\Queries\CartPriceRulesPaginationQuery::class,
+                'marketCartPriceRules'                      => \Syscover\Market\GraphQL\Queries\CartPriceRulesQuery::class,
+                'marketCartPriceRule'                       => \Syscover\Market\GraphQL\Queries\CartPriceRuleQuery::class,
 
             ],
             'mutation' => [

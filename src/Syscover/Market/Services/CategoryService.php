@@ -26,7 +26,7 @@ class CategoryService
 
     /**
      * @param   array     $object     contain properties of section
-     * @return  \Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model|null|static|static[]
+     * @return  \Syscover\Market\Models\Category
      */
     public static function update($object)
     {

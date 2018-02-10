@@ -31,7 +31,7 @@ class MarketCreateTableCartPriceRule extends Migration
 
                 // define if this rule can to be combined with other rule
                 $table->boolean('combinable');
-                // order to apply discounts
+                // short to apply discounts
                 $table->integer('priority')->unsigned()->nullable();
 
                 $table->boolean('has_coupon');
@@ -43,7 +43,7 @@ class MarketCreateTableCartPriceRule extends Migration
                 $table->integer('used_coupon')->unsigned()->nullable();
 
                 // total times the discount has been used
-                $table->integer('total_used')->unsigned();
+                $table->integer('total_used')->unsigned()->default(0);
 
                 $table->timestamp('enable_from')->nullable();
                 $table->timestamp('enable_to')->nullable();
@@ -57,7 +57,7 @@ class MarketCreateTableCartPriceRule extends Migration
                 // 3 - discount fixed amount subtotal
                 // 4 - discount percentage total
                 // 5 - discount fixed amount total
-                $table->tinyInteger('discount_type_id')->unsigned()->nullable();
+                $table->tinyInteger('discount_type_id')->unsigned();
 
                 // fixed amount to discount over shopping cart
                 $table->decimal('discount_fixed_amount', 12, 4)->nullable();
@@ -70,10 +70,10 @@ class MarketCreateTableCartPriceRule extends Migration
                 // check if the discount is applied to the transport price
                 $table->boolean('apply_shipping_amount');
 
-                // this discount has free transportation
+                // this discount has free shipping
                 $table->boolean('free_shipping');
 
-                // products where will be applied this discounts
+                // rules that will determinate that products will be applied this discounts
                 $table->json('product_rules')->nullable();
 
                 $table->json('data_lang')->nullable();
