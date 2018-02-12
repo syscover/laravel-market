@@ -47,7 +47,7 @@ class UpdateCartPriceRuleMutation extends CartPriceRuleMutation
 
     public function resolve($root, $args)
     {
-        return CartPriceRuleService::update($args['object'], $args['object']['id']);
+        return CartPriceRuleService::update($args['object']);
     }
 }
 

@@ -21,11 +21,6 @@ class CartPriceRulesPaginationQuery extends Query
     public function args()
     {
         return [
-            'filters' => [
-                'name'          => 'filters',
-                'type'          => Type::listOf(GraphQL::type('CoreSQLQueryInput')),
-                'description'   => 'to filter queries'
-            ],
             'sql' => [
                 'name'          => 'sql',
                 'type'          => Type::listOf(GraphQL::type('CoreSQLQueryInput')),
@@ -36,13 +31,13 @@ class CartPriceRulesPaginationQuery extends Query
 
     public function resolve($root, $args)
     {
-        $query = SQLService::getQueryFiltered(CartPriceRule::builder(), $args['sql'], $args['filters']);
+        $query = SQLService::getQueryFiltered(CartPriceRule::builder(), $args['sql']);
 
         // count records filtered
         $filtered = $query->count();
 
         // N total records
-        $total = SQLService::countPaginateTotalRecords(CartPriceRule::builder(), $args['filters']);
+        $total = SQLService::countPaginateTotalRecords(CartPriceRule::builder());
 
         return (Object) [
             'total'     => $total,

@@ -18,11 +18,11 @@ class CartPriceRuleType extends GraphQLType
                 'type' => Type::nonNull(Type::int()),
                 'description' => 'The id of cart price rule'
             ],
-            'name' => [
+            'names' => [
                 'type' => app(ObjectType::class),
                 'description' => 'JSON string that contain multi language name'
             ],
-            'description' => [
+            'descriptions' => [
                 'type' => app(ObjectType::class),
                 'description' => 'JSON string that contain multi language description'
             ],
@@ -54,15 +54,15 @@ class CartPriceRuleType extends GraphQLType
                 'type' => Type::string(),
                 'description' => 'Coupon code'
             ],
-            'used_customer' => [
+            'customer_uses' => [
                 'type' => Type::int(),
                 'description' => 'Times a coupon can be used per user'
             ],
-            'used_coupon' => [
+            'coupon_uses' => [
                 'type' => Type::int(),
                 'description' => 'Times a coupon can be used'
             ],
-            'total_used' => [
+            'total_uses' => [
                 'type' => Type::nonNull(Type::int()),
                 'description' => 'Total times the discount has been used'
             ],

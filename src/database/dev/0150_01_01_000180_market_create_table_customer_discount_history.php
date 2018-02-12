@@ -38,8 +38,8 @@ class MarketCreateTableCustomerDiscountHistory extends Migration
                 $table->boolean('has_coupon')->default(false);
                 $table->string('coupon_code')->nullable();
 
-                $table->json('name')->nullable(); // name value in different languages
-                $table->json('description')->nullable(); //description value in different languages
+                $table->json('names')->nullable(); // name value in different languages
+                $table->json('descriptions')->nullable(); //description value in different languages
 
                 // see config/market.php section Discount type on shopping cart
                 // 1 - without discount

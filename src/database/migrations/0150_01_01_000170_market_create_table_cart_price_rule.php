@@ -19,15 +19,15 @@ class MarketCreateTableCartPriceRule extends Migration
 
                 $table->increments('id')->unsigned();
 
-                $table->json('name')->nullable(); // name value in different languages
-                $table->json('description')->nullable(); //description value in different languages
+                $table->json('names')->nullable(); // name value in different languages
+                $table->json('descriptions')->nullable(); //description value in different languages
 
                 $table->boolean('active');
 
                 // groups that could apply the discount
-                $table->json('groups_id')->nullable();
+                $table->json('group_ids')->nullable();
                 // customers that could apply the discount
-                $table->json('customers_id')->nullable();
+                $table->json('customer_ids')->nullable();
 
                 // define if this rule can to be combined with other rule
                 $table->boolean('combinable');
@@ -38,12 +38,12 @@ class MarketCreateTableCartPriceRule extends Migration
                 $table->string('coupon_code')->nullable();
 
                 // times a coupon can be used per user
-                $table->integer('used_customer')->unsigned()->nullable();
+                $table->integer('customer_uses')->unsigned()->nullable();
                 // times a coupon can be used
-                $table->integer('used_coupon')->unsigned()->nullable();
+                $table->integer('coupon_uses')->unsigned()->nullable();
 
                 // total times the discount has been used
-                $table->integer('total_used')->unsigned()->default(0);
+                $table->integer('total_uses')->unsigned()->default(0);
 
                 $table->timestamp('enable_from')->nullable();
                 $table->timestamp('enable_to')->nullable();
