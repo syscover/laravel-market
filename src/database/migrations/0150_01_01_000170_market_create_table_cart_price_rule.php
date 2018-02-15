@@ -37,10 +37,11 @@ class MarketCreateTableCartPriceRule extends Migration
                 $table->boolean('has_coupon');
                 $table->string('coupon_code')->nullable();
 
-                // times a coupon can be used per user
-                $table->integer('customer_uses')->unsigned()->nullable();
                 // times a coupon can be used
                 $table->integer('coupon_uses')->unsigned()->nullable();
+
+                // times a coupon can be used per user
+                $table->integer('customer_uses')->unsigned()->nullable();
 
                 // total times the discount has been used
                 $table->integer('total_uses')->unsigned()->default(0);
