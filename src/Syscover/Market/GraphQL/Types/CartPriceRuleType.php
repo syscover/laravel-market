@@ -30,11 +30,11 @@ class CartPriceRuleType extends GraphQLType
                 'type' => Type::nonNull(Type::boolean()),
                 'description' => 'Active this cart price rule'
             ],
-            'groups_id' => [
+            'group_ids' => [
                 'type' => app(ObjectType::class),
                 'description' => 'Customer groups that can take this cart price rule'
             ],
-            'customers_id' => [
+            'customer_ids' => [
                 'type' => app(ObjectType::class),
                 'description' => 'Customer that can take this cart price rule'
             ],
@@ -43,7 +43,7 @@ class CartPriceRuleType extends GraphQLType
                 'description' => 'Define if this rule can to be combined with other rule'
             ],
             'priority' => [
-                'type' => Type::nonNull(Type::int()),
+                'type' => Type::int(),
                 'description' => 'Short to apply discounts'
             ],
             'has_coupon' => [
@@ -63,7 +63,7 @@ class CartPriceRuleType extends GraphQLType
                 'description' => 'Times a coupon can be used'
             ],
             'total_uses' => [
-                'type' => Type::nonNull(Type::int()),
+                'type' => Type::int(),
                 'description' => 'Total times the discount has been used'
             ],
             'enable_from' => [

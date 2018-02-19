@@ -44,7 +44,7 @@ class MarketCreateTableCartPriceRule extends Migration
                 $table->integer('customer_uses')->unsigned()->nullable();
 
                 // total times the discount has been used
-                $table->integer('total_uses')->unsigned()->default(0);
+                $table->integer('total_uses')->unsigned()->nullable();
 
                 $table->timestamp('enable_from')->nullable();
                 $table->timestamp('enable_to')->nullable();
@@ -78,6 +78,9 @@ class MarketCreateTableCartPriceRule extends Migration
                 $table->json('product_rules')->nullable();
 
                 $table->json('data_lang')->nullable();
+
+                $table->timestamps();
+                $table->softDeletes();
 
                 $table->index('coupon_code', 'ix01_market_cart_price_rule');
 			});

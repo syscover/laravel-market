@@ -199,6 +199,11 @@ class MarketGraphQLServiceProvider
                 'marketAddOrder'                            => \Syscover\Market\GraphQL\Mutations\AddOrderMutation::class,
                 'marketUpdateOrder'                         => \Syscover\Market\GraphQL\Mutations\UpdateOrderMutation::class,
                 'marketDeleteOrder'                         => \Syscover\Market\GraphQL\Mutations\DeleteOrderMutation::class,
+
+                // CART PRICE RULE
+                'marketAddCartPriceRule'                    => \Syscover\Market\GraphQL\Mutations\AddCartPriceRuleMutation::class,
+                'marketUpdateCartPriceRule'                 => \Syscover\Market\GraphQL\Mutations\UpdateCartPriceRuleMutation::class,
+                'marketDeleteCartPriceRule'                 => \Syscover\Market\GraphQL\Mutations\DeleteCartPriceRuleMutation::class,
             ]
         ]));
     }

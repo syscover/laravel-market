@@ -20,23 +20,27 @@ class CartPriceRuleInput extends GraphQLType
                 'type' => Type::int(),
                 'description' => 'The id of cart price rule'
             ],
-            'names' => [
-                'type' => app(ObjectType::class),
-                'description' => 'JSON string that contain multi language name'
+            'lang_id' => [
+                'type' => Type::string(),
+                'description' => 'The lang of label of this cart price rule'
             ],
-            'descriptions' => [
-                'type' => app(ObjectType::class),
-                'description' => 'JSON string that contain multi language description'
+            'name' => [
+                'type' => Type::string(),
+                'description' => 'The name of cart price rule'
+            ],
+            'description' => [
+                'type' => Type::string(),
+                'description' => 'The description of cart price rule'
             ],
             'active' => [
                 'type' => Type::nonNull(Type::boolean()),
                 'description' => 'Active this cart price rule'
             ],
-            'groups_id' => [
+            'group_ids' => [
                 'type' => app(ObjectType::class),
                 'description' => 'Customer groups that can take this cart price rule'
             ],
-            'customers_id' => [
+            'customer_ids' => [
                 'type' => app(ObjectType::class),
                 'description' => 'Customer that can take this cart price rule'
             ],
@@ -45,7 +49,7 @@ class CartPriceRuleInput extends GraphQLType
                 'description' => 'Define if this rule can to be combined with other rule'
             ],
             'priority' => [
-                'type' => Type::nonNull(Type::int()),
+                'type' => Type::int(),
                 'description' => 'Short to apply discounts'
             ],
             'has_coupon' => [
@@ -65,7 +69,7 @@ class CartPriceRuleInput extends GraphQLType
                 'description' => 'Times a coupon can be used'
             ],
             'total_uses' => [
-                'type' => Type::nonNull(Type::int()),
+                'type' => Type::int(),
                 'description' => 'Total times the discount has been used'
             ],
             'enable_from' => [

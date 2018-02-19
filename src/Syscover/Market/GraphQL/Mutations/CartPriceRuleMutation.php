@@ -19,7 +19,7 @@ class CartPriceRuleMutation extends Mutation
         return [
             'object' => [
                 'name' => 'object',
-                'type' => Type::nonNull(GraphQL::type('MarketCartPriceRule'))
+                'type' => Type::nonNull(GraphQL::type('MarketCartPriceRuleInput'))
             ],
         ];
     }
