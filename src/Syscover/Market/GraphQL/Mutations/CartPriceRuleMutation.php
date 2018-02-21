@@ -61,14 +61,14 @@ class DeleteCartPriceRuleMutation extends CartPriceRuleMutation
     public function args()
     {
         return [
-            'lang_id' => [
-                'name' => 'lang_id',
-                'type' => Type::nonNull(Type::string())
-            ],
             'id' => [
                 'name' => 'id',
                 'type' => Type::nonNull(Type::int())
             ],
+            'lang_id' => [
+                'name' => 'lang_id',
+                'type' => Type::nonNull(Type::string())
+            ]
         ];
     }
 

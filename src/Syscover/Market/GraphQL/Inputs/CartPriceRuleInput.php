@@ -33,7 +33,7 @@ class CartPriceRuleInput extends GraphQLType
                 'description' => 'The description of cart price rule'
             ],
             'active' => [
-                'type' => Type::nonNull(Type::boolean()),
+                'type' => Type::boolean(),
                 'description' => 'Active this cart price rule'
             ],
             'group_ids' => [
@@ -45,7 +45,7 @@ class CartPriceRuleInput extends GraphQLType
                 'description' => 'Customer that can take this cart price rule'
             ],
             'combinable' => [
-                'type' => Type::nonNull(Type::boolean()),
+                'type' => Type::boolean(),
                 'description' => 'Define if this rule can to be combined with other rule'
             ],
             'priority' => [
@@ -53,7 +53,7 @@ class CartPriceRuleInput extends GraphQLType
                 'description' => 'Short to apply discounts'
             ],
             'has_coupon' => [
-                'type' => Type::nonNull(Type::boolean()),
+                'type' => Type::boolean(),
                 'description' => 'Define if this rule has coupon'
             ],
             'coupon_code' => [
@@ -85,7 +85,7 @@ class CartPriceRuleInput extends GraphQLType
                 'description' => 'Check if this rules are valid to apply this discount'
             ],
             'discount_type_id' => [
-                'type' => Type::nonNull(Type::int()),
+                'type' => Type::int(),
                 'description' => 'Discount type'
             ],
             'discount_fixed_amount' => [
@@ -101,11 +101,11 @@ class CartPriceRuleInput extends GraphQLType
                 'description' => 'Maximum amount to discount'
             ],
             'apply_shipping_amount' => [
-                'type' => Type::nonNull(Type::boolean()),
+                'type' => Type::boolean(),
                 'description' => 'Check if the discount is applied to the transport price'
             ],
             'free_shipping' => [
-                'type' => Type::nonNull(Type::boolean()),
+                'type' => Type::boolean(),
                 'description' => 'This discount has free shipping'
             ],
             'product_rules' => [

@@ -36,4 +36,32 @@ class CartPriceRule extends CoreModel
     {
         return $query;
     }
+
+    /**
+     * Overwrite deleteTranslationRecord from CoreModel to delete
+     * json language field, in names and descriptions columns
+     * @param       $id
+     * @param       $langId
+     * @param bool  $deleteLangDataRecord
+     * @param array $filters  filters to select and delete records
+     */
+    public static function deleteTranslationRecord($id, $langId, $deleteLangDataRecord = true, $filters = [])
+    {
+        $field = CartPriceRule::find($id);
+
+        $names = collect($field->names); // get names
+        $field->names = $names->filter(function($value, $key) use ($langId) {
+            return $value['id'] !== $langId;
+        });
+
+        $descriptions = collect($field->descriptions); // get descriptions
+        $field->descriptions = $descriptions->filter(function($value, $key) use ($langId) {
+            return $value['id'] !== $langId;
+        });
+
+        $field->save(); // save values
+
+        // set values on data_lang
+        CartPriceRule::deleteDataLang($langId, $id, 'id');
+    }
 }

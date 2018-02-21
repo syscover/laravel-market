@@ -44,7 +44,7 @@ class MarketCreateTableCartPriceRule extends Migration
                 $table->integer('customer_uses')->unsigned()->nullable();
 
                 // total times the discount has been used
-                $table->integer('total_uses')->unsigned()->nullable();
+                $table->integer('total_uses')->unsigned()->default(0);
 
                 $table->timestamp('enable_from')->nullable();
                 $table->timestamp('enable_to')->nullable();

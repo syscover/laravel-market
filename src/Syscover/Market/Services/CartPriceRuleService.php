@@ -96,6 +96,12 @@ class CartPriceRuleService
             $object['descriptions'] = json_encode($descriptions);
         }
 
+        // set group_ids field
+        if(! empty($object['group_ids']))
+        {
+            $object['group_ids'] = json_encode($object['group_ids']);
+        }
+
         CartPriceRule::where('id', $object['id'])->update(CartPriceRuleService::builder($object));
 
         return Category::find($object['id']);
