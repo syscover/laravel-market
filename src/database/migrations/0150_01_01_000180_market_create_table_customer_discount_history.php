@@ -19,27 +19,27 @@ class MarketCreateTableCustomerDiscountHistory extends Migration
 
                 $table->increments('id')->unsigned();
 
-                $table->integer('date')->unsigned();            // registry date
                 $table->integer('customer_id')->unsigned();
                 $table->integer('order_id')->unsigned();
 
                 // if order is canceled, you can deactivate discounts
                 $table->boolean('applied')->default(true);
 
-                // see config/market.php section Discounts rules families
-                // 1 - discount from, cart price rule
-                // 2 - discount from, catalog price rule
-                // 3 - discount from, customer rule discount
-                $table->tinyInteger('rule_family_id')->unsigned();
-
-                // id of the rule applicable discount
-                $table->integer('rule_id')->unsigned();
+                // name of model:
+                // CartPriceRule
+                // CatalogPriceRule
+                // CustomerPriceRule
+                $table->string('rule_type');
+                $table->integer('rule_id')->unsigned()->nullable();
 
                 $table->boolean('has_coupon')->default(false);
                 $table->string('coupon_code')->nullable();
 
                 $table->json('names')->nullable(); // name value in different languages
                 $table->json('descriptions')->nullable(); //description value in different languages
+
+                // check if this rules are valid to apply this discount
+                $table->json('condition_rules')->nullable();
 
                 // see config/market.php section Discount type on shopping cart
                 // 1 - without discount
@@ -70,10 +70,13 @@ class MarketCreateTableCustomerDiscountHistory extends Migration
                 // check if this discount has free shipping
                 $table->boolean('free_shipping');
 
-                // price rules apply over shopping cart, this column has rule in json format
-                $table->text('rules')->nullable();
+                // rules that will determinate that products will be applied this discounts
+                $table->json('product_rules')->nullable();
 
                 $table->json('data_lang')->nullable();
+
+                $table->timestamps();
+                $table->softDeletes();
 
                 $table->foreign('customer_id', 'fk01_market_customer_discount_history')
                     ->references('id')
@@ -86,9 +89,10 @@ class MarketCreateTableCustomerDiscountHistory extends Migration
                     ->onDelete('restrict')
                     ->onUpdate('cascade');
 
-                $table->index('rule_id', 'ix01_market_customer_discount_history');
-                $table->index('coupon_code', 'ix02_market_customer_discount_history');
-                $table->index('applied', 'ix03_market_customer_discount_history');
+                $table->index('rule_type', 'ix01_market_customer_discount_history');
+                $table->index('rule_id', 'ix02_market_customer_discount_history');
+                $table->index('coupon_code', 'ix03_market_customer_discount_history');
+                $table->index('applied', 'ix04_market_customer_discount_history');
 			});
 		}
 	}
