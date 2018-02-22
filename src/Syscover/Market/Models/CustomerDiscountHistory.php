@@ -11,9 +11,8 @@ use Illuminate\Support\Facades\Validator;
 class CustomerDiscountHistory extends CoreModel
 {
 	protected $table        = 'customer_discount_history';
-    protected $fillable     = ['id', 'date', 'customer_id', 'order_id', 'rule_family_id', 'has_coupon', 'coupon_code', 'rule_id', 'discount', 'name_text_id', 'description_text_id', 'name_text_value', 'description_text_value', 'discount_type_id', 'discount_fixed_amount', 'discount_percentage', 'maximum_discount_amount', 'apply_shipping_amount', 'free_shipping', 'rules'];
+    protected $fillable     = ['id', 'customer_id', 'order_id', 'applied', 'rule_type', 'rule_id', 'has_coupon', 'coupon_code', 'names', 'descriptions', 'condition_rules', 'discount_type_id', 'minimum_amount', 'discount_fixed_amount', 'discount_percentage', 'maximum_discount_amount', 'discount_amount', 'apply_shipping_amount', 'free_shipping', 'product_rules', 'data_lang'];
     public $timestamps      = false;
-
     private static $rules   = [];
 
     public static function validate($data)
