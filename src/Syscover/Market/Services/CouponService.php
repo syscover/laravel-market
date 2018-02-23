@@ -68,7 +68,7 @@ class CouponService
                     ]
                 ];
             }
-            elseif(CustomerDiscountHistory::builder()->where('customer_id', auth('crm')->user()->id)->where('coupon_code', $couponCode)->where('applied', true)->count() >= $cartPriceRule->customer_uses)
+            elseif(CustomerDiscountHistory::builder()->where('customer_id', $sessionGuard->user()->id)->where('coupon_code', $couponCode)->where('applied', true)->count() >= $cartPriceRule->customer_uses)
             {
                 $errors[] = [
                     'status'    => 'error',
