@@ -95,6 +95,8 @@ class CouponService
             ];
         }
 
+
+
         if($cartPriceRule != null && $cartPriceRule->enable_to != null && date('U') > strtotime($cartPriceRule->enable_to))
         {
             $errors[] = [

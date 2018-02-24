@@ -97,10 +97,7 @@ class CartPriceRuleService
         }
 
         // set group_ids field
-        if(! empty($object['group_ids']))
-        {
-            $object['group_ids'] = json_encode($object['group_ids']);
-        }
+        if(! empty($object['group_ids'])) $object['group_ids'] = json_encode($object['group_ids']);
 
         CartPriceRule::where('id', $object['id'])->update(CartPriceRuleService::builder($object));
 
@@ -125,8 +122,8 @@ class CartPriceRuleService
         if($object->has('coupon_uses'))                 $data['coupon_uses'] = $object->get('coupon_uses');
         if($object->has('total_uses'))                  $data['total_uses'] = $object->get('total_uses');
         // use preg_replace to format date from Google Chrome, attach (Hota de verano romance) string
-        if($object->has('enable_from'))                 $data['enable_from'] = (new Carbon(preg_replace('/\(.*\)/','', $object['enable_from']), config('app.timezone')))->toDateTimeString();
-        if($object->has('enable_to'))                   $data['enable_to'] = (new Carbon(preg_replace('/\(.*\)/','', $object['enable_to']), config('app.timezone')))->toDateTimeString();
+        if($object->get('enable_from'))                 $data['enable_from'] = (new Carbon(preg_replace('/\(.*\)/','', $object['enable_from']), config('app.timezone')))->toDateTimeString();
+        if($object->get('enable_to'))                   $data['enable_to'] = (new Carbon(preg_replace('/\(.*\)/','', $object['enable_to']), config('app.timezone')))->toDateTimeString();
         if($object->has('condition_rules'))             $data['condition_rules'] = $object->get('condition_rules');
         if($object->has('discount_type_id'))            $data['discount_type_id'] = $object->get('discount_type_id');
         if($object->has('discount_fixed_amount'))       $data['discount_fixed_amount'] = $object->get('discount_fixed_amount');

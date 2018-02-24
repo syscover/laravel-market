@@ -1,17 +1,27 @@
 <?php namespace Syscover\Market\Services;
 
 use Syscover\Market\Models\Order;
+use Syscover\ShoppingCart\Cart;
+use Syscover\Crm\Models\Customer;
 
 class OrderService
 {
     /**
      * Function to create a order
      *
-     * @param $object
-     * @return $this|\Illuminate\Database\Eloquent\Model
+     * @param array $object
+     * @param Cart|null $cart
+     * @param Customer|null $customer
+     * @param string|null $ip
+     * @return  \Syscover\Market\Models\Order
      * @throws \Exception
      */
-    public static function create($object)
+    public static function create(
+        array $object,
+        Cart $cart = null,
+        Customer $customer = null,
+        string $ip = null
+    )
     {
         if(empty($object['payment_method_id'])) throw new \Exception('payment_method_id is required');
         if(empty($object['status_id']))         throw new \Exception('status_id is required');
@@ -20,216 +30,133 @@ class OrderService
         if(empty($object['customer_email']))    throw new \Exception('customer_email is required');
 
         // prevent not null values
-        if(array_key_exists('date', $object) && $object['date'] === null) unset($object['date']);
-        if(array_key_exists('discount_amount', $object) && $object['discount_amount'] === null) unset($object['discount_amount']);
-        if(array_key_exists('subtotal_with_discounts', $object) && $object['subtotal_with_discounts'] === null) unset($object['subtotal_with_discounts']);
-        if(array_key_exists('tax_amount', $object) && $object['tax_amount'] === null) unset($object['tax_amount']);
-        if(array_key_exists('cart_items_total_without_discounts', $object) && $object['cart_items_total_without_discounts'] === null) unset($object['cart_items_total_without_discounts']);
-        if(array_key_exists('subtotal', $object) && $object['subtotal'] === null) unset($object['subtotal']);
-        if(array_key_exists('shipping_amount', $object) && $object['shipping_amount'] === null) unset($object['shipping_amount']);
-        if(array_key_exists('total', $object) && $object['total'] === null) unset($object['total']);
-        if(array_key_exists('has_gift', $object) && $object['has_gift'] === null) unset($object['has_gift']);
-        if(array_key_exists('has_invoice', $object) && $object['has_invoice'] === null) unset($object['has_invoice']);
-        if(array_key_exists('invoiced', $object) && $object['invoiced'] === null) unset($object['invoiced']);
-        if(array_key_exists('has_shipping', $object) && $object['has_shipping'] === null) unset($object['has_shipping']);
+//        if(array_key_exists('date', $object) && $object['date'] === null) unset($object['date']);
+//        if(array_key_exists('discount_amount', $object) && $object['discount_amount'] === null) unset($object['discount_amount']);
+//        if(array_key_exists('subtotal_with_discounts', $object) && $object['subtotal_with_discounts'] === null) unset($object['subtotal_with_discounts']);
+//        if(array_key_exists('tax_amount', $object) && $object['tax_amount'] === null) unset($object['tax_amount']);
+//        if(array_key_exists('cart_items_total_without_discounts', $object) && $object['cart_items_total_without_discounts'] === null) unset($object['cart_items_total_without_discounts']);
+//        if(array_key_exists('subtotal', $object) && $object['subtotal'] === null) unset($object['subtotal']);
+//        if(array_key_exists('shipping_amount', $object) && $object['shipping_amount'] === null) unset($object['shipping_amount']);
+//        if(array_key_exists('total', $object) && $object['total'] === null) unset($object['total']);
+//        if(array_key_exists('has_gift', $object) && $object['has_gift'] === null) unset($object['has_gift']);
+//        if(array_key_exists('has_invoice', $object) && $object['has_invoice'] === null) unset($object['has_invoice']);
+//        if(array_key_exists('invoiced', $object) && $object['invoiced'] === null) unset($object['invoiced']);
+//        if(array_key_exists('has_shipping', $object) && $object['has_shipping'] === null) unset($object['has_shipping']);
 
-        return Order::create($object);
+        return Order::create(OrderService::builder($object, $cart, $customer, $ip));
     }
 
     /**
      * @param   array     $object     contain properties of section
-     * @param   int       $id         id of order
-     * @return  \Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model|null|static|static[]
+     * @return  \Syscover\Market\Models\Order
      */
-    public static function update($object, $id)
+    public static function update($object)
     {
-        // pass object to collection
-        $object = collect($object);
+        // set group_ids field
+        if(! empty($object['data'])) $object['data'] = json_encode($object['data']);
 
-        Order::where('id', $id)
-            ->update([
-                'date'                                          => $object->get('date'),
-                'payment_method_id'                             => $object->get('payment_method_id'),
-                'status_id'                                     => $object->get('status_id'),
-                'ip'                                            => $object->get('ip'),
-                'data'                                          => json_encode($object->get('data')),
-                'comments'                                      => $object->get('comments'),
-
-                'transaction_id'                                => $object->get('transaction_id'),
-
-                //****************
-                //* amounts
-                //****************
-                'discount_amount'                               => $object->get('discount_amount'),
-                'subtotal_with_discounts'                       => $object->get('subtotal_with_discounts'),
-                'tax_amount'                                    => $object->get('tax_amount'),
-                'cart_items_total_without_discounts'            => $object->get('cart_items_total_without_discounts'),
-                'subtotal'                                      => $object->get('subtotal'),
-                'shipping_amount'                               => $object->get('shipping_amount'),
-                'total'                                         => $object->get('total'),
-
-                //****************
-                //* gift
-                //****************
-                'has_gift'                                      => $object->get('has_gift'),
-                'gift_from'                                     => $object->get('gift_from'),
-                'gift_to'                                       => $object->get('gift_to'),
-                'gift_message'                                  => $object->get('gift_message'),
-                'gift_comments'                                 => $object->get('gift_comments'),
-
-                //****************
-                //* customer
-                //****************
-                'customer_id'                                   => $object->get('customer_id'),
-                'customer_group_id'                             => $object->get('customer_group_id'),
-                'customer_company'                              => $object->get('customer_company'),
-                'customer_tin'                                  => $object->get('customer_tin'),
-                'customer_name'                                 => $object->get('customer_name'),
-                'customer_surname'                              => $object->get('customer_surname'),
-                'customer_email'                                => $object->get('customer_email'),
-                'customer_mobile'                               => $object->get('customer_mobile'),
-                'customer_phone'                                => $object->get('customer_phone'),
-
-                //****************
-                //* invoice data
-                //****************
-                'has_invoice'                                   => $object->get('has_invoice'),
-                'invoiced'                                      => $object->get('invoiced'),
-                'invoice_number'                                => $object->get('invoice_number'),
-                'invoice_company'                               => $object->get('invoice_company'),
-                'invoice_tin'                                   => $object->get('invoice_tin'),
-                'invoice_name'                                  => $object->get('invoice_name'),
-                'invoice_surname'                               => $object->get('invoice_surname'),
-                'invoice_email'                                 => $object->get('invoice_email'),
-                'invoice_mobile'                                => $object->get('invoice_mobile'),
-                'invoice_phone'                                 => $object->get('invoice_phone'),
-                'invoice_country_id'                            => $object->get('invoice_country_id'),
-                'invoice_territorial_area_1_id'                 => $object->get('invoice_territorial_area_1_id'),
-                'invoice_territorial_area_2_id'                 => $object->get('invoice_territorial_area_2_id'),
-                'invoice_territorial_area_3_id'                 => $object->get('invoice_territorial_area_3_id'),
-                'invoice_zip'                                   => $object->get('invoice_zip'),
-                'invoice_locality'                              => $object->get('invoice_locality'),
-                'invoice_address'                               => $object->get('invoice_address'),
-                'invoice_latitude'                              => $object->get('invoice_latitude'),
-                'invoice_longitude'                             => $object->get('invoice_longitude'),
-                'invoice_comments'                              => $object->get('invoice_comments'),
-
-                //****************
-                //* shipping data
-                //****************
-                'has_shipping'                                  => $object->get('has_shipping'),
-                'shipping_company'                              => $object->get('shipping_company'),
-                'shipping_name'                                 => $object->get('shipping_name'),
-                'shipping_surname'                              => $object->get('shipping_surname'),
-                'shipping_email'                                => $object->get('shipping_email'),
-                'shipping_mobile'                               => $object->get('shipping_mobile'),
-                'shipping_phone'                                => $object->get('shipping_phone'),
-                'shipping_country_id'                           => $object->get('shipping_country_id'),
-                'shipping_territorial_area_1_id'                => $object->get('shipping_territorial_area_1_id'),
-                'shipping_territorial_area_2_id'                => $object->get('shipping_territorial_area_2_id'),
-                'shipping_territorial_area_3_id'                => $object->get('shipping_territorial_area_3_id'),
-                'shipping_zip'                                  => $object->get('shipping_zip'),
-                'shipping_locality'                             => $object->get('shipping_locality'),
-                'shipping_address'                              => $object->get('shipping_address'),
-                'shipping_latitude'                             => $object->get('shipping_latitude'),
-                'shipping_longitude'                            => $object->get('shipping_longitude'),
-                'shipping_comments'                             => $object->get('shipping_comments'),
-            ]);
+        Order::where('id', $object['id'])->update(OrderService::builder($object));
 
         return Order::find($object->get('id'));
     }
 
-    public static function orderBuilder($data, $customer, $cart, $shipping, $invoice, $ip)
+    /**
+     * @param array $object
+     * @param Cart|null $cart
+     * @param Customer|null $customer
+     * @param string|null $ip
+     * @return array
+     */
+    private static function builder(
+        array $object,
+        Cart $cart = null,
+        Customer $customer = null,
+        string $ip
+    )
     {
-        $data = collect($data);
+        $object = collect($object);
+        $data = [];
 
-        if(! $data->get('payment_method_id')) throw new \Exception('You must set payment_method_id field');
-        if(! $data->get('status_id')) throw new \Exception('You must set status_id field');
+        if($object->has('date'))                                $data['date'] = $object->get('date');
+        if($object->has('payment_method_id'))                   $data['payment_method_id'] = $object->get('payment_method_id');
+        if($object->has('status_id'))                           $data['status_id'] = $object->get('status_id');
+        if($ip)                                                      $data['ip'] = $ip;
+        if($object->has('data'))                                $data['data'] = $object->get('data');
+        if($object->has('comments'))                            $data['comments'] = $object->get('comments');
 
-        return [
-            'date'                                          => $data->get('date'),                                 // if date not exist create current date automatically
-            'payment_method_id'                             => $data->get('payment_method_id'),
-            'status_id'                                     => $data->get('status_id'),
-            'ip'                                            => $ip,
-            'data'                                          => $data->get('data'),
-            'comments'                                      => $data->get('comments'),
+        // amounts
+        if($cart)
+        {
+            $data['discount_amount']                        = $cart->discountAmount;                                    // total amount to discount, fixed plus percentage discounts
+            $data['subtotal_with_discounts']                = $cart->subtotalWithDiscounts;                             // subtotal with discounts applied
+            $data['tax_amount']                             = $cart->taxAmount;                                         // total tax amount
+            $data['cart_items_total_without_discounts']     = $cart->cartItemsTotalWithoutDiscounts;                    // total of cart items. Amount with tax, without discount and without shipping
+            $data['subtotal']                               = $cart->subtotal;                                          // amount without tax and without shipping
+            $data['shipping_amount']                        = $cart->hasFreeShipping() ? 0 : $cart->shippingAmount;     // shipping amount
+            $data['total']                                  = $cart->total;                                             // shipping amount
+        }
 
-            //****************
-            //* amounts
-            //****************
-            'discount_amount'                               => $cart->discountAmount,                                   // total amount to discount, fixed plus percentage discounts
-            'subtotal_with_discounts'                       => $cart->subtotalWithDiscounts,                            // subtotal with discounts applied
-            'tax_amount'                                    => $cart->taxAmount,                                        // total tax amount
-            'cart_items_total_without_discounts'            => $cart->cartItemsTotalWithoutDiscounts,                   // total of cart items. Amount with tax, without discount and without shipping
-            'subtotal'                                      => $cart->subtotal,                                         // amount without tax and without shipping
-            'shipping_amount'                               => $cart->hasFreeShipping()? 0 :  $cart->shippingAmount,    // shipping amount
-            'total'                                         => $cart->total,
+        // gift
+        if($object->has('has_gift'))                            $data['has_gift'] = $object->get('has_gift');
+        if($object->has('gift_from'))                           $data['gift_from'] = $object->get('gift_from');
+        if($object->has('gift_to'))                             $data['gift_to'] = $object->get('gift_to');
+        if($object->has('gift_message'))                        $data['gift_message'] = $object->get('gift_message');
 
-            //****************
-            //* gift
-            //****************
-            'has_gift'                                      => $data->has('has_gift'),
-            'gift_from'                                     => $data->get('gift_from'),
-            'gift_to'                                       => $data->get('gift_to'),
-            'gift_message'                                  => $data->get('gift_message'),
+        // customer
+        if($customer)
+        {
+            $data['customer_id']            = $customer->id;
+            $data['customer_group_id']      = $customer->group_id;
+            $data['customer_company']       = $customer->company;
+            $data['customer_tin']           = $customer->tin;
+            $data['customer_name']          = $customer->name;
+            $data['customer_surname']       = $customer->surname;
+            $data['customer_email']         = $customer->email;
+            $data['customer_mobile']        = $customer->mobile;
+            $data['customer_phone']         = $customer->phone;
+        }
 
-            //****************
-            //* customer
-            //****************
-            'customer_id'                                   => $customer->id,
-            'customer_group_id'                             => $customer->group_id,
-            'customer_company'                              => $customer->company,
-            'customer_tin'                                  => $customer->tin,
-            'customer_name'                                 => $customer->name,
-            'customer_surname'                              => $customer->surname,
-            'customer_email'                                => $customer->email,
-            'customer_mobile'                               => $customer->mobile,
-            'customer_phone'                                => $customer->phone,
+        // invoice
+        if($object->has('has_invoice'))                         $data['has_invoice'] = $object->get('has_invoice');
+        if($object->has('invoiced'))                            $data['invoiced'] = $object->get('invoiced');
+        if($object->has('invoice_number'))                      $data['invoice_number'] = $object->get('invoice_number');
+        if($object->has('invoice_company'))                     $data['invoice_company'] = $object->get('invoice_company');
+        if($object->has('invoice_tin'))                         $data['invoice_tin'] = $object->get('invoice_tin');
+        if($object->has('invoice_name'))                        $data['invoice_name'] = $object->get('invoice_name');
+        if($object->has('invoice_surname'))                     $data['invoice_surname'] = $object->get('invoice_surname');
+        if($object->has('invoice_email'))                       $data['invoice_email'] = $object->get('invoice_email');
+        if($object->has('invoice_mobile'))                      $data['invoice_mobile'] = $object->get('invoice_mobile');
+        if($object->has('invoice_phone'))                       $data['invoice_phone'] = $object->get('invoice_phone');
+        if($object->has('invoice_country_id'))                  $data['invoice_country_id'] = $object->get('invoice_country_id');
+        if($object->has('invoice_territorial_area_1_id'))       $data['invoice_territorial_area_1_id'] = $object->get('invoice_territorial_area_1_id');
+        if($object->has('invoice_territorial_area_2_id'))       $data['invoice_territorial_area_2_id'] = $object->get('invoice_territorial_area_2_id');
+        if($object->has('invoice_territorial_area_3_id'))       $data['invoice_territorial_area_3_id'] = $object->get('invoice_territorial_area_3_id');
+        if($object->has('invoice_zip'))                         $data['invoice_zip'] = $object->get('invoice_zip');
+        if($object->has('invoice_locality'))                    $data['invoice_locality'] = $object->get('invoice_locality');
+        if($object->has('invoice_address'))                     $data['invoice_address'] = $object->get('invoice_address');
+        if($object->has('invoice_latitude'))                    $data['invoice_latitude'] = $object->get('invoice_latitude');
+        if($object->has('invoice_longitude'))                   $data['invoice_longitude'] = $object->get('invoice_longitude');
+        if($object->has('invoice_comments'))                    $data['invoice_comments'] = $object->get('invoice_comments');
 
-            //****************
-            //* invoice data
-            //****************
-            'has_invoice'                                   => $invoice->get('has_invoice'),
-            'invoiced'                                      => $invoice->get('invoiced'),
-            'invoice_number'                                => $invoice->get('number'),
-            'invoice_company'                               => $invoice->get('company'),
-            'invoice_tin'                                   => $invoice->get('tin'),
-            'invoice_name'                                  => $invoice->get('name'),
-            'invoice_surname'                               => $invoice->get('surname'),
-            'invoice_email'                                 => $invoice->get('email'),
-            'invoice_mobile'                                => $invoice->get('mobile'),
-            'invoice_phone'                                 => $invoice->get('phone'),
-            'invoice_country_id'                            => $invoice->get('country_id'),
-            'invoice_territorial_area_1_id'                 => $invoice->get('territorial_area_1_id'),
-            'invoice_territorial_area_2_id'                 => $invoice->get('territorial_area_2_id'),
-            'invoice_territorial_area_3_id'                 => $invoice->get('territorial_area_3_id'),
-            'invoice_zip'                                   => $invoice->get('zip'),
-            'invoice_locality'                              => $invoice->get('locality'),
-            'invoice_address'                               => $invoice->get('address'),
-            'invoice_latitude'                              => $invoice->get('latitude'),
-            'invoice_longitude'                             => $invoice->get('longitude'),
-            'invoice_comments'                              => $invoice->get('comments'),
+        // shipping
+        if($object->has('has_shipping'))                        $data['has_shipping'] = $object->get('has_shipping');
+        if($object->has('shipping_company'))                    $data['shipping_company'] = $object->get('shipping_company');
+        if($object->has('shipping_name'))                       $data['shipping_name'] = $object->get('shipping_name');
+        if($object->has('shipping_surname'))                    $data['shipping_surname'] = $object->get('shipping_surname');
+        if($object->has('shipping_email'))                      $data['shipping_email'] = $object->get('shipping_email');
+        if($object->has('shipping_mobile'))                     $data['shipping_mobile'] = $object->get('shipping_mobile');
+        if($object->has('shipping_phone'))                      $data['shipping_phone'] = $object->get('shipping_phone');
+        if($object->has('shipping_country_id'))                 $data['shipping_country_id'] = $object->get('shipping_country_id');
+        if($object->has('shipping_territorial_area_1_id'))      $data['shipping_territorial_area_1_id'] = $object->get('shipping_territorial_area_1_id');
+        if($object->has('shipping_territorial_area_2_id'))      $data['shipping_territorial_area_2_id'] = $object->get('shipping_territorial_area_2_id');
+        if($object->has('shipping_territorial_area_3_id'))      $data['shipping_territorial_area_3_id'] = $object->get('shipping_territorial_area_3_id');
+        if($object->has('shipping_zip'))                        $data['shipping_zip'] = $object->get('shipping_zip');
+        if($object->has('shipping_locality'))                   $data['shipping_locality'] = $object->get('shipping_locality');
+        if($object->has('shipping_address'))                    $data['shipping_address'] = $object->get('shipping_address');
+        if($object->has('shipping_latitude'))                   $data['shipping_latitude'] = $object->get('shipping_latitude');
+        if($object->has('shipping_longitude'))                  $data['shipping_longitude'] = $object->get('shipping_longitude');
+        if($object->has('shipping_comments'))                   $data['shipping_comments'] = $object->get('shipping_comments');
 
-            //****************
-            //* shipping data
-            //****************
-            'has_shipping'                                  => $shipping->get('has_shipping'),
-            'shipping_company'                              => $shipping->get('company'),
-            'shipping_name'                                 => $shipping->get('name'),
-            'shipping_surname'                              => $shipping->get('surname'),
-            'shipping_email'                                => $shipping->get('email'),
-            'shipping_mobile'                               => $shipping->get('mobile'),
-            'shipping_phone'                                => $shipping->get('phone'),
-            'shipping_country_id'                           => $shipping->get('country_id'),
-            'shipping_territorial_area_1_id'                => $shipping->get('territorial_area_1_id'),
-            'shipping_territorial_area_2_id'                => $shipping->get('territorial_area_2_id'),
-            'shipping_territorial_area_3_id'                => $shipping->get('territorial_area_3_id'),
-            'shipping_zip'                                  => $shipping->get('zip'),
-            'shipping_locality'                             => $shipping->get('locality'),
-            'shipping_address'                              => $shipping->get('address'),
-            'shipping_latitude'                             => $shipping->get('latitude'),
-            'shipping_longitude'                            => $shipping->get('longitude'),
-            'shipping_comments'                             => $shipping->get('comments'),
-        ];
+        return $data;
     }
 }
