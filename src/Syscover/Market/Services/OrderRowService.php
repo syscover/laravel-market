@@ -25,7 +25,7 @@ class OrderRowService
             if(! empty($object['data'])) $object['data'] = json_encode($object['data']);
             if(! empty($object['tax_rules'])) $object['tax_rules'] = json_encode($object['tax_rules']);
 
-            $rows[] = OrderRowService::builder($object);
+            $rows[] = OrderRowService::builder($object)->toArray();
         }
 
         return OrderRow::insert($rows);
