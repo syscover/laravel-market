@@ -132,7 +132,7 @@ class PayPalController extends BaseController
             ->setAmount($amount)
             ->setItemList($itemList)
             ->setDescription(__(Lang::has('common.paypal_item_list_description')?
-                'common.paypal_item_list_description' : 'market:pulsar.paypal_item_list_description'));
+                'common.paypal_item_list_description' : 'market::pulsar.paypal_item_list_description'));
 
         // config URL request
         $redirectUrls = new RedirectUrls();
