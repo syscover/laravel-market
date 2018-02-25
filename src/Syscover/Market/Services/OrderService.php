@@ -1,7 +1,6 @@
 <?php namespace Syscover\Market\Services;
 
 use Syscover\Market\Models\Order;
-use Syscover\ShoppingCart\Cart;
 use Syscover\Crm\Models\Customer;
 
 class OrderService
@@ -10,18 +9,10 @@ class OrderService
      * Function to create a order
      *
      * @param array $object
-     * @param Cart|null $cart
-     * @param Customer|null $customer
-     * @param string|null $ip
      * @return  \Syscover\Market\Models\Order
      * @throws \Exception
      */
-    public static function create(
-        array $object,
-        Cart $cart = null,
-        Customer $customer = null,
-        string $ip = null
-    )
+    public static function create(array $object)
     {
         if(empty($object['payment_method_id'])) throw new \Exception('payment_method_id is required');
         if(empty($object['status_id']))         throw new \Exception('status_id is required');
@@ -43,14 +34,14 @@ class OrderService
 //        if(array_key_exists('invoiced', $object) && $object['invoiced'] === null) unset($object['invoiced']);
 //        if(array_key_exists('has_shipping', $object) && $object['has_shipping'] === null) unset($object['has_shipping']);
 
-        return Order::create(OrderService::builder($object, $cart, $customer, $ip));
+        return Order::create(OrderService::builder($object));
     }
 
     /**
-     * @param   array     $object     contain properties of section
-     * @return  \Syscover\Market\Models\Order
+     * @param array $object
+     * @return mixed
      */
-    public static function update($object)
+    public static function update(array $object)
     {
         // set group_ids field
         if(! empty($object['data'])) $object['data'] = json_encode($object['data']);
@@ -62,17 +53,9 @@ class OrderService
 
     /**
      * @param array $object
-     * @param Cart|null $cart
-     * @param Customer|null $customer
-     * @param string|null $ip
      * @return array
      */
-    private static function builder(
-        array $object,
-        Cart $cart = null,
-        Customer $customer = null,
-        string $ip
-    )
+    private static function builder(array $object)
     {
         $object = collect($object);
         $data = [];
@@ -80,21 +63,18 @@ class OrderService
         if($object->has('date'))                                $data['date'] = $object->get('date');
         if($object->has('payment_method_id'))                   $data['payment_method_id'] = $object->get('payment_method_id');
         if($object->has('status_id'))                           $data['status_id'] = $object->get('status_id');
-        if($ip)                                                      $data['ip'] = $ip;
+        if($object->has('ip'))                                  $data['ip'] = $object->get('ip');
         if($object->has('data'))                                $data['data'] = $object->get('data');
         if($object->has('comments'))                            $data['comments'] = $object->get('comments');
 
-        // amounts
-        if($cart)
-        {
-            $data['discount_amount']                        = $cart->discountAmount;                                    // total amount to discount, fixed plus percentage discounts
-            $data['subtotal_with_discounts']                = $cart->subtotalWithDiscounts;                             // subtotal with discounts applied
-            $data['tax_amount']                             = $cart->taxAmount;                                         // total tax amount
-            $data['cart_items_total_without_discounts']     = $cart->cartItemsTotalWithoutDiscounts;                    // total of cart items. Amount with tax, without discount and without shipping
-            $data['subtotal']                               = $cart->subtotal;                                          // amount without tax and without shipping
-            $data['shipping_amount']                        = $cart->hasFreeShipping() ? 0 : $cart->shippingAmount;     // shipping amount
-            $data['total']                                  = $cart->total;                                             // shipping amount
-        }
+        // cart
+        if($object->has('discount_amount'))                     $data['discount_amount'] = $object->get('discount_amount');                                         // total amount to discount, fixed plus percentage discounts
+        if($object->has('subtotal_with_discounts'))             $data['subtotal_with_discounts'] = $object->get('subtotal_with_discounts');                         // subtotal with discounts applied
+        if($object->has('tax_amount'))                          $data['tax_amount'] = $object->get('tax_amount');                                                   // total tax amount
+        if($object->has('cart_items_total_without_discounts'))  $data['cart_items_total_without_discounts'] = $object->get('cart_items_total_without_discounts');   // total of cart items. Amount with tax, without discount and without shipping
+        if($object->has('subtotal'))                            $data['subtotal'] = $object->get('subtotal');                                                       // amount without tax and without shipping
+        if($object->has('shipping_amount'))                     $data['shipping_amount'] = $object->get('shipping_amount');                                         // shipping amount
+        if($object->has('total'))                               $data['total'] = $object->get('total');
 
         // gift
         if($object->has('has_gift'))                            $data['has_gift'] = $object->get('has_gift');
@@ -103,18 +83,15 @@ class OrderService
         if($object->has('gift_message'))                        $data['gift_message'] = $object->get('gift_message');
 
         // customer
-        if($customer)
-        {
-            $data['customer_id']            = $customer->id;
-            $data['customer_group_id']      = $customer->group_id;
-            $data['customer_company']       = $customer->company;
-            $data['customer_tin']           = $customer->tin;
-            $data['customer_name']          = $customer->name;
-            $data['customer_surname']       = $customer->surname;
-            $data['customer_email']         = $customer->email;
-            $data['customer_mobile']        = $customer->mobile;
-            $data['customer_phone']         = $customer->phone;
-        }
+        if($object->has('customer_id'))                         $data['customer_id'] = $object->get('customer_id');
+        if($object->has('customer_group_id'))                   $data['customer_group_id'] = $object->get('customer_group_id');
+        if($object->has('customer_company'))                    $data['customer_company'] = $object->get('customer_company');
+        if($object->has('customer_tin'))                        $data['customer_tin'] = $object->get('customer_tin');
+        if($object->has('customer_name'))                       $data['customer_name'] = $object->get('customer_name');
+        if($object->has('customer_surname'))                    $data['customer_surname'] = $object->get('customer_surname');
+        if($object->has('customer_email'))                      $data['customer_email'] = $object->get('customer_email');
+        if($object->has('customer_mobile'))                     $data['customer_mobile'] = $object->get('customer_mobile');
+        if($object->has('customer_phone'))                      $data['customer_phone'] = $object->get('customer_phone');
 
         // invoice
         if($object->has('has_invoice'))                         $data['has_invoice'] = $object->get('has_invoice');

@@ -38,75 +38,28 @@ class OrderRowService
      * @param   string    $lang       lang of category
      * @return  \Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model|null|static|static[]
      */
-    public static function update($object, $id, $lang)
+    public static function update($id, $lang, $object)
     {
 
+    }
 
-//        // create rows from shopping cart
-//        $items = [];
-//        foreach ($shoppingCart->getCartItems() as $item) {
-//            $itemAux = [
-//                'lang_id'                                   => user_lang(),
-//                'order_id'                                  => $id,
-//                'product_id'                                => $item->id,
-//
-//                //****************
-//                //* Product
-//                //****************
-//                'name'                                      => $item->name,
-//                'description'                               => $item->options->product->description,
-//                'data'                                      => json_encode(['product' => $item->options->product]),
-//
-//                //****************
-//                //* amounts
-//                //****************
-//                'price'                                     => $item->price,                    // unit price without tax
-//                'quantity'                                  => $item->quantity,                 // number of units
-//                'subtotal'                                  => $item->subtotal,                 // subtotal without tax
-//                'total_without_discounts'                   => $item->totalWithoutDiscounts,    // total from row without discounts
-//
-//                //****************
-//                //* discounts
-//                //****************
-//                'discount_subtotal_percentage'              => $item->discountSubtotalPercentage,
-//                'discount_total_percentage'                 => $item->discountTotalPercentage,
-//                'discount_subtotal_percentage_amount'       => $item->discountSubtotalPercentageAmount,
-//                'discount_total_percentage_amount'          => $item->discountTotalPercentageAmount,
-//                'discount_subtotal_fixed_amount'            => $item->discountSubtotalFixedAmount,
-//                'discount_total_fixed_amount'               => $item->discountTotalFixedAmount,
-//                'discount_amount'                           => $item->discountAmount,
-//
-//                //***************************
-//                //* subtotal with discounts
-//                //***************************
-//                'subtotal_with_discounts'                   => $item->subtotalWithDiscounts,      // subtotal without tax and with discounts
-//
-//                //****************
-//                //* taxes
-//                //****************
-//                'tax_rules'                                 => json_encode($item->taxRules->values()),
-//                'tax_amount'                                => $item->taxAmount,
-//
-//                //****************
-//                //* total
-//                //****************
-//                'total'                                     => $item->total,        // total with tax and discounts
-//
-//                //****************
-//                //* gift
-//                //****************
-//                'has_gift'                                  => $item->getGift()->has('has_gift'),
-//                'gift_from'                                 => $item->getGift()->get('from'),
-//                'gift_to'                                   => $item->getGift()->get('to'),
-//                'gift_message'                              => $item->getGift()->get('message'),
-//                'gift_comments'                             => $item->getGift()->get('comments'),
-//            ];
-//
-//            // add item to array
-//            $items[] = $itemAux;
-//        }
-//
-//        return Category::find($object->get('id'));
+    private static function builder(int $orderId, string $langId, $object)
+    {
+        $object = collect($object);
+        $data = [];
+
+        if($orderId)                                 $data['order_id'] = $orderId;
+        if($langId)                                  $data['lang_id'] = $langId;
+        if($object->has('product_id'))          $data['product_id'] = $object->get('product_id');
+        if($object->has('name'))                $data['name'] = $object->get('name');
+        // if($object->has('description'))                  $data['description'] = $object->get('description');
+        // if($object->has('data'))                         $data['data'] = $object->get('data');
+        if($object->has('price'))                       $data['price'] = $object->get('price');
+        if($object->has('quantity'))                    $data['quantity'] = $object->get('quantity');
+        if($object->has('subtotal'))                    $data['subtotal'] = $object->get('subtotal');
+        if($object->has('total_without_discounts'))     $data['total_without_discounts'] = $object->get('total_without_discounts');
+
+        if($object->has('total'))              $data['total'] = $object->get('total');
     }
 
     public static function orderRowBuilder($lang, $orderId, $items)
