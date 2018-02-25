@@ -102,22 +102,20 @@ class PayPalController extends BaseController
         //***********************
         //** discounts
         //***********************
-//        $discounts = $order->discounts;
-//        foreach ($discounts as $discount)
-//        {
-//            $discountAmount = $discount->discount_amount * -1;
-//
-//            if($discountAmount < 0)
-//            {
-//                $item = new Item();
-//                $item->setName($discount->name_text_value)
-//                    ->setCurrency('EUR')                        // currency
-//                    ->setQuantity(1)                            // quantity
-//                    ->setPrice($discountAmount);                // price
-//
-//                $products[] = $item;
-//            }
-//        }
+        $discounts = $order->discounts;
+        foreach ($discounts as $discount)
+        {
+            if($discount->discount_amount > 0)
+            {
+                $item = new Item();
+                $item->setName(collect($discount->names)->where('id', user_lang())->first() ? collect($discount->names)->where('id', user_lang())->first()['value'] : trans_choice('core::common.discount', 1))
+                    ->setCurrency('EUR')                            // currency
+                    ->setQuantity(1)                                // quantity
+                    ->setPrice($discount->discount_amount * -1);    // price
+
+                $products[] = $item;
+            }
+        }
 
         // products list
         $itemList = new ItemList();
