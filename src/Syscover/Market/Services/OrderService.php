@@ -46,7 +46,7 @@ class OrderService
 
         Order::where('id', $object['id'])->update(OrderService::builder($object));
 
-        return Order::find($object->get('id'));
+        return Order::find($object['id']);
     }
 
     /**
