@@ -18,7 +18,6 @@ class CustomerDiscountHistory extends CoreModel
         'data_lang'         => 'array',
         'price_rule'        => 'array'
     ];
-    public $timestamps      = false;
     private static $rules   = [];
 
     public static function validate($data)
