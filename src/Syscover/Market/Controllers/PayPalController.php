@@ -90,8 +90,7 @@ class PayPalController extends BaseController
         if($order->shipping_amount > 0)
         {
             $item = new Item();
-            $item->setName(__(Lang::has('common.paypal_shipping_description')?
-                'common.paypal_shipping_description' : 'market:pulsar.paypal_shipping_description'))
+            $item->setName(__(Lang::has('common.paypal_shipping_description') ? 'common.paypal_shipping_description' : 'market::pulsar.paypal_shipping_description'))
                 ->setCurrency('EUR')                        // currency
                 ->setQuantity(1)                            // quantity
                 ->setPrice($order->shipping_amount);        // price
