@@ -26,11 +26,13 @@ class MarketCreateTableCartPriceRule extends Migration
 
                 // groups that could apply the discount
                 $table->json('group_ids')->nullable();
+
                 // customers that could apply the discount
                 $table->json('customer_ids')->nullable();
 
                 // define if this rule can to be combined with other rule
                 $table->boolean('combinable');
+
                 // short to apply discounts
                 $table->integer('priority')->unsigned()->nullable();
 
@@ -65,6 +67,7 @@ class MarketCreateTableCartPriceRule extends Migration
 
                 // discount percentage on an amount
                 $table->decimal('discount_percentage', 12, 4)->nullable();
+
                 // maximum amount to discount
                 $table->decimal('maximum_discount_amount', 12, 4)->nullable();
 
