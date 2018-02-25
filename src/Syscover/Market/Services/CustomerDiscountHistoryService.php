@@ -21,6 +21,24 @@ class CustomerDiscountHistoryService
     }
 
     /**
+     * @param   array $objects
+     * @return  bool
+     */
+    public static function insert($objects)
+    {
+        $discounts = [];
+        foreach ($objects as $object)
+        {
+            if(! empty($object['data'])) $object['data'] = json_encode($object['data']);
+            if(! empty($object['tax_rules'])) $object['tax_rules'] = json_encode($object['tax_rules']);
+
+            $discounts[] = CustomerDiscountHistoryService::builder($object);
+        }
+
+        return CustomerDiscountHistory::insert($discounts);
+    }
+
+    /**
      * @param array $object
      * @return mixed
      */
@@ -31,7 +49,7 @@ class CustomerDiscountHistoryService
 
         //Order::where('id', $object['id'])->update(OrderService::builder($object));
 
-        return Order::find($object->get('id'));
+        return CustomerDiscountHistory::find($object->get('id'));
     }
 
     /**
