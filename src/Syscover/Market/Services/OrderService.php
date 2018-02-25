@@ -1,7 +1,6 @@
 <?php namespace Syscover\Market\Services;
 
 use Syscover\Market\Models\Order;
-use Syscover\Crm\Models\Customer;
 
 class OrderService
 {
@@ -43,7 +42,6 @@ class OrderService
      */
     public static function update(array $object)
     {
-        // set group_ids field
         if(! empty($object['data'])) $object['data'] = json_encode($object['data']);
 
         Order::where('id', $object['id'])->update(OrderService::builder($object));
