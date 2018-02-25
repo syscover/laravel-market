@@ -25,6 +25,9 @@ class MarketCreateTableCustomerDiscountHistory extends Migration
                 // if order is canceled, you can deactivate discounts
                 $table->boolean('applied')->default(true);
 
+                // total discount amount apply with this rule
+                $table->decimal('discount_amount', 12, 4)->nullable();
+
                 // name of model:
                 // CartPriceRule
                 // CatalogPriceRule
@@ -32,14 +35,11 @@ class MarketCreateTableCustomerDiscountHistory extends Migration
                 $table->string('rule_type');
                 $table->integer('rule_id')->unsigned()->nullable();
 
-                $table->boolean('has_coupon')->default(false);
-                $table->string('coupon_code')->nullable();
-
                 $table->json('names')->nullable(); // name value in different languages
                 $table->json('descriptions')->nullable(); //description value in different languages
 
-                // check if this rules are valid to apply this discount
-                $table->json('condition_rules')->nullable();
+                $table->boolean('has_coupon')->default(false);
+                $table->string('coupon_code')->nullable();
 
                 // see config/market.php section Discount type on shopping cart
                 // 1 - without discount
@@ -48,9 +48,6 @@ class MarketCreateTableCustomerDiscountHistory extends Migration
                 // 4 - discount percentage total
                 // 5 - discount fixed amount total
                 $table->tinyInteger('discount_type_id')->unsigned()->nullable();
-
-                // minimum amount required to apply discount
-                $table->decimal('minimum_amount', 12, 4)->nullable();
 
                 // fixed amount to discount over shopping cart
                 $table->decimal('discount_fixed_amount', 12, 4)->nullable();
@@ -61,19 +58,16 @@ class MarketCreateTableCustomerDiscountHistory extends Migration
                 // limit amount to discount, if the discount is a percentage
                 $table->decimal('maximum_discount_amount', 12, 4)->nullable();
 
-                // total discount amount apply with this rule
-                $table->decimal('discount_amount', 12, 4)->nullable();
-
                 // check if apply discount to shipping amount
                 $table->boolean('apply_shipping_amount');
 
                 // check if this discount has free shipping
                 $table->boolean('free_shipping');
 
-                // rules that will determinate that products will be applied this discounts
-                $table->json('product_rules')->nullable();
-
                 $table->json('data_lang')->nullable();
+
+                // price rule object
+                $table->json('price_rule');
 
                 $table->timestamps();
                 $table->softDeletes();
