@@ -138,7 +138,14 @@ class CouponService
         }
 
         // check if exist this cart price rule in cart
-        if($cartPriceRule != null && $shoppingCart->getPriceRules()->has($cartPriceRule->id))
+        if(
+            $cartPriceRule != null &&
+            $shoppingCart
+                ->getPriceRules()
+                ->has(
+                    md5($cartPriceRule->id . get_class($cartPriceRule) .  $cartPriceRule->discount_type_id . $cartPriceRule->combinable)
+                )
+        )
         {
             $errors[] = [
                 'status'    => 'error',
