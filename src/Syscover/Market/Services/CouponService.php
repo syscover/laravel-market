@@ -212,6 +212,8 @@ class CouponService
                 {
                     $shoppingCart->addCartPriceRule(
                         new PriceRule(
+                            $cartPriceRule->id,
+                            get_class($cartPriceRule),
                             collect($cartPriceRule->names)->where('id', $lang)->first() ? collect($cartPriceRule->names)->where('id', $lang)->first()['value'] : __('core::common.undefined'),
                             collect($cartPriceRule->descriptions)->where('id', $lang)->first() ? collect($cartPriceRule->descriptions)->where('id', $lang)->first()['value'] : __('core::common.undefined'),
                             $cartPriceRule->discount_type_id,
