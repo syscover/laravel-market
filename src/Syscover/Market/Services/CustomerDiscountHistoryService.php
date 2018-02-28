@@ -24,7 +24,7 @@ class CustomerDiscountHistoryService
      * @param   array $objects
      * @return  bool
      */
-    public static function insert($objects)
+    public static function insert(array $objects)
     {
         $discounts = [];
         foreach ($objects as $object)

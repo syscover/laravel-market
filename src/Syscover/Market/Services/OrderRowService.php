@@ -17,7 +17,7 @@ class OrderRowService
      * @param   array $objects
      * @return  bool
      */
-    public static function insert($objects)
+    public static function insert(array $objects)
     {
         $rows = [];
         foreach ($objects as $object)
@@ -25,7 +25,7 @@ class OrderRowService
             if(! empty($object['data'])) $object['data'] = json_encode($object['data']);
             if(! empty($object['tax_rules'])) $object['tax_rules'] = json_encode($object['tax_rules']);
 
-            $rows[] = OrderRowService::builder($object)->toArray();
+            $rows[] = OrderRowService::builder($object);
         }
 
         return OrderRow::insert($rows);
@@ -77,6 +77,6 @@ class OrderRowService
         if($object->has('gift_message'))                            $data['gift_message'] = $object->get('gift_message');
         if($object->has('gift_comments'))                           $data['gift_comments'] = $object->get('gift_comments');
 
-        return $object;
+        return $data;
     }
 }
