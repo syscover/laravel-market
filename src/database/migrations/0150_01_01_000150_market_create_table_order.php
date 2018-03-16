@@ -27,6 +27,7 @@ class MarketCreateTableOrder extends Migration
 				$table->text('comments')->nullable();
 
                 $table->string('transaction_id')->nullable();                                               // code generate by payment platform (PayPal or Bank), field to record any payment ID transaction
+                $table->string('tracking_id')->nullable();                                                  // code generate by shipping company to get tracking of shipping
 
                 //****************
                 //* amounts
