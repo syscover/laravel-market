@@ -47,7 +47,7 @@ class UpdateOrderMutation extends OrderMutation
 
     public function resolve($root, $args)
     {
-        return OrderService::update($args['object'], $args['id']);
+        return OrderService::update($args['object']);
     }
 }
 
