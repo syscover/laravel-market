@@ -1,6 +1,10 @@
 <?php namespace Syscover\Market\Models;
 
 use Carbon\Carbon;
+use Syscover\Admin\Models\Country;
+use Syscover\Admin\Models\TerritorialArea1;
+use Syscover\Admin\Models\TerritorialArea2;
+use Syscover\Admin\Models\TerritorialArea3;
 use Syscover\Core\Models\CoreModel;
 use Illuminate\Support\Facades\Validator;
 use Syscover\Crm\Models\Customer;
@@ -19,7 +23,15 @@ class Order extends CoreModel
     ];
     public $with = [
         'payment_methods',
-        'statuses'
+        'statuses',
+        'shipping_countries',
+        'shipping_territorial_area_1',
+        'shipping_territorial_area_2',
+        'shipping_territorial_area_3',
+        'invoice_countries',
+        'invoice_territorial_area_1',
+        'invoice_territorial_area_2',
+        'invoice_territorial_area_3'
     ];
     private static $rules   = [
         'status'            => 'required',
@@ -41,7 +53,6 @@ class Order extends CoreModel
 
     public function scopeBuilder($query)
     {
-        // we not relate to countries, because there are two countries which relate, invoice and shipping, has not been found to create aliases on columns within a join
         return $query->join('crm_customer', 'market_order.customer_id', '=', 'crm_customer.id')
             ->join('market_payment_method', function ($join) {
                  $join->on('market_order.payment_method_id', '=', 'market_payment_method.id')
@@ -63,6 +74,51 @@ class Order extends CoreModel
     {
         return $this->hasMany(PaymentMethod::class, 'id', 'payment_method_id');
     }
+
+    public function shipping_countries()
+    {
+        return $this->hasMany(Country::class, 'id', 'shipping_country_id');
+    }
+
+    public function shipping_territorial_area_1()
+    {
+        return $this->hasOne(TerritorialArea1::class, 'id', 'shipping_territorial_area_1_id');
+    }
+
+    public function shipping_territorial_area_2()
+    {
+        return $this->hasOne(TerritorialArea2::class, 'id', 'shipping_territorial_area_2_id');
+    }
+
+    public function shipping_territorial_area_3()
+    {
+        return $this->hasOne(TerritorialArea3::class, 'id', 'shipping_territorial_area_3_id');
+    }
+
+    public function invoice_countries()
+    {
+        return $this->hasMany(Country::class, 'id', 'invoice_country_id');
+    }
+
+    public function invoice_territorial_area_1()
+    {
+        return $this->hasOne(TerritorialArea1::class, 'id', 'invoice_territorial_area_1_id');
+    }
+
+    public function invoice_territorial_area_2()
+    {
+        return $this->hasOne(TerritorialArea2::class, 'id', 'invoice_territorial_area_2_id');
+    }
+
+    public function invoice_territorial_area_3()
+    {
+        return $this->hasOne(TerritorialArea3::class, 'id', 'invoice_territorial_area_3_id');
+    }
+
+
+
+
+
 
     public function rows()
     {
