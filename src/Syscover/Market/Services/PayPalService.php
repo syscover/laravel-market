@@ -1,5 +1,6 @@
 <?php namespace Syscover\Market\Services;
 
+use Illuminate\Support\Facades\Log;
 use Syscover\Market\Models\Order;
 
 class PayPalService
@@ -16,10 +17,14 @@ class PayPalService
         // log register on order
         $order->setOrderLog(trans('market::pulsar.message_customer_go_to_paypal'));
 
-        if($xhr) {
+        if($xhr)
+        {
+            Log::info('Create form for to throw to PayPalController order: ' . $order->id);
             return self::createForm($order->id);
         }
-        else {
+        else
+        {
+            Log::info('Create form to throw to PayPalController order: ' . $order->id);
             return self::executeRedirection($order->id);
         }
     }
@@ -43,7 +48,7 @@ class PayPalService
     private static function createForm($orderId)
     {
         $form='
-            <form id="marketPaymentForm" action="' . route('market.paypal.create.payment') . '" method="post">
+            <form id="marketPaymentForm" action="' . route('market.paypal.create_payment') . '" method="post">
                 <input type="hidden" name="_token" value="' . csrf_token() . '">
                 <input type="hidden" name="_order" value="' . $orderId . '">
             </form>
