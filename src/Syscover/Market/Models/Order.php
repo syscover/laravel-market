@@ -22,6 +22,7 @@ class Order extends CoreModel
         'data' => 'array'
     ];
     public $with = [
+        'customer',
         'payment_methods',
         'statuses',
         'shipping_countries',
@@ -63,6 +64,11 @@ class Order extends CoreModel
                     ->where('market_order_status.lang_id', '=', base_lang());
             })
             ->select('crm_customer.*', 'market_payment_method.*', 'market_order_status.*', 'market_order.*', 'crm_customer.id as crm_customer_id', 'market_payment_method.id as market_payment_method_id', 'market_order_status.id as market_order_status_id', 'market_order.id as market_order_id');
+    }
+
+    public function customer()
+    {
+        return $this->belongsTo(Customer::class, 'customer_id');
     }
 
     public function statuses()
@@ -120,6 +126,8 @@ class Order extends CoreModel
 
 
 
+
+
     public function rows()
     {
         return $this->hasMany(OrderRow::class, 'order_id');
@@ -128,11 +136,6 @@ class Order extends CoreModel
     public function discounts()
     {
         return $this->hasMany(CustomerDiscountHistory::class, 'order_id');
-    }
-
-    public function customer()
-    {
-        return $this->belongsTo(Customer::class, 'customer_id');
     }
 
     public function setOrderLog($message)
