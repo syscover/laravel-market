@@ -60,13 +60,26 @@ return [
     'taxShippingPrices'             => env('MARKET_TAX_SHIPPING_PRICES', 1),           // Shipping prices type
     'taxShippingDisplayPrices'      => env('MARKET_TAX_SHIPPING_DISPLAY_PRICES', 1),   // How to display shipping prices
 
+    //******************************************************************************************************************
+    //***   Stripe settings
+    //******************************************************************************************************************
+    // STRIPE MODE, test | live
+    'stripeMode'                    => env('MARKET_STRIPE_MODE', 'test'),
+
+    // TEST
+    'stripeTestPublishKey'          => env('MARKET_STRIPE_TEST_PUBLISH_KEY', ''),
+    'stripeTestSecretKey'           => env('MARKET_STRIPE_TEST_SECRET_KEY', ''),
+
+    // LIVE
+    'stripeLivePublishKey'          => env('MARKET_STRIPE_LIVE_PUBLISH_KEY', ''),
+    'stripeLiveSecretKey'           => env('MARKET_STRIPE_LIVE_SECRET_KEY', ''),
 
 
 
 
 
 
-
+    
 
 
 
