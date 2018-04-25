@@ -5,6 +5,7 @@ use GraphQL\Type\Definition\Type;
 use Folklore\GraphQL\Support\Mutation;
 use Syscover\Core\Services\SQLService;
 use Syscover\Market\Models\CustomerClassTax;
+use Syscover\Market\Services\CustomerClassTaxService;
 
 class CustomerClassTaxMutation extends Mutation
 {
@@ -33,7 +34,7 @@ class AddCustomerClassTaxMutation extends CustomerClassTaxMutation
 
     public function resolve($root, $args)
     {
-        return CustomerClassTax::create($args['object']);
+        return CustomerClassTaxService::create($args['object']);
     }
 }
 
@@ -46,10 +47,7 @@ class UpdateCustomerClassTaxMutation extends CustomerClassTaxMutation
 
     public function resolve($root, $args)
     {
-        CustomerClassTax::where('id', $args['object']['id'])
-            ->update($args['object']);
-
-        return CustomerClassTax::find($args['object']['id']);
+        return CustomerClassTaxService::update($args['object']);
     }
 }
 

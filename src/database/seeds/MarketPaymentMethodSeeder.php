@@ -14,6 +14,8 @@ class MarketPaymentMethodSeeder extends Seeder
             ['id' => 2, 'lang_id' => 'en', 'name' => 'PayPal',                  'order_status_successful_id' => 2, 'active' => false, 'data_lang' => '["es","en"]'],
             ['id' => 3, 'lang_id' => 'es', 'name' => 'Transferencia bancaria',  'order_status_successful_id' => 1, 'active' => false, 'data_lang' => '["es","en"]'],
             ['id' => 3, 'lang_id' => 'en', 'name' => 'Wire transfer',           'order_status_successful_id' => 1, 'active' => false, 'data_lang' => '["es","en"]'],
+            ['id' => 4, 'lang_id' => 'es', 'name' => 'Stripe',                  'order_status_successful_id' => 2, 'active' => false, 'data_lang' => '["es","en"]'],
+            ['id' => 4, 'lang_id' => 'en', 'name' => 'Stripe',                  'order_status_successful_id' => 2, 'active' => false, 'data_lang' => '["es","en"]'],
         ]);
     }
 }

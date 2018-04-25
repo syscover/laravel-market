@@ -5,6 +5,7 @@ use GraphQL\Type\Definition\Type;
 use Folklore\GraphQL\Support\Mutation;
 use Syscover\Core\Services\SQLService;
 use Syscover\Market\Models\ProductClassTax;
+use Syscover\Market\Services\ProductClassTaxService;
 
 class ProductClassTaxMutation extends Mutation
 {
@@ -33,7 +34,7 @@ class AddProductClassTaxMutation extends ProductClassTaxMutation
 
     public function resolve($root, $args)
     {
-        return ProductClassTax::create($args['object']);
+        return ProductClassTaxService::create($args['object']);
     }
 }
 
@@ -46,10 +47,7 @@ class UpdateProductClassTaxMutation extends ProductClassTaxMutation
 
     public function resolve($root, $args)
     {
-        ProductClassTax::where('id', $args['object']['id'])
-            ->update($args['object']);
-
-        return ProductClassTax::find($args['object']['id']);
+        return ProductClassTaxService::update($args['object']);
     }
 }
 
