@@ -6,13 +6,13 @@ class CustomerClassTaxService
 {
     public static function create($object)
     {
-        CustomerClassTaxService::check($object);
+        CustomerClassTaxService::checkCreate($object);
         return CustomerClassTax::create(CustomerClassTaxService::builder($object));
     }
 
     public static function update($object)
     {
-        CustomerClassTaxService::check($object);
+        CustomerClassTaxService::checkUpdate($object);
         CustomerClassTax::where('id', $object['id'])->update(CustomerClassTaxService::builder($object));
 
         return CustomerClassTax::find($object['id']);
@@ -21,16 +21,16 @@ class CustomerClassTaxService
     private static function builder($object)
     {
         $object = collect($object);
-        $data = [];
-
-        if($object->has('id'))      $data['id'] = $object->get('id');
-        if($object->has('name'))    $data['name'] = $object->get('name');
-
-        return $data;
+        return $object->only('name')->toArray();
     }
 
-    private static function check($object)
+    private static function checkCreate($object)
     {
         if(empty($object['name'])) throw new \Exception('You have to define a name field to create a customer class tax');
+    }
+
+    private static function checkUpdate($object)
+    {
+        if(empty($object['id'])) throw new \Exception('You have to define a id field to update a customer class tax');
     }
 }

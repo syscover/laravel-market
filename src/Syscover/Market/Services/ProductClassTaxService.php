@@ -6,13 +6,13 @@ class ProductClassTaxService
 {
     public static function create($object)
     {
-        ProductClassTaxService::check($object);
+        ProductClassTaxService::checkCreate($object);
         return ProductClassTax::create(ProductClassTaxService::builder($object));
     }
 
     public static function update($object)
     {
-        ProductClassTaxService::check($object);
+        ProductClassTaxService::checkUpdate($object);
         ProductClassTax::where('id', $object['id'])->update(ProductClassTaxService::builder($object));
 
         return ProductClassTax::find($object['id']);
@@ -21,16 +21,16 @@ class ProductClassTaxService
     private static function builder($object)
     {
         $object = collect($object);
-        $data = [];
-
-        if($object->has('id'))      $data['id'] = $object->get('id');
-        if($object->has('name'))    $data['name'] = $object->get('name');
-
-        return $data;
+        return $object->only('name')->toArray();
     }
 
-    private static function check($object)
+    private static function checkCreate($object)
     {
         if(empty($object['name'])) throw new \Exception('You have to define a name field to create a product class tax');
+    }
+
+    private static function checkUpdate($object)
+    {
+        if(empty($object['id'])) throw new \Exception('You have to define a id field to update a product class tax');
     }
 }
