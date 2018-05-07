@@ -22,7 +22,7 @@ class MarketCreateTableCartPriceRule extends Migration
                 $table->json('names')->nullable(); // name value in different languages
                 $table->json('descriptions')->nullable(); //description value in different languages
 
-                $table->boolean('active');
+                $table->boolean('active')->default(false);
 
                 // groups that could apply the discount
                 $table->json('group_ids')->nullable();
@@ -31,12 +31,12 @@ class MarketCreateTableCartPriceRule extends Migration
                 $table->json('customer_ids')->nullable();
 
                 // define if this rule can to be combined with other rule
-                $table->boolean('combinable');
+                $table->boolean('combinable')->default(false);
 
                 // short to apply discounts
                 $table->integer('priority')->unsigned()->nullable();
 
-                $table->boolean('has_coupon');
+                $table->boolean('has_coupon')->default(false);
                 $table->string('coupon_code')->nullable();
 
                 // times a coupon can be used
@@ -72,10 +72,10 @@ class MarketCreateTableCartPriceRule extends Migration
                 $table->decimal('maximum_discount_amount', 12, 4)->nullable();
 
                 // check if the discount is applied to the transport price
-                $table->boolean('apply_shipping_amount');
+                $table->boolean('apply_shipping_amount')->default(false);
 
                 // this discount has free shipping
-                $table->boolean('free_shipping');
+                $table->boolean('free_shipping')->default(false);
 
                 // rules that will determinate that products will be applied this discounts
                 $table->json('product_rules')->nullable();

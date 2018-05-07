@@ -21,7 +21,7 @@ class MarketCreateTableOrderStatus extends Migration
 				$table->integer('id')->unsigned();
 				$table->string('lang_id', 2);
 				$table->string('name');
-				$table->boolean('active');
+				$table->boolean('active')->default(false);
 				$table->json('data_lang')->nullable();
 
                 $table->timestamps();

@@ -36,7 +36,6 @@ class OrderStatusService
     {
         if(empty($object['lang_id']))   throw new \Exception('You have to define a lang_id field to create a order status');
         if(empty($object['name']))      throw new \Exception('You have to define a name field to create a order status');
-        if(! isset($object['active']))  throw new \Exception('You have to define a active field to create a order status');
     }
 
     private static function checkUpdate($object)

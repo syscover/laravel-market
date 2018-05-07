@@ -4,22 +4,11 @@ use Syscover\Market\Models\Warehouse;
 
 class WarehouseService
 {
-    /**
-     * Function to create a warehouse
-     * @param   array                           $object
-     * @return  \Syscover\Market\Models\Warehouse
-     * @throws  \Exception
-     */
     public static function create($object)
     {
         return Warehouse::create($object);
     }
 
-    /**
-     * @param   array     $object     contain properties of section
-     * @param   int       $id         id of warehouse
-     * @return  \Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model|null|static|static[]
-     */
     public static function update($object, $id)
     {
         // pass object to collection
@@ -41,5 +30,11 @@ class WarehouseService
             ]);
 
         return Warehouse::find($object->get('id'));
+    }
+
+    private static function builder($object)
+    {
+        $object = collect($object);
+        return $object->only('name', 'country_id', 'territorial_area_1_id', 'territorial_area_2_id', 'territorial_area_3_id', 'zip', 'locality', 'address', 'latitude', 'longitude', 'active')->toArray();
     }
 }

@@ -25,7 +25,7 @@ class MarketCreateTableWarehouse extends Migration
 				$table->string('address')->nullable();
 				$table->string('latitude')->nullable();
 				$table->string('longitude')->nullable();
-				$table->boolean('active');
+				$table->boolean('active')->default(false);
 
                 $table->timestamps();
                 $table->softDeletes();

@@ -23,7 +23,7 @@ class MarketCreateTableCategory extends Migration
 				$table->integer('parent_id')->unsigned()->nullable();
 				$table->string('name');
 				$table->string('slug');
-				$table->boolean('active');
+				$table->boolean('active')->default(false);
 				$table->text('description')->nullable();
 				$table->json('data_lang', 255)->nullable();
 				$table->json('data')->nullable();

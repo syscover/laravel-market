@@ -28,7 +28,7 @@ class MarketCreateTablePaymentMethod extends Migration
 				$table->decimal('maximum_price', 12, 4)->nullable();
 				$table->text('instructions')->nullable();
 				$table->integer('sort')->unsigned()->nullable();
-				$table->boolean('active');
+				$table->boolean('active')->default(false);
 				$table->json('data_lang')->nullable();
 
                 $table->timestamps();

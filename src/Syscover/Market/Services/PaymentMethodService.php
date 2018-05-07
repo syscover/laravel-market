@@ -36,7 +36,6 @@ class PaymentMethodService
     {
         if(empty($object['lang_id']))   throw new \Exception('You have to define a lang_id field to create a payment method');
         if(empty($object['name']))      throw new \Exception('You have to define a name field to create a payment method');
-        if(! isset($object['active']))  throw new \Exception('You have to define a active field to create a payment method');
     }
 
     private static function checkUpdate($object)

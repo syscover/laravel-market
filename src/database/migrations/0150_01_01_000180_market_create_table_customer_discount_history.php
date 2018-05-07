@@ -59,10 +59,10 @@ class MarketCreateTableCustomerDiscountHistory extends Migration
                 $table->decimal('maximum_discount_amount', 12, 4)->nullable();
 
                 // check if apply discount to shipping amount
-                $table->boolean('apply_shipping_amount');
+                $table->boolean('apply_shipping_amount')->default(false);
 
                 // check if this discount has free shipping
-                $table->boolean('free_shipping');
+                $table->boolean('free_shipping')->default(false);
 
                 $table->json('data_lang')->nullable();
 
