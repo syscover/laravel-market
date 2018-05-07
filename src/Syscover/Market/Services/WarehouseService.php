@@ -6,35 +6,30 @@ class WarehouseService
 {
     public static function create($object)
     {
+        WarehouseService::checkCreate($object);
         return Warehouse::create($object);
     }
 
-    public static function update($object, $id)
+    public static function update($object)
     {
-        // pass object to collection
-        $object = collect($object);
-
-        Warehouse::where('id', $id)
-            ->update([
-                'name'                  => $object->get('name'),
-                'country_id'            => $object->get('country_id'),
-                'territorial_area_1_id' => $object->get('territorial_area_1_id'),
-                'territorial_area_2_id' => $object->get('territorial_area_2_id'),
-                'territorial_area_3_id' => $object->get('territorial_area_3_id'),
-                'zip'                   => $object->get('zip'),
-                'locality'              => $object->get('locality'),
-                'address'               => $object->get('address'),
-                'latitude'              => $object->get('latitude'),
-                'longitude'             => $object->get('longitude'),
-                'active'                => $object->has('active'),
-            ]);
-
-        return Warehouse::find($object->get('id'));
+        WarehouseService::checkUpdate($object);
+        Warehouse::where('id', $object['id'])->update(WarehouseService::builder($object));
+        return Warehouse::find($object['id']);
     }
 
     private static function builder($object)
     {
         $object = collect($object);
         return $object->only('name', 'country_id', 'territorial_area_1_id', 'territorial_area_2_id', 'territorial_area_3_id', 'zip', 'locality', 'address', 'latitude', 'longitude', 'active')->toArray();
+    }
+
+    private static function checkCreate($object)
+    {
+        if(empty($object['name'])) throw new \Exception('You have to define a name field to create a warehouse');
+    }
+
+    private static function checkUpdate($object)
+    {
+        if(empty($object['id'])) throw new \Exception('You have to define a id field to update a warehouse');
     }
 }
