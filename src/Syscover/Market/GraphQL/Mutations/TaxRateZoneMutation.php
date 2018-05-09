@@ -5,6 +5,7 @@ use GraphQL\Type\Definition\Type;
 use Folklore\GraphQL\Support\Mutation;
 use Syscover\Core\Services\SQLService;
 use Syscover\Market\Models\TaxRateZone;
+use Syscover\Market\Services\TaxRateZoneService;
 
 class TaxRateZoneMutation extends Mutation
 {
@@ -33,7 +34,7 @@ class AddTaxRateZoneMutation extends TaxRateZoneMutation
 
     public function resolve($root, $args)
     {
-        return TaxRateZone::create($args['object']);
+        return TaxRateZoneService::create($args['object']);
     }
 }
 
@@ -46,11 +47,7 @@ class UpdateTaxRateZoneMutation extends TaxRateZoneMutation
 
     public function resolve($root, $args)
     {
-        TaxRateZone::where('id', $args['object']['id'])
-            ->update($args['object']);
-
-        return TaxRateZone::where('id', $args['object']['id'])
-            ->first();
+        return TaxRateZoneService::update($args['object']);
     }
 }
 
