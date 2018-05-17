@@ -14,7 +14,9 @@ class TaxRateZone extends CoreModel
 	protected $table        = 'market_tax_rate_zone';
     protected $fillable     = ['id', 'name', 'country_id', 'territorial_area_1_id', 'territorial_area_2_id', 'territorial_area_3_id', 'zip', 'tax_rate'];
     public $with            = ['country.lang'];
-
+    protected $casts        = [
+        'tax_rate' => 'float'
+    ];
     private static $rules   = [];
 
     public static function validate($data)
