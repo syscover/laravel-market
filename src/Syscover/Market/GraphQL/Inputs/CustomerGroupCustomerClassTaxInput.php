@@ -3,10 +3,10 @@
 use GraphQL\Type\Definition\Type;
 use Folklore\GraphQL\Support\Type as GraphQLType;
 
-class GroupCustomerClassTaxInput extends GraphQLType
+class CustomerGroupCustomerClassTaxInput extends GraphQLType
 {
     protected $attributes = [
-        'name'          => 'CustomerClassTaxInput',
+        'name'          => 'CustomerGroupCustomerClassTaxInput',
         'description'   => 'Customer class tax relations between customer group and customer class tax'
     ];
 
@@ -15,13 +15,13 @@ class GroupCustomerClassTaxInput extends GraphQLType
     public function fields()
     {
         return [
-            'group_id' => [
+            'customer_group_id' => [
                 'type' => Type::int(),
-                'description' => 'The id of group customer class tax'
+                'description' => 'The id of customer group'
             ],
             'customer_class_tax_id' => [
                 'type' => Type::int(),
-                'description' => 'The name of customer class tax'
+                'description' => 'The id of customer class tax'
             ]
         ];
     }

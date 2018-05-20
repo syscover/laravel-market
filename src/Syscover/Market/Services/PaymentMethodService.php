@@ -29,7 +29,7 @@ class PaymentMethodService
         $object = collect($object);
         if($filterKeys) $object = $object->only($filterKeys);
 
-        return $object->only('id', 'lang_id', 'name', 'order_status_successful_id', 'minimum_price', 'maximum_price', 'sort', 'active', 'data_lang')->toArray();
+        return $object->only('id', 'lang_id', 'name', 'order_status_successful_id', 'minimum_price', 'maximum_price', 'instructions', 'sort', 'active', 'data_lang')->toArray();
     }
 
     private static function checkCreate($object)

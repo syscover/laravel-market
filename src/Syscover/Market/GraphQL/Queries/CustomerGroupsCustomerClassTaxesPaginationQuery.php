@@ -4,13 +4,13 @@ use GraphQL;
 use GraphQL\Type\Definition\Type;
 use Folklore\GraphQL\Support\Query;
 use Syscover\Core\Services\SQLService;
-use Syscover\Market\Models\GroupCustomerClassTax;
+use Syscover\Market\Models\CustomerGroupCustomerClassTax;
 
-class GroupCustomerClassTaxesPaginationQuery extends Query
+class CustomerGroupsCustomerClassTaxesPaginationQuery extends Query
 {
     protected $attributes = [
-        'name'          => 'GroupCustomerClassTaxesPaginationQuery',
-        'description'   => 'Query to get group customer class taxes list'
+        'name'          => 'CustomerGroupsCustomerClassTaxesPaginationQuery',
+        'description'   => 'Query to get relation between customer group and customer class taxes list'
     ];
 
     public function type()
@@ -31,13 +31,13 @@ class GroupCustomerClassTaxesPaginationQuery extends Query
 
     public function resolve($root, $args)
     {
-        $query = SQLService::getQueryFiltered(GroupCustomerClassTax::builder(), $args['sql']);
+        $query = SQLService::getQueryFiltered(CustomerGroupCustomerClassTax::builder(), $args['sql']);
 
         // count records filtered
         $filtered = $query->count();
 
         // N total records
-        $total = SQLService::countPaginateTotalRecords(GroupCustomerClassTax::builder());
+        $total = SQLService::countPaginateTotalRecords(CustomerGroupCustomerClassTax::builder());
 
         return (Object) [
             'total'     => $total,

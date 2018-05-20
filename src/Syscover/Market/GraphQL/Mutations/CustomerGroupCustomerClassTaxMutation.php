@@ -3,21 +3,21 @@
 use GraphQL;
 use GraphQL\Type\Definition\Type;
 use Folklore\GraphQL\Support\Mutation;
-use Syscover\Market\Models\GroupCustomerClassTax;
+use Syscover\Market\Models\CustomerGroupCustomerClassTax;
 
-class GroupCustomerClassTaxMutation extends Mutation
+class CustomerGroupCustomerClassTaxMutation extends Mutation
 {
     public function type()
     {
-        return GraphQL::type('MarketGroupCustomerClassTax');
+        return GraphQL::type('MarketCustomerGroupCustomerClassTax');
     }
 }
 
-class AddGroupCustomerClassTaxMutation extends GroupCustomerClassTaxMutation
+class AddCustomerGroupCustomerClassTaxMutation extends CustomerGroupCustomerClassTaxMutation
 {
     protected $attributes = [
-        'name'          => 'addGroupCustomerClassTax',
-        'description'   => 'Add new group customer class tax'
+        'name'          => 'addCustomerGroupCustomerClassTax',
+        'description'   => 'Add new relation between customer group and customer class tax'
     ];
 
     public function args()
@@ -25,29 +25,29 @@ class AddGroupCustomerClassTaxMutation extends GroupCustomerClassTaxMutation
         return [
             'object' => [
                 'name' => 'object',
-                'type' => Type::nonNull(GraphQL::type('MarketGroupCustomerClassTaxInput'))
+                'type' => Type::nonNull(GraphQL::type('MarketCustomerGroupCustomerClassTaxInput'))
             ]
         ];
     }
 
     public function resolve($root, $args)
     {
-        return GroupCustomerClassTax::create($args['object']);
+        return CustomerGroupCustomerClassTax::create($args['object']);
     }
 }
 
-class UpdateGroupCustomerClassTaxMutation extends GroupCustomerClassTaxMutation
+class UpdateCustomerGroupCustomerClassTaxMutation extends CustomerGroupCustomerClassTaxMutation
 {
     protected $attributes = [
-        'name' => 'updateGroupCustomerClassTax',
-        'description' => 'Update group customer class tax'
+        'name' => 'updateCustomerGroupCustomerClassTax',
+        'description' => 'Update relation between customer group and customer class tax'
     ];
 
     public function args()
     {
         return [
-            'group_id' => [
-                'name' => 'group_id',
+            'customer_group_id' => [
+                'name' => 'customer_group_id',
                 'type' => Type::nonNull(Type::int())
             ],
             'customer_class_tax_id' => [
@@ -56,35 +56,35 @@ class UpdateGroupCustomerClassTaxMutation extends GroupCustomerClassTaxMutation
             ],
             'object' => [
                 'name' => 'object',
-                'type' => Type::nonNull(GraphQL::type('MarketGroupCustomerClassTaxInput'))
+                'type' => Type::nonNull(GraphQL::type('MarketCustomerGroupCustomerClassTaxInput'))
             ]
         ];
     }
 
     public function resolve($root, $args)
     {
-        GroupCustomerClassTax::where('group_id', $args['group_id'])
+        CustomerGroupCustomerClassTax::where('customer_group_id', $args['customer_group_id'])
             ->where('customer_class_tax_id', $args['customer_class_tax_id'])
             ->update($args['object']);
 
-        return GroupCustomerClassTax::where('group_id', $args['object']['group_id'])
+        return CustomerGroupCustomerClassTax::where('customer_group_id', $args['object']['customer_group_id'])
             ->where('customer_class_tax_id', $args['object']['customer_class_tax_id'])
             ->first();
     }
 }
 
-class DeleteGroupCustomerClassTaxMutation extends GroupCustomerClassTaxMutation
+class DeleteCustomerGroupCustomerClassTaxMutation extends CustomerGroupCustomerClassTaxMutation
 {
     protected $attributes = [
-        'name' => 'deleteGroupCustomerClassTax',
-        'description' => 'Delete group customer class tax'
+        'name' => 'deleteCustomerGroupCustomerClassTax',
+        'description' => 'Delete relation between customer group and customer class tax'
     ];
 
     public function args()
     {
         return [
-            'group_id' => [
-                'name' => 'group_id',
+            'customer_group_id' => [
+                'name' => 'customer_group_id',
                 'type' => Type::nonNull(Type::int())
             ],
             'customer_class_tax_id' => [
@@ -97,8 +97,8 @@ class DeleteGroupCustomerClassTaxMutation extends GroupCustomerClassTaxMutation
     public function resolve($root, $args)
     {
         // Custom delete a single record
-        $object = GroupCustomerClassTax::builder()
-            ->where('group_id', $args['group_id'])
+        $object = CustomerGroupCustomerClassTax::builder()
+            ->where('customer_group_id', $args['customer_group_id'])
             ->where('customer_class_tax_id', $args['customer_class_tax_id'])
             ->first();
 

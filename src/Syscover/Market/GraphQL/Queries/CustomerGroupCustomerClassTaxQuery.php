@@ -4,18 +4,18 @@ use GraphQL;
 use GraphQL\Type\Definition\Type;
 use Folklore\GraphQL\Support\Query;
 use Syscover\Core\Services\SQLService;
-use Syscover\Market\Models\GroupCustomerClassTax;
+use Syscover\Market\Models\CustomerGroupCustomerClassTax;
 
-class GroupCustomerClassTaxQuery extends Query
+class CustomerGroupCustomerClassTaxQuery extends Query
 {
     protected $attributes = [
-        'name'          => 'GroupCustomerClassTaxQuery',
-        'description'   => 'Query to get a group customer class tax'
+        'name'          => 'CustomerGroupCustomerClassTaxQuery',
+        'description'   => 'Query to get relation between customer group and customer class tax'
     ];
 
     public function type()
     {
-        return GraphQL::type('MarketGroupCustomerClassTax');
+        return GraphQL::type('MarketCustomerGroupCustomerClassTax');
     }
 
     public function args()
@@ -31,7 +31,7 @@ class GroupCustomerClassTaxQuery extends Query
 
     public function resolve($root, $args)
     {
-        $query = SQLService::getQueryFiltered(GroupCustomerClassTax::builder(), $args['sql']);
+        $query = SQLService::getQueryFiltered(CustomerGroupCustomerClassTax::builder(), $args['sql']);
 
         return $query->first();
     }

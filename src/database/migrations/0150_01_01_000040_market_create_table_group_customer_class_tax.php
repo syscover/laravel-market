@@ -12,29 +12,29 @@ class MarketCreateTableGroupCustomerClassTax extends Migration {
 	 */
 	public function up()
 	{
-		if(! Schema::hasTable('market_group_customer_class_tax'))
+		if(! Schema::hasTable('market_customer_group_customer_class_tax'))
 		{
-			Schema::create('market_group_customer_class_tax', function (Blueprint $table) {
+			Schema::create('market_customer_group_customer_class_tax', function (Blueprint $table) {
 				$table->engine = 'InnoDB';
 
-				$table->integer('group_id')->unsigned();
+				$table->integer('customer_group_id')->unsigned();
 				$table->integer('customer_class_tax_id')->unsigned();
 
                 $table->timestamps();
                 $table->softDeletes();
 				
-				$table->foreign('group_id', 'fk01_market_group_customer_class_tax')
+				$table->foreign('customer_group_id', 'fk01_market_customer_group_customer_class_tax')
 					->references('id')
-					->on('crm_group')
+					->on('crm_customer_group')
 					->onDelete('cascade')
 					->onUpdate('cascade');
-				$table->foreign('customer_class_tax_id', 'fk02_market_group_customer_class_tax')
+				$table->foreign('customer_class_tax_id', 'fk02_market_customer_group_customer_class_tax')
 					->references('id')
 					->on('market_customer_class_tax')
 					->onDelete('cascade')
 					->onUpdate('cascade');
 
-				$table->primary('group_id', 'pk01_market_group_customer_class_tax');
+				$table->primary('customer_group_id', 'pk01_market_customer_group_customer_class_tax');
 			});
 		}
 	}
@@ -46,6 +46,6 @@ class MarketCreateTableGroupCustomerClassTax extends Migration {
 	 */
 	public function down()
 	{
-	    Schema::dropIfExists('market_group_customer_class_tax');
+	    Schema::dropIfExists('market_customer_group_customer_class_tax');
 	}
 }

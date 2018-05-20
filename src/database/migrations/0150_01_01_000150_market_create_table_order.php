@@ -118,7 +118,7 @@ class MarketCreateTableOrder extends Migration
 					->onUpdate('cascade');
                 $table->foreign('customer_group_id', 'fk02_market_order')
                     ->references('id')
-                    ->on('crm_group')
+                    ->on('crm_customer_group')
                     ->onDelete('restrict')
                     ->onUpdate('cascade');
 				$table->foreign('status_id', 'fk03_market_order')

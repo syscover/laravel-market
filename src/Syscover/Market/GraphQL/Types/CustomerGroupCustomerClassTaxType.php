@@ -3,23 +3,23 @@
 use GraphQL\Type\Definition\Type;
 use Folklore\GraphQL\Support\Type as GraphQLType;
 
-class GroupCustomerClassTaxType extends GraphQLType {
+class CustomerGroupCustomerClassTaxType extends GraphQLType {
 
     protected $attributes = [
-        'name'          => 'GroupCustomerClassTaxType',
+        'name'          => 'CustomerGroupCustomerClassTaxType',
         'description'   => 'Customer class tax relations between customer group and customer class tax'
     ];
 
     public function fields()
     {
         return [
-            'group_id' => [
+            'customer_group_id' => [
                 'type' => Type::nonNull(Type::int()),
-                'description' => 'The id of group customer class tax'
+                'description' => 'The id of customer group'
             ],
-            'group_name' => [
+            'customer_group_name' => [
                 'type' => Type::string(),
-                'description' => 'The name of group'
+                'description' => 'The name of customer group'
             ],
             'customer_class_tax_id' => [
                 'type' => Type::nonNull(Type::int()),

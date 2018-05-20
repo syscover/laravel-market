@@ -2,11 +2,11 @@
 
 use Illuminate\Http\Request;
 use Syscover\Core\Controllers\CoreController;
-use Syscover\Market\Models\GroupCustomerClassTax;
+use Syscover\Market\Models\CustomerGroupCustomerClassTax;
 
-class GroupCustomerClassTaxController extends CoreController
+class CustomerGroupCustomerClassTaxController extends CoreController
 {
-    protected $model = GroupCustomerClassTax::class;
+    protected $model = CustomerGroupCustomerClassTax::class;
 
     /**
      * Store a newly created resource in storage.
@@ -16,7 +16,7 @@ class GroupCustomerClassTaxController extends CoreController
      */
     public function store(Request $request)
     {
-        $object = GroupCustomerClassTax::create([
+        $object = CustomerGroupCustomerClassTax::create([
             'group_id'                  => $request->input('group_id'),
             'customer_class_tax_id'     => $request->input('customer_class_tax_id')
         ]);
@@ -36,11 +36,11 @@ class GroupCustomerClassTaxController extends CoreController
      */
     public function update(Request $request, $id)
     {
-        GroupCustomerClassTax::where('group_id', $id)->update([
+        CustomerGroupCustomerClassTax::where('group_id', $id)->update([
             'customer_class_tax_id' => $request->input('customer_class_tax_id')
         ]);
 
-        $object = GroupCustomerClassTax::find($id);
+        $object = CustomerGroupCustomerClassTax::find($id);
 
         $response['status'] = "success";
         $response['data']   = $object;
