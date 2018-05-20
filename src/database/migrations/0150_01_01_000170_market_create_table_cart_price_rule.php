@@ -25,7 +25,7 @@ class MarketCreateTableCartPriceRule extends Migration
                 $table->boolean('active')->default(false);
 
                 // groups that could apply the discount
-                $table->json('group_ids')->nullable();
+                $table->json('customer_group_ids')->nullable();
 
                 // customers that could apply the discount
                 $table->json('customer_ids')->nullable();

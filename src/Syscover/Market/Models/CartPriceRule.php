@@ -11,15 +11,15 @@ use Illuminate\Support\Facades\Validator;
 class CartPriceRule extends CoreModel
 {
 	protected $table        = 'market_cart_price_rule';
-    protected $fillable     = ['id', 'names', 'descriptions', 'active', 'group_ids', 'customer_ids', 'combinable', 'priority', 'has_coupon', 'coupon_code', 'customer_uses', 'coupon_uses', 'total_uses', 'enable_from', 'enable_to', 'discount_type_id', 'discount_fixed_amount', 'discount_percentage', 'maximum_discount_amount', 'apply_shipping_amount', 'free_shipping', 'rules', 'data_lang'];
+    protected $fillable     = ['id', 'names', 'descriptions', 'active', 'customer_group_ids', 'customer_ids', 'combinable', 'priority', 'has_coupon', 'coupon_code', 'customer_uses', 'coupon_uses', 'total_uses', 'enable_from', 'enable_to', 'discount_type_id', 'discount_fixed_amount', 'discount_percentage', 'maximum_discount_amount', 'apply_shipping_amount', 'free_shipping', 'rules', 'data_lang'];
     protected $casts        = [
-        'names'             => 'array',
-        'descriptions'      => 'array',
-        'group_ids'         => 'array',
-        'customer_ids'      => 'array',
-        'condition_rules'   => 'array',
-        'product_rules'     => 'array',
-        'data_lang'         => 'array'
+        'names'                 => 'array',
+        'descriptions'          => 'array',
+        'customer_group_ids'    => 'array',
+        'customer_ids'          => 'array',
+        'condition_rules'       => 'array',
+        'product_rules'         => 'array',
+        'data_lang'             => 'array'
     ];
 
     private static $rules   = [

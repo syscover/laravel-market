@@ -25,6 +25,13 @@ class MarketUpdateV8 extends Migration
 
             Schema::rename('market_group_customer_class_tax', 'market_customer_group_customer_class_tax');
         }
+
+        if(Schema::hasColumn('market_cart_price_rule', 'group_ids'))
+        {
+            Schema::table('market_cart_price_rule', function (Blueprint $table) {
+                $table->renameColumn('group_ids', 'customer_group_ids');
+            });
+        }
 	}
 
 	/**

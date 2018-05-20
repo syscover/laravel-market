@@ -96,8 +96,8 @@ class CartPriceRuleService
             $object['descriptions'] = json_encode($descriptions);
         }
 
-        // set group_ids field
-        if(! empty($object['group_ids'])) $object['group_ids'] = json_encode($object['group_ids']);
+        // set customer_group_ids field
+        if(! empty($object['customer_group_ids'])) $object['customer_group_ids'] = json_encode($object['customer_group_ids']);
 
         CartPriceRule::where('id', $object['id'])->update(CartPriceRuleService::builder($object));
 
@@ -112,7 +112,7 @@ class CartPriceRuleService
         if($object->has('names'))                       $data['names'] = $object->get('names');
         if($object->has('descriptions'))                $data['descriptions'] = $object->get('descriptions');
         if($object->has('active'))                      $data['active'] = $object->get('active');
-        if($object->has('group_ids'))                   $data['group_ids'] = $object->get('group_ids');
+        if($object->has('customer_group_ids'))          $data['customer_group_ids'] = $object->get('customer_group_ids');
         if($object->has('customer_ids'))                $data['customer_ids'] = $object->get('customer_ids');
         if($object->has('combinable'))                  $data['combinable'] = $object->get('combinable');
         if($object->has('priority'))                    $data['priority'] = $object->get('priority');

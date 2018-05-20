@@ -30,7 +30,7 @@ class CartPriceRuleType extends GraphQLType
                 'type' => Type::nonNull(Type::boolean()),
                 'description' => 'Active this cart price rule'
             ],
-            'group_ids' => [
+            'customer_group_ids' => [
                 'type' => app(ObjectType::class),
                 'description' => 'Customer groups that can take this cart price rule'
             ],
