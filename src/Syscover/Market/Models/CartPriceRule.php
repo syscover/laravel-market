@@ -2,6 +2,7 @@
 
 use Syscover\Core\Models\CoreModel;
 use Illuminate\Support\Facades\Validator;
+use Carbon\Carbon;
 
 /**
  * Class CartPriceRule
@@ -35,6 +36,21 @@ class CartPriceRule extends CoreModel
     public function scopeBuilder($query, $lang = null)
     {
         return $query;
+    }
+
+    // Accessors
+    public function getEnableFromAttribute($value)
+    {
+        // https://es.wikipedia.org/wiki/ISO_8601
+        // return (new Carbon($value))->toW3cString();
+        return (new Carbon($value))->format('Y-m-d\TH:i:s');
+    }
+
+    public function getEnableToAttribute($value)
+    {
+        // https://es.wikipedia.org/wiki/ISO_8601
+        // return (new Carbon($value))->toW3cString();
+        return (new Carbon($value))->format('Y-m-d\TH:i:s');
     }
 
     /**

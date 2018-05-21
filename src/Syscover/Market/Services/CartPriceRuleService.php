@@ -6,19 +6,13 @@ use Syscover\Market\Models\Category;
 
 class CartPriceRuleService
 {
-    /**
-     * Function to create a cart price rule
-     * @param   array $object
-     * @return  \Syscover\Market\Models\CartPriceRule
-     * @throws  \Exception
-     */
     public static function create($object)
     {
-        if(empty($object['lang_id']))   throw new \Exception('You have to define a lang_id field to create a cart price rule');
+        CartPriceRuleService::checkCreate($object);
 
         if(empty($object['id']))
         {
-            if(! empty($object['name'])) $object['names'] = [['id' => $object['lang_id'], 'value' => $object['name']]];
+            if(! empty($object['name']))        $object['names'] = [['id' => $object['lang_id'], 'value' => $object['name']]];
             if(! empty($object['description'])) $object['descriptions'] = [['id' => $object['lang_id'], 'value' => $object['description']]];
 
             $object['data_lang'] = CartPriceRule::addDataLang($object['lang_id']);
@@ -59,14 +53,14 @@ class CartPriceRuleService
         }
     }
 
-    /**
-     * @param   array     $object     contain properties of cart price rule
-     * @return  \Syscover\Market\Models\CartPriceRule
-     * @throws \Exception
-     */
     public static function update($object)
     {
-        if(! empty($object['name']) || ! empty($object['description'])) $cartPriceRule = CartPriceRule::find($object['id']);
+        CartPriceRuleService::checkUpdate($object);
+
+        if(! empty($object['name']) || ! empty($object['description']))
+        {
+            $cartPriceRule = CartPriceRule::find($object['id']);
+        }
 
         // set name field
         if(! empty($object['name']))
@@ -104,36 +98,51 @@ class CartPriceRuleService
         return Category::find($object['id']);
     }
 
-    private static function builder($object)
+    private static function builder($object, $filterKeys = null)
     {
         $object = collect($object);
-        $data = [];
+        if($filterKeys) return $object->only($filterKeys)->toArray();
 
-        if($object->has('names'))                       $data['names'] = $object->get('names');
-        if($object->has('descriptions'))                $data['descriptions'] = $object->get('descriptions');
-        if($object->has('active'))                      $data['active'] = $object->get('active');
-        if($object->has('customer_group_ids'))          $data['customer_group_ids'] = $object->get('customer_group_ids');
-        if($object->has('customer_ids'))                $data['customer_ids'] = $object->get('customer_ids');
-        if($object->has('combinable'))                  $data['combinable'] = $object->get('combinable');
-        if($object->has('priority'))                    $data['priority'] = $object->get('priority');
-        if($object->has('has_coupon'))                  $data['has_coupon'] = $object->get('has_coupon');
-        if($object->has('coupon_code'))                 $data['coupon_code'] = $object->get('coupon_code');
-        if($object->has('customer_uses'))               $data['customer_uses'] = $object->get('customer_uses');
-        if($object->has('coupon_uses'))                 $data['coupon_uses'] = $object->get('coupon_uses');
-        if($object->has('total_uses'))                  $data['total_uses'] = $object->get('total_uses');
-        // use preg_replace to format date from Google Chrome, attach (Hota de verano romance) string
-        if($object->get('enable_from'))                 $data['enable_from'] = (new Carbon(preg_replace('/\(.*\)/','', $object['enable_from']), config('app.timezone')))->toDateTimeString();
-        if($object->get('enable_to'))                   $data['enable_to'] = (new Carbon(preg_replace('/\(.*\)/','', $object['enable_to']), config('app.timezone')))->toDateTimeString();
-        if($object->has('condition_rules'))             $data['condition_rules'] = $object->get('condition_rules');
-        if($object->has('discount_type_id'))            $data['discount_type_id'] = $object->get('discount_type_id');
-        if($object->has('discount_fixed_amount'))       $data['discount_fixed_amount'] = $object->get('discount_fixed_amount');
-        if($object->has('discount_percentage'))         $data['discount_percentage'] = $object->get('discount_percentage');
-        if($object->has('maximum_discount_amount'))     $data['maximum_discount_amount'] = $object->get('maximum_discount_amount');
-        if($object->has('apply_shipping_amount'))       $data['apply_shipping_amount'] = $object->get('apply_shipping_amount');
-        if($object->has('free_shipping'))               $data['free_shipping'] = $object->get('free_shipping');
-        if($object->has('product_rules'))               $data['product_rules'] = $object->get('product_rules');
-        if($object->has('data_lang'))                   $data['data_lang'] = $object->get('data_lang');
+        $object = $object->only(
+            'names',
+            'descriptions',
+            'active',
+            'customer_group_ids',
+            'customer_ids',
+            'combinable',
+            'priority',
+            'has_coupon',
+            'coupon_code',
+            'customer_uses',
+            'coupon_uses',
+            'total_uses',
+            'enable_from',
+            'enable_to',
+            'discount_type_id',
+            'discount_fixed_amount',
+            'discount_percentage',
+            'maximum_discount_amount',
+            'apply_shipping_amount',
+            'free_shipping',
+            'rules',
+            'data_lang'
+        );
 
-        return $data;
+        if($object->has('enable_from')) $object['enable_from'] = date_time_string($object->get('enable_from'));
+        if($object->has('enable_from')) $object['enable_to'] = date_time_string($object->get('enable_to'));
+
+        return $object->toArray();
+    }
+
+    private static function checkCreate($object)
+    {
+        if(empty($object['lang_id']))   throw new \Exception('You have to define a lang_id field to create a cart price rule');
+        if(empty($object['name']))      throw new \Exception('You have to define a name field to create a cart price rule');
+
+    }
+
+    private static function checkUpdate($object)
+    {
+        if(empty($object['id'])) throw new \Exception('You have to define a id field to update a cart price rule');
     }
 }
