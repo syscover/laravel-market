@@ -101,32 +101,37 @@ class CartPriceRuleService
     private static function builder($object, $filterKeys = null)
     {
         $object = collect($object);
-        if($filterKeys) return $object->only($filterKeys)->toArray();
-
-        $object = $object->only(
-            'names',
-            'descriptions',
-            'active',
-            'customer_group_ids',
-            'customer_ids',
-            'combinable',
-            'priority',
-            'has_coupon',
-            'coupon_code',
-            'customer_uses',
-            'coupon_uses',
-            'total_uses',
-            'enable_from',
-            'enable_to',
-            'discount_type_id',
-            'discount_fixed_amount',
-            'discount_percentage',
-            'maximum_discount_amount',
-            'apply_shipping_amount',
-            'free_shipping',
-            'rules',
-            'data_lang'
-        );
+        if($filterKeys)
+        {
+            $object = $object->only($filterKeys);
+        }
+        else
+        {
+            $object = $object->only([
+                'names',
+                'descriptions',
+                'active',
+                'customer_group_ids',
+                'customer_ids',
+                'combinable',
+                'priority',
+                'has_coupon',
+                'coupon_code',
+                'customer_uses',
+                'coupon_uses',
+                'total_uses',
+                'enable_from',
+                'enable_to',
+                'discount_type_id',
+                'discount_fixed_amount',
+                'discount_percentage',
+                'maximum_discount_amount',
+                'apply_shipping_amount',
+                'free_shipping',
+                'rules',
+                'data_lang'
+            ]);
+        }
 
         if($object->has('enable_from')) $object['enable_from'] = date_time_string($object->get('enable_from'));
         if($object->has('enable_from')) $object['enable_to'] = date_time_string($object->get('enable_to'));
