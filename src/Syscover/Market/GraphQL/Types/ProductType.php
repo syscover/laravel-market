@@ -35,9 +35,9 @@ class ProductType extends GraphQLType {
                 'type' => Type::nonNull(Type::string()),
                 'description' => 'The name of product'
             ],
-            'code' => [
+            'sku' => [
                 'type' => Type::string(),
-                'description' => 'bar code'
+                'description' => 'Stock keeping unit'
             ],
             'categories' => [
                 'type' => Type::listOf(GraphQL::type('MarketCategory')),

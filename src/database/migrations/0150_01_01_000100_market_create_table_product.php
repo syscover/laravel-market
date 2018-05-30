@@ -18,7 +18,7 @@ class MarketCreateTableProduct extends Migration
 				$table->engine = 'InnoDB';
 
 				$table->increments('id');
-                $table->string('code', 25)->nullable();
+                $table->string('sku', 50)->nullable();
 				$table->integer('field_group_id')->unsigned()->nullable();
 
 				// 1 - downloaded
@@ -48,7 +48,7 @@ class MarketCreateTableProduct extends Migration
                 $table->timestamps();
                 $table->softDeletes();
 
-                $table->index(['code'], 'ix01_product');
+                $table->index(['sku'], 'ix01_product');
 				$table->foreign('field_group_id', 'fk01_market_product')
 					->references('id')
 					->on('admin_field_group')

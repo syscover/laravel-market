@@ -7,19 +7,15 @@ use Syscover\Market\Models\ProductLang;
 
 class ProductService
 {
-    /**
-     * Function to create a product
-     * @param   array   $object
-     * @return  \Syscover\Market\Models\Product
-     * @throws  \Exception
-     */
     public static function create($object)
     {
+        ProductService::checkCreate($object);
+
         // check if there is id
         if(empty($object['id']))
         {
             // create new product
-            $product = Product::create($object);
+            $product = Product::create(ProductService::builder($object, ['sku', 'field_group_id', 'type_id', 'parent_id', 'weight', 'active', 'sort', 'price_type_id', 'subtotal', 'product_class_tax_id', 'data_lang']));
             $object['id'] = $product->id;
         }
 
@@ -27,7 +23,7 @@ class ProductService
         if(isset($object['field_group_id'])) $object['data']['customFields'] = $object['customFields'];
 
         // create product lang
-        $product = ProductLang::create($object);
+        $product = ProductLang::create(ProductService::builder($object, ['id', 'lang_id', 'name', 'slug', 'description', 'data']));
 
         // product already is create, it's not necessary update product with data_lang value
         Product::addDataLang($object['lang_id'], $object['id']);
@@ -39,7 +35,10 @@ class ProductService
             ->first();
 
         // set categories
-        $product->categories()->sync($object['categories_id']);
+        if(! empty($object['categories_id']))
+        {
+            $product->categories()->sync($object['categories_id']);
+        }
 
         // set attachments
         if(is_array($object['attachments']))
@@ -54,61 +53,67 @@ class ProductService
         return $product;
     }
 
-    /**
-     * @param   array     $object     contain properties of product
-     * @return  \Syscover\Market\Models\Product
-     */
     public static function update($object)
     {
-        $object = collect($object);
+        ProductService::checkUpdate($object);
+        Product::where('id', $object['id'])->update(ProductService::builder($object, ['sku', 'field_group_id', 'type_id', 'parent_id', 'weight', 'active', 'sort', 'price_type_id', 'subtotal', 'product_class_tax_id', 'data_lang']));
 
-        // update product
-        Product::where('market_product.id', $object->get('id'))
-            ->update([
-                'code'                  =>  $object->get('code'),
-                'field_group_id'        =>  $object->get('field_group_id'),
-                'type_id'               =>  $object->get('type_id'),
-                'parent_id'             =>  $object->get('parent_id'),
-                'weight'                =>  $object->get('weight'),
-                'active'                =>  $object->get('active'),
-                'sort'                  =>  $object->get('sort'),
-                'price_type_id'         =>  $object->get('price_type_id'),
-                'subtotal'              =>  $object->get('subtotal'),
-                'product_class_tax_id'  =>  $object->get('product_class_tax_id')
-            ]);
-
-        // get custom fields
-        $data = [];
-        if($object->has('field_group_id')) $data['customFields'] = $object->get('customFields');
+        // set custom fields
+        if(! empty($object['field_group_id']))
+        {
+            $data = [];
+            $data['customFields'] = $object['customFields'];
+            $object['data'] = json_encode($data);
+        }
 
         // update product lang
-        ProductLang::where('market_product_lang.id', $object->get('id'))
-            ->where('market_product_lang.lang_id', $object->get('lang_id'))
-            ->update([
-                'name'          => $object->get('name'),
-                'slug'          => $object->get('slug'),
-                'description'   => $object->get('description'),
-                'data'          => json_encode($data)
-            ]);
+        ProductLang::where('market_product_lang.id', $object['id'])
+            ->where('market_product_lang.lang_id', $object['lang_id'])
+            ->update(ProductService::builder($object, ['name', 'slug', 'description', 'data']));
 
+        // get product instance
         $product = Product::builder()
-            ->where('market_product.id', $object->get('id'))
-            ->where('market_product_lang.lang_id', $object->get('lang_id'))
+            ->where('market_product.id', $object['id'])
+            ->where('market_product_lang.lang_id', $object['lang_id'])
             ->first();
 
         // set categories
-        $product->categories()->sync($object->get('categories_id'));
+        if(! empty($object['categories_id']))
+        {
+            $product->categories()->sync($object['categories_id']);
+        }
 
         // set attachments
-        if(is_array($object->get('attachments')))
+        if(is_array($object['attachments']))
         {
             // first save libraries to get id
-            $attachments = AttachmentService::storeAttachmentsLibrary($object->get('attachments'));
+            $attachments = AttachmentService::storeAttachmentsLibrary($object['attachments']);
 
             // then save attachments
             AttachmentService::updateAttachments($attachments, 'storage/app/public/market/products', 'storage/market/products', Product::class, $product->id,  $product->lang_id);
         }
 
         return $product;
+    }
+
+    private static function builder($object, $filterKeys = null)
+    {
+        $object = collect($object);
+        if($filterKeys) return $object->only($filterKeys)->toArray();
+
+        return  $object->only('id', 'lang_id', 'name', 'slug', 'description', 'sku', 'field_group_id', 'type_id', 'parent_id', 'weight', 'active', 'sort', 'price_type_id', 'subtotal', 'product_class_tax_id', 'data_lang', 'data')->toArray();
+    }
+
+    private static function checkCreate($object)
+    {
+        if(empty($object['lang_id']))   throw new \Exception('You have to define a lang_id field to create a category');
+        if(empty($object['name']))      throw new \Exception('You have to define a name field to create a category');
+        if(empty($object['slug']))      throw new \Exception('You have to define a slug field to create a category');
+    }
+
+    private static function checkUpdate($object)
+    {
+        if(empty($object['id']))        throw new \Exception('You have to define a id field to update a product');
+        if(empty($object['lang_id']))   throw new \Exception('You have to define a lang_id field to update a product');
     }
 }

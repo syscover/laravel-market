@@ -36,9 +36,9 @@ class ProductInput extends GraphQLType {
                 'type' => Type::nonNull(Type::string()),
                 'description' => 'The name of product'
             ],
-            'code' => [
+            'sku' => [
                 'type' => Type::string(),
-                'description' => 'bar code'
+                'description' => 'Stock keeping unit'
             ],
             'categories_id' => [
                 'type' => Type::listOf(Type::int()),
@@ -49,7 +49,7 @@ class ProductInput extends GraphQLType {
                 'description' => 'Id of field group'
             ],
             'type_id' => [
-                'type' => Type::nonNull(Type::int()),
+                'type' => Type::int(),
                 'description' => 'Id of product type'
             ],
             'parent_id' => [
@@ -57,7 +57,7 @@ class ProductInput extends GraphQLType {
                 'description' => 'Id of parent product'
             ],
             'weight' => [
-                'type' => Type::nonNull(Type::float()),
+                'type' => Type::float(),
                 'description' => 'Id of parent product'
             ],
             'active' => [
@@ -69,7 +69,7 @@ class ProductInput extends GraphQLType {
                 'description' => 'sort or product'
             ],
             'price_type_id' => [
-                'type' => Type::nonNull(Type::int()),
+                'type' => Type::int(),
                 'description' => 'Id of parent product'
             ],
             'price' => [
