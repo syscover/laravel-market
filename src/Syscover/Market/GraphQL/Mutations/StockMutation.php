@@ -26,8 +26,8 @@ class StockMutation extends Mutation
 class SetStockMutation extends StockMutation
 {
     protected $attributes = [
-        'name' => 'addStock',
-        'description' => 'Add new stock'
+        'name' => 'setStock',
+        'description' => 'Create or update stock'
     ];
 
     public function resolve($root, $args)
