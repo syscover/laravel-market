@@ -27,7 +27,7 @@ class Product extends CoreModel
     ];
     public $with = [
         'lang',
-        'fieldGroup',
+        'field_group',
         'categories',
         'stocks',
         'children_products'
@@ -207,9 +207,8 @@ class Product extends CoreModel
         {
             $sessionTaxRules = session('pulsar-market.taxRules');
 
-            $sessionTaxRules->transform(function ($taxRule, $name) {
-                if($taxRule->product_class_taxes->where('id', $this->product_class_tax_id)->count() > 0)
-                    return $taxRule;
+            $sessionTaxRules = $sessionTaxRules->filter(function ($taxRule, $key) {
+                return $taxRule->product_class_taxes->where('id', $this->product_class_tax_id)->count() > 0;
             });
 
             return $sessionTaxRules->sortBy('priority');
