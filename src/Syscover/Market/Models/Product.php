@@ -219,12 +219,12 @@ class Product extends CoreModel
         $data = $this->getAttribute('data');
 
         if(
-            isset($data['customFields']) &&
-            is_array($data['customFields']) &&
-            array_key_exists($name, $data['customFields'])
+            isset($data['custom_fields']) &&
+            is_array($data['custom_fields']) &&
+            array_key_exists($name, $data['custom_fields'])
         )
         {
-            return $data['customFields'][$name];
+            return $data['custom_fields'][$name];
         }
 
         return parent::__get($name);

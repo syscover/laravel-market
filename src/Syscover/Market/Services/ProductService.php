@@ -20,7 +20,7 @@ class ProductService
         }
 
         // get custom fields
-        if(isset($object['field_group_id'])) $object['data']['customFields'] = $object['customFields'];
+        if(isset($object['field_group_id'])) $object['data']['custom_fields'] = $object['custom_fields'];
 
         // create product lang
         $product = ProductLang::create(ProductService::builder($object, ['id', 'lang_id', 'name', 'slug', 'description', 'data']));
@@ -62,7 +62,7 @@ class ProductService
         if(! empty($object['field_group_id']))
         {
             $data = [];
-            $data['customFields'] = $object['customFields'];
+            $data['custom_fields'] = $object['custom_fields'];
             $object['data'] = json_encode($data);
         }
 
