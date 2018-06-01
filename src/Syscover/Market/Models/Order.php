@@ -56,14 +56,25 @@ class Order extends CoreModel
     {
         return $query->join('crm_customer', 'market_order.customer_id', '=', 'crm_customer.id')
             ->join('market_payment_method', function ($join) {
-                 $join->on('market_order.payment_method_id', '=', 'market_payment_method.id')
-                     ->where('market_payment_method.lang_id', '=', base_lang());
+                $join->on('market_order.payment_method_id', '=', 'market_payment_method.id')
+                    ->where('market_payment_method.lang_id', '=', base_lang());
             })
             ->join('market_order_status', function ($join) {
                 $join->on('market_order.status_id', '=', 'market_order_status.id')
                     ->where('market_order_status.lang_id', '=', base_lang());
             })
-            ->select('crm_customer.*', 'market_payment_method.*', 'market_order_status.*', 'market_order.*', 'crm_customer.id as crm_customer_id', 'market_payment_method.id as market_payment_method_id', 'market_order_status.id as market_order_status_id', 'market_order.id as market_order_id');
+            ->select(
+                'crm_customer.*',
+                'market_payment_method.*',
+                'market_order_status.*',
+                'market_order.*',
+
+                'crm_customer.id as crm_customer_id',
+                'market_payment_method.id as market_payment_method_id',
+                'market_order_status.id as market_order_status_id',
+                'market_order_status.name as market_order_status_name',
+                'market_order.id as market_order_id'
+            );
     }
 
     public function customer()

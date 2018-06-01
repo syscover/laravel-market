@@ -25,9 +25,13 @@ php artisan db:seed --class="MarketTableSeeder"
 php artisan migrate --path=vendor/syscover/pulsar-market/src/database/migrations/updates
 ```
 
-**5 - Register middleware pulsar.taxRule on file app/Http/Kernel.php add to routeMiddleware array**
+**5 - Register TaxRule middleware on file app/Http/Kernel.php add to $middlewareGroups array in web group**
 ```
-'pulsar.tax.rule' => \Syscover\Market\Middleware\TaxRule::class,
+
+'web' => [
+    ...
+    \Syscover\Market\Middleware\TaxRule::class
+],
 ```
 
 
