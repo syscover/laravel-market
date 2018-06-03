@@ -32,7 +32,7 @@ class CustomerDiscountHistoryType extends GraphQLType {
             ],
             'rule_type' => [
                 'type' => Type::nonNull(Type::string()),
-                'description' => 'Type of rule of this discount [CartPriceRule, CatalogPriceRule, CustomerPriceRule]'
+                'description' => 'Model name of rule of this discount [CartPriceRule, CatalogPriceRule, CustomerPriceRule]'
             ],
             'rule_id' => [
                 'type' => Type::int(),
