@@ -13,7 +13,6 @@
         "syscover/pulsar-core": "dev-master",
         "syscover/pulsar-admin": "dev-master",
         "syscover/pulsar-crm": "dev-master",
-        "syscover/pulsar-review": "dev-master",
         "syscover/pulsar-shopping-cart": "dev-master",
         "ssheduardo/redsys-laravel": "~1.2",
         "paypal/rest-api-sdk-php": "*"
