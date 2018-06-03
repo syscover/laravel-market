@@ -54,6 +54,10 @@ class OrderType extends GraphQLType
                 'type' => Type::listOf(GraphQL::type('MarketOrderRow')),
                 'description' => 'Rows of order'
             ],
+            'discounts' => [
+                'type' => Type::listOf(GraphQL::type('MarketCustomerDiscountHistory')),
+                'description' => 'Discounts of this order'
+            ],
 
             //****************
             //* amounts
@@ -312,5 +316,10 @@ class OrderType extends GraphQLType
     public function resolveRowsField($object, $args)
     {
         return $object->rows;
+    }
+
+    public function resolveDiscountsField($object, $args)
+    {
+        return $object->discounts;
     }
 }

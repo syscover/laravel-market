@@ -25,6 +25,8 @@ class Order extends CoreModel
         'customer',
         'payment_methods',
         'statuses',
+        'rows',
+        'discounts',
         'shipping_countries',
         'shipping_territorial_area_1',
         'shipping_territorial_area_2',
@@ -132,13 +134,6 @@ class Order extends CoreModel
         return $this->hasOne(TerritorialArea3::class, 'id', 'invoice_territorial_area_3_id');
     }
 
-
-
-
-
-
-
-
     public function rows()
     {
         return $this->hasMany(OrderRow::class, 'order_id');
@@ -148,6 +143,18 @@ class Order extends CoreModel
     {
         return $this->hasMany(CustomerDiscountHistory::class, 'order_id');
     }
+
+
+
+
+
+
+
+
+
+
+
+
 
     public function setOrderLog($message)
     {

@@ -25,9 +25,6 @@ class MarketCreateTableCustomerDiscountHistory extends Migration
                 // if order is canceled, you can deactivate discounts
                 $table->boolean('applied')->default(true);
 
-                // total discount amount apply with this rule
-                $table->decimal('discount_amount', 12, 4)->nullable();
-
                 // name of model:
                 // CartPriceRule
                 // CatalogPriceRule
@@ -35,8 +32,8 @@ class MarketCreateTableCustomerDiscountHistory extends Migration
                 $table->string('rule_type');
                 $table->integer('rule_id')->unsigned()->nullable();
 
-                $table->json('names')->nullable(); // name value in different languages
-                $table->json('descriptions')->nullable(); //description value in different languages
+                $table->json('names')->nullable(); // rule names value in different languages
+                $table->json('descriptions')->nullable(); // rule descriptions value in different languages
 
                 $table->boolean('has_coupon')->default(false);
                 $table->string('coupon_code')->nullable();
@@ -63,6 +60,9 @@ class MarketCreateTableCustomerDiscountHistory extends Migration
 
                 // check if this discount has free shipping
                 $table->boolean('free_shipping')->default(false);
+
+                // total discount amount apply with this rule
+                $table->decimal('discount_amount', 12, 4)->nullable();
 
                 $table->json('data_lang')->nullable();
 

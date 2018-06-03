@@ -61,6 +61,9 @@ class MarketGraphQLServiceProvider
         // CART PRICE RULE
         GraphQL::addType(\Syscover\Market\GraphQL\Types\CartPriceRuleType::class, 'MarketCartPriceRule');
         GraphQL::addType(\Syscover\Market\GraphQL\Inputs\CartPriceRuleInput::class, 'MarketCartPriceRuleInput');
+
+        // CUSTOMER DISCOUNT HISTORY
+        GraphQL::addType(\Syscover\Market\GraphQL\Types\CustomerDiscountHistoryType::class, 'MarketCustomerDiscountHistory');
     }
 
     public static function bootGraphQLSchema()

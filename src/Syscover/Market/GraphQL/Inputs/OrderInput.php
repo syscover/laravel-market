@@ -302,7 +302,7 @@ class OrderInput extends GraphQLType
             'shipping_comments' => [
                 'type' => Type::string(),
                 'description' => 'Comments of shipping'
-            ],
+            ]
         ];
     }
 }
