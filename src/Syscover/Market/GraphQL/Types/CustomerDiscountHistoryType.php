@@ -51,7 +51,7 @@ class CustomerDiscountHistoryType extends GraphQLType {
                 'description' => 'Check if has coupon this discount'
             ],
             'coupon_code' => [
-                'type' => Type::boolean(),
+                'type' => Type::string(),
                 'description' => 'The coupon of this discount'
             ],
             'discount_type_id' => [
