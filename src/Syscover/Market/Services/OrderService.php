@@ -51,7 +51,6 @@ class OrderService
         if($object->has('data'))                                $data['data'] = $object->get('data');
         if($object->has('comments'))                            $data['comments'] = $object->get('comments');
         if($object->has('transaction_id'))                      $data['transaction_id'] = $object->get('transaction_id');
-        if($object->has('tracking_id'))                         $data['tracking_id'] = $object->get('tracking_id');
 
         // cart
         if($object->has('discount_amount'))                     $data['discount_amount'] = $object->get('discount_amount');                                         // total amount to discount, fixed plus percentage discounts
@@ -103,6 +102,7 @@ class OrderService
 
         // shipping
         if($object->has('has_shipping'))                        $data['has_shipping'] = $object->get('has_shipping');
+        if($object->has('shipping_tracking_id'))                $data['shipping_tracking_id'] = $object->get('shipping_tracking_id');
         if($object->has('shipping_company'))                    $data['shipping_company'] = $object->get('shipping_company');
         if($object->has('shipping_name'))                       $data['shipping_name'] = $object->get('shipping_name');
         if($object->has('shipping_surname'))                    $data['shipping_surname'] = $object->get('shipping_surname');

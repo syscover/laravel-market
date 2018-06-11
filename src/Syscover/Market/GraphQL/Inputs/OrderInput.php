@@ -47,10 +47,6 @@ class OrderInput extends GraphQLType
                 'type' => Type::string(),
                 'description' => 'Transaction ID generate by PayPal or any payment method'
             ],
-            'tracking_id' => [
-                'type' => Type::string(),
-                'description' => 'Code generate by shipping company to get tracking of shipping'
-            ],
 
             //****************
             //* amounts
@@ -238,6 +234,10 @@ class OrderInput extends GraphQLType
             'has_shipping' => [
                 'type' => Type::boolean(),
                 'description' => 'Check if this order has shipping'
+            ],
+            'shipping_tracking_id' => [
+                'type' => Type::string(),
+                'description' => 'Code generate by shipping company to get tracking of shipping'
             ],
             'shipping_company' => [
                 'type' => Type::string(),

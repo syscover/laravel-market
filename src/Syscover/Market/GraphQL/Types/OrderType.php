@@ -46,10 +46,6 @@ class OrderType extends GraphQLType
                 'type' => Type::string(),
                 'description' => 'Transaction ID generate by PayPal or any payment method'
             ],
-            'tracking_id' => [
-                'type' => Type::string(),
-                'description' => 'Code generate by shipping company to get tracking of shipping'
-            ],
             'rows' => [
                 'type' => Type::listOf(GraphQL::type('MarketOrderRow')),
                 'description' => 'Rows of order'
@@ -245,6 +241,10 @@ class OrderType extends GraphQLType
             'has_shipping' => [
                 'type' => Type::boolean(),
                 'description' => 'Check if this order has shipping'
+            ],
+            'shipping_tracking_id' => [
+                'type' => Type::string(),
+                'description' => 'Code generate by shipping company to get tracking of shipping'
             ],
             'shipping_company' => [
                 'type' => Type::string(),

@@ -25,9 +25,7 @@ class MarketCreateTableOrder extends Migration
 				$table->string('ip')->nullable();
 				$table->json('data')->nullable();
 				$table->text('comments')->nullable();
-
                 $table->string('transaction_id')->nullable();                                               // code generate by payment platform (PayPal or Bank), field to record any payment ID transaction
-                $table->string('tracking_id')->nullable();                                                  // code generate by shipping company to get tracking of shipping
 
                 //****************
                 //* amounts
@@ -90,6 +88,7 @@ class MarketCreateTableOrder extends Migration
                 //* shipping data
                 //****************
 				$table->boolean('has_shipping')->default(false);
+                $table->string('shipping_tracking_id')->nullable();                                  // code generate by shipping company to get tracking of shipping
 				$table->string('shipping_company')->nullable();
 				$table->string('shipping_name')->nullable();
 				$table->string('shipping_surname')->nullable();
