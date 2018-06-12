@@ -30,22 +30,13 @@ class MarketCreateTableOrder extends Migration
                 //****************
                 //* amounts
                 //****************
+                $table->decimal('cart_items_total_without_discounts', 12, 4)->default(0);      // total of cart items. Amount with tax, without discount and without shipping
+				$table->decimal('subtotal', 12, 4)->default(0);					                // amount without tax, without shipping and without discounts
                 $table->decimal('discount_amount', 12, 4)->default(0);                         // total amount to discount, fixed plus percentage discounts
 				$table->decimal('subtotal_with_discounts', 12, 4)->default(0);                 // subtotal with discounts applied
                 $table->decimal('tax_amount', 12, 4)->default(0);                              // total tax amount
-                $table->decimal('cart_items_total_without_discounts', 12, 4)->default(0);      // total of cart items. Amount with tax, without discount and without shipping
-				$table->decimal('subtotal', 12, 4)->default(0);					                // amount without tax and without shipping
                 $table->decimal('shipping_amount', 12, 4)->default(0);			                // shipping amount
                 $table->decimal('total', 12, 4)->default(0); 				                    // subtotal and shipping amount with tax
-
-                //****************
-                //* gift
-                //****************
-                $table->boolean('has_gift')->default(false);
-                $table->string('gift_from')->nullable();
-                $table->string('gift_to')->nullable();
-                $table->text('gift_message')->nullable();
-                $table->text('gift_comments')->nullable();
 
                 //****************
                 //* customer
@@ -59,6 +50,28 @@ class MarketCreateTableOrder extends Migration
 				$table->string('customer_email');
 				$table->string('customer_mobile')->nullable();
 				$table->string('customer_phone')->nullable();
+
+                //****************
+                //* shipping data
+                //****************
+                $table->boolean('has_shipping')->default(false);
+                $table->string('shipping_tracking_id')->nullable();                                  // code generate by shipping company to get tracking of shipping
+                $table->string('shipping_company')->nullable();
+                $table->string('shipping_name')->nullable();
+                $table->string('shipping_surname')->nullable();
+                $table->string('shipping_email')->nullable();
+                $table->string('shipping_mobile')->nullable();
+                $table->string('shipping_phone')->nullable();
+                $table->string('shipping_country_id', 2)->nullable();
+                $table->string('shipping_territorial_area_1_id', 6)->nullable();
+                $table->string('shipping_territorial_area_2_id', 10)->nullable();
+                $table->string('shipping_territorial_area_3_id', 10)->nullable();
+                $table->string('shipping_zip')->nullable();
+                $table->string('shipping_locality')->nullable();
+                $table->string('shipping_address')->nullable();
+                $table->string('shipping_latitude')->nullable();
+                $table->string('shipping_longitude')->nullable();
+                $table->text('shipping_comments')->nullable();
 
 				//****************
                 //* invoice data
@@ -84,27 +97,16 @@ class MarketCreateTableOrder extends Migration
 				$table->string('invoice_longitude')->nullable();
                 $table->text('invoice_comments')->nullable();
 
+
+
                 //****************
-                //* shipping data
+                //* gift
                 //****************
-				$table->boolean('has_shipping')->default(false);
-                $table->string('shipping_tracking_id')->nullable();                                  // code generate by shipping company to get tracking of shipping
-				$table->string('shipping_company')->nullable();
-				$table->string('shipping_name')->nullable();
-				$table->string('shipping_surname')->nullable();
-				$table->string('shipping_email')->nullable();
-				$table->string('shipping_mobile')->nullable();
-				$table->string('shipping_phone')->nullable();
-				$table->string('shipping_country_id', 2)->nullable();
-				$table->string('shipping_territorial_area_1_id', 6)->nullable();
-				$table->string('shipping_territorial_area_2_id', 10)->nullable();
-				$table->string('shipping_territorial_area_3_id', 10)->nullable();
-				$table->string('shipping_zip')->nullable();
-				$table->string('shipping_locality')->nullable();
-				$table->string('shipping_address')->nullable();
-				$table->string('shipping_latitude')->nullable();
-				$table->string('shipping_longitude')->nullable();
-                $table->text('shipping_comments')->nullable();
+                $table->boolean('has_gift')->default(false);
+                $table->string('gift_from')->nullable();
+                $table->string('gift_to')->nullable();
+                $table->text('gift_message')->nullable();
+                $table->text('gift_comments')->nullable();
 
                 $table->timestamps();
                 $table->softDeletes();
