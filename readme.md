@@ -159,20 +159,3 @@ MARKET_REDSYS_LIVE_MERCHANT_NAME="MERCHANT NAME"
 MARKET_REDSYS_LIVE_MERCHANT_CODE=xxxxxxxxx
 MARKET_REDSYS_LIVE_KEY=xXxXxXxXxXxXxXxXxXxXxXxXxXxXxXxXx
 ```
-
-## Other concepts 
-
-### Set tax rules values for each customer
-When a customer is login on your web application, you need know your country and customer group to calculate tax rules for all products.
-You have a Middleware who is responsible to do this actions.
-
-```
-Route::group(['middleware' => ['pulsar.tax.rule']], function() {
-
-    // write here your routes
-
-});
-
-```
-
-This middleware set market.taxCountry and market.taxCustomerClass if customer has country and customer group id defined
