@@ -33,7 +33,15 @@ class CustomerGroupCustomerClassTax extends CoreModel
         return $query
             ->join('crm_customer_group', 'market_customer_group_customer_class_tax.customer_group_id', '=', 'crm_customer_group.id')
             ->join('market_customer_class_tax', 'market_customer_group_customer_class_tax.customer_class_tax_id', '=', 'market_customer_class_tax.id')
-            ->select('crm_customer_group.*', 'market_customer_class_tax.*', 'market_customer_group_customer_class_tax.*', 'crm_customer_group.name as customer_group_name', 'market_customer_class_tax.name as customer_class_tax_name');
+            ->select(
+                'crm_customer_group.*',
+                'market_customer_class_tax.*',
+                'market_customer_group_customer_class_tax.*',
+                'crm_customer_group.name as customer_group_name',
+                'market_customer_class_tax.name as customer_class_tax_name',
+                'crm_customer_group.id as customer_group_id',
+                'market_customer_class_tax.id as customer_class_tax_id'
+            );
     }
 
     public function customer_group()
