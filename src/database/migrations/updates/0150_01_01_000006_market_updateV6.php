@@ -17,10 +17,10 @@ class MarketUpdateV6 extends Migration
 	 */
 	public function up()
 	{
-        if(! Schema::hasColumn('market_order', 'tracking_id'))
+        if(! Schema::hasColumn('market_order', 'shipping_tracking_id'))
         {
             Schema::table('market_order', function (Blueprint $table) {
-                $table->string('tracking_id')->nullable()->after('transaction_id');
+                $table->string('shipping_tracking_id')->nullable()->after('has_shipping');
             });
         }
 	}
