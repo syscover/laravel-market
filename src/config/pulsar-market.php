@@ -41,8 +41,8 @@ return [
     //******************************************************************************************************************
 
     // Tax default values
-    'defaultTaxCountry'             => env('MARKET_DEFAULT_COUNTRY_TAX', 'ES'),        // default country tax to calculate prices
-    'defaultClassCustomerTax'       => env('MARKET_DEFAULT_CLASS_CUSTOMER_TAX', 1),    // default customer tax class to calculate tax
+    'default_tax_country'           => env('MARKET_DEFAULT_COUNTRY_TAX', 'ES'),        // default country tax to calculate prices
+    'default_class_customer_tax'    => env('MARKET_DEFAULT_CLASS_CUSTOMER_TAX', 1),    // default customer tax class to calculate tax
 
     // Type prices for products
     'productPricesValues'           => [
