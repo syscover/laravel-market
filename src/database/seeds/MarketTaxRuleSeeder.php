@@ -4,8 +4,8 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Syscover\Market\Models\TaxRule;
 
-class MarketTaxRuleSeeder extends Seeder {
-
+class MarketTaxRuleSeeder extends Seeder
+{
     public function run()
     {
         TaxRule::insert([
