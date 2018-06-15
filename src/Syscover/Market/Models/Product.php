@@ -54,7 +54,7 @@ class Product extends CoreModel
     {
         return $query
             ->builder()
-            ->whereIn('id', function($query) use ($categories) {
+            ->whereIn('market_product.id', function($query) use ($categories) {
                 $query
                     ->select('product_id')
                     ->from('market_products_categories')
