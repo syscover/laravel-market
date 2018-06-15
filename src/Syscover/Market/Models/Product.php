@@ -50,6 +50,20 @@ class Product extends CoreModel
             ->select('market_product.*', 'market_product_lang.*', 'market_product_lang.data as market_product_lang_data', 'market_product.data as market_product_data');
     }
 
+    public function scopeCategoriesProducts($query, $categories)
+    {
+        return $query
+            ->builder()
+            ->whereIn('id', function($query) use ($categories) {
+                $query
+                    ->select('product_id')
+                    ->from('market_products_categories')
+                    ->whereIn('category_id', $categories)
+                    ->groupBy('product_id')
+                    ->get();
+            });
+    }
+
     public function children_products()
     {
         return $this->hasMany(
