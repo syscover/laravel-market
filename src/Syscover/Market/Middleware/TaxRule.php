@@ -32,7 +32,7 @@ class TaxRule
         }
 
         // Set tax rules in session
-        if(session('pulsar-market.taxRules') === null)
+        if(session('pulsar-market.tax_rules') === null)
         {
             $taxRules = TaxRuleModel::builder()
                 ->where('country_id', config('pulsar-market.default_tax_country'))
@@ -40,7 +40,7 @@ class TaxRule
                 ->orderBy('priority', 'asc')
                 ->get();
 
-            session(['pulsar-market.taxRules' => $taxRules]);
+            session(['pulsar-market.tax_rules' => $taxRules]);
         }
 
         return $next($request);

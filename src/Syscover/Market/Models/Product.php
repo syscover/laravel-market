@@ -219,7 +219,7 @@ class Product extends CoreModel
 
         if($name === 'tax_rules')
         {
-            $sessionTaxRules = session('pulsar-market.taxRules');
+            $sessionTaxRules = session('pulsar-market.tax_rules');
 
             $sessionTaxRules = $sessionTaxRules->filter(function ($taxRule, $key) {
                 return $taxRule->product_class_taxes->where('id', $this->product_class_tax_id)->count() > 0;
