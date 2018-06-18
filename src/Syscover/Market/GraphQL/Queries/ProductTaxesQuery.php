@@ -55,7 +55,7 @@ class ProductTaxesQuery extends Query
 
         if(
             isset($args['productTaxPrices']) &&  $args['productTaxPrices'] == TaxRuleService::PRICE_WITHOUT_TAX ||
-            (int) config('pulsar-market.productTaxPrices') == TaxRuleService::PRICE_WITHOUT_TAX
+            (int) config('pulsar-market.product_tax_prices') == TaxRuleService::PRICE_WITHOUT_TAX
         )
         {
             $taxes      = TaxRuleService::taxCalculateOverSubtotal($price, $taxRules);
@@ -66,7 +66,7 @@ class ProductTaxesQuery extends Query
         }
         elseif (
             isset($args['productTaxPrices']) &&  $args['productTaxPrices'] == TaxRuleService::PRICE_WITH_TAX ||
-            (int) config('pulsar-market.productTaxPrices') == TaxRuleService::PRICE_WITH_TAX
+            (int) config('pulsar-market.product_tax_prices') == TaxRuleService::PRICE_WITH_TAX
         )
         {
             $taxes      = TaxRuleService::taxCalculateOverTotal($price, $taxRules);

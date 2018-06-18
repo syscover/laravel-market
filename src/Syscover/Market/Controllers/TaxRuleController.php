@@ -82,7 +82,7 @@ class TaxRuleController extends CoreController
             ->orderBy('priority', 'asc')
             ->get();
 
-        if((int) config('pulsar-market.productTaxPrices') == TaxRuleService::PRICE_WITHOUT_TAX)
+        if((int) config('pulsar-market.product_tax_prices') == TaxRuleService::PRICE_WITHOUT_TAX)
         {
             $taxes      = TaxRuleService::taxCalculateOverSubtotal($price, $taxRules);
             $taxAmount  = $taxes->sum('taxAmount');
@@ -90,7 +90,7 @@ class TaxRuleController extends CoreController
             $total      = $subtotal + $taxAmount;
 
         }
-        elseif ((int) config('pulsar-market.productTaxPrices') == TaxRuleService::PRICE_WITH_TAX)
+        elseif ((int) config('pulsar-market.product_tax_prices') == TaxRuleService::PRICE_WITH_TAX)
         {
             $taxes      = TaxRuleService::taxCalculateOverTotal($price, $taxRules);
             $taxAmount  = $taxes->sum('taxAmount');

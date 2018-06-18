@@ -10,7 +10,7 @@ return [
     //******************************************************************************************************************
     //***   Type of product
     //******************************************************************************************************************
-    'productTypes'                  => [
+    'product_types'                  => [
         (object)['id' => 1,      'name' => 'market::pulsar.downloadable'],
         (object)['id' => 2,      'name' => 'market::pulsar.transportable'],
         (object)['id' => 3,      'name' => 'market::pulsar.transportable_downloadable'],
@@ -20,7 +20,7 @@ return [
     //******************************************************************************************************************
     //***   Type prices of product
     //******************************************************************************************************************
-    'priceTypes'                    => [
+    'price_types'                    => [
         (object)['id' => 1,      'name' => 'market::pulsar.single_price'],
         (object)['id' => 2,      'name' => 'market::pulsar.undefined_price']
     ],
@@ -28,7 +28,7 @@ return [
     //******************************************************************************************************************
     //***   Discount types
     //******************************************************************************************************************
-    'discountTypes'                => [
+    'discount_types'                => [
         (object)['id' => 1,      'name' => 'market::pulsar.without_discount'],
         (object)['id' => 2,      'name' => 'market::pulsar.discount_percentage_subtotal'],
         (object)['id' => 3,      'name' => 'market::pulsar.discount_fixed_amount_subtotal'],
@@ -45,11 +45,11 @@ return [
     'default_class_customer_tax'    => env('MARKET_DEFAULT_CLASS_CUSTOMER_TAX', 1),    // default customer tax class to calculate tax
 
     // Type prices for products
-    'productPricesValues'           => [
+    'product_prices_values'           => [
         (object)['id' => 1,      'name' => 'market::pulsar.excluding_tax'],
         (object)['id' => 2,      'name' => 'market::pulsar.including_tax']
     ],
-    'productTaxPrices'              => env('MARKET_PRODUCT_TAX_PRICES', 1),            // Product prices type
+    'product_tax_prices'              => env('MARKET_PRODUCT_TAX_PRICES', 1),            // Product prices type
     'productTaxDisplayPrices'       => env('MARKET_PRODUCT_TAX_DISPLAY_PRICES', 1),    // How to display product prices
 
     // Type prices for shipping
