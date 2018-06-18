@@ -32,8 +32,8 @@ class ProductTaxesQuery extends Query
                 'description'   => 'Product class tax'
             ],
             // force to calculate price over PRICE_WITHOUT_TAX or PRICE_WITH_TAX, when show product the price always is PRICE_WITHOUT_TAX
-            'productTaxPrices' => [
-                'name'          => 'productTaxPrices',
+            'product_tax_prices' => [
+                'name'          => 'product_tax_prices',
                 'type'          => Type::int(),
                 'description'   => 'Product class tax'
             ]
@@ -54,7 +54,7 @@ class ProductTaxesQuery extends Query
             ->get();
 
         if(
-            isset($args['productTaxPrices']) &&  $args['productTaxPrices'] == TaxRuleService::PRICE_WITHOUT_TAX ||
+            isset($args['product_tax_prices']) &&  $args['product_tax_prices'] == TaxRuleService::PRICE_WITHOUT_TAX ||
             (int) config('pulsar-market.product_tax_prices') == TaxRuleService::PRICE_WITHOUT_TAX
         )
         {
@@ -65,7 +65,7 @@ class ProductTaxesQuery extends Query
 
         }
         elseif (
-            isset($args['productTaxPrices']) &&  $args['productTaxPrices'] == TaxRuleService::PRICE_WITH_TAX ||
+            isset($args['product_tax_prices']) &&  $args['product_tax_prices'] == TaxRuleService::PRICE_WITH_TAX ||
             (int) config('pulsar-market.product_tax_prices') == TaxRuleService::PRICE_WITH_TAX
         )
         {
