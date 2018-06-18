@@ -76,8 +76,8 @@ class TaxRuleController extends CoreController
 
 
         $taxRules = TaxRule::builder()
-            ->where('country_id', config('pulsar-market.defaultTaxCountry'))
-            ->where('customer_class_tax_id', config('pulsar-market.defaultClassCustomerTax'))
+            ->where('country_id', config('pulsar-market.default_tax_country'))
+            ->where('customer_class_tax_id', config('pulsar-market.default_class_customer_tax'))
             ->where('product_class_tax_id', $productClassTax)
             ->orderBy('priority', 'asc')
             ->get();

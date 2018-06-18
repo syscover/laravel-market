@@ -92,7 +92,7 @@ class TaxRuleService
         {
             // get products
             $products = Product::builder()
-                ->whereIn('id', CartProvider::instance()->getCartItems()->pluck('id'))
+                ->whereIn('market_product.id', CartProvider::instance()->getCartItems()->pluck('id'))
                 ->get();
 
             // get tax rules
