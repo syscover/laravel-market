@@ -85,7 +85,7 @@ class TaxRuleService
         return $response;
     }
 
-    public static function taxCalculateOverShoppingCart($guard = 'crm', $loadDefaultValues = false)
+    public static function taxCalculateOverShoppingCart($guard = 'crm')
     {
         // check if has product in shopping cart
         if(CartProvider::instance()->getCartItems()->count() > 0)
@@ -97,8 +97,8 @@ class TaxRuleService
 
             // get tax rules
             $taxRules = TaxRule::builder()
-                ->where('country_id', ! $loadDefaultValues && auth($guard)->user()->country_id ? auth($guard)->user()->country_id : config('pulsar-market.default_tax_country'))
-                ->where('customer_class_tax_id', ! $loadDefaultValues && auth('crm')->user()->class_tax ? auth('crm')->user()->class_tax : config('pulsar-market.default_class_customer_tax'))
+                ->where('country_id', auth($guard)->check() && auth($guard)->user()->country_id ? auth($guard)->user()->country_id : config('pulsar-market.default_tax_country'))
+                ->where('customer_class_tax_id', auth($guard)->check() && auth('crm')->user()->class_tax ? auth('crm')->user()->class_tax : config('pulsar-market.default_class_customer_tax'))
                 ->whereIn('product_class_tax_id', $products->pluck('product_class_tax_id')->toArray())
                 ->orderBy('priority', 'asc')
                 ->get();
