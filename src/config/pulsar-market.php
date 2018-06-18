@@ -50,15 +50,15 @@ return [
         (object)['id' => 2,      'name' => 'market::pulsar.including_tax']
     ],
     'product_tax_prices'              => env('MARKET_PRODUCT_TAX_PRICES', 1),            // Product prices type
-    'productTaxDisplayPrices'       => env('MARKET_PRODUCT_TAX_DISPLAY_PRICES', 1),    // How to display product prices
+    'product_tax_display_prices'       => env('MARKET_PRODUCT_TAX_DISPLAY_PRICES', 1),    // How to display product prices
 
     // Type prices for shipping
     'shippingPricesValues'          => [
         (object)['id' => 1,      'name' => 'market::pulsar.excluding_tax'],
         (object)['id' => 2,      'name' => 'market::pulsar.including_tax']
     ],
-    'taxShippingPrices'             => env('MARKET_TAX_SHIPPING_PRICES', 1),           // Shipping prices type
-    'taxShippingDisplayPrices'      => env('MARKET_TAX_SHIPPING_DISPLAY_PRICES', 1),   // How to display shipping prices
+    'tax_shipping_prices'             => env('MARKET_TAX_SHIPPING_PRICES', 1),           // Shipping prices type
+    'tax_shipping_display_prices'      => env('MARKET_TAX_SHIPPING_DISPLAY_PRICES', 1),   // How to display shipping prices
 
     //******************************************************************************************************************
     //***   Stripe settings
