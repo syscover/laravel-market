@@ -101,7 +101,29 @@ class ProductService
         $object = collect($object);
         if($filterKeys) return $object->only($filterKeys)->toArray();
 
-        return  $object->only('id', 'lang_id', 'name', 'slug', 'description', 'sku', 'field_group_id', 'type_id', 'parent_id', 'weight', 'active', 'sort', 'price_type_id', 'subtotal', 'product_class_tax_id', 'data_lang', 'data')->toArray();
+        $object = $object->only(
+            'id',
+            'lang_id',
+            'name',
+            'slug',
+            'description',
+            'sku',
+            'field_group_id',
+            'type_id',
+            'parent_id',
+            'weight',
+            'active',
+            'sort',
+            'price_type_id',
+            'subtotal',
+            'product_class_tax_id',
+            'data_lang',
+            'data'
+        )->toArray();
+
+        if($object->get('weight') === null) $data['weight'] = 0;
+
+        return $object->toArray();
     }
 
     private static function checkCreate($object)

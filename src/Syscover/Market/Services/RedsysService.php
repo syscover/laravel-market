@@ -78,7 +78,7 @@ class RedsysService
             if (Redsys::check($params->key, $request->all()) && $DsResponse <= 99)
             {
                 // get order ID
-                $orderId =  str_replace(config('pulsar-market.orderIdSuffix'), '', $parameters['Ds_Order']);
+                $orderId =  str_replace(config('pulsar-market.order_id_suffix'), '', $parameters['Ds_Order']);
 
                 $order = Order::find((int)$orderId);
 
@@ -116,7 +116,7 @@ class RedsysService
             $parameters = Redsys::getMerchantParameters($request->input('Ds_MerchantParameters'));
 
             // get order ID
-            $orderId = str_replace(config('pulsar-market.orderIdSuffix'), '', $parameters['Ds_Order']);
+            $orderId = str_replace(config('pulsar-market.order_id_suffix'), '', $parameters['Ds_Order']);
 
             $order = Order::find($orderId);
 
@@ -145,7 +145,7 @@ class RedsysService
         if(config('pulsar-market.redsysMode') == 'test')
         {
             return (object)[
-                'suffix'                    => config('pulsar-market.orderIdSuffix'),
+                'suffix'                    => config('pulsar-market.order_id_suffix'),
                 'environment'               => config('pulsar-market.redsysMode'),
                 'key'                       => config('pulsar-market.redsysTestKey'),
                 'merchantName'              => config('pulsar-market.redsysTestMerchantName'),
@@ -165,7 +165,7 @@ class RedsysService
         elseif(config('market.redsysMode') == 'live')
         {
             return (object)[
-                'suffix'                    => config('pulsar-market.orderIdSuffix'),
+                'suffix'                    => config('pulsar-market.order_id_suffix'),
                 'environment'               => config('pulsar-market.redsysMode'),
                 'key'                       => config('pulsar-market.redsysLiveKey'),
                 'merchantName'              => config('pulsar-market.redsysLiveMerchantName'),
