@@ -119,7 +119,7 @@ class ProductService
             'product_class_tax_id',
             'data_lang',
             'data'
-        )->toArray();
+        );
 
         if($object->get('weight') === null) $data['weight'] = 0;
 
