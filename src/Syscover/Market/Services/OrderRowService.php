@@ -9,6 +9,16 @@ class OrderRowService
         return OrderRow::create(OrderRowService::builder($object));
     }
 
+    public static function update(array $object)
+    {
+        if(! empty($object['data'])) $object['data'] = json_encode($object['data']);
+        if(! empty($object['tax_rules'])) $object['tax_rules'] = json_encode($object['tax_rules']);
+
+        OrderRow::where('id', $object['id'])->update(OrderRow::builder($object));
+
+        return OrderRow::find($object['id']);
+    }
+
     public static function insert(array $objects)
     {
         $rows = [];
