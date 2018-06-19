@@ -99,29 +99,34 @@ class ProductService
     private static function builder($object, $filterKeys = null)
     {
         $object = collect($object);
-        if($filterKeys) return $object->only($filterKeys)->toArray();
+        if($filterKeys)
+        {
+            $object = $object->only($filterKeys);
+        }
+        else
+        {
+            $object = $object->only(
+                'id',
+                'lang_id',
+                'name',
+                'slug',
+                'description',
+                'sku',
+                'field_group_id',
+                'type_id',
+                'parent_id',
+                'weight',
+                'active',
+                'sort',
+                'price_type_id',
+                'subtotal',
+                'product_class_tax_id',
+                'data_lang',
+                'data'
+            );
+        }
 
-        $object = $object->only(
-            'id',
-            'lang_id',
-            'name',
-            'slug',
-            'description',
-            'sku',
-            'field_group_id',
-            'type_id',
-            'parent_id',
-            'weight',
-            'active',
-            'sort',
-            'price_type_id',
-            'subtotal',
-            'product_class_tax_id',
-            'data_lang',
-            'data'
-        );
-
-        if($object->get('weight') === null) $data['weight'] = 0;
+        if($object->has('weight') && $object->get('weight') === null) $data['weight'] = 0;
 
         return $object->toArray();
     }
