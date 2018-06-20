@@ -1,5 +1,6 @@
 <?php namespace Syscover\Market\Services;
 
+use Carbon\Carbon;
 use Syscover\Market\Models\Order;
 
 class OrderService
@@ -121,5 +122,20 @@ class OrderService
     private static function checkUpdate($object)
     {
         if(empty($object['id'])) throw new \Exception('You have to define a id field to update a order');
+    }
+
+    public function log($id, $message)
+    {
+        $order = Order::find($id);
+
+        if(! is_array($order->data['log'])) $order->data['log'] = [];
+
+        array_unshift($order->data['log'], [
+            'time'      => Carbon::now(config('app.timezone')),
+            'status'    => $order->status_id,
+            'message'   => $message
+        ]);
+
+        $order->save();
     }
 }
