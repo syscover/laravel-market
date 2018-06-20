@@ -8,14 +8,11 @@ class RedsysService
 {
     /**
      * Create payment across Redsys
-     *
-     * @param $order
-     * @param $xhr
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public static function createPayment($order, $xhr)
     {
-        try{
+        try
+        {
             $params     = RedsysService::parameters();
             $orderId    = RedsysService::getOrderId($order->id);
 
@@ -40,7 +37,8 @@ class RedsysService
             {
                 return Redsys::createForm();
             }
-            else {
+            else
+            {
                 return view('core::common.display', [
                     'content' => Redsys::executeRedirection()
                 ]);
@@ -59,10 +57,6 @@ class RedsysService
 
     /**
      * Actions to do when Redsys response is successful
-     *
-     * @param $request
-     * @return \Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model|null|static|static[]
-     * @throws \Exception
      */
     public static function successful($request)
     {
@@ -103,10 +97,6 @@ class RedsysService
 
     /**
      * Actions to do when Redsys response is error
-     *
-     * @param $request
-     * @return \Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model|null|static|static[]
-     * @throws \Exception
      */
     public static function error($request)
     {
@@ -137,9 +127,6 @@ class RedsysService
 
     /**
      * Get Redsys parameters
-     *
-     * @return object
-     * @throws \Exception
      */
     public static function parameters()
     {
@@ -189,15 +176,11 @@ class RedsysService
     }
 
     /**
-     * get order ID formated for Redsys
-     *
-     * @param $id
-     * @return string
+     * get order ID formated for Redsys with a 4 digits at least
      */
     private static function getOrderId($id)
     {
         if(strlen($id) < 4) $id = str_pad($id, 4, '0', STR_PAD_LEFT);
-
         return $id;
     }
 }

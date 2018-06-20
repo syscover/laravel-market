@@ -75,7 +75,7 @@ class CustomerDiscountHistoryService
         if(empty($object['customer_id']))       throw new \Exception('You have to define a customer_id field to create a customer history discount');
         if(empty($object['order_id']))          throw new \Exception('You have to define a order_id field to create a customer history discount');
         if(empty($object['rule_type']))         throw new \Exception('You have to define a rule_type field to create a customer history discount');
-        if(empty($object['price_rule']))        throw new \Exception('You have to define a price_rule field to create a customer history discount');
+        if(! is_array($object['price_rule']))   throw new \Exception('You have to define a price_rule field to create a customer history discount');
     }
 
     private static function checkUpdate($object)
