@@ -151,7 +151,7 @@ class Order extends CoreModel
     {
         return $this->hasMany(CustomerDiscountHistory::class, 'order_id');
     }
-    
+
     /**
      * Get subtotal
      *
