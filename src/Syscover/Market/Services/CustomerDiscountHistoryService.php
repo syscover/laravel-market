@@ -4,31 +4,19 @@ use Syscover\Market\Models\CustomerDiscountHistory;
 
 class CustomerDiscountHistoryService
 {
-    /**
-     * Function to create a order
-     *
-     * @param array $object
-     * @return  \Syscover\Market\Models\CustomerDiscountHistory
-     * @throws \Exception
-     */
     public static function create(array $object)
     {
-        if(empty($object['lang_id']))           throw new \Exception('You have to define a lang_id field to create a customer history discount');
-        if(empty($object['customer_id']))       throw new \Exception('customer_id is required');
-        if(empty($object['order_id']))          throw new \Exception('order_id is required');
-
+        CustomerDiscountHistoryService::checkCreate($object);
         return CustomerDiscountHistory::create(CustomerDiscountHistoryService::builder($object));
     }
 
-    /**
-     * @param   array $objects
-     * @return  bool
-     */
     public static function insert(array $objects)
     {
         $discounts = [];
         foreach ($objects as $object)
         {
+            CustomerDiscountHistoryService::checkCreate($object);
+
             if(! empty($object['names'])) $object['names'] = json_encode($object['names']);
             if(! empty($object['descriptions'])) $object['descriptions'] = json_encode($object['descriptions']);
             if(! empty($object['data_lang'])) $object['data_lang'] = json_encode($object['data_lang']);
@@ -40,12 +28,10 @@ class CustomerDiscountHistoryService
         return CustomerDiscountHistory::insert($discounts);
     }
 
-    /**
-     * @param array $object
-     * @return \Syscover\Market\Models\CustomerDiscountHistory
-     */
     public static function update(array $object)
     {
+        CustomerDiscountHistoryService::checkUpdate($object);
+
         if(! empty($object['names'])) $object['names'] = json_encode($object['names']);
         if(! empty($object['descriptions'])) $object['descriptions'] = json_encode($object['descriptions']);
         if(! empty($object['data_lang'])) $object['data_lang'] = json_encode($object['data_lang']);
@@ -56,10 +42,6 @@ class CustomerDiscountHistoryService
         return CustomerDiscountHistory::find($object['id']);
     }
 
-    /**
-     * @param array $object
-     * @return array
-     */
     private static function builder(array $object)
     {
         $object = collect($object);
@@ -85,5 +67,19 @@ class CustomerDiscountHistoryService
         if($object->has('price_rule'))                          $data['price_rule'] = $object->get('price_rule');
 
         return $data;
+    }
+
+    private static function checkCreate($object)
+    {
+        if(empty($object['lang_id']))           throw new \Exception('You have to define a lang_id field to create a customer history discount');
+        if(empty($object['customer_id']))       throw new \Exception('You have to define a customer_id field to create a customer history discount');
+        if(empty($object['order_id']))          throw new \Exception('You have to define a order_id field to create a customer history discount');
+        if(empty($object['rule_type']))         throw new \Exception('You have to define a rule_type field to create a customer history discount');
+        if(empty($object['price_rule']))        throw new \Exception('You have to define a price_rule field to create a customer history discount');
+    }
+
+    private static function checkUpdate($object)
+    {
+        if(empty($object['id'])) throw new \Exception('You have to define a id field to update a customer history discount');
     }
 }

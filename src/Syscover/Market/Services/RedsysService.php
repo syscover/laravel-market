@@ -162,7 +162,7 @@ class RedsysService
 
             ];
         }
-        elseif(config('market.redsysMode') == 'live')
+        elseif(config('pulsar-market.redsysMode') == 'live')
         {
             return (object)[
                 'suffix'                    => config('pulsar-market.order_id_suffix'),

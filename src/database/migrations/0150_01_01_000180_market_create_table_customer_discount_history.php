@@ -25,7 +25,7 @@ class MarketCreateTableCustomerDiscountHistory extends Migration
                 // if order is canceled, you can deactivate discounts
                 $table->boolean('applied')->default(true);
 
-                // name of model:
+                // name of discount model:
                 // CartPriceRule
                 // CatalogPriceRule
                 // CustomerPriceRule
@@ -38,7 +38,7 @@ class MarketCreateTableCustomerDiscountHistory extends Migration
                 $table->boolean('has_coupon')->default(false);
                 $table->string('coupon_code')->nullable();
 
-                // see config/market.php section Discount type on shopping cart
+                // see config/pulsar-market.php section Discount type on shopping cart
                 // 1 - without discount
                 // 2 - discount percentage subtotal
                 // 3 - discount fixed amount subtotal

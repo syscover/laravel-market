@@ -6,17 +6,14 @@ class OrderService
 {
     public static function create(array $object)
     {
-        if(empty($object['payment_method_id'])) throw new \Exception('payment_method_id is required');
-        if(empty($object['status_id']))         throw new \Exception('status_id is required');
-        if(empty($object['customer_id']))       throw new \Exception('customer_id is required');
-        if(empty($object['customer_group_id'])) throw new \Exception('customer_group_id is required');
-        if(empty($object['customer_email']))    throw new \Exception('customer_email is required');
-
+        OrderService::checkCreate($object);
         return Order::create(OrderService::builder($object));
     }
 
     public static function update(array $object)
     {
+        OrderService::checkUpdate($object);
+
         if(! empty($object['data'])) $object['data'] = json_encode($object['data']);
 
         Order::where('id', $object['id'])->update(OrderService::builder($object));
@@ -110,5 +107,19 @@ class OrderService
         }
 
         return $object->toArray();
+    }
+
+    private static function checkCreate($object)
+    {
+        if(empty($object['payment_method_id'])) throw new \Exception('You have to define a payment_method_id field to create a order');
+        if(empty($object['status_id']))         throw new \Exception('You have to define a status_id field to create a order');
+        if(empty($object['customer_id']))       throw new \Exception('You have to define a customer_id field to create a order');
+        if(empty($object['customer_group_id'])) throw new \Exception('You have to define a customer_group_id field to create a order');
+        if(empty($object['customer_email']))    throw new \Exception('You have to define a customer_email field to create a order');
+    }
+
+    private static function checkUpdate($object)
+    {
+        if(empty($object['id'])) throw new \Exception('You have to define a id field to update a order');
     }
 }
