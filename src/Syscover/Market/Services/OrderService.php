@@ -126,14 +126,9 @@ class OrderService
 
     public static function log($id, $message)
     {
-        if(is_numeric($id))
-        {
-            $order = Order::find($id);
-        }
-        elseif(is_object($id) && get_class($id) === 'Syscover\Market\Models\Order')
-        {
-            $order = $id;
-        }
+        $order = Order::find($id);
+
+        if(! $order) return null;
 
         if(! is_array($order->data['log'])) $order->data['log'] = [];
 

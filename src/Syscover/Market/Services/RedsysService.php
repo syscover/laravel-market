@@ -33,7 +33,7 @@ class RedsysService
             Redsys::setMerchantSignature(Redsys::generateMerchantSignature($params->key));      // key
             Redsys::setIdForm('marketPaymentForm');
 
-            OrderService::log($order, __('market::pulsar.message_customer_throw_to_redsys'));
+            OrderService::log($order->id, __('market::pulsar.message_customer_throw_to_redsys'));
 
             if($xhr)
             {
@@ -41,15 +41,13 @@ class RedsysService
             }
             else
             {
-                return view('core::common.display', [
-                    'content' => Redsys::executeRedirection()
-                ]);
+                return view('core::common.display', ['content' => Redsys::executeRedirection()]);
             }
         }
         catch(\Exception $e)
         {
             // log register on order
-            OrderService::log($order, __('market::pulsar.message_customer_redsys_error', ['error' => $e->getMessage()]));
+            OrderService::log($order->id, __('market::pulsar.message_customer_redsys_error', ['error' => $e->getMessage()]));
             Log::error($e->getMessage());
         }
     }
