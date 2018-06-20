@@ -33,6 +33,8 @@ class RedsysService
             Redsys::setMerchantSignature(Redsys::generateMerchantSignature($params->key));      // key
             Redsys::setIdForm('marketPaymentForm');
 
+            OrderService::log($order, __('market::pulsar.message_customer_throw_to_redsys'));
+
             if($xhr)
             {
                 return Redsys::createForm();
@@ -44,13 +46,10 @@ class RedsysService
                 ]);
             }
         }
-        catch(\Exception $e) {
+        catch(\Exception $e)
+        {
             // log register on order
-            $order->setOrderLog(trans('market::pulsar.message_customer_go_to_tpv_error', [
-                'error' => $e->getMessage()
-            ]));
-
-            // log
+            OrderService::log($order, __('market::pulsar.message_customer_redsys_error', ['error' => $e->getMessage()]));
             Log::error($e->getMessage());
         }
     }
