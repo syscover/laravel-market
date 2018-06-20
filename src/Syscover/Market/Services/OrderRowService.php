@@ -110,7 +110,7 @@ class OrderRowService
         if(! is_numeric($object['discount_total_fixed_amount']))            throw new \Exception('You have to define a discount_total_fixed_amount field to create a order row');
         if(! is_numeric($object['discount_amount']))                        throw new \Exception('You have to define a discount_amount field to create a order row');
         if(! is_numeric($object['subtotal_with_discounts']))                throw new \Exception('You have to define a subtotal_with_discounts field to create a order row');
-        if(! is_array($object['tax_rules']))                                throw new \Exception('You have to define a tax_rules field to create a order row');
+        if(empty($object['tax_rules']))                                     throw new \Exception('You have to define a tax_rules field to create a order row');
         if(! is_numeric($object['tax_amount']))                             throw new \Exception('You have to define a tax_amount field to create a order row');
         if(! is_numeric($object['total']))                                  throw new \Exception('You have to define a total field to create a order row');
     }
