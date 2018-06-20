@@ -124,7 +124,7 @@ class OrderService
         if(empty($object['id'])) throw new \Exception('You have to define a id field to update a order');
     }
 
-    public function log($id, $message)
+    public static function log($id, $message)
     {
         if(is_numeric($id))
         {
