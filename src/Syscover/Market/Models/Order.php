@@ -151,46 +151,7 @@ class Order extends CoreModel
     {
         return $this->hasMany(CustomerDiscountHistory::class, 'order_id');
     }
-
-    public function setLog($message)
-    {
-        if(! is_array($this->data['log']))
-        {
-            $this->data['log'] = [];
-        }
-
-        array_unshift($this->data['log'], [
-            'time'      => Carbon::now(config('app.timezone')),
-            'status'    => $this->status_id,
-            'message'   => $message
-        ]);
-
-        $this->save();
-    }
-
-
-
-
-
-
-
-//    public function setOrderLog($message)
-//    {
-//        $dataOrder = $this->data['log'];
-//
-//        if(! isset($dataOrder['log'])) $dataOrder['log'] = [];
-//
-//        array_unshift($dataOrder['log'], [
-//            'time'      => Carbon::now(config('app.timezone')),
-//            'status'    => $this->status_id,
-//            'message'   => $message
-//        ]);
-//
-//        Order::where('id', $this->id)->update([
-//            'data' => json_encode($dataOrder)
-//        ]);
-   // }
-
+    
     /**
      * Get subtotal
      *
