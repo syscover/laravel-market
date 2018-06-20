@@ -52,7 +52,8 @@ class RedsysService
                 'error' => $e->getMessage()
             ]));
 
-            echo $e->getMessage();
+            // log
+            Log::error($e->getMessage());
         }
     }
 

@@ -40,28 +40,30 @@ class PaymentMethodService
 
     private static function checkUpdate($object)
     {
-        if(empty($object['ix']))   throw new \Exception('You have to define a ix field to update a payment method');
-        if(empty($object['id']))      throw new \Exception('You have to define a id field to update a payment method');
+        if(empty($object['ix']))        throw new \Exception('You have to define a ix field to update a payment method');
+        if(empty($object['id']))        throw new \Exception('You have to define a id field to update a payment method');
     }
 
-    public static function managePaymentMethod($request, $order, $xhr = false)
+    public static function createPaymentMethod($paymentMethodId, $order, $xhr = false)
     {
         // Redsys Payment (debit and credit cart)
-        if($request->input('payment_method_id') === '1')
+        if((int) $paymentMethodId === 1)
         {
             return RedsysService::createPayment($order, $xhr);
         }
 
         // PayPal Payment
-        elseif($request->input('payment_method_id') === '2')
+        elseif((int) $paymentMethodId === 2)
         {
             return PayPalService::createPayment($order, $xhr);
         }
 
         // Stripe Payment
-        elseif($request->input('payment_method_id') === '4')
+        elseif((int) $paymentMethodId === 4)
         {
 
         }
+
+        throw new \Exception('You have to define a payment method valid to manage payment method');
     }
 }
