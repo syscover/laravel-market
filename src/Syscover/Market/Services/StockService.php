@@ -41,7 +41,7 @@ class StockService
         $object = collect($object);
         if($filterKeys) return $object->only($filterKeys)->toArray();
 
-        return  $object->only('warehouse_id', 'product_id', 'stock', 'minimum_stock')->toArray();
+        return  $object->only(['warehouse_id', 'product_id', 'stock', 'minimum_stock'])->toArray();
     }
 
     private static function checkCreate($object)

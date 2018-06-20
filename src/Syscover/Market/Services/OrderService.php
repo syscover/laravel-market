@@ -31,7 +31,7 @@ class OrderService
         }
         else
         {
-            $object = $object->only(
+            $object = $object->only([
                 'date',
                 'payment_method_id',
                 'status_id',
@@ -103,7 +103,7 @@ class OrderService
                 'gift_to',
                 'gift_message',
                 'gift_comments'
-            );
+            ]);
         }
 
         return $object->toArray();

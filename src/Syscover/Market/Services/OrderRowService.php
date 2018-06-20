@@ -47,7 +47,7 @@ class OrderRowService
         }
         else
         {
-            $object = $object->only(
+            $object = $object->only([
                 'lang_id',
                 'order_id',
                 'product_id',
@@ -88,7 +88,7 @@ class OrderRowService
                 'gift_to',
                 'gift_message',
                 'gift_comments'
-            );
+            ]);
         }
 
         return $object->toArray();

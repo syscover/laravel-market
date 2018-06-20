@@ -29,7 +29,7 @@ class OrderStatusService
         $object = collect($object);
         if($filterKeys) $object = $object->only($filterKeys);
 
-        return $object->only('id', 'lang_id', 'name', 'active', 'data_lang')->toArray();
+        return $object->only(['id', 'lang_id', 'name', 'active', 'data_lang'])->toArray();
     }
 
     private static function checkCreate($object)

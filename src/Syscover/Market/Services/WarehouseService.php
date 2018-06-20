@@ -20,7 +20,7 @@ class WarehouseService
     private static function builder($object)
     {
         $object = collect($object);
-        return $object->only('name', 'country_id', 'territorial_area_1_id', 'territorial_area_2_id', 'territorial_area_3_id', 'zip', 'locality', 'address', 'latitude', 'longitude', 'active')->toArray();
+        return $object->only(['name', 'country_id', 'territorial_area_1_id', 'territorial_area_2_id', 'territorial_area_3_id', 'zip', 'locality', 'address', 'latitude', 'longitude', 'active'])->toArray();
     }
 
     private static function checkCreate($object)

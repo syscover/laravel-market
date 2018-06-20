@@ -105,7 +105,7 @@ class ProductService
         }
         else
         {
-            $object = $object->only(
+            $object = $object->only([
                 'id',
                 'lang_id',
                 'name',
@@ -123,7 +123,7 @@ class ProductService
                 'product_class_tax_id',
                 'data_lang',
                 'data'
-            );
+            ]);
         }
 
         if($object->has('weight') && $object->get('weight') === null) $data['weight'] = 0;
