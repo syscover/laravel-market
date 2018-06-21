@@ -35,8 +35,8 @@ class RedsysService
             Redsys::setAmount($order->getTotal(2, '.', ''));
 
             // set urls
-            Redsys::setUrlOk(route($params->redsysSuccessfulRoute));
-            Redsys::setUrlKo(route($params->redsysErrorRoute));
+            Redsys::setUrlOk(route($params->successfulRoute));
+            Redsys::setUrlKo(route($params->errorRoute));
 
             // log
             OrderService::log($order->id, __('market::pulsar.message_customer_throw_to_redsys'));
@@ -61,24 +61,25 @@ class RedsysService
     }
 
     /**
-     * Actions to do when Redsys response is successful
+     * Create async response for Redsys
      */
-    public static function successful($request)
+    public function asyncResponse()
     {
         // log
-        Log::info('Enter in RedsysService::successful service whit parameters', $request->all());
+        Log::info('Enter in market.redsys.notification route whit parameters', request()->all());
 
         $params = RedsysService::parameters();
 
-        try {
-            $parameters = Redsys::getMerchantParameters($request->input('Ds_MerchantParameters'));
+        try
+        {
+            $parameters = Redsys::getMerchantParameters(request('Ds_MerchantParameters'));
             $DsResponse = $parameters['Ds_Response'];
             $DsResponse += 0;
 
-            if (Redsys::check($params->key, $request->all()) && $DsResponse <= 99)
+            if(Redsys::check($params->key, request()->all()) && $DsResponse <= 99)
             {
                 // get order ID
-                $orderId =  str_replace(config('pulsar-market.order_id_suffix'), '', $parameters['Ds_Order']);
+                $orderId = str_replace(config('pulsar-market.order_id_suffix'), '', $parameters['Ds_Order']);
 
                 $order = Order::find((int)$orderId);
 
@@ -86,6 +87,56 @@ class RedsysService
                 $paymentMethod      = $order->payment_methods->where('lang_id', user_lang())->first();
                 $order->status_id   = $paymentMethod->order_status_successful_id;
                 $order->save();
+
+                // log register on order
+                OrderService::log($order->id, __('market::pulsar.message_redsys_payment_successful'));
+
+                return response()->json([
+                    'status'    => 'success'
+                ]);
+            }
+            else
+            {
+                Log::error('Error in api.market.redsys_async_response route whit parameters: ', $DsResponse);
+
+                return response()->json([
+                    'status'    => 'error',
+                    'message'   => $DsResponse
+                ]);
+            }
+        }
+        catch(\Exception $e)
+        {
+            Log::error('Error exception in market.redsys.notification route', $e->getMessage());
+
+            return response()->json([
+                'status'    => 'error',
+                'message'   => $e->getMessage()
+            ]);
+        }
+    }
+
+    /**
+     * Actions to do when Redsys response is successful
+     */
+    public static function successful()
+    {
+        // log
+        Log::info('Enter in RedsysService::successful service whit parameters', request()->all());
+
+        $params = RedsysService::parameters();
+
+        try {
+            $parameters = Redsys::getMerchantParameters(request('Ds_MerchantParameters'));
+            $DsResponse = $parameters['Ds_Response'];
+            $DsResponse += 0;
+
+            if (Redsys::check($params->key, request()->all()) && $DsResponse <= 99)
+            {
+                // get order ID
+                $orderId =  str_replace(config('pulsar-market.order_id_suffix'), '', $parameters['Ds_Order']);
+
+                $order = Order::find((int)$orderId);
 
                 return $order;
             }
@@ -103,13 +154,13 @@ class RedsysService
     /**
      * Actions to do when Redsys response is error
      */
-    public static function error($request)
+    public static function error()
     {
         // log
-        Log::info('Enter in RedsysService::error service whit parameters', $request->all());
+        Log::info('Enter in RedsysService::error service whit parameters', request()->all());
 
         try {
-            $parameters = Redsys::getMerchantParameters($request->input('Ds_MerchantParameters'));
+            $parameters = Redsys::getMerchantParameters(request('Ds_MerchantParameters'));
 
             // get order ID
             $orderId = str_replace(config('pulsar-market.order_id_suffix'), '', $parameters['Ds_Order']);
@@ -143,10 +194,7 @@ class RedsysService
                 'key'                       => config('pulsar-market.redsys_test_key'),
                 'method'                    => config('pulsar-market.redsys_test_method'),
                 'transactionType'           => config('pulsar-market.redsys_test_transaction_type'),
-                'version'                   => config('pulsar-market.redsys_test_version'),
-                'redsysSuccessfulRoute'     => config('pulsar-market.redsysSuccessfulRoute'),
-                'redsysErrorRoute'          => config('pulsar-market.redsysErrorRoute'),
-
+                'version'                   => config('pulsar-market.redsys_test_version')
             ];
         }
         elseif(config('pulsar-market.redsys_mode') == 'live')
@@ -160,9 +208,7 @@ class RedsysService
                 'key'                       => config('pulsar-market.redsys_live_key'),
                 'method'                    => config('pulsar-market.redsys_live_method'),
                 'transactionType'           => config('pulsar-market.redsys_live_transaction_type'),
-                'version'                   => config('pulsar-market.redsys_live_version'),
-                'redsysSuccessfulRoute'     => config('pulsar-market.redsysSuccessfulRoute'),
-                'redsysErrorRoute'          => config('pulsar-market.redsysErrorRoute'),
+                'version'                   => config('pulsar-market.redsys_live_version')
             ];
         }
         else
@@ -173,6 +219,10 @@ class RedsysService
         $parameters['asyncResponseRoute']   = config('pulsar-market.redsys_async_response_route');
         $parameters['orderIdSuffix']        = config('pulsar-market.order_id_suffix');
         $parameters['environment']          = config('pulsar-market.redsys_mode');
+
+        // routes
+        $parameters['successfulRoute']      = config('pulsar-market.redsys_successful_route');
+        $parameters['errorRoute']           = config('pulsar-market.redsys_error_route');
 
         return (object)$parameters;
     }

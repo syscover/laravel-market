@@ -66,8 +66,8 @@ return [
     // Redsys mode, test | live
     'redsys_mode'                   => env('MARKET_REDSYS_MODE', ''),
     'redsys_async_response_route'   => env('MARKET_REDSYS_ASYNC_RESPONSE_ROUTE', 'api.market.redsys_async_response'),
-    'redsys_successful_route'       => env('MARKET_REDSYS_SUCCESSFUL_ROUTE'),
-    'redsys_error_route'            => env('MARKET_REDSYS_ERROR_ROUTE'),
+    'redsys_successful_route'       => env('MARKET_REDSYS_SUCCESSFUL_ROUTE', 'pulsar.market.redsys_payment_successful'),
+    'redsys_error_route'            => env('MARKET_REDSYS_ERROR_ROUTE', 'pulsar.market.redsys_payment_error'),
 
     // TEST
     'redsys_test_merchant_name'     => env('MARKET_REDSYS_TEST_MERCHANT_NAME', ''),
