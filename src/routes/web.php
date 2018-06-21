@@ -7,7 +7,7 @@
 //});
 
 /* REDSYS */
-Route::get('redsys/payment/response/successful',        'Syscover\Market\Controllers\RedsysController@successful')->name('pulsar.market.redsys_payment_successful');
-Route::get('redsys/payment/response/failure',           'Syscover\Market\Controllers\RedsysController@error')->name('pulsar.market.redsys_payment_error');
+Route::get('redsys/payment/response/successful',        '\Syscover\Market\Controllers\RedsysController@successful')->name('pulsar.market.redsys_payment_successful');
+Route::get('redsys/payment/response/failure',           '\Syscover\Market\Controllers\RedsysController@error')->name('pulsar.market.redsys_payment_error');
 
 /* PAYPAL */

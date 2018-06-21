@@ -16,6 +16,11 @@ class RedsysService
             $params     = RedsysService::parameters();
             $orderId    = RedsysService::getOrderId($order->id);
 
+            /****************************************************************
+             * Attention!! the order of the definition of the parameters
+             * can affect the correct execution of the script
+             *****************************************************************/
+            
             // set values
             Redsys::setOrder($orderId . $params->orderIdSuffix);
             Redsys::setAmount($order->getTotal(2, '.', ''));
@@ -28,7 +33,6 @@ class RedsysService
             Redsys::setMerchantcode($params->merchantCode);
             Redsys::setTerminal($params->terminal);
             Redsys::setCurrency($params->currency);
-            Redsys::setMerchantSignature(Redsys::generateMerchantSignature($params->key));      // key
             Redsys::setTransactiontype($params->transactionType);
             Redsys::setVersion($params->version);
             Redsys::setIdForm('marketPaymentForm');
@@ -37,6 +41,9 @@ class RedsysService
             Redsys::setNotification(route($params->asyncResponseRoute));
             Redsys::setUrlOk(route($params->successfulRoute));
             Redsys::setUrlKo(route($params->errorRoute));
+
+            // set signature
+            Redsys::setMerchantSignature(Redsys::generateMerchantSignature($params->key));      // key
 
             // log
             OrderService::log($order->id, __('market::pulsar.message_customer_throw_to_redsys'));
