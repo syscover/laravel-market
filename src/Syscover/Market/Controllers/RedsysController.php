@@ -25,7 +25,10 @@ class RedsysController extends BaseController
 
         foreach ($responses as $response)
         {
-            if(View::exists($response)) return view($response, ['order' => $order]);
+            if(View::exists($response)) return view($response, [
+                'order'     => $order,
+                'status'    => 'successful'
+            ]);
         }
 
         return null;
@@ -39,7 +42,10 @@ class RedsysController extends BaseController
 
         foreach ($responses as $response)
         {
-            if(View::exists($response)) return view($response, ['order' => $order]);
+            if(View::exists($response)) return view($response, [
+                'order'     => $order,
+                'status'    => 'error'
+            ]);
         }
 
         return null;
