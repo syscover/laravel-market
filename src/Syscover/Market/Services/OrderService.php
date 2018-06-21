@@ -130,14 +130,20 @@ class OrderService
 
         if(! $order) return null;
 
-        if(! is_array($order->data['log'])) $order->data['log'] = [];
+        if(! is_array($order->data)) $order->data = [];
+        if(! isset($order->data['log']) || ! is_array($order->data['log'])) $order->data = array_merge($order->data, ['log' => []]);
 
-        array_unshift($order->data['log'], [
-            'time'      => Carbon::now(config('app.timezone')),
+        // get data field
+        $data = $order->data;
+
+        // add log object to log array
+        array_unshift($data['log'], [
+            'time'      => Carbon::now(config('app.timezone'))->toDateTimeString(),
             'status'    => $order->status_id,
             'message'   => $message
         ]);
 
+        $order->data = $data;
         $order->save();
     }
 }

@@ -9,7 +9,7 @@ use Syscover\Market\Services\RedsysService;
 
 class RedsysController extends BaseController
 {
-    public function index(Request $request)
+    public function asyncResponse(Request $request)
     {
         // log
         Log::info('Enter in market.redsys.notification route whit parameters', $request->all());

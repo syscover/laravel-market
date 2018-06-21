@@ -60,7 +60,36 @@ return [
     'tax_shipping_prices'           => env('MARKET_TAX_SHIPPING_PRICES', 1),           // Shipping prices type
     'tax_shipping_display_prices'   => env('MARKET_TAX_SHIPPING_DISPLAY_PRICES', 1),   // How to display shipping prices
 
+    //******************************************************************************************************************
+    //***   RedSys settings
+    //******************************************************************************************************************
+    // Redsys mode, test | live
+    'redsys_mode'                   => env('MARKET_REDSYS_MODE', ''),
+    'redsys_async_response_route'   => env('MARKET_REDSYS_ASYNC_RESPONSE_ROUTE', 'api.market.redsys_async_response'),
+    'redsys_successful_route'       => env('MARKET_REDSYS_SUCCESSFUL_ROUTE'),
+    'redsys_error_route'            => env('MARKET_REDSYS_ERROR_ROUTE'),
 
+    // TEST
+    'redsys_test_merchant_name'     => env('MARKET_REDSYS_TEST_MERCHANT_NAME', ''),
+    'redsys_test_description_trans' => env('MARKET_REDSYS_TEST_DESCRIPTION_TRANS', 'market:pulsar.order_payment'),
+    'redsys_test_merchant_cde'      => env('MARKET_REDSYS_TEST_MERCHANT_CODE', ''),
+    'redsys_test_terminal'          => env('MARKET_REDSYS_TEST_TERMINAL', '001'),
+    'redsys_test_currency'          => env('MARKET_REDSYS_TEST_CURRENCY', '978'),
+    'redsys_test_key'               => env('MARKET_REDSYS_TEST_KEY', ''),
+    'redsys_test_method'            => env('MARKET_REDSYS_TEST_METHOD', 'T'),
+    'redsys_test_transaction_type'  => env('MARKET_REDSYS_TEST_TRANSACTION_TYPE', '0'),
+    'redsys_test_version'           => env('MARKET_REDSYS_TEST_VERSION', 'HMAC_SHA256_V1'),
+
+    // LIVE
+    'redsys_live_merchant_name'     => env('MARKET_REDSYS_LIVE_MERCHANT_NAME', ''),
+    'redsys_live_description_trans' => env('MARKET_REDSYS_LIVE_DESCRIPTION_TRANS', 'market:pulsar.order_payment'),
+    'redsys_live_merchant_cde'      => env('MARKET_REDSYS_LIVE_MERCHANT_CODE', ''),
+    'redsys_live_terminal'          => env('MARKET_REDSYS_LIVE_TERMINAL', '001'),
+    'redsys_live_currency'          => env('MARKET_REDSYS_LIVE_CURRENCY', '978'),
+    'redsys_live_key'               => env('MARKET_REDSYS_LIVE_KEY', ''),
+    'redsys_live_method'            => env('MARKET_REDSYS_LIVE_METHOD', 'T'),
+    'redsys_live_transaction_type'  => env('MARKET_REDSYS_LIVE_TRANSACTION_TYPE', '0'),
+    'redsys_live_version'           => env('MARKET_REDSYS_LIVE_VERSION', 'HMAC_SHA256_V1'),
 
 
 
@@ -121,36 +150,5 @@ return [
     'payPalDisplayShippingDataTypes' => [
         (object)['id' => 0,      'name' => 'market::pulsar.display_shipping_address'],
         (object)['id' => 1,      'name' => 'market::pulsar.not_display_shipping_address'],
-    ],
-
-    //******************************************************************************************************************
-    //***   RedSys settings
-    //******************************************************************************************************************
-    // Redsys mode, test | live
-    'redsysMode'                    => env('MARKET_REDSYS_MODE', ''),
-    'redsysAsyncRoute'              => env('MARKET_REDSYS_ASYNC_ROUTE', 'market.redsys.notification'),
-    'redsysSuccessfulRoute'         => env('MARKET_REDSYS_SUCCESSFUL_ROUTE', 'marketRedsysSuccessful'),
-    'redsysErrorRoute'              => env('MARKET_REDSYS_ERROR_ROUTE', 'marketRedsysError'),
-
-    // TEST
-    'redsysTestMerchantName'        => env('MARKET_REDSYS_TEST_MERCHANT_NAME', ''),
-    'redsysTestDescriptionTrans'    => env('MARKET_REDSYS_TEST_DESCRIPTION_TRANS', 'market:pulsar.order_payment'),
-    'redsysTestMerchantCode'        => env('MARKET_REDSYS_TEST_MERCHANT_CODE', ''),
-    'redsysTestTerminal'            => env('MARKET_REDSYS_TEST_TERMINAL', '001'),
-    'redsysTestCurrency'            => env('MARKET_REDSYS_TEST_CURRENCY', '978'),
-    'redsysTestKey'                 => env('MARKET_REDSYS_TEST_KEY', ''),
-    'redsysTestMethod'              => env('MARKET_REDSYS_TEST_METHOD', 'T'),
-    'redsysTestTransactionType'     => env('MARKET_REDSYS_TEST_TRANSACTION_TYPE', '0'),
-    'redsysTestVersion'             => env('MARKET_REDSYS_TEST_VERSION', 'HMAC_SHA256_V1'),
-
-    // LIVE
-    'redsysLiveMerchantName'        => env('MARKET_REDSYS_LIVE_MERCHANT_NAME', ''),
-    'redsysLiveDescriptionTrans'    => env('MARKET_REDSYS_LIVE_DESCRIPTION_TRANS', 'market:pulsar.order_payment'),
-    'redsysLiveMerchantCode'        => env('MARKET_REDSYS_LIVE_MERCHANT_CODE', ''),
-    'redsysLiveTerminal'            => env('MARKET_REDSYS_LIVE_TERMINAL', '001'),
-    'redsysLiveCurrency'            => env('MARKET_REDSYS_LIVE_CURRENCY', '978'),
-    'redsysLiveKey'                 => env('MARKET_REDSYS_LIVE_KEY', ''),
-    'redsysLiveMethod'              => env('MARKET_REDSYS_LIVE_METHOD', 'T'),
-    'redsysLiveTransactionType'     => env('MARKET_REDSYS_LIVE_TRANSACTION_TYPE', '0'),
-    'redsysLiveVersion'             => env('MARKET_REDSYS_LIVE_VERSION', 'HMAC_SHA256_V1'),
+    ]
 ];

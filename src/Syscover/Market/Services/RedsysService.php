@@ -127,31 +127,31 @@ class RedsysService
      */
     public static function parameters()
     {
-        if(config('pulsar-market.redsysMode') == 'test')
+        if(config('pulsar-market.redsys_mode') == 'test')
         {
             return (object)[
                 'suffix'                    => config('pulsar-market.order_id_suffix'),
-                'environment'               => config('pulsar-market.redsysMode'),
+                'environment'               => config('pulsar-market.redsys_mode'),
                 'key'                       => config('pulsar-market.redsysTestKey'),
-                'merchantName'              => config('pulsar-market.redsysTestMerchantName'),
+                'merchantName'              => config('pulsar-market.redsys_test_merchant_name'),
                 'merchantCode'              => config('pulsar-market.redsysTestMerchantCode'),
                 'currency'                  => config('pulsar-market.redsysTestCurrency'),
                 'terminal'                  => config('pulsar-market.redsysTestTerminal'),
                 'method'                    => config('pulsar-market.redsysTestMethod'),
                 'transactionType'           => config('pulsar-market.redsysTestTransactionType'),
                 'version'                   => config('pulsar-market.redsysTestVersion'),
-                'descriptionTrans'          => config('pulsar-market.redsysTestDescriptionTrans'),
+                'descriptionTrans'          => config('pulsar-market.redsys_test_description_trans'),
                 'redsysAsyncRoute'          => config('pulsar-market.redsysAsyncRoute'),
                 'redsysSuccessfulRoute'     => config('pulsar-market.redsysSuccessfulRoute'),
                 'redsysErrorRoute'          => config('pulsar-market.redsysErrorRoute'),
 
             ];
         }
-        elseif(config('pulsar-market.redsysMode') == 'live')
+        elseif(config('pulsar-market.redsys_mode') == 'live')
         {
             return (object)[
                 'suffix'                    => config('pulsar-market.order_id_suffix'),
-                'environment'               => config('pulsar-market.redsysMode'),
+                'environment'               => config('pulsar-market.redsys_mode'),
                 'key'                       => config('pulsar-market.redsysLiveKey'),
                 'merchantName'              => config('pulsar-market.redsysLiveMerchantName'),
                 'merchantCode'              => config('pulsar-market.redsysLiveMerchantCode'),
