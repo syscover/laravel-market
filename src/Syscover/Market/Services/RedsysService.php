@@ -16,6 +16,10 @@ class RedsysService
             $params     = RedsysService::parameters();
             $orderId    = RedsysService::getOrderId($order->id);
 
+            // set values
+            Redsys::setOrder($orderId . $params->orderIdSuffix);
+            Redsys::setAmount($order->getTotal(2, '.', ''));
+
             // params
             Redsys::setTitular($order->customer_name . ' ' . $order->customer_surname);
             Redsys::setEnviroment($params->environment);
@@ -28,13 +32,9 @@ class RedsysService
             Redsys::setTransactiontype($params->transactionType);
             Redsys::setVersion($params->version);
             Redsys::setIdForm('marketPaymentForm');
-            Redsys::setNotification(route($params->asyncResponseRoute));
-
-            // set values
-            Redsys::setOrder($orderId . $params->orderIdSuffix);
-            Redsys::setAmount($order->getTotal(2, '.', ''));
 
             // set urls
+            Redsys::setNotification(route($params->asyncResponseRoute));
             Redsys::setUrlOk(route($params->successfulRoute));
             Redsys::setUrlKo(route($params->errorRoute));
 
