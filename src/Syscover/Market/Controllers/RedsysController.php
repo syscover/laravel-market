@@ -1,6 +1,7 @@
 <?php namespace Syscover\Market\Controllers;
 
 use Illuminate\Routing\Controller as BaseController;
+use Illuminate\Support\Facades\View;
 use Syscover\Market\Events\RedsysResponseError;
 use Syscover\Market\Events\RedsysResponseSuccessful;
 use Syscover\Market\Services\RedsysService;
@@ -20,33 +21,21 @@ class RedsysController extends BaseController
     {
         $order = RedsysService::successful();
 
-        $response = event(new RedsysResponseSuccessful($order));
+        $view = event(new RedsysResponseSuccessful($order));
 
-        return $this->getView($response);
+        if(View::exists($view)) return view($view, ['order' => $order]);
+
+        return null;
     }
 
     public function error()
     {
         $order = RedsysService::error();
 
-        $response = event(new RedsysResponseError($order));
+        $view = event(new RedsysResponseError($order));
 
-        return $this->getView($response);
-    }
+        if(View::exists($view)) return view($view, ['order' => $order]);
 
-    private function getView($response)
-    {
-        $filtered = collect($response)->filter(function ($value, $key) {
-            return $key === 'view';
-        });
-
-        if($filtered->count() > 0)
-        {
-            return view($filtered->get('view'));
-        }
-        else
-        {
-            return null;
-        }
+        return null;
     }
 }
