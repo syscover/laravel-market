@@ -9,7 +9,11 @@ class RedsysController extends BaseController
 {
     public function asyncResponse()
     {
-        return RedsysService::asyncResponse();
+        $response = RedsysService::asyncResponse();
+
+        event(new RedsysAsyncResponse($response['order']));
+
+        return response()->json($response);
     }
 
     public function successful()

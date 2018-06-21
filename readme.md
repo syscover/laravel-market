@@ -159,3 +159,30 @@ MARKET_REDSYS_LIVE_MERCHANT_NAME="MERCHANT NAME"
 MARKET_REDSYS_LIVE_MERCHANT_CODE=xxxxxxxxx
 MARKET_REDSYS_LIVE_KEY=xXxXxXxXxXxXxXxXxXxXxXxXxXxXxXxXx
 ```
+
+**Options**
+
+You can register this events in app/Providers/EventServiceProvider.php to manage various actions. 
+
+```
+protected $listen = [
+    ...
+    'Syscover\Market\Events\RedsysResponseSuccessful' => [
+        'App\Listeners\YourListener'
+    ],
+    ...
+];
+```
+
+##### Event when response is call from REDSYS server
+```
+Syscover\Market\Events\RedsysAsyncResponse
+```
+##### Event when response from REDSYS payment is successful
+```
+Syscover\Market\Events\RedsysResponseSuccessful
+```
+##### Event when response from REDSYS payment is error
+```
+Syscover\Market\Events\RedsysResponseError
+```

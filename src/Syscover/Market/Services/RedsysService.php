@@ -91,28 +91,31 @@ class RedsysService
                 // log register on order
                 OrderService::log($order->id, __('market::pulsar.message_redsys_payment_successful'));
 
-                return response()->json([
-                    'status'    => 'success'
-                ]);
+                return [
+                    'status'    => 'success',
+                    'order'     => $order
+                ];
             }
             else
             {
                 Log::error('Error in api.market.redsys_async_response route whit parameters: ', $DsResponse);
 
-                return response()->json([
+                return [
                     'status'    => 'error',
-                    'message'   => $DsResponse
-                ]);
+                    'message'   => $DsResponse,
+                    'order'     => null
+                ];
             }
         }
         catch(\Exception $e)
         {
             Log::error('Error exception in market.redsys.notification route', $e->getMessage());
 
-            return response()->json([
+            return [
                 'status'    => 'error',
-                'message'   => $e->getMessage()
-            ]);
+                'message'   => $e->getMessage(),
+                'order'     => null
+            ];
         }
     }
 
