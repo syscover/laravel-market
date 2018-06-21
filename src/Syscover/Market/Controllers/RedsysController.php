@@ -21,9 +21,12 @@ class RedsysController extends BaseController
     {
         $order = RedsysService::successful();
 
-        $view = event(new RedsysResponseSuccessful($order));
+        $responses = event(new RedsysResponseSuccessful($order));
 
-        if(View::exists($view)) return view($view, ['order' => $order]);
+        foreach ($responses as $response)
+        {
+            if(View::exists($response)) return view($response, ['order' => $order]);
+        }
 
         return null;
     }
@@ -32,9 +35,12 @@ class RedsysController extends BaseController
     {
         $order = RedsysService::error();
 
-        $view = event(new RedsysResponseError($order));
+        $responses = event(new RedsysResponseError($order));
 
-        if(View::exists($view)) return view($view, ['order' => $order]);
+        foreach ($responses as $response)
+        {
+            if(View::exists($response)) return view($response, ['order' => $order]);
+        }
 
         return null;
     }

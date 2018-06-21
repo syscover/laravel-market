@@ -20,7 +20,7 @@ class RedsysService
              * Attention!! the order of the definition of the parameters
              * can affect the correct execution of the script
              *****************************************************************/
-            
+
             // set values
             Redsys::setOrder($orderId . $params->orderIdSuffix);
             Redsys::setAmount($order->getTotal(2, '.', ''));
