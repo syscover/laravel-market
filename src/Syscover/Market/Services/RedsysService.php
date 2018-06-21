@@ -7,7 +7,7 @@ use Syscover\Market\Models\Order;
 class RedsysService
 {
     /**
-     * Create payment across Redsys
+     * Create payment by Redsys
      */
     public static function createPayment($order, $xhr)
     {
@@ -16,23 +16,29 @@ class RedsysService
             $params     = RedsysService::parameters();
             $orderId    = RedsysService::getOrderId($order->id);
 
-            Redsys::setAmount($order->getTotal(2, '.', ''));
-            Redsys::setOrder($orderId . $params->suffix);
+            // params
+            Redsys::setTitular($order->customer_name . ' ' . $order->customer_surname);
+            Redsys::setEnviroment($params->environment);
+            Redsys::setTradeName($params->merchantName);
+            Redsys::setProductDescription(__($params->descriptionTrans, ['order' => $orderId . $params->suffix]));
             Redsys::setMerchantcode($params->merchantCode);
-            Redsys::setCurrency($params->currency);
-            Redsys::setTransactiontype($params->transactionType);
             Redsys::setTerminal($params->terminal);
-            Redsys::setNotification(route($params->redsysAsyncRoute));
+            Redsys::setCurrency($params->currency);
+            Redsys::setMerchantSignature(Redsys::generateMerchantSignature($params->key));      // key
+            Redsys::setTransactiontype($params->transactionType);
+            Redsys::setVersion($params->version);
+            Redsys::setIdForm('marketPaymentForm');
+            Redsys::setNotification(route($params->asyncResponseRoute));
+
+            // set values
+            Redsys::setOrder($orderId . $params->orderIdSuffix);
+            Redsys::setAmount($order->getTotal(2, '.', ''));
+
+            // set urls
             Redsys::setUrlOk(route($params->redsysSuccessfulRoute));
             Redsys::setUrlKo(route($params->redsysErrorRoute));
-            Redsys::setVersion($params->version);
-            Redsys::setTradeName($params->merchantName);
-            Redsys::setTitular($order->customer_name . ' ' . $order->customer_surname);
-            Redsys::setProductDescription(__($params->descriptionTrans, ['order' => $orderId . $params->suffix]));
-            Redsys::setEnviroment($params->environment);
-            Redsys::setMerchantSignature(Redsys::generateMerchantSignature($params->key));      // key
-            Redsys::setIdForm('marketPaymentForm');
 
+            // log
             OrderService::log($order->id, __('market::pulsar.message_customer_throw_to_redsys'));
 
             if($xhr)
@@ -49,6 +55,8 @@ class RedsysService
             // log register on order
             OrderService::log($order->id, __('market::pulsar.message_customer_redsys_error', ['error' => $e->getMessage()]));
             Log::error($e->getMessage());
+
+            throw new \Exception('Exception to create payment Redsys: ' . $e->getMessage());
         }
     }
 
@@ -88,7 +96,7 @@ class RedsysService
         }
         catch (\Exception $e)
         {
-            throw new \Exception('To get Redsys successful response: ' . $e->getMessage());
+            throw new \Exception('Exception to get Redsys successful response: ' . $e->getMessage());
         }
     }
 
@@ -108,13 +116,10 @@ class RedsysService
 
             $order = Order::find($orderId);
 
-            // set log error in order
-            $order->setOrderLog(__('market::pulsar.message_redsys_payment_error', [
-                'error' => $parameters['Ds_Response']
-            ]));
+            // log
+            OrderService::log($order->id, __('market::pulsar.message_redsys_payment_error'));
 
             return $order;
-
         }
         catch (\Exception $e)
         {
@@ -129,19 +134,16 @@ class RedsysService
     {
         if(config('pulsar-market.redsys_mode') == 'test')
         {
-            return (object)[
-                'suffix'                    => config('pulsar-market.order_id_suffix'),
-                'environment'               => config('pulsar-market.redsys_mode'),
-                'key'                       => config('pulsar-market.redsysTestKey'),
+            $parameters = [
                 'merchantName'              => config('pulsar-market.redsys_test_merchant_name'),
-                'merchantCode'              => config('pulsar-market.redsysTestMerchantCode'),
-                'currency'                  => config('pulsar-market.redsysTestCurrency'),
-                'terminal'                  => config('pulsar-market.redsysTestTerminal'),
-                'method'                    => config('pulsar-market.redsysTestMethod'),
-                'transactionType'           => config('pulsar-market.redsysTestTransactionType'),
-                'version'                   => config('pulsar-market.redsysTestVersion'),
                 'descriptionTrans'          => config('pulsar-market.redsys_test_description_trans'),
-                'redsysAsyncRoute'          => config('pulsar-market.redsysAsyncRoute'),
+                'merchantCode'              => config('pulsar-market.redsys_test_merchant_code'),
+                'terminal'                  => config('pulsar-market.redsys_test_terminal'),
+                'currency'                  => config('pulsar-market.redsys_test_currency'),
+                'key'                       => config('pulsar-market.redsys_test_key'),
+                'method'                    => config('pulsar-market.redsys_test_method'),
+                'transactionType'           => config('pulsar-market.redsys_test_transaction_type'),
+                'version'                   => config('pulsar-market.redsys_test_version'),
                 'redsysSuccessfulRoute'     => config('pulsar-market.redsysSuccessfulRoute'),
                 'redsysErrorRoute'          => config('pulsar-market.redsysErrorRoute'),
 
@@ -149,19 +151,16 @@ class RedsysService
         }
         elseif(config('pulsar-market.redsys_mode') == 'live')
         {
-            return (object)[
-                'suffix'                    => config('pulsar-market.order_id_suffix'),
-                'environment'               => config('pulsar-market.redsys_mode'),
-                'key'                       => config('pulsar-market.redsysLiveKey'),
-                'merchantName'              => config('pulsar-market.redsysLiveMerchantName'),
-                'merchantCode'              => config('pulsar-market.redsysLiveMerchantCode'),
-                'currency'                  => config('pulsar-market.redsysLiveCurrency'),
-                'terminal'                  => config('pulsar-market.redsysLiveTerminal'),
-                'method'                    => config('pulsar-market.redsysLiveMethod'),
-                'transactionType'           => config('pulsar-market.redsysLiveTransactionType'),
-                'version'                   => config('pulsar-market.redsysLiveVersion'),
-                'descriptionTrans'          => config('pulsar-market.redsysLiveDescriptionTrans'),
-                'redsysAsyncRoute'          => config('pulsar-market.redsysAsyncRoute'),
+            $parameters = [
+                'merchantName'              => config('pulsar-market.redsys_live_merchant_name'),
+                'descriptionTrans'          => config('pulsar-market.redsys_live_description_trans'),
+                'merchantCode'              => config('pulsar-market.redsys_live_merchant_code'),
+                'terminal'                  => config('pulsar-market.redsys_live_terminal'),
+                'currency'                  => config('pulsar-market.redsys_live_currency'),
+                'key'                       => config('pulsar-market.redsys_live_key'),
+                'method'                    => config('pulsar-market.redsys_live_method'),
+                'transactionType'           => config('pulsar-market.redsys_live_transaction_type'),
+                'version'                   => config('pulsar-market.redsys_live_version'),
                 'redsysSuccessfulRoute'     => config('pulsar-market.redsysSuccessfulRoute'),
                 'redsysErrorRoute'          => config('pulsar-market.redsysErrorRoute'),
             ];
@@ -170,6 +169,12 @@ class RedsysService
         {
             throw new \Exception('You must set MARKET_REDSYS_MODE like test or live');
         }
+
+        $parameters['asyncResponseRoute']   = config('pulsar-market.redsys_async_response_route');
+        $parameters['orderIdSuffix']        = config('pulsar-market.order_id_suffix');
+        $parameters['environment']          = config('pulsar-market.redsys_mode');
+
+        return (object)$parameters;
     }
 
     /**
