@@ -20,7 +20,7 @@ class RedsysService
             Redsys::setTitular($order->customer_name . ' ' . $order->customer_surname);
             Redsys::setEnviroment($params->environment);
             Redsys::setTradeName($params->merchantName);
-            Redsys::setProductDescription(__($params->descriptionTrans, ['order' => $orderId . $params->suffix]));
+            Redsys::setProductDescription(__($params->descriptionTrans, ['order' => $orderId . $params->orderIdSuffix]));
             Redsys::setMerchantcode($params->merchantCode);
             Redsys::setTerminal($params->terminal);
             Redsys::setCurrency($params->currency);
