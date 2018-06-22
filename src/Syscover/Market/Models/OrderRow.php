@@ -16,6 +16,9 @@ class OrderRow extends CoreModel
         'data'      => 'array',
         'tax_rules' => 'array'
     ];
+    public $with = [
+        'product'
+    ];
     private static $rules   = [];
 
     public static function validate($data)
@@ -35,6 +38,11 @@ class OrderRow extends CoreModel
                     // need filter your order rows by lang without pass lang variable
                     $join->where('market_product_lang.lang_id', '=', base_lang());
             });
+    }
+
+    public function product()
+    {
+        return $this->belongsTo(Product::class, 'product_id');
     }
 
     /**

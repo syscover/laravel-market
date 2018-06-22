@@ -1,6 +1,5 @@
 <?php namespace Syscover\Market\Services;
 
-use Carbon\Carbon;
 use Syscover\Market\Models\CartPriceRule;
 use Syscover\Market\Models\Category;
 
