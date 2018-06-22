@@ -2,7 +2,7 @@
 
 use Syscover\Market\Models\Order;
 
-class RedsysResponseSuccessful
+class PaypalResponseError
 {
     public $order;
 

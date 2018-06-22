@@ -248,7 +248,7 @@ class PayPalService
     public static function error()
     {
         // log
-        Log::info('Enter in PayPalService::error service whit parameters', request()->all());
+        Log::info('Enter in PayPalService::error service whit parameters: ', request()->all());
 
 //        $order = Order::find($request->input('order'));
 //        $order->setOrderLog(__('market::pulsar.message_paypal_payment_error'));

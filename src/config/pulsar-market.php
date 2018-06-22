@@ -96,8 +96,8 @@ return [
     //******************************************************************************************************************
     // PAYPAL MODE, sandbox | live
     'paypal_mode'                   => env('MARKET_PAYPAL_MODE', 'sandbox'),
-    'paypal_successful_route'       => env('MARKET_PAYPAL_SUCCESSFUL_ROUTE', 'marketPayPalSuccessful'),
-    'paypal_error_route'            => env('MARKET_PAYPAL_ERROR_ROUTE', 'marketPayPalError'),
+    'paypal_successful_route'       => env('MARKET_PAYPAL_SUCCESSFUL_ROUTE', 'pulsar.market.paypal_payment_successful'),
+    'paypal_error_route'            => env('MARKET_PAYPAL_ERROR_ROUTE', 'pulsar.market.paypal_payment_error'),
 
     // SANDBOX
     'paypal_sandbox_web_profile'    => env('MARKET_PAYPAL_SANDBOX_WEB_PROFILE', ''),

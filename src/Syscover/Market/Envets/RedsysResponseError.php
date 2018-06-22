@@ -6,9 +6,6 @@ class RedsysResponseError
 {
     public $order;
 
-    /**
-     * Create a new event instance.
-     */
     public function __construct(Order $order)
     {
         $this->order = $order;

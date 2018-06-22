@@ -169,9 +169,10 @@ class RedsysService
     public static function error()
     {
         // log
-        Log::info('Enter in RedsysService::error service whit parameters', request()->all());
+        Log::info('Enter in RedsysService::error service whit parameters: ', request()->all());
 
-        try {
+        try
+        {
             $parameters = Redsys::getMerchantParameters(request('Ds_MerchantParameters'));
 
             // get order ID
