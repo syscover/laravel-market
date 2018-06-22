@@ -138,21 +138,6 @@ return [
     //******************************************************************************************************************
     //***   PayPal settings
     //******************************************************************************************************************
-    // PAYPAL MODE, sandbox | live
-    'payPalMode'                    => env('MARKET_PAYPAL_MODE', ''),
-    'payPalSuccessfulRoute'         => env('MARKET_PAYPAL_SUCCESSFUL_ROUTE', 'marketPayPalSuccessful'),
-    'payPalErrorRoute'              => env('MARKET_PAYPAL_ERROR_ROUTE', 'marketPayPalError'),
-
-    // SANDBOX
-    'payPalSandboxWebProfile'       => env('MARKET_PAYPAL_SANDBOX_WEB_PROFILE', ''),
-    'payPalSandboxClientId'         => env('MARKET_PAYPAL_SANDBOX_CLIENT_ID', ''),
-    'payPalSandboxSecret'           => env('MARKET_PAYPAL_SANDBOX_SECRET', ''),
-
-    // LIVE
-    'payPalLiveWebProfile'          => env('MARKET_PAYPAL_LIVE_WEB_PROFILE', ''),
-    'payPalLiveClientId'            => env('MARKET_PAYPAL_LIVE_CLIENT_ID', ''),
-    'payPalLiveSecret'              => env('MARKET_PAYPAL_LIVE_SECRET_KEY', ''),
-
     // LADING PAGE TYPES TO PAYPAL WEB PROFILE
     'payPalLandingPageTypes'        => [
         (object)['id' => 'Billing',     'name' => 'market::pulsar.billing'],
