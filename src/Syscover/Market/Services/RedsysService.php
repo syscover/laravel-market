@@ -153,6 +153,7 @@ class RedsysService
             }
             else
             {
+                // manage error?
                 return null;
             }
         }

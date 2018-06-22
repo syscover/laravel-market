@@ -11,13 +11,14 @@ use PayPal\Api\Amount;
 use PayPal\Api\Transaction;
 use PayPal\Api\RedirectUrls;
 use PayPal\Api\Payment;
+use PayPal\Api\PaymentExecution;
 use Syscover\Market\Models\Order;
 
 class PayPalService
 {
     public static function createPayment($order, $xhr)
     {
-        $params     = PayPalService::parameters();
+        $params = PayPalService::parameters();
 
         $payer = new Payer();
         $payer->setPaymentMethod('paypal');
@@ -136,8 +137,6 @@ class PayPalService
             {
                 return view('core::common.display', ['content' => PayPalService::executeRedirection($redirectUrl)]);
             }
-            // return redirect()->away($redirectUrl);
-
         }
         else
         {
@@ -202,92 +201,58 @@ class PayPalService
         return (object)$parameters;
     }
 
-
-
-
-
-
-
-    /******************************************************************************************************************************************************************
-
     /**
-     * Create payment across PayPal
-     *
-     * @param $order
-     * @param $xhr
-     * @return string
+     * Actions to do when PayPal response is successful
      */
-    public static function createPayment_old($order, $xhr)
+    public static function successful()
     {
-        // log
-        OrderService::log($order->id, __('market::pulsar.message_customer_throw_to_paypal'));
-        Log::info('Create form to submit PayPalController, order: ' . $order->id);
+        $params     = PayPalService::parameters();
+        $paymentId  = request('paymentId');
+        $payment    = Payment::get($paymentId, $params->apiContext);
+        $execution  = new PaymentExecution();
+        $execution->setPayerId(request('PayerID'));
 
-        if($xhr)
+        try
         {
-            return self::createForm($order->id);
+            $response = $payment->execute($execution, $params->apiContext);
+        }
+        catch(\Exception $e)
+        {
+            throw new \Exception('Exception to get PayPal successful response: ' . $e->getMessage());
+        }
+
+        $order = Order::builder()->where('transaction_id',  request('paymentId'))->first();
+
+        if($response->getState() === 'approved')
+        {
+            // change order status
+            $paymentMethod      = $order->payment_methods->where('lang_id', user_lang())->first();
+            $order->status_id   = $paymentMethod->order_status_successful_id;
+            $order->save();
+
+            // log register on order
+            OrderService::log($order->id, __('market::pulsar.message_paypal_payment_successful'));
+
+            return $order;
         }
         else
         {
-            return self::executeRedirection($order->id);
+            // manage error?
+            return null;
         }
-    }
-
-    /**
-     * Execute redirection to PayPal
-     */
-    private static function executeRedirection_old($id)
-    {
-        $form =  self::createForm($id);
-        echo $form . '<script>document.forms["marketPaymentForm"].submit();</script>';
-    }
-
-    /**
-     * Generate form html
-     */
-    private static function createForm_old($id)
-    {
-        $form='
-            <form id="marketPaymentForm" action="' . route('pulsar.market.paypal_create_payment') . '" method="post">
-                <input type="hidden" name="_token" value="' . csrf_token() . '">
-                <input type="hidden" name="_order" value="' . $id . '">
-            </form>
-        ';
-
-        return $form;
-    }
-
-    /**
-     * Actions to do when PayPal response is successful
-     *
-     * @param $request
-     * @return \Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model|null|static|static[]
-     */
-    public static function successful($request)
-    {
-        $order = Order::find($request->input('order'));
-        $order->setOrderLog(__('market::pulsar.message_paypal_payment_successful'));
-
-        // change order status
-        $paymentMethod      = $order->payment_methods->where('lang_id', user_lang())->first();
-        $order->status_id   = $paymentMethod->order_status_successful_id;
-        $order->save();
-
-        return $order;
     }
 
     /**
      * Actions to do when PayPal response is error
-     *
-     *
-     * @param $request
-     * @return \Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model|null|static|static[]
      */
-    public static function error($request)
+    public static function error()
     {
-        $order = Order::find($request->input('order'));
-        $order->setOrderLog(__('market::pulsar.message_paypal_payment_error'));
+        // log
+        Log::info('Enter in PayPalService::error service whit parameters', request()->all());
 
-        return $order;
+//        $order = Order::find($request->input('order'));
+//        $order->setOrderLog(__('market::pulsar.message_paypal_payment_error'));
+//
+//        return $order;
     }
 }
