@@ -64,7 +64,7 @@ return [
     //***   RedSys settings
     //******************************************************************************************************************
     // Redsys mode, test | live
-    'redsys_mode'                   => env('MARKET_REDSYS_MODE', ''),
+    'redsys_mode'                   => env('MARKET_REDSYS_MODE', 'test'),
     'redsys_async_response_route'   => env('MARKET_REDSYS_ASYNC_RESPONSE_ROUTE', 'api.market.redsys_async_response'),
     'redsys_successful_route'       => env('MARKET_REDSYS_SUCCESSFUL_ROUTE', 'pulsar.market.redsys_payment_successful'),
     'redsys_error_route'            => env('MARKET_REDSYS_ERROR_ROUTE', 'pulsar.market.redsys_payment_error'),
@@ -90,6 +90,24 @@ return [
     'redsys_live_method'            => env('MARKET_REDSYS_LIVE_METHOD', 'T'),
     'redsys_live_transaction_type'  => env('MARKET_REDSYS_LIVE_TRANSACTION_TYPE', '0'),
     'redsys_live_version'           => env('MARKET_REDSYS_LIVE_VERSION', 'HMAC_SHA256_V1'),
+
+    //******************************************************************************************************************
+    //***   PayPal settings
+    //******************************************************************************************************************
+    // PAYPAL MODE, sandbox | live
+    'paypal_mode'                   => env('MARKET_PAYPAL_MODE', 'sandbox'),
+    'paypal_successful_route'       => env('MARKET_PAYPAL_SUCCESSFUL_ROUTE', 'marketPayPalSuccessful'),
+    'paypal_error_route'            => env('MARKET_PAYPAL_ERROR_ROUTE', 'marketPayPalError'),
+
+    // SANDBOX
+    'paypal_sandbox_web_profile'    => env('MARKET_PAYPAL_SANDBOX_WEB_PROFILE', ''),
+    'paypal_sandbox_client_id'      => env('MARKET_PAYPAL_SANDBOX_CLIENT_ID', ''),
+    'paypal_sandbox_secret'         => env('MARKET_PAYPAL_SANDBOX_SECRET', ''),
+
+    // LIVE
+    'paypal_live_web_profile'       => env('MARKET_PAYPAL_LIVE_WEB_PROFILE', ''),
+    'paypal_live_client_id'         => env('MARKET_PAYPAL_LIVE_CLIENT_ID', ''),
+    'paypal_live_secret'            => env('MARKET_PAYPAL_LIVE_SECRET_KEY', ''),
 
 
 

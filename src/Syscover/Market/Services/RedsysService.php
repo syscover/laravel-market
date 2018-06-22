@@ -47,6 +47,7 @@ class RedsysService
 
             // log
             OrderService::log($order->id, __('market::pulsar.message_customer_throw_to_redsys'));
+            Log::info('Create form to throw to REDSYS, order: ' . $order->id);
 
             if($xhr)
             {

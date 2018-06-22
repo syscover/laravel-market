@@ -24,17 +24,17 @@ class PayPalController extends BaseController
     public function __construct(Request $request)
     {
         // Set mode
-        if(config('pulsar-market.payPalMode') == 'live')
+        if(config('pulsar-market.paypal_mode') == 'live')
         {
-            $this->webProfile   = config('pulsar-market.payPalLiveWebProfile');
-            $clientID           = config('pulsar-market.payPalLiveClientId');
-            $secret             = config('pulsar-market.payPalLiveSecret');
+            $this->webProfile   = config('pulsar-market.paypal_live_web_profile');
+            $clientID           = config('pulsar-market.paypal_live_client_id');
+            $secret             = config('pulsar-market.paypal_live_secret');
         }
-        elseif(config('pulsar-market.payPalMode') == 'sandbox')
+        elseif(config('pulsar-market.paypal_mode') == 'sandbox')
         {
-            $this->webProfile   = config('pulsar-market.payPalSandboxWebProfile');
-            $clientID           = config('pulsar-market.payPalSandboxClientId');
-            $secret             = config('pulsar-market.payPalSandboxSecret');
+            $this->webProfile   = config('pulsar-market.paypal_sandbox_web_profile');
+            $clientID           = config('pulsar-market.paypal_sandbox_client_id');
+            $secret             = config('pulsar-market.paypal_sandbox_secret');
         }
         else
         {
@@ -46,11 +46,11 @@ class PayPalController extends BaseController
 
         // SDK configuration
         $this->apiContext->setConfig([
-            'mode'                      => config('pulsar-market.payPalMode'),    // Specify mode, sandbox or live
-            'http.ConnectionTimeOut'    => 30,                                  // Specify the max request time in seconds
-            'log.LogEnabled'            => true,                                // Whether want to log to a file
-            'log.FileName'              => storage_path() . '/logs/paypal.log', // Specify the file that want to write on
-            'log.LogLevel'              => 'FINE'                               // Available option 'FINE', 'INFO', 'WARN' or 'ERROR', Logging is most verbose in the 'FINE' level and decreases as you proceed towards ERROR
+            'mode'                      => config('pulsar-market.paypal_mode'),    // Specify mode, sandbox or live
+            'http.ConnectionTimeOut'    => 30,                                          // Specify the max request time in seconds
+            'log.LogEnabled'            => true,                                        // Whether want to log to a file
+            'log.FileName'              => storage_path() . '/logs/paypal.log',         // Specify the file that want to write on
+            'log.LogLevel'              => 'FINE'                                       // Available option 'FINE', 'INFO', 'WARN' or 'ERROR', Logging is most verbose in the 'FINE' level and decreases as you proceed towards ERROR
         ]);
     }
 
@@ -58,12 +58,11 @@ class PayPalController extends BaseController
     {
         if($request->has('_order'))
         {
-            $order     = Order::builder()->where('market_order.id',  $request->input('_order'))->first();
-            $orderRows = $order->rows;
+            $order = Order::builder()->where('market_order.id',  $request->input('_order'))->first();
         }
         else
         {
-            throw new \Exception('You must establish a order to create PayPal payment');
+            throw new \Exception('You must establish a order id to create PayPal payment');
         }
 
         $payer = new Payer();
@@ -73,13 +72,13 @@ class PayPalController extends BaseController
         //** create products
         //***********************
         $products = [];
-        foreach($orderRows as $row)
+        foreach($order->rows as $row)
         {
             $item = new Item();
-            $item->setName($row->name)                                                  // product name
-                ->setCurrency('EUR')                                                    // currency
-                ->setQuantity(intval($row->quantity))                                   // quantity
-                ->setPrice($row->total_without_discounts / $row->quantity);             // unit price
+            $item->setName($row->name)                                              // product name
+                ->setCurrency('EUR')                                       // currency
+                ->setQuantity(intval($row->quantity))                               // quantity
+                ->setPrice($row->total_without_discounts / $row->quantity);   // unit price
 
             $products[] = $item;
         }
@@ -91,9 +90,9 @@ class PayPalController extends BaseController
         {
             $item = new Item();
             $item->setName(__(Lang::has('common.paypal_shipping_description') ? 'common.paypal_shipping_description' : 'market::pulsar.paypal_shipping_description'))
-                ->setCurrency('EUR')                        // currency
-                ->setQuantity(1)                            // quantity
-                ->setPrice($order->shipping_amount);        // price
+                ->setCurrency('EUR')            // currency
+                ->setQuantity(1)                // quantity
+                ->setPrice($order->shipping_amount);    // price
 
             $products[] = $item;
         }
@@ -107,9 +106,12 @@ class PayPalController extends BaseController
             if($discount->discount_amount > 0)
             {
                 $item = new Item();
-                $item->setName(collect($discount->names)->where('id', user_lang())->first() ? collect($discount->names)->where('id', user_lang())->first()['value'] : trans_choice('core::common.discount', 1))
-                    ->setCurrency('EUR')                            // currency
-                    ->setQuantity(1)                                // quantity
+                $item->setName(
+                        collect($discount->names)->where('id', user_lang())->first() ?
+                        collect($discount->names)->where('id', user_lang())->first()['value'] : trans_choice('core::common.discount', 1)
+                    )
+                    ->setCurrency('EUR')                          // currency
+                    ->setQuantity(1)                              // quantity
                     ->setPrice($discount->discount_amount * -1);    // price
 
                 $products[] = $item;
@@ -166,22 +168,20 @@ class PayPalController extends BaseController
             }
         }
 
+
         // record payment id on order
-        Order::where('id', $order->id)
-            ->update([
-                'transaction_id' => $payment->getId()
-            ]);
+        $order->transaction_id = $payment->getId();
+        $order->save();
 
         if(isset($redirectUrl))
         {
             return redirect()->away($redirectUrl);
         }
 
-        return redirect()->route('home')
-            ->with('error', 'Unknown error occurred');
+        return redirect()->route('home')->with('error', 'Unknown error occurred');
     }
 
-    public function paymentResponse(Request $request)
+    public function successful(Request $request)
     {
         $paymentId  = $request->input('paymentId');
         $payment    = Payment::get($paymentId, $this->apiContext);
@@ -210,11 +210,11 @@ class PayPalController extends BaseController
                     ]);
             }
 
-            $route = route(config('pulsar-market.payPalSuccessfulRoute'));
+            $route = route(config('pulsar-market.paypal_successful_route'));
         }
         else
         {
-            $route = route(config('pulsar-market.payPalErrorRoute'));
+            $route = route(config('pulsar-market.paypal_error_route'));
         }
 
         echo '
@@ -225,5 +225,10 @@ class PayPalController extends BaseController
                 </form>
                 <script>document.getElementById("redirect_paypal_form").submit();</script>
             ';
+    }
+
+    public function error(Request $request)
+    {
+
     }
 }

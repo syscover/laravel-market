@@ -14,43 +14,38 @@ class PayPalService
      */
     public static function createPayment($order, $xhr)
     {
-        // log register on order
-        $order->setOrderLog(trans('market::pulsar.message_customer_go_to_paypal'));
+        // log
+        OrderService::log($order->id, __('market::pulsar.message_customer_throw_to_paypal'));
+        Log::info('Create form to submit PayPalController, order: ' . $order->id);
 
         if($xhr)
         {
-            Log::info('Create form for to throw to PayPalController order: ' . $order->id);
             return self::createForm($order->id);
         }
         else
         {
-            Log::info('Create form to throw to PayPalController order: ' . $order->id);
             return self::executeRedirection($order->id);
         }
     }
 
     /**
      * Execute redirection to PayPal
-     *
-     * @return string
      */
-    private static function executeRedirection($orderId)
+    private static function executeRedirection($id)
     {
-        $form =  self::createForm($orderId);
+        $form =  self::createForm($id);
         echo $form . '<script>document.forms["marketPaymentForm"].submit();</script>';
     }
 
     /**
      * Generate form html
-     *
-     * @return string
      */
-    private static function createForm($orderId)
+    private static function createForm($id)
     {
         $form='
-            <form id="marketPaymentForm" action="' . route('market.paypal.create_payment') . '" method="post">
+            <form id="marketPaymentForm" action="' . route('pulsar.market.paypal_create_payment') . '" method="post">
                 <input type="hidden" name="_token" value="' . csrf_token() . '">
-                <input type="hidden" name="_order" value="' . $orderId . '">
+                <input type="hidden" name="_order" value="' . $id . '">
             </form>
         ';
 
