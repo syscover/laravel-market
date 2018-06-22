@@ -101,7 +101,7 @@ class Product extends CoreModel
             'object_id',
             'id'
         )
-            ->where('admin_attachment.lang_id', $this->lang_id)
+            ->where('admin_attachment.lang_id', $this->lang_id ? $this->lang_id : user_lang())
             ->orderBy('sort', 'asc');
     }
 
