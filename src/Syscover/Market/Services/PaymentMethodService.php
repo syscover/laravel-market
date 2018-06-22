@@ -44,7 +44,9 @@ class PaymentMethodService
         if(empty($object['id']))        throw new \Exception('You have to define a id field to update a payment method');
     }
 
-    // Custom methods
+    //********************
+    //* Custom methods
+    //********************
     public static function createPaymentMethod($paymentMethodId, $order, $xhr = false)
     {
         // Redsys Payment (debit and credit cart)
