@@ -2,6 +2,7 @@
 
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Http\Request;
+use Syscover\Market\Events\PaypalResponseError;
 use Syscover\Market\Events\PaypalResponseSuccessful;
 use Syscover\Market\Services\PayPalService;
 
@@ -31,6 +32,10 @@ class PayPalController extends BaseController
 
     public function error()
     {
+        dd(request()->all());
 
+        //$order = PayPalService::error();
+
+        // $responses = event(new PaypalResponseError($order));
     }
 }
