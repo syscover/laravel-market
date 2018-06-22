@@ -92,8 +92,8 @@ class PayPalService
         // config URL request
         $redirectUrls = new RedirectUrls();
         $redirectUrls
-            ->setReturnUrl(route('market.paypal.response'))
-            ->setCancelUrl(route('market.paypal.response'));
+            ->setReturnUrl(route('pulsar.market.paypal_payment_successful'))
+            ->setCancelUrl(route('pulsar.market.paypal_payment_error'));
 
         // create payment
         $payment = new Payment();
