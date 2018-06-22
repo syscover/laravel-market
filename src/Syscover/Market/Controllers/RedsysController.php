@@ -2,6 +2,7 @@
 
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\View;
+use Syscover\Admin\Models\Country;
 use Syscover\Market\Events\RedsysResponseError;
 use Syscover\Market\Events\RedsysResponseSuccessful;
 use Syscover\Market\Services\RedsysService;
@@ -23,9 +24,14 @@ class RedsysController extends BaseController
 
         $responses = event(new RedsysResponseSuccessful($order));
 
+        $countries = Country::builder()
+            ->where('lang_id', user_lang())
+            ->get();
+
         foreach ($responses as $response)
         {
             if(View::exists($response)) return view($response, [
+                'countries' => $countries,
                 'order'     => $order,
                 'status'    => 'successful'
             ]);
@@ -40,9 +46,14 @@ class RedsysController extends BaseController
 
         $responses = event(new RedsysResponseError($order));
 
+        $countries = Country::builder()
+            ->where('lang_id', user_lang())
+            ->get();
+
         foreach ($responses as $response)
         {
             if(View::exists($response)) return view($response, [
+                'countries' => $countries,
                 'order'     => $order,
                 'status'    => 'error'
             ]);

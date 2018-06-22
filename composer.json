@@ -11,6 +11,7 @@
     "require": {
         "php": ">=7.0.0",
         "syscover/pulsar-core": "dev-master",
+        "syscover/pulsar-navtools": "dev-master",
         "syscover/pulsar-admin": "dev-master",
         "syscover/pulsar-crm": "dev-master",
         "syscover/pulsar-shopping-cart": "dev-master",
