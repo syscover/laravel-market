@@ -128,13 +128,40 @@ class PayPalService
 
         if(isset($redirectUrl))
         {
-            return redirect()->away($redirectUrl);
+            if($xhr)
+            {
+                return PayPalService::createForm($redirectUrl);
+            }
+            else
+            {
+                return view('core::common.display', ['content' => PayPalService::executeRedirection($redirectUrl)]);
+            }
+            // return redirect()->away($redirectUrl);
+
         }
         else
         {
             throw new \Exception('There are any error to create PayPal payment');
         }
     }
+
+    /**
+     * Generate form html
+     */
+    private static function createForm($url)
+    {
+        return '<form id="marketPaymentForm" action="' . $url . '" method="post"></form>';
+    }
+
+    /**
+     * Execute redirection to PayPal
+     */
+    private static function executeRedirection($redirectUrl)
+    {
+        $form =  self::createForm($redirectUrl);
+        echo $form . '<script>document.forms["marketPaymentForm"].submit();</script>';
+    }
+
 
     /**
      * Get Paypal parameters
@@ -209,7 +236,7 @@ class PayPalService
     /**
      * Execute redirection to PayPal
      */
-    private static function executeRedirection($id)
+    private static function executeRedirection_old($id)
     {
         $form =  self::createForm($id);
         echo $form . '<script>document.forms["marketPaymentForm"].submit();</script>';
@@ -218,7 +245,7 @@ class PayPalService
     /**
      * Generate form html
      */
-    private static function createForm($id)
+    private static function createForm_old($id)
     {
         $form='
             <form id="marketPaymentForm" action="' . route('pulsar.market.paypal_create_payment') . '" method="post">
