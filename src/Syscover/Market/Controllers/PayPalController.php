@@ -2,6 +2,8 @@
 
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\View;
+use Syscover\Admin\Models\Country;
 use Syscover\Market\Events\PaypalResponseError;
 use Syscover\Market\Events\PaypalResponseSuccessful;
 use Syscover\Market\Services\PayPalService;
