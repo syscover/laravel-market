@@ -176,9 +176,8 @@ class RedsysService
             $parameters = Redsys::getMerchantParameters(request('Ds_MerchantParameters'));
 
             // get order ID
-            $orderId = str_replace(config('pulsar-market.order_id_suffix'), '', $parameters['Ds_Order']);
-
-            $order = Order::find($orderId);
+            $orderId    = str_replace(config('pulsar-market.order_id_suffix'), '', $parameters['Ds_Order']);
+            $order      = Order::find($orderId);
 
             // log
             OrderService::log($order->id, __('market::pulsar.message_redsys_payment_error'));

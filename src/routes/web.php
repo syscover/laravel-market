@@ -5,4 +5,4 @@ Route::get('redsys/payment/response/failure',           '\Syscover\Market\Contro
 
 /* PAYPAL */
 Route::get('paypal/payment/response/successful',        '\Syscover\Market\Controllers\PayPalController@successful')->name('pulsar.market.paypal_payment_successful');
-Route::get('paypal/payment/response/failure',           '\Syscover\Market\Controllers\PayPalController@error')->name('pulsar.market.paypal_payment_error');
+Route::get('paypal/payment/response/failure/{id}',      '\Syscover\Market\Controllers\PayPalController@error')->name('pulsar.market.paypal_payment_error');

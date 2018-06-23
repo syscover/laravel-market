@@ -1,7 +1,6 @@
 <?php namespace Syscover\Market\Controllers;
 
 use Illuminate\Routing\Controller as BaseController;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Syscover\Market\Events\PaymentResponseError;
 use Syscover\Market\Events\PaymentResponseSuccessful;
@@ -11,7 +10,7 @@ use Syscover\Market\Services\PayPalService;
 
 class PayPalController extends BaseController
 {
-    public function successful(Request $request)
+    public function successful()
     {
         $order = PayPalService::successful();
 
@@ -36,9 +35,7 @@ class PayPalController extends BaseController
 
     public function error()
     {
-        dd(request()->all());
-
-        $order = PayPalService::error();
+        $token = PayPalService::error();
 
         $paymentResponses   = event(new PaymentResponseError($order));
         $paypalResponses    = event(new PaypalResponseError($order));

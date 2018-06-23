@@ -94,7 +94,7 @@ class PayPalService
         $redirectUrls = new RedirectUrls();
         $redirectUrls
             ->setReturnUrl(route('pulsar.market.paypal_payment_successful'))
-            ->setCancelUrl(route('pulsar.market.paypal_payment_error'));
+            ->setCancelUrl(route('pulsar.market.paypal_payment_error', ['id' => $order->id]));
 
         // create payment
         $payment = new Payment();
@@ -113,7 +113,7 @@ class PayPalService
         {
             throw new \Exception('There are any error to create PayPal payment: ' . $e->getMessage());
         }
-
+        
         foreach($payment->getLinks() as $link)
         {
             if($link->getRel() === 'approval_url')
@@ -248,12 +248,8 @@ class PayPalService
     public static function error()
     {
         // log
-        Log::info('Enter in PayPalService::error service whit parameters: ', request()->all());
+        Log::error('Enter in PayPalService::error return token: ', request('token'));
 
-//        $order = Order::find($request->input('order'));
-//        $order->setOrderLog(__('market::pulsar.message_paypal_payment_error'));
-//
-//        return $order;
-        return null;
+        return request('token');
     }
 }
