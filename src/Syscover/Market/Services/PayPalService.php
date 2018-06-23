@@ -245,11 +245,17 @@ class PayPalService
     /**
      * Actions to do when PayPal response is error
      */
-    public static function error()
+    public static function error($id)
     {
         // log
-        Log::error('Enter in PayPalService::error return token: ', request('token'));
+        Log::info('Enter in PayPalService::error service whit parameters: ', request()->all());
 
-        return request('token');
+        // get order ID
+        $order      = Order::find($id);
+
+        // log
+        OrderService::log($order->id, __('market::pulsar.message_paypal_payment_error'));
+
+        return $order;
     }
 }
