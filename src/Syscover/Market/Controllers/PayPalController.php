@@ -33,9 +33,9 @@ class PayPalController extends BaseController
         return null;
     }
 
-    public function error()
+    public function error($id)
     {
-        $order = PayPalService::error();
+        $order = PayPalService::error($id);
 
         $paymentResponses   = event(new PaymentResponseError($order));
         $paypalResponses    = event(new PaypalResponseError($order));
