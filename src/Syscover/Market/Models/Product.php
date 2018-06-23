@@ -30,7 +30,8 @@ class Product extends CoreModel
         'field_group',
         'categories',
         'stocks',
-        'children_products'
+        'children_products',
+        'attachments'
     ];
     public $lazyRelations       = ['attachments'];
 
@@ -95,12 +96,12 @@ class Product extends CoreModel
     public function attachments()
     {
         return $this->morphMany(
-            Attachment::class,
-            'object',
-            'object_type',
-            'object_id',
-            'id'
-        )
+                Attachment::class,
+                'object',
+                'object_type',
+                'object_id',
+                'id'
+            )
             ->where('admin_attachment.lang_id', $this->lang_id ? $this->lang_id : user_lang())
             ->orderBy('sort', 'asc');
     }
