@@ -2,6 +2,8 @@
 
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\Route;
+use Syscover\Market\Events\PaymentResponseError;
+use Syscover\Market\Events\PaymentResponseSuccessful;
 use Syscover\Market\Events\RedsysAsyncResponse;
 use Syscover\Market\Events\RedsysResponseError;
 use Syscover\Market\Events\RedsysResponseSuccessful;
@@ -22,7 +24,9 @@ class RedsysController extends BaseController
     {
         $order = RedsysService::successful();
 
-        $responses = event(new RedsysResponseSuccessful($order));
+        $paymentResponses   = event(new PaymentResponseSuccessful($order));
+        $redsysResponses    = event(new RedsysResponseSuccessful($order));
+        $responses          = array_merge($paymentResponses, $redsysResponses);
 
         foreach ($responses as $response)
         {
@@ -43,7 +47,9 @@ class RedsysController extends BaseController
     {
         $order = RedsysService::error();
 
-        $responses = event(new RedsysResponseError($order));
+        $paymentResponses   = event(new PaymentResponseError($order));
+        $redsysResponses    = event(new RedsysResponseError($order));
+        $responses          = array_merge($paymentResponses, $redsysResponses);
 
         foreach ($responses as $response)
         {
@@ -52,7 +58,7 @@ class RedsysController extends BaseController
                 return redirect()
                     ->route($response, ['id' => $order->id])
                     ->with([
-                        'status' => 'successful'
+                        'status' => 'error'
                     ]);
             }
         }

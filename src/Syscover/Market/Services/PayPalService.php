@@ -254,5 +254,6 @@ class PayPalService
 //        $order->setOrderLog(__('market::pulsar.message_paypal_payment_error'));
 //
 //        return $order;
+        return null;
     }
 }

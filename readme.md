@@ -173,7 +173,14 @@ protected $listen = [
     ...
 ];
 ```
-
+##### Event when response from any payment method is successful
+```
+Syscover\Market\Events\PaymentResponseSuccessful
+```
+##### Event when response from any payment method is error
+```
+Syscover\Market\Events\PaymentResponseError
+```
 ##### Event when response is call from REDSYS server
 ```
 Syscover\Market\Events\RedsysAsyncResponse
