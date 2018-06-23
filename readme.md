@@ -20,6 +20,10 @@ Syscover\Market\MarketServiceProvider::class,
 ```
 php artisan vendor:publish --provider="Syscover\Market\MarketServiceProvider"
 ```
+and
+```
+composer dump-autoload
+```
 
 **3 - And execute migrations and seed database**
 ```
