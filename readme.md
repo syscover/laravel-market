@@ -186,3 +186,11 @@ Syscover\Market\Events\RedsysResponseSuccessful
 ```
 Syscover\Market\Events\RedsysResponseError
 ```
+##### Event when response from PayPal payment is successful
+```
+Syscover\Market\Events\PaypalResponseSuccessful
+```
+##### Event when response from PayPal payment is error
+```
+Syscover\Market\Events\PaypalResponseError
+```

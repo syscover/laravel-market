@@ -71,7 +71,7 @@ class RedsysService
     /**
      * Create async response for Redsys
      */
-    public function asyncResponse()
+    public static function asyncResponse()
     {
         // log
         Log::info('Enter in market.redsys.notification route whit parameters', request()->all());

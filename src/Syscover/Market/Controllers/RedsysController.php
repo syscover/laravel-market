@@ -1,8 +1,8 @@
 <?php namespace Syscover\Market\Controllers;
 
 use Illuminate\Routing\Controller as BaseController;
-use Illuminate\Support\Facades\View;
-use Syscover\Admin\Models\Country;
+use Illuminate\Support\Facades\Route;
+use Syscover\Market\Events\RedsysAsyncResponse;
 use Syscover\Market\Events\RedsysResponseError;
 use Syscover\Market\Events\RedsysResponseSuccessful;
 use Syscover\Market\Services\RedsysService;
@@ -24,17 +24,16 @@ class RedsysController extends BaseController
 
         $responses = event(new RedsysResponseSuccessful($order));
 
-        $countries = Country::builder()
-            ->where('lang_id', user_lang())
-            ->get();
-
         foreach ($responses as $response)
         {
-            if(View::exists($response)) return view($response, [
-                'countries' => $countries,
-                'order'     => $order,
-                'status'    => 'successful'
-            ]);
+            if(is_string($response) && Route::has($response))
+            {
+                return redirect()
+                    ->route($response, ['id' => $order->id])
+                    ->with([
+                        'status' => 'successful'
+                    ]);
+            }
         }
 
         return null;
@@ -46,17 +45,16 @@ class RedsysController extends BaseController
 
         $responses = event(new RedsysResponseError($order));
 
-        $countries = Country::builder()
-            ->where('lang_id', user_lang())
-            ->get();
-
         foreach ($responses as $response)
         {
-            if(View::exists($response)) return view($response, [
-                'countries' => $countries,
-                'order'     => $order,
-                'status'    => 'error'
-            ]);
+            if(is_string($response) && Route::has($response))
+            {
+                return redirect()
+                    ->route($response, ['id' => $order->id])
+                    ->with([
+                        'status' => 'successful'
+                    ]);
+            }
         }
 
         return null;
