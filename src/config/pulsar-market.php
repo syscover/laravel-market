@@ -71,7 +71,7 @@ return [
 
     // TEST
     'redsys_test_merchant_name'     => env('MARKET_REDSYS_TEST_MERCHANT_NAME', ''),
-    'redsys_test_description_trans' => env('MARKET_REDSYS_TEST_DESCRIPTION_TRANS', 'market:pulsar.order_payment'),
+    'redsys_test_description_trans' => env('MARKET_REDSYS_TEST_DESCRIPTION_TRANS', 'market::pulsar.order_payment'),
     'redsys_test_merchant_code'     => env('MARKET_REDSYS_TEST_MERCHANT_CODE', ''),
     'redsys_test_terminal'          => env('MARKET_REDSYS_TEST_TERMINAL', '001'),
     'redsys_test_currency'          => env('MARKET_REDSYS_TEST_CURRENCY', '978'),
@@ -82,7 +82,7 @@ return [
 
     // LIVE
     'redsys_live_merchant_name'     => env('MARKET_REDSYS_LIVE_MERCHANT_NAME', ''),
-    'redsys_live_description_trans' => env('MARKET_REDSYS_LIVE_DESCRIPTION_TRANS', 'market:pulsar.order_payment'),
+    'redsys_live_description_trans' => env('MARKET_REDSYS_LIVE_DESCRIPTION_TRANS', 'market::pulsar.order_payment'),
     'redsys_live_merchant_code'     => env('MARKET_REDSYS_LIVE_MERCHANT_CODE', ''),
     'redsys_live_terminal'          => env('MARKET_REDSYS_LIVE_TERMINAL', '001'),
     'redsys_live_currency'          => env('MARKET_REDSYS_LIVE_CURRENCY', '978'),
