@@ -127,6 +127,10 @@ class PayPalService
         $order->transaction_id = $payment->getId();
         $order->save();
 
+        // log
+        OrderService::log($order->id, __('market::pulsar.message_customer_throw_to_paypal'));
+        Log::info('Create form to throw to PauPal, order: ' . $order->id);
+
         if(isset($redirectUrl))
         {
             if($xhr)
