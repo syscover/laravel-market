@@ -225,7 +225,7 @@ class RedsysService
         }
         else
         {
-            throw new \Exception('You must set MARKET_REDSYS_MODE like test or live');
+            throw new \Exception('You must set MARKET_REDSYS_MODE like test or live, current value: ' . config('pulsar-market.redsys_mode'));
         }
 
         $parameters['asyncResponseRoute']   = config('pulsar-market.redsys_async_response_route');
