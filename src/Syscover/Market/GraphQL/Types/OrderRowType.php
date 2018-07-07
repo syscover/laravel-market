@@ -2,6 +2,7 @@
 
 use GraphQL\Type\Definition\Type;
 use Folklore\GraphQL\Support\Type as GraphQLType;
+use Syscover\Core\GraphQL\ScalarTypes\ObjectType;
 
 class OrderRowType extends GraphQLType
 {
@@ -42,7 +43,7 @@ class OrderRowType extends GraphQLType
                 'description' => 'Description of product'
             ],
             'data' => [
-                'type' => Type::string(),
+                'type' => app(ObjectType::class),
                 'description' => 'Data of order row'
             ],
 
