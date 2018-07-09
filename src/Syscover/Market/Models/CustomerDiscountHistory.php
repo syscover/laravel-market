@@ -28,7 +28,7 @@ class CustomerDiscountHistory extends CoreModel
     public function scopeBuilder($query)
     {
         return $query
-            ->join('cms_customer', 'market_customer_discount_history.customer_id', '=', 'cms_customer.id')
+            ->join('crm_customer', 'market_customer_discount_history.customer_id', '=', 'crm_customer.id')
             ->join('market_order', 'market_customer_discount_history.order_id', '=', 'market_order.id');
     }
 }
