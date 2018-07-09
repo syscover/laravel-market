@@ -132,8 +132,8 @@ class CartPriceRuleService
             ]);
         }
 
-        if($object->has('enable_from')) $object['enable_from'] = date_time_string($object->get('enable_from'));
-        if($object->has('enable_from')) $object['enable_to'] = date_time_string($object->get('enable_to'));
+        if($object->has('enable_from')) $object['enable_from'] = empty($object->get('enable_from')) ? null : date_time_string($object->get('enable_from'));
+        if($object->has('enable_to')) $object['enable_to'] = empty($object->get('enable_to')) ? null : date_time_string($object->get('enable_to'));
 
         return $object->toArray();
     }
