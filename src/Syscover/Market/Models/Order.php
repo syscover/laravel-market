@@ -73,6 +73,7 @@ class Order extends CoreModel
 
                 'crm_customer.id as crm_customer_id',
                 'market_payment_method.id as market_payment_method_id',
+                'market_payment_method.name as market_payment_method_name',
                 'market_order_status.id as market_order_status_id',
                 'market_order_status.name as market_order_status_name',
                 'market_order.id as market_order_id'
