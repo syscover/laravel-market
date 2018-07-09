@@ -71,7 +71,7 @@ class CustomerDiscountHistoryService
 
     private static function checkCreate($object)
     {
-        if(empty($object['lang_id']))           throw new \Exception('You have to define a lang_id field to create a customer history discount');
+        if(empty($object['data_lang']))         throw new \Exception('You have to define a data_lang field from CartPriceRule to create a customer history discount');
         if(empty($object['customer_id']))       throw new \Exception('You have to define a customer_id field to create a customer history discount');
         if(empty($object['order_id']))          throw new \Exception('You have to define a order_id field to create a customer history discount');
         if(empty($object['rule_type']))         throw new \Exception('You have to define a rule_type field to create a customer history discount');
