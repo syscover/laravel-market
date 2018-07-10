@@ -26,6 +26,10 @@ class OrderType extends GraphQLType
                 'type' => Type::nonNull(Type::int()),
                 'description' => 'Payment method ID'
             ],
+            'payment_methods' => [
+                'type' => Type::nonNull(Type::listOf(GraphQL::type('MarketPaymentMethod'))),
+                'description' => 'Payment method ID'
+            ],
             'status_id' => [
                 'type' => Type::nonNull(Type::int()),
                 'description' => 'Status ID'

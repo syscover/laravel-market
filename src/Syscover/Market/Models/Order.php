@@ -56,7 +56,9 @@ class Order extends CoreModel
 
     public function scopeBuilder($query)
     {
-        return $query->join('crm_customer', 'market_order.customer_id', '=', 'crm_customer.id')
+        return $query
+            ->join('crm_customer', 'market_order.customer_id', '=', 'crm_customer.id')
+            ->join('market_order_row', 'market_order.id', '=', 'market_order_row.order_id')
             ->join('market_payment_method', function ($join) {
                 $join->on('market_order.payment_method_id', '=', 'market_payment_method.id')
                     ->where('market_payment_method.lang_id', '=', base_lang());
@@ -65,6 +67,7 @@ class Order extends CoreModel
                 $join->on('market_order.status_id', '=', 'market_order_status.id')
                     ->where('market_order_status.lang_id', '=', base_lang());
             })
+            ->groupBy('market_order.id', 'market_payment_method.ix', 'market_order_status.ix')
             ->select(
                 'crm_customer.*',
                 'market_payment_method.*',
