@@ -149,7 +149,7 @@ class OrderService
         $order->save();
     }
 
-    public static function transformDataOrder(Customer $customer, string $instance = null)
+    public static function getDataOrder(Customer $customer, string $instance = null)
     {
         // get cart instance
         $cart = CartProvider::instance($instance);
