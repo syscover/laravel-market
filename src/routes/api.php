@@ -106,10 +106,17 @@ Route::group(['middleware' => ['jwt.auth', 'jwt.refresh']], function () {
     | PAYMENT METHOD
     |----------------------------------
     */
-    Route::get('api/v1/market/payment-method/{lang?}',                             ['as' => 'marketPaymentMethod',                         'uses' => 'Syscover\Market\Controllers\PaymentMethodController@index']);
-    Route::get('api/v1/market/payment-method/{id}/{lang}',                         ['as' => 'showMarketPaymentMethod',                     'uses' => 'Syscover\Market\Controllers\PaymentMethodController@show']);
-    Route::post('api/v1/market/payment-method/search',                             ['as' => 'searchMarketPaymentMethod',                   'uses' => 'Syscover\Market\Controllers\PaymentMethodController@search']);
-    Route::post('api/v1/market/payment-method',                                    'Syscover\Market\Controllers\PaymentMethodController@store')->name('api.market.store_payment_method');
-    Route::put('api/v1/market/payment-method/{id}/{lang}',                         'Syscover\Market\Controllers\PaymentMethodController@update')->name('api.market.update_payment_method');
-    Route::delete('api/v1/market/payment-method/{id}/{lang?}',                     'Syscover\Market\Controllers\PaymentMethodController@destroy')->name('api.market.destroy_payment_method');
+    Route::get('api/v1/market/payment-method/{lang?}',                                      'Syscover\Market\Controllers\PaymentMethodController@index')->name('api.market.payment_method');
+    Route::get('api/v1/market/payment-method/{id}/{lang}',                                  'Syscover\Market\Controllers\PaymentMethodController@show')->name('api.market.show_payment_method');
+    Route::post('api/v1/market/payment-method/search',                                      'Syscover\Market\Controllers\PaymentMethodController@search')->name('api.market.search_payment_method');
+    Route::post('api/v1/market/payment-method',                                             'Syscover\Market\Controllers\PaymentMethodController@store')->name('api.market.store_payment_method');
+    Route::put('api/v1/market/payment-method/{id}/{lang}',                                  'Syscover\Market\Controllers\PaymentMethodController@update')->name('api.market.update_payment_method');
+    Route::delete('api/v1/market/payment-method/{id}/{lang?}',                              'Syscover\Market\Controllers\PaymentMethodController@destroy')->name('api.market.destroy_payment_method');
+
+    /*
+    |----------------------------------
+    | CART PRICE RULES
+    |----------------------------------
+    */
+    Route::post('api/v1/market/cart-price-rule/check-coupon-code/{guard?}/{instance?}',     'Syscover\Market\Controllers\CartPriceRuleController@checkCouponCode')->name('api.market.check_coupon_code_cart_price_rule');
 });
