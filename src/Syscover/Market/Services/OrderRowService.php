@@ -123,57 +123,60 @@ class OrderRowService
 
     public static function getDataOrderRow(int $orderId, string $instance = null)
     {
+        $items = [];
+
         // get cart instance
-        $items = CartProvider::instance($instance)->getCartItems();
-
-        $data = [];
-        foreach ($items as $item)
+        foreach (CartProvider::instance($instance)->getCartItems() as $item)
         {
-            $dataAux = [];
-            $dataAux['order_id']                                = $orderId;
-            $dataAux['lang_id']                                 = user_lang();
 
-            // product
-            $dataAux['product_id']                              = $item->id;
-            $dataAux['name']                                    = $item->name;
-            $dataAux['description']                             = $item->options->product->description;
-            $dataAux['data']                                    = ['product' => $item->options->product];
+            $itemAux = [
+                'order_id'                              => $orderId,
+                'lang_id'                               => user_lang(),
 
-            // amounts
-            $dataAux['price']                                   = $item->price;
-            $dataAux['quantity']                                = $item->quantity;
-            $dataAux['subtotal']                                = $item->subtotal;
-            $dataAux['total_without_discounts']                 = $item->totalWithoutDiscounts;
+                // product
+                'product_id'                            => $item->id,
+                'name'                                  => $item->name,
+                'description'                           => $item->options->product->description,
+                'data'                                  => ['product' => $item->options->product],
 
-            // discounts
-            $dataAux['discount_subtotal_percentage']            = $item->discountSubtotalPercentage;
-            $dataAux['discount_total_percentage']               = $item->discountTotalPercentage;
-            $dataAux['discount_subtotal_percentage_amount']     = $item->discountSubtotalPercentageAmount;
-            $dataAux['discount_total_percentage_amount']        = $item->discountTotalPercentageAmount;
-            $dataAux['discount_subtotal_fixed_amount']          = $item->discountSubtotalFixedAmount;
-            $dataAux['discount_total_fixed_amount']             = $item->discountTotalFixedAmount;
-            $dataAux['discount_amount']                         = $item->discountAmount;
+                // amounts
+                'price'                                 => $item->price,                    // unit price without tax
+                'quantity'                              => $item->quantity,                 // number of units
+                'subtotal'                              => $item->subtotal,                 // subtotal without tax
+                'total_without_discounts'               => $item->totalWithoutDiscounts,    // total from row without discounts
 
-            // subtotal with discounts
-            $dataAux['subtotal_with_discounts']                 = $item->subtotalWithDiscounts;
+                // discounts
+                'discount_subtotal_percentage'          => $item->discountSubtotalPercentage,
+                'discount_total_percentage'             => $item->discountTotalPercentage,
+                'discount_subtotal_percentage_amount'   => $item->discountSubtotalPercentageAmount,
+                'discount_total_percentage_amount'      => $item->discountTotalPercentageAmount,
+                'discount_subtotal_fixed_amount'        => $item->discountSubtotalFixedAmount,
+                'discount_total_fixed_amount'           => $item->discountTotalFixedAmount,
+                'discount_amount'                       => $item->discountAmount,
 
-            // taxes
-            $dataAux['tax_rules']                               = $item->taxRules->values();
-            $dataAux['tax_amount']                              = $item->taxAmount;
+                // subtotal with discounts
+                'subtotal_with_discounts'               => $item->subtotalWithDiscounts,      // subtotal without tax and with discounts
 
-            // total
-            $dataAux['total']                                   = $item->total;
+                // taxes
+                'tax_rules'                             => $item->taxRules->values(),
+                'tax_amount'                            => $item->taxAmount,
 
-            // gift
-            $dataAux['has_gift']                                = $item->options->gift != null? true : false;
-            $dataAux['gift_from']                               = isset($item->options->gift['from'])? $item->options->gift['from'] : null;
-            $dataAux['gift_to']                                 = isset($item->options->gift['to'])? $item->options->gift['to'] : null;
-            $dataAux['gift_message']                            = isset($item->options->gift['message'])? $item->options->gift['message'] : null;
-            $dataAux['gift_comments']                           = isset($item->options->gift['comments'])? $item->options->gift['comments'] : null;
+                // total
+                'total'                                 => $item->total,        // total with tax and discounts
 
-            $data[] = $dataAux;
+                // gift fields
+                // to set gift, create array in options with gift key, and keys: from, to, message
+                'has_gift'                              => $item->options->gift != null ? true : false,
+                'gift_from'                             => isset($item->options->gift['from']) ? $item->options->gift['from'] : null,
+                'gift_to'                               => isset($item->options->gift['to']) ? $item->options->gift['to'] : null,
+                'gift_message'                          => isset($item->options->gift['message']) ? $item->options->gift['message'] : null,
+                'gift_comments'                         => isset($item->options->gift['comments']) ? $item->options->gift['comments'] : null
+            ];
+
+            // add item to array
+            $items[] = $itemAux;
         }
 
-        return $data;
+        return $items;
     }
 }
