@@ -15,7 +15,7 @@ class CouponService
      * @param   \Illuminate\Auth\SessionGuard   $sessionGuard   request session guard to check if user is authenticated, for cases necessary
      * @return array
      */
-    public static function checkCoupon($couponCode, $lang, $sessionGuard = null, $instance = 'default')
+    public static function checkCouponCode($couponCode, $lang, $sessionGuard = null, $instance = 'default')
     {
         $shoppingCart   = CartProvider::instance($instance);
         $cartPriceRule  = CartPriceRule::builder($lang)
@@ -195,9 +195,9 @@ class CouponService
      * @param \Illuminate\Auth\SessionGuard         $sessionGuard   request session guard to check if user is authenticated, for cases necessary
      * @return null | \Syscover\Market\Models\CartPriceRule
      */
-    public static function addCoupon($shoppingCart, $couponCode, $lang, $sessionGuard = null)
+    public static function addCouponCode($shoppingCart, $couponCode, $lang, $sessionGuard = null)
     {
-        $response       = CouponService::checkCoupon($couponCode, $lang, $sessionGuard);
+        $response       = CouponService::checkCouponCode($couponCode, $lang, $sessionGuard);
         $cartPriceRule  = null;
 
         // check that rule its ok
