@@ -1,6 +1,9 @@
 <?php namespace Syscover\Market\Services;
 
+use Syscover\Crm\Models\Customer;
 use Syscover\Market\Models\CustomerDiscountHistory;
+use Syscover\Market\Models\Order;
+use Syscover\ShoppingCart\Facades\CartProvider;
 
 class CustomerDiscountHistoryService
 {
@@ -81,5 +84,71 @@ class CustomerDiscountHistoryService
     private static function checkUpdate($object)
     {
         if(empty($object['id'])) throw new \Exception('You have to define a id field to update a customer history discount');
+    }
+
+    public static function getDataCustomerDiscountHistory(Customer $customer, Order $order, bool $applied = true)
+    {
+        $customerDiscountHistory = [];
+        foreach (CartProvider::instance()->getPriceRules() as $discount)
+        {
+            $priceRule = $discount->options->priceRule;
+
+            $dataAux = [
+                'customer_id'                   => $customer->id,
+                'order_id'                      => $order->id,
+
+                // if order is canceled, you can deactivate discounts
+                'applied'                       => $applied,
+
+                // discount amount of this rule
+                'discount_amount'               => $discount->discountAmount,
+
+                // data lang to know languages in names and descriptions fields
+                'data_lang'                     => $discount->data_lang,
+
+                // rule encode in json format
+                'price_rule'                    => $priceRule,
+
+                // name of discount model:
+                // CartPriceRule
+                // CatalogPriceRule
+                // CustomerPriceRule
+                'rule_type'                     => get_class($priceRule),
+                'rule_id'                       => $priceRule->id,
+
+                'names'                         => $priceRule->names,
+                'descriptions'                  => $priceRule->descriptions,
+
+                'has_coupon'                    => $priceRule->has_coupon,
+                'coupon_code'                   => $priceRule->coupon_code,
+
+                // see config/pulsar-market.php section Discount type on shopping cart
+                // 1 - without discount
+                // 2 - discount percentage subtotal
+                // 3 - discount fixed amount subtotal
+                // 4 - discount percentage total
+                // 5 - discount fixed amount total
+                'discount_type_id'              => $priceRule->discount_type_id,
+
+                // fixed amount to discount over shopping cart
+                'discount_fixed_amount'         => $priceRule->discount_fixed_amount,
+
+                // percentage to discount over shopping cart
+                'discount_percentage'           => $priceRule->discount_percentage,
+
+                // limit amount to discount, if the discount is a percentage
+                'maximum_discount_amount'       => $priceRule->maximum_discount_amount,
+
+                // check if apply discount to shipping amount
+                'apply_shipping_amount'         => $priceRule->apply_shipping_amount,
+
+                // check if this discount has free shipping
+                'free_shipping'                 => $priceRule->free_shipping
+            ];
+
+            $customerDiscountHistory[] = $dataAux;
+        }
+
+        return $customerDiscountHistory;
     }
 }
