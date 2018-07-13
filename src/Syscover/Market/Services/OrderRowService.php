@@ -1,5 +1,6 @@
 <?php namespace Syscover\Market\Services;
 
+use Syscover\Market\Models\Order;
 use Syscover\Market\Models\OrderRow;
 use Syscover\ShoppingCart\Facades\CartProvider;
 
@@ -121,7 +122,7 @@ class OrderRowService
         if(empty($object['id'])) throw new \Exception('You have to define a id field to update a order row');
     }
 
-    public static function getDataOrderRow(int $orderId, string $instance = null)
+    public static function getDataOrderRow(Order $order, string $instance = null)
     {
         $items = [];
 
@@ -130,7 +131,7 @@ class OrderRowService
         {
 
             $itemAux = [
-                'order_id'                              => $orderId,
+                'order_id'                              => $order->id,
                 'lang_id'                               => user_lang(),
 
                 // product
