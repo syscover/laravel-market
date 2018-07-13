@@ -3,7 +3,7 @@
 use Carbon\Carbon;
 use Syscover\Crm\Models\Customer;
 use Syscover\Market\Models\Order;
-use Syscover\ShoppingCart\Cart;
+use Syscover\ShoppingCart\Facades\CartProvider;
 
 class OrderService
 {
@@ -149,8 +149,11 @@ class OrderService
         $order->save();
     }
 
-    public static function transformDataOrder(Customer $customer, Cart $cart)
+    public static function transformDataOrder(Customer $customer, string $instance = null)
     {
+        // get cart instance
+        $cart = CartProvider::instance($instance);
+
         // set all input from request
         $data                                           = request()->all();
 
