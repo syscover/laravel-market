@@ -1,7 +1,9 @@
 <?php namespace Syscover\Market\Services;
 
 use Carbon\Carbon;
+use Syscover\Crm\Models\Customer;
 use Syscover\Market\Models\Order;
+use Syscover\ShoppingCart\Cart;
 
 class OrderService
 {
@@ -145,5 +147,34 @@ class OrderService
 
         $order->data = $data;
         $order->save();
+    }
+
+    public static function transformDataOrder(Customer $customer, Cart $cart)
+    {
+        $data                                           = [];
+
+        $data['ip']                                     = request()->ip();
+
+        // customer
+        $data['customer_id']                            = $customer->id;
+        $data['customer_group_id']                      = $customer->group_id;
+        $data['customer_company']                       = $customer->company;
+        $data['customer_tin']                           = $customer->tin;
+        $data['customer_name']                          = $customer->name;
+        $data['customer_surname']                       = $customer->surname;
+        $data['customer_email']                         = $customer->email;
+        $data['customer_mobile']                        = $customer->mobile;
+        $data['customer_phone']                         = $customer->phone;
+
+        // cart
+        $data['cart_items_total_without_discounts']     = $cart->cartItemsTotalWithoutDiscounts;                    // total of cart items. Amount with tax, without discount and without shipping
+        $data['subtotal']                               = $cart->subtotal;                                          // amount without tax and without shipping
+        $data['discount_amount']                        = $cart->discountAmount;                                    // total amount to discount, fixed plus percentage discounts
+        $data['subtotal_with_discounts']                = $cart->subtotalWithDiscounts;                             // subtotal with discounts applied
+        $data['tax_amount']                             = $cart->taxAmount;                                         // total tax amount
+        $data['shipping_amount']                        = $cart->hasFreeShipping() ? 0 : $cart->shippingAmount;     // shipping amount
+        $data['total']                                  = $cart->total;                                             // shipping amount
+
+        return $data;
     }
 }
