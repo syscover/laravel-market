@@ -3,6 +3,9 @@
 // REDSYS
 Route::post('api/v1/market/redsys/async/response',                              'Syscover\Market\Controllers\RedsysController@asyncResponse')->name('api.market.redsys_async_response');
 
+// CART PRICE RULES
+Route::post('api/v1/market/cart-price-rule/check-coupon-code/{guard?}/{instance?}',     'Syscover\Market\Controllers\CartPriceRuleController@checkCouponCode')->name('api.market.check_coupon_code_cart_price_rule');
+
 Route::group(['middleware' => ['jwt.auth', 'jwt.refresh']], function () {
     /*
     |----------------------------------
@@ -112,11 +115,4 @@ Route::group(['middleware' => ['jwt.auth', 'jwt.refresh']], function () {
     Route::post('api/v1/market/payment-method',                                             'Syscover\Market\Controllers\PaymentMethodController@store')->name('api.market.store_payment_method');
     Route::put('api/v1/market/payment-method/{id}/{lang}',                                  'Syscover\Market\Controllers\PaymentMethodController@update')->name('api.market.update_payment_method');
     Route::delete('api/v1/market/payment-method/{id}/{lang?}',                              'Syscover\Market\Controllers\PaymentMethodController@destroy')->name('api.market.destroy_payment_method');
-
-    /*
-    |----------------------------------
-    | CART PRICE RULES
-    |----------------------------------
-    */
-    Route::post('api/v1/market/cart-price-rule/check-coupon-code/{guard?}/{instance?}',     'Syscover\Market\Controllers\CartPriceRuleController@checkCouponCode')->name('api.market.check_coupon_code_cart_price_rule');
 });
