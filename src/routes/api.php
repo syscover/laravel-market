@@ -1,10 +1,10 @@
 <?php
 
 // REDSYS
-Route::post('api/v1/market/redsys/async/response',                              'Syscover\Market\Controllers\RedsysController@asyncResponse')->name('api.market.redsys_async_response');
+Route::post('api/v1/market/redsys/async/response',                                      'Syscover\Market\Controllers\RedsysController@asyncResponse')->name('api.market.redsys_async_response');
 
 // CART PRICE RULES
-Route::post('api/v1/market/cart-price-rule/check-coupon-code/{guard?}/{instance?}',     'Syscover\Market\Controllers\CartPriceRuleController@checkCouponCode')->name('api.market.check_coupon_code_cart_price_rule');
+Route::post('api/v1/market/cart-price-rule/check-coupon-code/{guard?}/{instance?}',     'Syscover\Market\Controllers\CartPriceRuleController@checkCouponCode')->name('api.market.check_coupon_code_cart_price_rule')->middleware('web');
 
 Route::group(['middleware' => ['jwt.auth', 'jwt.refresh']], function () {
     /*
