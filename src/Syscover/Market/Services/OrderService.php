@@ -151,8 +151,10 @@ class OrderService
 
     public static function transformDataOrder(Customer $customer, Cart $cart)
     {
-        $data                                           = [];
+        // set all input from request
+        $data                                           = request()->all();
 
+        // set customer IP
         $data['ip']                                     = request()->ip();
 
         // customer
