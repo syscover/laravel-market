@@ -88,6 +88,9 @@ class CustomerDiscountHistoryService
 
     public static function getDataCustomerDiscountHistory(Customer $customer, Order $order, bool $applied = true)
     {
+        if(! $customer || empty($customer->id)) throw new \Exception('You have to define a customer object to get data customer history discount');
+        if(! $order || empty($order->id)) throw new \Exception('You have to define a order object to get data customer history discount');
+
         $customerDiscountHistory = [];
         foreach (CartProvider::instance()->getPriceRules() as $discount)
         {
