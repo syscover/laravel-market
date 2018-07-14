@@ -106,9 +106,6 @@ class CustomerDiscountHistoryService
                 // discount amount of this rule
                 'discount_amount'               => $discount->discountAmount,
 
-                // data lang to know languages in names and descriptions fields
-                'data_lang'                     => $discount->data_lang,
-
                 // rule encode in json format
                 'price_rule'                    => $priceRule,
 
@@ -121,6 +118,9 @@ class CustomerDiscountHistoryService
 
                 'names'                         => $priceRule->names,
                 'descriptions'                  => $priceRule->descriptions,
+
+                // data lang to know languages in names and descriptions fields
+                'data_lang'                     => $priceRule->data_lang,
 
                 'has_coupon'                    => $priceRule->has_coupon,
                 'coupon_code'                   => $priceRule->coupon_code,
