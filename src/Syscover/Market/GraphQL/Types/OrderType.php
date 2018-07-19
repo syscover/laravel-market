@@ -3,6 +3,7 @@
 use GraphQL;
 use GraphQL\Type\Definition\Type;
 use Folklore\GraphQL\Support\Type as GraphQLType;
+use Syscover\Core\GraphQL\ScalarTypes\ObjectType;
 
 class OrderType extends GraphQLType
 {
@@ -39,8 +40,8 @@ class OrderType extends GraphQLType
                 'description' => 'Customer IP'
             ],
             'data' => [
-                'type' => Type::string(),
-                'description' => 'Data to attach'
+                'type' => app(ObjectType::class),
+                'description' => 'Data of order'
             ],
             'comments' => [
                 'type' => Type::string(),
