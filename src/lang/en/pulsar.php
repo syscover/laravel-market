@@ -19,6 +19,7 @@ return [
     'error_coupon_code_09'                          => 'This coupon has already been introduced',
     'error_coupon_code_10'                          => 'Currently no shipping costs in the shopping cart',
     'message_customer_redsys_error'                 => 'Error REDSYS TPV, Error: :error',
+    'message_customer_sent_order_email'             => 'Email sent with the order to the emails: :emails',
     'message_customer_throw_to_paypal'              => 'Customer throw to PayPal',
     'message_customer_throw_to_redsys'              => 'Customer throw to REDSYS',
     'message_paypal_payment_error'                  => 'PayPal payment error',
