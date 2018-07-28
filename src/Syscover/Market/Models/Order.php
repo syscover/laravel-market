@@ -1,12 +1,13 @@
 <?php namespace Syscover\Market\Models;
 
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 use Syscover\Admin\Models\Country;
 use Syscover\Admin\Models\TerritorialArea1;
 use Syscover\Admin\Models\TerritorialArea2;
 use Syscover\Admin\Models\TerritorialArea3;
 use Syscover\Core\Models\CoreModel;
-use Illuminate\Support\Facades\Validator;
 use Syscover\Crm\Models\Customer;
 
 /**
@@ -68,7 +69,7 @@ class Order extends CoreModel
                     ->where('market_order_status.lang_id', '=', base_lang());
             })
             ->groupBy('market_order.id', 'market_payment_method.ix', 'market_order_status.ix')
-            ->select(
+            ->addSelect(
                 'crm_customer.*',
                 'market_payment_method.*',
                 'market_order_status.*',
@@ -81,6 +82,11 @@ class Order extends CoreModel
                 'market_order_status.name as market_order_status_name',
                 'market_order.id as market_order_id'
             );
+    }
+
+    public function scopeCalculateFoundRows($query)
+    {
+        return $query->select(DB::raw('SQL_CALC_FOUND_ROWS market_order.id'));
     }
 
     // Accessors
