@@ -3,7 +3,6 @@
 use GraphQL;
 use GraphQL\Type\Definition\Type;
 use Folklore\GraphQL\Support\Query;
-use Syscover\Core\Services\SQLService;
 use Syscover\Market\Models\TaxRule;
 
 class TaxRulesPaginationQuery extends Query
@@ -31,18 +30,9 @@ class TaxRulesPaginationQuery extends Query
 
     public function resolve($root, $args)
     {
-        $query = SQLService::getQueryFiltered(TaxRule::builder(), $args['sql']);
-
-        // count records filtered
-        $filtered = $query->count();
-
-        // N total records
-        $total = SQLService::countPaginateTotalRecords(TaxRule::builder());
-
         return (Object) [
-            'total'     => $total,
-            'filtered'  => $filtered,
-            'query'     => $query
+            // set setEagerLoads to clean eager loads to use FOUND_ROWS() MySql Function
+            'query' => TaxRule::calculateFoundRows()->builder()
         ];
     }
 }

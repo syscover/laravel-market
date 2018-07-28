@@ -1,5 +1,6 @@
 <?php namespace Syscover\Market\Models;
 
+use Illuminate\Support\Facades\DB;
 use Syscover\Core\Models\CoreModel;
 use Illuminate\Support\Facades\Validator;
 use Syscover\Admin\Models\Country;
@@ -30,7 +31,12 @@ class TaxRateZone extends CoreModel
                 $join->on('market_tax_rate_zone.country_id', '=', 'admin_country.id')
                     ->where('admin_country.lang_id', '=', base_lang());
             })
-            ->select('market_tax_rate_zone.*');
+            ->addSelect('market_tax_rate_zone.*');
+    }
+
+    public function scopeCalculateFoundRows($query)
+    {
+        return $query->select(DB::raw('SQL_CALC_FOUND_ROWS market_tax_rate_zone.id'));
     }
 
     public function country()

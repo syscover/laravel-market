@@ -3,7 +3,6 @@
 use GraphQL;
 use GraphQL\Type\Definition\Type;
 use Folklore\GraphQL\Support\Query;
-use Syscover\Core\Services\SQLService;
 use Syscover\Market\Models\Product;
 
 class ProductsPaginationQuery extends Query
@@ -36,18 +35,9 @@ class ProductsPaginationQuery extends Query
 
     public function resolve($root, $args)
     {
-        $query = SQLService::getQueryFiltered(Product::builder(), $args['sql'], $args['filters']);
-
-        // count records filtered
-        $filtered = $query->count();
-
-        // N total records
-        $total = SQLService::countPaginateTotalRecords(Product::builder(), $args['filters']);
-
         return (Object) [
-            'total'     => $total,
-            'filtered'  => $filtered,
-            'query'     => $query
+            // set setEagerLoads to clean eager loads to use FOUND_ROWS() MySql Function
+            'query' => Product::calculateFoundRows()->builder()
         ];
     }
 }

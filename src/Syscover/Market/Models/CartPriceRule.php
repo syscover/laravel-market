@@ -33,11 +33,6 @@ class CartPriceRule extends CoreModel
         return Validator::make($data, static::$rules);
 	}
 
-    public function scopeBuilder($query, $lang = null)
-    {
-        return $query;
-    }
-
     // Accessors
     public function getEnableFromAttribute($value)
     {

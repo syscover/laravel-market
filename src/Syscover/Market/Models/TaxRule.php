@@ -29,8 +29,13 @@ class TaxRule extends CoreModel
             ->join('market_tax_rate_zone', 'market_tax_rules_tax_rates_zones.tax_rate_zone_id', '=', 'market_tax_rate_zone.id')
             ->join('market_customer_class_tax', 'market_tax_rules_customer_class_taxes.customer_class_tax_id', '=', 'market_customer_class_tax.id')
             ->join('market_product_class_tax', 'market_tax_rules_product_class_taxes.product_class_tax_id', '=', 'market_product_class_tax.id')
-            ->select('market_tax_rule.*')
+            ->addSelect('market_tax_rule.*')
             ->groupBy('market_tax_rule.id', 'market_tax_rule.name', 'market_tax_rule.translation', 'market_tax_rule.priority', 'market_tax_rule.sort');
+    }
+
+    public function scopeCalculateFoundRows($query)
+    {
+        return $query->select(DB::raw('SQL_CALC_FOUND_ROWS market_tax_rule.id'));
     }
 
     public function tax_rate_zones()

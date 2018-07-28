@@ -24,7 +24,8 @@ class ProductsCategories extends CoreModel
 
     public function scopeBuilder($query, $lang = null)
     {
-        return $query->join('market_product', 'market_products_categories.product_id', '=', 'market_product.id')
+        return $query
+            ->join('market_product', 'market_products_categories.product_id', '=', 'market_product.id')
             ->leftJoin('market_product_lang', function($join) use ($lang) {
                 $join->on('market_product.id', '=', 'market_product_lang.id');
                 if($lang !== null)  $join->where('market_product_lang.lang_id', '=', $lang);

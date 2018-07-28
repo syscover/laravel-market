@@ -1,5 +1,6 @@
 <?php namespace Syscover\Market\Models;
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Syscover\Admin\Models\Attachment;
 use Syscover\Core\Models\CoreModel;
@@ -51,6 +52,11 @@ class Product extends CoreModel
     {
         return $query->join('market_product_lang', 'market_product.id', '=', 'market_product_lang.id')
             ->select('market_product.*', 'market_product_lang.*', 'market_product_lang.data as market_product_lang_data', 'market_product.data as market_product_data');
+    }
+
+    public function scopeCalculateFoundRows($query)
+    {
+        return $query->select(DB::raw('SQL_CALC_FOUND_ROWS market_product.id'));
     }
 
     public function scopeCategoriesProducts($query, $categories)
