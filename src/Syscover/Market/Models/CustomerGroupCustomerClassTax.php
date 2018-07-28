@@ -37,10 +37,10 @@ class CustomerGroupCustomerClassTax extends CoreModel
                 'crm_customer_group.*',
                 'market_customer_class_tax.*',
                 'market_customer_group_customer_class_tax.*',
-                'crm_customer_group.name as customer_group_name',
-                'market_customer_class_tax.name as customer_class_tax_name',
-                'crm_customer_group.id as customer_group_id',
-                'market_customer_class_tax.id as customer_class_tax_id'
+                'crm_customer_group.name as crm_customer_group_name',
+                'market_customer_class_tax.name as market_customer_class_tax_name',
+                'crm_customer_group.id as crm_customer_group_id',
+                'market_customer_class_tax.id as market_customer_class_tax_id'
             );
     }
 

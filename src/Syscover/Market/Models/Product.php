@@ -50,7 +50,8 @@ class Product extends CoreModel
 
     public function scopeBuilder($query)
     {
-        return $query->join('market_product_lang', 'market_product.id', '=', 'market_product_lang.id')
+        return $query
+            ->join('market_product_lang', 'market_product.id', '=', 'market_product_lang.id')
             ->select('market_product.*', 'market_product_lang.*', 'market_product_lang.data as market_product_lang_data', 'market_product.data as market_product_data');
     }
 

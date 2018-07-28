@@ -23,7 +23,8 @@ class TaxRule extends CoreModel
 
     public function scopeBuilder($query)
     {
-        return $query->join('market_tax_rules_tax_rates_zones', 'market_tax_rule.id', '=', 'market_tax_rules_tax_rates_zones.tax_rule_id')
+        return $query
+            ->join('market_tax_rules_tax_rates_zones', 'market_tax_rule.id', '=', 'market_tax_rules_tax_rates_zones.tax_rule_id')
             ->join('market_tax_rules_customer_class_taxes', 'market_tax_rule.id', '=', 'market_tax_rules_customer_class_taxes.tax_rule_id')
             ->join('market_tax_rules_product_class_taxes', 'market_tax_rule.id', '=', 'market_tax_rules_product_class_taxes.tax_rule_id')
             ->join('market_tax_rate_zone', 'market_tax_rules_tax_rates_zones.tax_rate_zone_id', '=', 'market_tax_rate_zone.id')
