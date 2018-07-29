@@ -52,7 +52,7 @@ class Product extends CoreModel
     {
         return $query
             ->join('market_product_lang', 'market_product.id', '=', 'market_product_lang.id')
-            ->select('market_product.*', 'market_product_lang.*', 'market_product_lang.data as market_product_lang_data', 'market_product.data as market_product_data');
+            ->addSelect('market_product.*', 'market_product_lang.*', 'market_product_lang.data as market_product_lang_data', 'market_product.data as market_product_data');
     }
 
     public function scopeCalculateFoundRows($query)
