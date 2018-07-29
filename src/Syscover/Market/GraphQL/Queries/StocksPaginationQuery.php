@@ -32,7 +32,7 @@ class StocksPaginationQuery extends Query
     {
         return (Object) [
             // set setEagerLoads to clean eager loads to use FOUND_ROWS() MySql Function
-            'query' => Stock::calculateFoundRows()->builder()
+            'query' => Stock::calculateFoundRows()->builder()->setEagerLoads([])
         ];
     }
 }
