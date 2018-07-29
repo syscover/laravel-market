@@ -31,8 +31,7 @@ class ProductClassTaxesPaginationQuery extends Query
     public function resolve($root, $args)
     {
         return (Object) [
-            // set setEagerLoads to clean eager loads to use FOUND_ROWS() MySql Function
-            'query' => ProductClassTax::calculateFoundRows()->builder()->setEagerLoads([])
+            'query' => ProductClassTax::calculateFoundRows()->builder()
         ];
     }
 }

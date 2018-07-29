@@ -36,8 +36,7 @@ class ProductsPaginationQuery extends Query
     public function resolve($root, $args)
     {
         return (Object) [
-            // set setEagerLoads to clean eager loads to use FOUND_ROWS() MySql Function
-            'query' => Product::calculateFoundRows()->builder()->setEagerLoads([])
+            'query' => Product::calculateFoundRows()->builder()
         ];
     }
 }

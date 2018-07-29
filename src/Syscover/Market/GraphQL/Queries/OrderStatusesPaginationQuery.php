@@ -36,8 +36,7 @@ class OrderStatusesPaginationQuery extends Query
     public function resolve($root, $args)
     {
         return (Object) [
-            // set setEagerLoads to clean eager loads to use FOUND_ROWS() MySql Function
-            'query' => OrderStatus::calculateFoundRows()->builder()->setEagerLoads([])
+            'query' => OrderStatus::calculateFoundRows()->builder()
         ];
     }
 }
