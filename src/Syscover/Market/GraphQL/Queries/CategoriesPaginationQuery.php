@@ -37,7 +37,7 @@ class CategoriesPaginationQuery extends Query
     {
         return (Object) [
             // set setEagerLoads to clean eager loads to use FOUND_ROWS() MySql Function
-            'query' => Category::calculateFoundRows()->builder()
+            'query' => Category::calculateFoundRows()->builder()->setEagerLoads([])
         ];
     }
 }

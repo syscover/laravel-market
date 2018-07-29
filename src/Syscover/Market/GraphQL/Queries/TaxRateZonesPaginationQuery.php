@@ -32,7 +32,7 @@ class TaxRateZonesPaginationQuery extends Query
     {
         return (Object) [
             // set setEagerLoads to clean eager loads to use FOUND_ROWS() MySql Function
-            'query' => TaxRateZone::calculateFoundRows()->builder()
+            'query' => TaxRateZone::calculateFoundRows()->builder()->setEagerLoads([])
         ];
     }
 }

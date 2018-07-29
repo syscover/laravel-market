@@ -32,7 +32,7 @@ class CartPriceRulesPaginationQuery extends Query
     {
         return (Object) [
             // set setEagerLoads to clean eager loads to use FOUND_ROWS() MySql Function
-            'query' => CartPriceRule::calculateFoundRows()->builder()
+            'query' => CartPriceRule::calculateFoundRows()->builder()->setEagerLoads([])
         ];
     }
 }

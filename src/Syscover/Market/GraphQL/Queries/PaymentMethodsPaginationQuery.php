@@ -37,7 +37,7 @@ class PaymentMethodsPaginationQuery extends Query
     {
         return (Object) [
             // set setEagerLoads to clean eager loads to use FOUND_ROWS() MySql Function
-            'query' => PaymentMethod::calculateFoundRows()->builder()
+            'query' => PaymentMethod::calculateFoundRows()->builder()->setEagerLoads([])
         ];
     }
 }

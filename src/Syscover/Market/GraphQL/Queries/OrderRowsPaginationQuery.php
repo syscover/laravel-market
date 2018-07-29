@@ -32,7 +32,7 @@ class OrderRowsPaginationQuery extends Query
     {
         return (Object) [
             // set setEagerLoads to clean eager loads to use FOUND_ROWS() MySql Function
-            'query' => OrderRow::calculateFoundRows()->builder()
+            'query' => OrderRow::calculateFoundRows()->builder()->setEagerLoads([])
         ];
     }
 }

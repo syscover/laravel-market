@@ -32,7 +32,7 @@ class WarehousesPaginationQuery extends Query
     {
         return (Object) [
             // set setEagerLoads to clean eager loads to use FOUND_ROWS() MySql Function
-            'query' => Warehouse::calculateFoundRows()->builder()
+            'query' => Warehouse::calculateFoundRows()->builder()->setEagerLoads([])
         ];
     }
 }
