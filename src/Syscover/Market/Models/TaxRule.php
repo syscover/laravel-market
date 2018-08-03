@@ -1,5 +1,6 @@
 <?php namespace Syscover\Market\Models;
 
+use Illuminate\Support\Facades\DB;
 use Syscover\Core\Models\CoreModel;
 use Illuminate\Support\Facades\Validator;
 
