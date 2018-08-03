@@ -31,7 +31,7 @@ class TaxRulesPaginationQuery extends Query
     public function resolve($root, $args)
     {
         return (Object) [
-            'query' => TaxRule::calculateFoundRows()->builder()
+            'query' => TaxRule::calculateFoundRows()->paginationBuilder()
         ];
     }
 }

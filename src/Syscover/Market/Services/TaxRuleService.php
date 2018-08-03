@@ -5,6 +5,7 @@ use Syscover\Market\Models\Product;
 use Syscover\Market\Models\TaxRule;
 use Syscover\ShoppingCart\Facades\CartProvider;
 use Syscover\ShoppingCart\Cart;
+use Syscover\ShoppingCart\TaxRule as ShoppingCartTaxRule;
 
 /**
  * Class TaxRuleLibrary
@@ -116,7 +117,7 @@ class TaxRuleService
                 // reset tax rules from item
                 $item->resetTaxRules();
 
-                // if there ara any tax rule, and product with tax rule
+                // if there are any tax rule, and product with tax rule
                 if(
                     $taxRules->count() > 0 &&
                     $products->where('id', $item->id)->count() > 0 &&
@@ -130,12 +131,19 @@ class TaxRuleService
                     // add tax rules to item
                     foreach ($itemTaxRules as $itemTaxRule)
                     {
-                        $item->addTaxRule($itemTaxRule->getTaxRuleShoppingCart());
+                        $item->addTaxRule(
+                            new ShoppingCartTaxRule(
+                                __($itemTaxRule->translation),
+                                $itemTaxRule->tax_rate,
+                                $itemTaxRule->priority,
+                                $itemTaxRule->sort
+                            )
+                        );
                     }
                 }
 
                 // force to calculate amounts
-                $item->calculateAmounts(Cart::PRICE_WITHOUT_TAX);
+                $item->calculateAmounts(config('pulsar-shopping_cart.product_tax_prices'));
             }
         }
     }
