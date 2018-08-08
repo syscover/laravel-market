@@ -186,9 +186,9 @@ class TaxRuleService
         }
     }
 
-    private static function checkZip(string $zipPattern, string $zip): bool
+    private static function checkZip(string $zipPattern = null, string $zip = null): bool
     {
-        if(! $zip) return false;
+        if(! $zipPattern || ! $zip) return false;
 
         foreach (str_split($zipPattern) as $zipPatternItem)
         {
