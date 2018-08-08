@@ -154,11 +154,14 @@ class TaxRuleService
                         if ($isVerify) $targetItemTaxRules->push($itemTaxRule);
                     }
 
-                    // if has various tax rules with different priorities, take last one with higher priority
-                    $targetItemTaxRules = $targetItemTaxRules
-                        ->sortBy('priority')
-                        ->groupBy('priority')
-                        ->last();
+                    if($targetItemTaxRules->count() > 0)
+                    {
+                        // if has various tax rules with different priorities, take last one with higher priority
+                        $targetItemTaxRules = $targetItemTaxRules
+                            ->sortBy('priority')
+                            ->groupBy('priority')
+                            ->last();
+                    }
 
                     // in tax rules with the same priorities, apply tax rules accord your sort property
                     if(count($targetItemTaxRules) > 1)
