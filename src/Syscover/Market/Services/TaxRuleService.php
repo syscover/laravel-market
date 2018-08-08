@@ -161,25 +161,25 @@ class TaxRuleService
                             ->sortBy('priority')
                             ->groupBy('priority')
                             ->last();
-                    }
 
-                    // in tax rules with the same priorities, apply tax rules accord your sort property
-                    if(count($targetItemTaxRules) > 1)
-                    {
-                        $targetItemTaxRules = collect($targetItemTaxRules)->sortBy('sort');
-                    }
+                        // in tax rules with the same priorities, apply tax rules accord your sort property
+                        if(count($targetItemTaxRules) > 1)
+                        {
+                            $targetItemTaxRules = collect($targetItemTaxRules)->sortBy('sort');
+                        }
 
-                    // add tax rules
-                    foreach ($targetItemTaxRules as $itemTaxRule)
-                    {
-                        $item->addTaxRule(
-                            new ShoppingCartTaxRule(
-                                __($itemTaxRule->translation),
-                                $itemTaxRule->tax_rate,
-                                $itemTaxRule->priority,
-                                $itemTaxRule->sort
-                            )
-                        );
+                        // add tax rules
+                        foreach ($targetItemTaxRules as $itemTaxRule)
+                        {
+                            $item->addTaxRule(
+                                new ShoppingCartTaxRule(
+                                    __($itemTaxRule->translation),
+                                    $itemTaxRule->tax_rate,
+                                    $itemTaxRule->priority,
+                                    $itemTaxRule->sort
+                                )
+                            );
+                        }
                     }
                 }
 
