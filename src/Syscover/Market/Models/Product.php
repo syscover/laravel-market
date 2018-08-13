@@ -16,7 +16,9 @@ use Syscover\Admin\Traits\Translatable;
 
 class Product extends CoreModel
 {
-    use CustomizableValues;
+    use CustomizableValues {
+        __get as traitGet;
+    }
     use CustomizableFields, Translatable;
 
 	protected $table        = 'market_product';
@@ -213,8 +215,8 @@ class Product extends CoreModel
                 return $this->subtotal + $this->tax_amount;
             }
 
-            $taxes              = TaxRuleService::taxCalculateOverSubtotal($this->subtotal, $this->tax_rules->where('product_class_tax_id', $this->product_class_tax_id));
-            $this->tax_amount   = $taxes->sum('taxAmount');
+            $taxes              = TaxRuleService::taxCalculateOverSubtotal($this->subtotal, $this->tax_rules);
+            $this->tax_amount   = $taxes->sum('tax_amount');
             $this->total        = $this->subtotal + $this->tax_amount;
 
             return $this->total;
@@ -224,32 +226,14 @@ class Product extends CoreModel
         if($name === 'tax_amount')
         {
             $taxes = TaxRuleService::taxCalculateOverSubtotal($this->subtotal, $this->tax_rules);
-            return $taxes->sum('taxAmount');
+            return $taxes->sum('tax_amount');
         }
 
         if($name === 'tax_rules')
         {
-            $sessionTaxRules = session('pulsar-market.tax_rules');
-
-            $sessionTaxRules = $sessionTaxRules->filter(function ($taxRule, $key) {
-                return $taxRule->product_class_taxes->where('id', $this->product_class_tax_id)->count() > 0;
-            });
-
-            return $sessionTaxRules->sortBy('priority');
+            return session('pulsar-market.tax_rules')->where('product_class_tax_id', $this->product_class_tax_id);
         }
 
-        // custom fields
-        $data = $this->getAttribute('data');
-
-        if(
-            isset($data['custom_fields']) &&
-            is_array($data['custom_fields']) &&
-            array_key_exists($name, $data['custom_fields'])
-        )
-        {
-            return $data['custom_fields'][$name];
-        }
-
-        return parent::__get($name);
+        return $this->traitGet($name);
     }
 }

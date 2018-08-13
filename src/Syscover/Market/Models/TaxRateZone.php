@@ -16,7 +16,7 @@ class TaxRateZone extends CoreModel
     protected $fillable     = ['id', 'name', 'country_id', 'territorial_area_1_id', 'territorial_area_2_id', 'territorial_area_3_id', 'zip', 'tax_rate'];
     public $with            = ['country.lang'];
     protected $casts        = [
-        'tax_rate' => 'float'
+        'tax_rate' => 'float' // field that comes from inner join
     ];
     private static $rules   = [];
 

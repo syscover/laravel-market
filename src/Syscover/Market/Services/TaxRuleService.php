@@ -4,7 +4,6 @@ use Illuminate\Support\Collection;
 use Syscover\Market\Models\Product;
 use Syscover\Market\Models\TaxRule;
 use Syscover\ShoppingCart\Facades\CartProvider;
-use Syscover\ShoppingCart\Cart;
 use Syscover\ShoppingCart\TaxRule as ShoppingCartTaxRule;
 
 /**
@@ -23,29 +22,32 @@ class TaxRuleService
      */
     public static function taxCalculateOverSubtotal($price, $taxRules)
     {
-        $priority       = 0;
-        $totalTax       = 0;
-        $response       = collect();
-        $priorityPrice  = $price;
+        // group by priority, the taxRules are sort by priority previously
+        $taxRulesGrouped    = $taxRules->groupBy('priority');
+        $taxAmount          = 0;
+        $response           = collect();
 
-        foreach ($taxRules as $taxRule)
+        foreach ($taxRulesGrouped as $taxRuleGroup)
         {
-            $taxRate = $taxRule->tax_rate_zones->sum('tax_rate') / 100;
+            // if is different priority, calculate tax amount over sum of price and previous tax amount
+            $price          += $taxAmount;
 
-            // check priority
-            if($taxRule->priority > $priority)
+            // reset tax amount to the next tax  rule priority
+            $taxAmount      = 0;
+
+            foreach ($taxRuleGroup as $taxRule)
             {
-                $priority       = $taxRule->priority;
-                $priorityPrice  += $totalTax;
+                // calculate tax rate of tax rule of same priority
+                $taxRate        = $taxRule->tax_rate / 100;
+
+                // get tax amount from tax rate of same priority
+                $taxAmount      += ($price * $taxRate);
+
+                $response->push([
+                    'tax_rule'      => $taxRule,
+                    'tax_amount'    => $taxAmount
+                ]);
             }
-
-            $taxAmount  = $priorityPrice * $taxRate;
-            $totalTax   += $taxAmount;
-
-            $response->push([
-                'taxRule'   => $taxRule,
-                'taxAmount' => $taxAmount
-            ]);
         }
 
         return $response;
@@ -58,29 +60,32 @@ class TaxRuleService
      */
     public static function taxCalculateOverTotal($price, $taxRules)
     {
-        $priority       = 0;
-        $totalTax       = 0;
-        $response       = collect();
-        $priorityPrice  = $price;
+        // group by priority, the taxRules are sort by priority previously
+        $taxRulesGrouped    = $taxRules->groupBy('priority');
+        $taxAmount          = 0;
+        $response           = collect();
 
-        foreach ($taxRules->reverse() as $taxRule)
+        foreach ($taxRulesGrouped->reverse() as $taxRuleGroup)
         {
-            $taxRate = $taxRule->tax_rate_zones->sum('tax_rate') / 100;
+            // if is different priority, calculate tax amount over sum of price and previous tax amount
+            $price          -= $taxAmount;
 
-            // check priority
-            if($taxRule->priority < $priority || ($priority === 0 && $taxRule->priority > 0))
+            // reset tax amount to the next tax  rule priority
+            $taxAmount      = 0;
+
+            foreach ($taxRuleGroup as $taxRule)
             {
-                $priority       = $taxRule->priority;
-                $priorityPrice  -= $totalTax;
+                // calculate tax rate of tax rule of same priority
+                $taxRate        = $taxRule->tax_rate / 100;
+
+                // get tax amount from tax rate of same priority
+                $taxAmount      += ($price * $taxRate) / ($taxRate + 1);
+
+                $response->push([
+                    'tax_rule'      => $taxRule,
+                    'tax_amount'    => $taxAmount
+                ]);
             }
-
-            $taxAmount  = ($priorityPrice * $taxRate) / ($taxRate + 1);
-            $totalTax   +=  $taxAmount;
-
-            $response->push([
-                'taxRule'   => $taxRule,
-                'taxAmount' => $taxAmount
-            ]);
         }
 
         return $response;
@@ -105,8 +110,8 @@ class TaxRuleService
 
             // get tax rules
             $taxRules = TaxRule::builder()
-                ->where('country_id', auth($guard)->check() && auth($guard)->user()->country_id ? auth($guard)->user()->country_id : config('pulsar-market.default_tax_country'))
-                ->where('customer_class_tax_id', auth($guard)->check() && auth($guard)->user()->class_tax ? auth($guard)->user()->class_tax : config('pulsar-market.default_class_customer_tax'))
+                ->where('country_id', auth($guard)->check() && auth($guard)->user()->country_id ? auth($guard)->user()->country_id : config('pulsar-market.default_country_tax'))
+                ->where('customer_class_tax_id', auth($guard)->check() && auth($guard)->user()->class_tax ? auth($guard)->user()->class_tax : config('pulsar-market.default_customer_class_tax'))
                 ->whereIn('product_class_tax_id', $products->pluck('product_class_tax_id')->toArray())
                 ->orderBy('priority', 'asc')
                 ->get();
@@ -189,18 +194,96 @@ class TaxRuleService
         }
     }
 
+    public static function getCustomerTaxRules(
+        $customer_class_tax_id = null,
+        $country_id = null,
+        $territorial_area_1_id = null,
+        $territorial_area_2_id = null,
+        $territorial_area_3_id = null,
+        $zip = null
+    )
+    {
+        // get tax rules for all product_class_tax_id
+        $taxRules = TaxRule::builder()
+            ->where('country_id', $country_id ?? config('pulsar-market.default_country_tax'))
+            ->where('customer_class_tax_id', $customer_class_tax_id ?? config('pulsar-market.default_customer_class_tax'))
+            ->orderBy('priority', 'asc')
+            ->get();
+
+
+        // filter by tas rules
+        $taxRules = TaxRuleService::filterTaxRuleByTerritorialArea($taxRules, $territorial_area_1_id, 'territorial_area_1_id');
+        $taxRules = TaxRuleService::filterTaxRuleByTerritorialArea($taxRules, $territorial_area_2_id, 'territorial_area_2_id');
+        $taxRules = TaxRuleService::filterTaxRuleByTerritorialArea($taxRules, $territorial_area_3_id, 'territorial_area_3_id');
+        $taxRules = TaxRuleService::filterTaxRuleByTerritorialArea($taxRules, $zip, 'zip', true);
+
+        // return with index reset
+        return $taxRules->values();
+    }
+
+    private static function filterTaxRuleByTerritorialArea($taxRules, $territorialArea, $field, $isZip = false)
+    {
+        // loop to filter tax rules
+        $results = $taxRules->filter(function ($taxRule, $key) use ($territorialArea, $field, $isZip) {
+
+            // if customer has territorial area
+            if ($territorialArea)
+            {
+                if($isZip)
+                {
+                    return TaxRuleService::checkZip($taxRule->zip, $territorialArea);
+                }
+                else
+                {
+                    // return tax rules which are equal to customer territorial area
+                    return $taxRule->{$field} === $territorialArea;
+                }
+            }
+            else
+            {
+                // if customer has not territorial area, return tax rules with territorial areas equal to null
+                return is_null($taxRule->{$field});
+            }
+        });
+
+        // after to do the filter and customer has territorial area
+        if ($territorialArea)
+        {
+            // if has results, return this one
+            if($results->count() > 0)
+            {
+                return $results;
+            }
+            // if has not results, return tax rules with territorial area equal to null
+            else
+            {
+                return $taxRules->where($field, null);
+            }
+        }
+        else
+        {
+            // if customer has not territorial area return those rules that has a null by territorial area, what are the filtered results.
+            return $results;
+        }
+    }
+
     private static function checkZip(string $zipPattern = null, string $zip = null): bool
     {
         if(! $zipPattern || ! $zip) return false;
 
-        foreach (str_split($zipPattern) as $zipPatternItem)
+        $zipPatternArray    = str_split($zipPattern);
+        $zipArray           = str_split($zip);
+
+        foreach ($zipPatternArray as $key => $zipPatternArrayItem)
         {
-            foreach (str_split($zip) as $zipItem)
+            if (! isset($zipArray[$key]))
             {
-                if ($zipPatternItem !== $zipItem && $zipPatternItem !== '*')
-                {
-                    return false;
-                }
+                return false;
+            }
+
+            if ($zipPatternArrayItem !== $zipArray[$key] && $zipPatternArrayItem !== '*')
+            {
+                return false;
             }
         }
         return true;
