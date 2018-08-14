@@ -15,6 +15,31 @@ class TaxRuleService
     const PRICE_WITHOUT_TAX = 1;
     const PRICE_WITH_TAX    = 2;
 
+    public static function getShoppingCartTaxRules(int $productClassTaxId = null)
+    {
+        $taxRules = session('pulsar-market.tax_rules');
+
+        // filter tax rule by product class tax id
+        if($productClassTaxId)
+        {
+            $taxRules = $taxRules->where('product_class_tax_id', $productClassTaxId);
+        }
+
+        // add tax rules
+        $shoppingCartTaxRules = [];
+        foreach ($taxRules as $taxRule)
+        {
+            $shoppingCartTaxRules[] = new ShoppingCartTaxRule(
+                __($taxRule->translation),
+                $taxRule->tax_rate,
+                $taxRule->priority,
+                $taxRule->sort
+            );
+        }
+
+        return $shoppingCartTaxRules;
+    }
+
     /**
      * @param   float                               $price
      * @param   \Syscover\Market\Models\TaxRule[]   $taxRules
