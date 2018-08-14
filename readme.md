@@ -66,8 +66,20 @@ MARKET_DEFAULT_COUNTRY_TAX=US
 Set default ID customer class value for calculate tax amount of products
 
 ```
-MARKET_DEFAULT_CLASS_CUSTOMER_TAX=1
+MARKET_DEFAULT_CUSTOMER_CLASS_TAX=1
 ```
+
+### Configuración de reglas de tasas
+Cuando configuramos una regla de tasa podemos acotar la regla indicando país y áreas territoriales donde queremos aplicar dicha regla. 
+También disponemos del campo ZIP donde podrmos usar un patrón. Si queremos aplicar esa tasa entre los ZIPs 28001 y 28099 podemos indicar el valor 280** en el campo ZIP.
+
+A la hora de crear las reglas de impuestos es importante tener en cuenta los siguientes campos.
+
+**Prioridad**
+En este apartado aplicamos un número para indicar la prioridad de este impuesto, cuando se aplica más de un impuesto. Si se aplican dos reglas fiscales con la misma prioridad, los impuestos se suman. Si se aplican dos impuestos con diferentes configuraciones de prioridad, entonces los impuestos se capitalizan en función del orden de prioridad. Cuando los impuestos están compuestos, el impuesto de la primera prioridad se calcula sobre el importe subtotal, y luego el impuesto de la segunda prioridad se calcula sobre el subtotal más el monto del primer impuesto prioritario.
+
+**Orden**
+En este apartado aplicamos un número para indicar el orden en que se muestran las reglas fiscales en la página Administrar reglas impositivas.
 
 ### Set product price tax [default value 1]
 Defines the types of prices that are introduced in products, this option is consulted when you create or update a product

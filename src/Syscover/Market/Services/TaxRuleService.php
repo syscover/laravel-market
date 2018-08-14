@@ -91,39 +91,28 @@ class TaxRuleService
         return $response;
     }
 
-    public static function taxCalculateOverShoppingCart(
-        $guard = 'crm',
-        $country_id = null,
-        $territorial_area_1_id = null,
-        $territorial_area_2_id = null,
-        $territorial_area_3_id = null,
-        $zip = null
-    )
+    public static function taxCalculateOverShoppingCart($taxRules)
     {
         // check if has product in shopping cart
         if(CartProvider::instance()->getCartItems()->count() > 0)
         {
             // get products
             $products = Product::builder()
+                ->where('lang_id', user_lang())
                 ->whereIn('market_product.id', CartProvider::instance()->getCartItems()->pluck('id'))
                 ->get();
 
-            // get tax rules
-            $taxRules = TaxRule::builder()
-                ->where('country_id', auth($guard)->check() && auth($guard)->user()->country_id ? auth($guard)->user()->country_id : config('pulsar-market.default_country_tax'))
-                ->where('customer_class_tax_id', auth($guard)->check() && auth($guard)->user()->class_tax ? auth($guard)->user()->class_tax : config('pulsar-market.default_customer_class_tax'))
-                ->whereIn('product_class_tax_id', $products->pluck('product_class_tax_id')->toArray())
-                ->orderBy('priority', 'asc')
-                ->get();
-
-            // order tax rules
             $taxRules = $taxRules
+                // filter tax rules by products that are in shopping cart
+                ->whereIn('product_class_tax_id', $products->pluck('product_class_tax_id')->toArray())
+                // group tax rules by products class tax
                 ->groupBy('product_class_tax_id')
-                ->map(function($taxRule, $key){
+                // and sor by priority each group of product class tax
+                ->map(function($taxRule, $key) {
                     return $taxRule->sortBy('priority');
                 });
 
-            // add tax to shopping cart
+            // add tax to each item from shopping cart
             foreach (CartProvider::instance()->getCartItems() as $item)
             {
                 // reset tax rules from item
@@ -138,58 +127,26 @@ class TaxRuleService
                 )
                 {
                     // get tax rules from item
-                    $itemTaxRules = $taxRules->get($products->where('id',$item->id)->first()->product_class_tax_id);
+                    $itemTaxRules = $taxRules->get($products->where('id', $item->id)->first()->product_class_tax_id);
 
-                    // TaxRules that target according geolocation filters parameters
-                    $targetItemTaxRules = collect();
-
-                    // check tax rules to item
-                    foreach ($itemTaxRules as $itemTaxRule)
+                    if($itemTaxRules->count() > 0)
                     {
-                        // if tax rule territorial property is null, the tax is applied
-                        // if tax rule territorial property is not null and is not equal to territorial parameter, the tax is not applied
-                        $isVerify = true;
-                        if ($itemTaxRule->country_id && $itemTaxRule->country_id !== $country_id) $isVerify = false;
-                        if ($itemTaxRule->territorial_area_1_id && $itemTaxRule->territorial_area_1_id !== $territorial_area_1_id) $isVerify = false;
-                        if ($itemTaxRule->territorial_area_2_id && $itemTaxRule->territorial_area_2_id !== $territorial_area_2_id) $isVerify = false;
-                        if ($itemTaxRule->territorial_area_3_id && $itemTaxRule->territorial_area_3_id !== $territorial_area_3_id) $isVerify = false;
-                        // if tax rule zip property is not null and is not target pattern to zip parameter, the tax is not applied
-                        if ($itemTaxRule->zip && ! TaxRuleService::checkZip($itemTaxRule->zip, $zip)) $isVerify = false;
-
-                        if ($isVerify) $targetItemTaxRules->push($itemTaxRule);
-                    }
-
-                    if($targetItemTaxRules->count() > 0)
-                    {
-                        // if has various tax rules with different priorities, take last one with higher priority
-                        $targetItemTaxRules = $targetItemTaxRules
-                            ->sortBy('priority')
-                            ->groupBy('priority')
-                            ->last();
-
-                        // in tax rules with the same priorities, apply tax rules accord your sort property
-                        if(count($targetItemTaxRules) > 1)
-                        {
-                            $targetItemTaxRules = collect($targetItemTaxRules)->sortBy('sort');
-                        }
-
                         // add tax rules
-                        foreach ($targetItemTaxRules as $itemTaxRule)
+                        foreach ($itemTaxRules as $taxRule)
                         {
                             $item->addTaxRule(
                                 new ShoppingCartTaxRule(
-                                    __($itemTaxRule->translation),
-                                    $itemTaxRule->tax_rate,
-                                    $itemTaxRule->priority,
-                                    $itemTaxRule->sort
+                                    __($taxRule->translation),
+                                    $taxRule->tax_rate,
+                                    $taxRule->priority,
+                                    $taxRule->sort
                                 )
                             );
                         }
                     }
                 }
 
-                // force to calculate amounts
-                $item->calculateAmounts(config('pulsar-shopping_cart.product_tax_prices'));
+                $item->calculateAmounts();
             }
         }
     }
