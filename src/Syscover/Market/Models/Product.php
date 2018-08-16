@@ -76,6 +76,20 @@ class Product extends CoreModel
             });
     }
 
+    public function scopeSectionsProducts($query, $sections)
+    {
+        return $query
+            ->builder()
+            ->whereIn('market_product.id', function($query) use ($sections) {
+                $query
+                    ->select('product_id')
+                    ->from('market_products_sections')
+                    ->whereIn('section_id', $sections)
+                    ->groupBy('product_id')
+                    ->get();
+            });
+    }
+
     public function children_products()
     {
         return $this->hasMany(
@@ -99,6 +113,18 @@ class Product extends CoreModel
             'market_products_categories',
             'product_id',
             'category_id',
+            'id',
+            'id'
+        );
+    }
+
+    public function sections()
+    {
+        return $this->belongsToMany(
+            Section::class,
+            'market_products_sections',
+            'product_id',
+            'section_id',
             'id',
             'id'
         );

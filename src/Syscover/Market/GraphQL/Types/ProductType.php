@@ -43,6 +43,10 @@ class ProductType extends GraphQLType {
                 'type' => Type::listOf(GraphQL::type('MarketCategory')),
                 'description' => 'Categories of product'
             ],
+            'sections' => [
+                'type' => Type::listOf(GraphQL::type('MarketSection')),
+                'description' => 'Sections of product'
+            ],
             'field_group_id' => [
                 'type' => Type::int(),
                 'description' => 'Id of field group'

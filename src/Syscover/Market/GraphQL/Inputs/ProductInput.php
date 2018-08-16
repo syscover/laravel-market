@@ -44,6 +44,10 @@ class ProductInput extends GraphQLType {
                 'type' => Type::listOf(Type::int()),
                 'description' => 'Id of categories of product'
             ],
+            'sections_id' => [
+                'type' => Type::listOf(Type::string()),
+                'description' => 'Id of sections of product'
+            ],
             'field_group_id' => [
                 'type' => Type::int(),
                 'description' => 'Id of field group'

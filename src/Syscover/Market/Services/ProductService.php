@@ -35,10 +35,10 @@ class ProductService
             ->first();
 
         // set categories
-        if(! empty($object['categories_id']))
-        {
-            $product->categories()->sync($object['categories_id']);
-        }
+        if(! empty($object['categories_id'])) $product->categories()->sync($object['categories_id']);
+
+        // set sections
+        if(! empty($object['sections_id'])) $product->sections()->sync($object['sections_id']);
 
         // set attachments
         if(is_array($object['attachments']))
@@ -78,10 +78,10 @@ class ProductService
             ->first();
 
         // set categories
-        if(! empty($object['categories_id']))
-        {
-            $product->categories()->sync($object['categories_id']);
-        }
+        if(! empty($object['categories_id'])) $product->categories()->sync($object['categories_id']);
+
+        // set sections
+        if(! empty($object['sections_id'])) $product->sections()->sync($object['sections_id']);
 
         // set attachments
         if(is_array($object['attachments']))
