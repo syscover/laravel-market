@@ -19,13 +19,20 @@ class MarketCreateTableSection extends Migration {
 
                 $table->increments('ix');
                 $table->string('id', 30);
+                $table->string('lang_id', 2);
                 $table->string('name');
                 $table->string('slug');
 
                 $table->timestamps();
                 $table->softDeletes();
 
-                $table->unique('id', 'ui01_market_section');
+                $table->foreign('lang_id', 'fk01_market_section')
+                    ->references('id')
+                    ->on('admin_lang')
+                    ->onDelete('restrict')
+                    ->onUpdate('cascade');
+
+                $table->unique(['id', 'lang_id'], 'ui01_market_section');
                 $table->index('slug', 'ix01_market_section');
             });
         }
