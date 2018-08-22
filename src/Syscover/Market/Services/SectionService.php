@@ -21,14 +21,15 @@ class SectionService
     private static function builder($object)
     {
         $object = collect($object);
-        return $object->only(['id', 'name', 'slug'])->toArray();
+        return $object->only(['id', 'lang_id', 'name', 'slug'])->toArray();
     }
 
     private static function checkCreate($object)
     {
-        if(empty($object['id']))     throw new \Exception('You have to define a id field to create a section');
-        if(empty($object['name']))   throw new \Exception('You have to define a name field to create a section');
-        if(empty($object['slug']))   throw new \Exception('You have to define a slug field to create a section');
+        if(empty($object['id']))        throw new \Exception('You have to define a id field to create a section');
+        if(empty($object['lang_id']))   throw new \Exception('You have to define a lang_id field to create a section');
+        if(empty($object['name']))      throw new \Exception('You have to define a name field to create a section');
+        if(empty($object['slug']))      throw new \Exception('You have to define a slug field to create a section');
     }
 
     private static function checkUpdate($object)

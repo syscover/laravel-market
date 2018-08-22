@@ -16,12 +16,16 @@ class SectionInput extends GraphQLType
     {
         return [
             'ix' => [
-                'type' => Type::string(),
+                'type' => Type::int(),
                 'description' => 'The index of section'
             ],
             'id' => [
                 'type' => Type::string(),
                 'description' => 'The id of section'
+            ],
+            'lang_id' => [
+                'type' => Type::string(),
+                'description' => 'lang of section'
             ],
             'name' => [
                 'type' => Type::nonNull(Type::string()),

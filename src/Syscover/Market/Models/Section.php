@@ -13,7 +13,7 @@ class Section extends CoreModel
 {
 	protected $table        = 'market_section';
     protected $primaryKey   = 'ix';
-    protected $fillable     = ['ix', 'id', 'name'];
+    protected $fillable     = ['ix', 'id', 'lang_id', 'name', 'slug'];
 
     private static $rules   = [];
 

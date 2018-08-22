@@ -21,6 +21,10 @@ class SectionType extends GraphQLType {
                 'type' => Type::nonNull(Type::string()),
                 'description' => 'The id of section'
             ],
+            'lang_id' => [
+                'type' => Type::nonNull(Type::string()),
+                'description' => 'lang of section'
+            ],
             'name' => [
                 'type' => Type::nonNull(Type::string()),
                 'description' => 'The name of section'
