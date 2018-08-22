@@ -40,6 +40,7 @@ class MarketCreateTableProductLang extends Migration
 					->onUpdate('cascade');
 
                 $table->index(['id', 'lang_id'], 'ix01_market_product_lang');
+                $table->index('slug', 'ix02_market_product_lang');
 			});
 		}
 	}

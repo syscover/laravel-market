@@ -30,14 +30,15 @@ class MarketCreateTableCategory extends Migration
 
                 $table->timestamps();
                 $table->softDeletes();
-				
+
 				$table->foreign('lang_id', 'fk01_market_category')
 					->references('id')
 					->on('admin_lang')
 					->onDelete('restrict')
 					->onUpdate('cascade');
 
-                $table->index(['id', 'lang_id'], 'ix01_market_product_lang');
+                $table->index(['id', 'lang_id'], 'ix01_market_category');
+                $table->index('slug', 'ix02_market_category');
 			});
 		}
 	}

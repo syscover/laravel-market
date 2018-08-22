@@ -48,7 +48,7 @@ class MarketCreateTableProduct extends Migration
                 $table->timestamps();
                 $table->softDeletes();
 
-                $table->index(['sku'], 'ix01_product');
+                $table->index(['sku'], 'ix01_market_product');
 				$table->foreign('field_group_id', 'fk01_market_product')
 					->references('id')
 					->on('admin_field_group')

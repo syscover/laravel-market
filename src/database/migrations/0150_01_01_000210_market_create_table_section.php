@@ -20,12 +20,13 @@ class MarketCreateTableSection extends Migration {
                 $table->increments('ix');
                 $table->string('id', 30);
                 $table->string('name');
+                $table->string('slug');
 
                 $table->timestamps();
                 $table->softDeletes();
 
-                $table->index('id', 'ix01_market_section');
                 $table->unique('id', 'ui01_market_section');
+                $table->index('slug', 'ix01_market_section');
             });
         }
     }
