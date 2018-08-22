@@ -31,4 +31,20 @@ class Category extends CoreModel
     {
         return Validator::make($data, static::$rules);
 	}
+
+    public function children()
+    {
+        return $this->hasMany(
+            Category::class,
+            'parent_id',
+            'id'
+            )
+            ->builder();
+    }
+
+    public function parent()
+    {
+        return $this->belongsTo(Category::class, 'parent_id')
+            ->builder();
+    }
 }
