@@ -20,6 +20,11 @@ class SectionsPaginationQuery extends Query
     public function args()
     {
         return [
+            'filters' => [
+                'name'          => 'filters',
+                'type'          => Type::listOf(GraphQL::type('CoreSQLQueryInput')),
+                'description'   => 'to filter queries'
+            ],
             'sql' => [
                 'name'          => 'sql',
                 'type'          => Type::listOf(GraphQL::type('CoreSQLQueryInput')),
