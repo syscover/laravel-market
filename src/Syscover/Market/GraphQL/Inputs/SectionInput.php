@@ -34,6 +34,10 @@ class SectionInput extends GraphQLType
             'slug' => [
                 'type' => Type::nonNull(Type::string()),
                 'description' => 'The slug of section'
+            ],
+            'data_lang' => [
+                'type' => Type::listOf(Type::string()),
+                'description' => 'JSON string that contain information about object translations'
             ]
         ];
     }

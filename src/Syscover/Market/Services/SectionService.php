@@ -7,21 +7,31 @@ class SectionService
     public static function create($object)
     {
         SectionService::checkCreate($object);
+
+        $object['data_lang'] = Section::addDataLang($object['lang_id'], $object['id']);
+
         return Section::create(SectionService::builder($object));
     }
 
     public static function update($object)
     {
         SectionService::checkUpdate($object);
-        Section::where('ix', $object['ix'])->update(SectionService::builder($object));
+
+        // get original id of section
+        $section = Section::find($object['ix']);
+
+        Section::where('id', $section->id)->update(SectionService::builder($object, ['id']));
+        Section::where('ix', $object['ix'])->update(SectionService::builder($object, ['lang_id', 'name', 'slug', 'data_lang']));
 
         return Section::find($object['ix']);
     }
 
-    private static function builder($object)
+    private static function builder($object, $filterKeys = null)
     {
         $object = collect($object);
-        return $object->only(['id', 'lang_id', 'name', 'slug'])->toArray();
+        if($filterKeys) return $object->only($filterKeys)->toArray();
+
+        return $object->only(['id', 'lang_id', 'name', 'slug', 'data_lang'])->toArray();
     }
 
     private static function checkCreate($object)

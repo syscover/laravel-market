@@ -1,8 +1,8 @@
 <?php namespace Syscover\Market\Models;
 
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Syscover\Core\Models\CoreModel;
+use Syscover\Admin\Traits\Translatable;
 
 /**
  * Class Section
@@ -11,13 +11,19 @@ use Syscover\Core\Models\CoreModel;
 
 class Section extends CoreModel
 {
+    use Translatable;
+
 	protected $table        = 'market_section';
     protected $primaryKey   = 'ix';
-    protected $fillable     = ['ix', 'id', 'lang_id', 'name', 'slug'];
+    protected $fillable     = ['ix', 'id', 'lang_id', 'name', 'slug', 'data_lang'];
+    protected $casts        = [
+        'data_lang' => 'array'
+    ];
+    public $with            = ['lang'];
 
     private static $rules   = [];
 
-    public static function validate($data, $specialRules = [])
+    public static function validate($data)
     {
         return Validator::make($data, static::$rules);
 	}

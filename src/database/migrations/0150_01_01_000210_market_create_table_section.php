@@ -22,6 +22,7 @@ class MarketCreateTableSection extends Migration {
                 $table->string('lang_id', 2);
                 $table->string('name');
                 $table->string('slug');
+                $table->json('data_lang', 255)->nullable();
 
                 $table->timestamps();
                 $table->softDeletes();
