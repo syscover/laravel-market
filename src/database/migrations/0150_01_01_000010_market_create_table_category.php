@@ -18,7 +18,7 @@ class MarketCreateTableCategory extends Migration
 				$table->engine = 'InnoDB';
 				
 				$table->increments('ix')->unsigned();
-				$table->string('id', 2);
+				$table->integer('id')->unsigned();
                 $table->string('lang_id', 2);
 				$table->integer('parent_id')->unsigned()->nullable();
 				$table->string('name');
