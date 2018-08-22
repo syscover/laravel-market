@@ -27,6 +27,10 @@ class SectionInput extends GraphQLType
                 'type' => Type::nonNull(Type::string()),
                 'description' => 'The name of section'
             ],
+            'slug' => [
+                'type' => Type::nonNull(Type::string()),
+                'description' => 'The slug of section'
+            ]
         ];
     }
 }
