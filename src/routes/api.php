@@ -6,26 +6,26 @@ Route::post('api/v1/market/redsys/async/response',                              
 // CART PRICE RULES
 Route::post('api/v1/market/cart-price-rule/check-coupon-code/{guard?}/{instance?}',     'Syscover\Market\Controllers\CartPriceRuleController@checkCouponCode')->name('api.market.check_coupon_code_cart_price_rule')->middleware('web');
 
-Route::group(['middleware' => ['jwt.auth', 'jwt.refresh']], function () {
-    /*
-    |----------------------------------
-    | PRODUCTS
-    |----------------------------------
-    */
-    Route::get('api/v1/market/product/{lang?}',                                 'Syscover\Market\Controllers\ProductController@index')->name('api.market.product');
-    Route::get('api/v1/market/product/{id}/{lang}',                             'Syscover\Market\Controllers\ProductController@show')->name('api.market.show_product');
-    Route::post('api/v1/market/product/search',                                 'Syscover\Market\Controllers\ProductController@search')->name('api.market.search_product');
-    Route::post('api/v1/market/product',                                        'Syscover\Market\Controllers\ProductController@store')->name('api.market.store_product');
-    Route::put('api/v1/market/product/{id}/{lang}',                             'Syscover\Market\Controllers\ProductController@update')->name('api.market.update_product');
-    Route::delete('api/v1/market/product/{id}/{lang?}',                         'Syscover\Market\Controllers\ProductController@destroy')->name('api.market.destroy_product');
+
+/*
+|----------------------------------
+| PRODUCTS
+|----------------------------------
+*/
+Route::get('api/v1/market/product/{lang?}',                                 'Syscover\Market\Controllers\ProductController@index')->name('api.market.product');
+Route::get('api/v1/market/product/{id}/{lang}',                             'Syscover\Market\Controllers\ProductController@show')->name('api.market.show_product');
+Route::post('api/v1/market/product/search',                                 'Syscover\Market\Controllers\ProductController@search')->name('api.market.search_product');
+Route::post('api/v1/market/product',                                        'Syscover\Market\Controllers\ProductController@store')->name('api.market.store_product');
+Route::put('api/v1/market/product/{id}/{lang}',                             'Syscover\Market\Controllers\ProductController@update')->name('api.market.update_product');
+Route::delete('api/v1/market/product/{id}/{lang?}',                         'Syscover\Market\Controllers\ProductController@destroy')->name('api.market.destroy_product');
 
     /*
     |----------------------------------
     | CATEGORIES
     |----------------------------------
     */
-    Route::get('api/v1/market/category/{lang?}',                                ['as' => 'marketCategory',                         'uses' => 'Syscover\Market\Controllers\CategoryController@index']);
-    Route::get('api/v1/market/category/{id}/{lang}',                            ['as' => 'showMarketCategory',                     'uses' => 'Syscover\Market\Controllers\CategoryController@show']);
+    Route::get('api/v1/market/category/{lang?}',                            'Syscover\Market\Controllers\CategoryController@index')->name('api.market.category');
+    Route::get('api/v1/market/category/{id}/{lang}',                        'Syscover\Market\Controllers\CategoryController@show')->name('api.market.show_category');
     Route::post('api/v1/market/category/search',                                ['as' => 'searchMarketCategory',                   'uses' => 'Syscover\Market\Controllers\CategoryController@search']);
     Route::post('api/v1/market/category',                                       ['as' => 'storeMarketCategory',                    'uses' => 'Syscover\Market\Controllers\CategoryController@store']);
     Route::put('api/v1/market/category/{id}/{lang}',                            ['as' => 'updateMarketCategory',                   'uses' => 'Syscover\Market\Controllers\CategoryController@update']);
@@ -115,4 +115,3 @@ Route::group(['middleware' => ['jwt.auth', 'jwt.refresh']], function () {
     Route::post('api/v1/market/payment-method',                                             'Syscover\Market\Controllers\PaymentMethodController@store')->name('api.market.store_payment_method');
     Route::put('api/v1/market/payment-method/{id}/{lang}',                                  'Syscover\Market\Controllers\PaymentMethodController@update')->name('api.market.update_payment_method');
     Route::delete('api/v1/market/payment-method/{id}/{lang?}',                              'Syscover\Market\Controllers\PaymentMethodController@destroy')->name('api.market.destroy_payment_method');
-});
