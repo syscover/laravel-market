@@ -38,10 +38,10 @@ class Product extends CoreModel
         'children_products',
         'attachments'
     ];
-    protected $appends = ['price'];
-    public $lazyRelations       = ['attachments'];
+    protected $appends      = ['price'];
+    public $lazyRelations   = ['attachments'];
 
-    private static $rules       = [
+    private static $rules   = [
         'price_type_id'         => 'required',
         'type_id'               => 'required',
     ];
