@@ -30,7 +30,7 @@ class Product extends CoreModel
         'market_product_data'       => 'array', // field created from join in builder scope
         'market_product_lang_data'  => 'array', // field created from join in builder scope
     ];
-    public $with = [
+    protected $with         = [
         'lang',
         'field_group',
         'categories',
@@ -38,6 +38,7 @@ class Product extends CoreModel
         'children_products',
         'attachments'
     ];
+    protected $appends = ['price'];
     public $lazyRelations       = ['attachments'];
 
     private static $rules       = [

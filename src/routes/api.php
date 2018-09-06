@@ -27,7 +27,7 @@ Route::delete('api/v1/market/product/{id}/{lang?}',                         'Sys
     Route::get('api/v1/market/category/{lang?}',                            'Syscover\Market\Controllers\CategoryController@index')->name('api.market.category');
     Route::get('api/v1/market/category/{id}/{lang}',                        'Syscover\Market\Controllers\CategoryController@show')->name('api.market.show_category');
     Route::post('api/v1/market/category/search',                            'Syscover\Market\Controllers\CategoryController@search')->name('api.market.search_category');
-    Route::post('api/v1/market/category',                                       ['as' => 'storeMarketCategory',                    'uses' => 'Syscover\Market\Controllers\CategoryController@store']);
+    Route::post('api/v1/market/category',                                   'Syscover\Market\Controllers\CategoryController@store')->name('api.market.store_category');
     Route::put('api/v1/market/category/{id}/{lang}',                            ['as' => 'updateMarketCategory',                   'uses' => 'Syscover\Market\Controllers\CategoryController@update']);
     Route::delete('api/v1/market/category/{id}/{lang?}',                        ['as' => 'destroyMarketCategory',                  'uses' => 'Syscover\Market\Controllers\CategoryController@destroy']);
 
