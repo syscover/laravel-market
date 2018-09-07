@@ -150,6 +150,16 @@ class Product extends CoreModel
     }
 
     /**
+     * Accessor to get price attribute from api request
+     *
+     * @return mixed
+     */
+    public function getPriceAttribute()
+    {
+        return $this->price;
+    }
+
+    /**
      * Returns formatted product price.
      *
      * @param   int       $decimals
@@ -258,7 +268,14 @@ class Product extends CoreModel
 
         if($name === 'tax_rules')
         {
-            return session('pulsar-market.tax_rules')->where('product_class_tax_id', $this->product_class_tax_id);
+            if(session('pulsar-market.tax_rules'))
+            {
+                return session('pulsar-market.tax_rules')->where('product_class_tax_id', $this->product_class_tax_id);
+            }
+            else
+            {
+                return collect();
+            }
         }
 
         return $this->traitGet($name);
