@@ -18,7 +18,7 @@ class TaxRule
         // Set default tax rules in session
         if(session('pulsar-market.tax_rules') === null)
         {
-            session(['pulsar-market.tax_rules' => TaxRuleService::getCustomerTaxRules()]);
+            TaxRuleService::setTaxRules(TaxRuleService::getCustomerTaxRules());
         }
 
         return $next($request);

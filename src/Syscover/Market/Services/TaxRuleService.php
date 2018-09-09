@@ -15,9 +15,26 @@ class TaxRuleService
     const PRICE_WITHOUT_TAX = 1;
     const PRICE_WITH_TAX    = 2;
 
+    public static function getTaxRules(): Collection
+    {
+        if(session('pulsar-market.tax_rules'))
+        {
+            return session('pulsar-market.tax_rules');
+        }
+        else
+        {
+            return self::getCustomerTaxRules();
+        }
+    }
+
+    public static function setTaxRules($taxRules)
+    {
+        session(['pulsar-market.tax_rules' => $taxRules]);
+    }
+
     public static function getShoppingCartTaxRules(int $productClassTaxId = null)
     {
-        $taxRules = session('pulsar-market.tax_rules');
+        $taxRules = self::getTaxRules();
 
         // filter tax rule by product class tax id
         if($productClassTaxId)

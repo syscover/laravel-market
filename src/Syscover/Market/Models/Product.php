@@ -268,14 +268,7 @@ class Product extends CoreModel
 
         if($name === 'tax_rules')
         {
-            if(session('pulsar-market.tax_rules'))
-            {
-                return session('pulsar-market.tax_rules')->where('product_class_tax_id', $this->product_class_tax_id);
-            }
-            else
-            {
-                return collect();
-            }
+            return TaxRuleService::getTaxRules()->where('product_class_tax_id', $this->product_class_tax_id);
         }
 
         return $this->traitGet($name);
