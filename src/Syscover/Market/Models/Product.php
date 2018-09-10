@@ -38,7 +38,7 @@ class Product extends CoreModel
         'children_products',
         'attachments'
     ];
-    protected $appends      = ['price'];
+    protected $appends      = ['tax_amount', 'price'];
     public $lazyRelations   = ['attachments'];
 
     private static $rules   = [
@@ -147,6 +147,16 @@ class Product extends CoreModel
     public function stocks()
     {
         return $this->hasMany(Stock::class, 'product_id', 'id');
+    }
+
+    /**
+     * Accessor to get tax_amount attribute from api request
+     *
+     * @return mixed
+     */
+    public function getTaxAmountAttribute()
+    {
+        return $this->tax_amount;
     }
 
     /**
