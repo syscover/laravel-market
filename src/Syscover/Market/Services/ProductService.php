@@ -9,13 +9,13 @@ class ProductService
 {
     public static function create($object)
     {
-        ProductService::checkCreate($object);
+        self::checkCreate($object);
 
         // check if there is id
         if(empty($object['id']))
         {
             // create new product
-            $product = Product::create(ProductService::builder($object, ['sku', 'field_group_id', 'type_id', 'parent_id', 'weight', 'active', 'sort', 'price_type_id', 'subtotal', 'product_class_tax_id', 'data_lang']));
+            $product = Product::create(self::builder($object, ['sku', 'field_group_id', 'type_id', 'parent_id', 'weight', 'active', 'sort', 'price_type_id', 'subtotal', 'product_class_tax_id', 'data_lang']));
             $object['id'] = $product->id;
         }
 
@@ -23,7 +23,7 @@ class ProductService
         if(isset($object['field_group_id'])) $object['data']['custom_fields'] = $object['custom_fields'];
 
         // create product lang
-        $product = ProductLang::create(ProductService::builder($object, ['id', 'lang_id', 'name', 'slug', 'description', 'data']));
+        $product = ProductLang::create(self::builder($object, ['id', 'lang_id', 'name', 'slug', 'description', 'data']));
 
         // product already is create, it's not necessary update product with data_lang value
         Product::addDataLang($object['lang_id'], $object['id']);
@@ -41,7 +41,7 @@ class ProductService
         if(! empty($object['sections_id'])) $product->sections()->sync($object['sections_id']);
 
         // set attachments
-        if(is_array($object['attachments']))
+        if(isset($object['attachments']) && is_array($object['attachments']))
         {
             // first save libraries to get id
             $attachments = AttachmentService::storeAttachmentsLibrary($object['attachments']);
@@ -55,8 +55,8 @@ class ProductService
 
     public static function update($object)
     {
-        ProductService::checkUpdate($object);
-        Product::where('id', $object['id'])->update(ProductService::builder($object, ['sku', 'field_group_id', 'type_id', 'parent_id', 'weight', 'active', 'sort', 'price_type_id', 'subtotal', 'product_class_tax_id', 'data_lang']));
+        self::checkUpdate($object);
+        Product::where('id', $object['id'])->update(self::builder($object, ['sku', 'field_group_id', 'type_id', 'parent_id', 'weight', 'active', 'sort', 'price_type_id', 'subtotal', 'product_class_tax_id', 'data_lang']));
 
         // set custom fields
         if(! empty($object['field_group_id']))
@@ -69,7 +69,7 @@ class ProductService
         // update product lang
         ProductLang::where('market_product_lang.id', $object['id'])
             ->where('market_product_lang.lang_id', $object['lang_id'])
-            ->update(ProductService::builder($object, ['name', 'slug', 'description', 'data']));
+            ->update(self::builder($object, ['name', 'slug', 'description', 'data']));
 
         // get product instance
         $product = Product::builder()
@@ -84,7 +84,7 @@ class ProductService
         if(! empty($object['sections_id'])) $product->sections()->sync($object['sections_id']);
 
         // set attachments
-        if(is_array($object['attachments']))
+        if(isset($object['attachments']) && is_array($object['attachments']))
         {
             // first save libraries to get id
             $attachments = AttachmentService::storeAttachmentsLibrary($object['attachments']);
