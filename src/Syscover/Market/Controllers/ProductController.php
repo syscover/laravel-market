@@ -1,7 +1,6 @@
 <?php namespace Syscover\Market\Controllers;
 
 use Illuminate\Http\Request;
-use Syscover\Admin\Models\Field;
 use Syscover\Core\Controllers\CoreController;
 use Syscover\Market\Models\Product;
 use Syscover\Market\Models\ProductLang;
@@ -24,10 +23,11 @@ class ProductController extends CoreController
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store()
     {
-        $response['status'] = "success";
-        $response['data']   = ProductService::create($request->all());
+        $response['status']     = 200;
+        $response['statusText'] = "OK";
+        $response['data']   = ProductService::create(request()->all());
 
         return response()->json($response);
     }
@@ -42,7 +42,8 @@ class ProductController extends CoreController
      */
     public function update(Request $request, $id, $lang)
     {
-        $response['status'] = "success";
+        $response['status']     = 200;
+        $response['statusText'] = "OK";
         $response['data']   = ProductService::update($request->all(), $id, $lang);
 
         return response()->json($response);
