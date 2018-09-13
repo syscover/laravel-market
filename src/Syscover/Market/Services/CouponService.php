@@ -132,7 +132,7 @@ class CouponService
                 'trans'     => trans('market::pulsar.error_coupon_code_08'),
                 'data'      => [
                     'couponCode'                    => $couponCode,
-                    'priceRuleInCartNotCombinable'  => $shoppingCart->getCartPriceRuleNotCombinable()->toArray()
+                    'priceRuleInCartNotCombinable'  => $shoppingCart->getCartPriceRulesNotCombinable()->toArray()
                 ]
             ];
         }
