@@ -9,13 +9,13 @@
         }
     ],
     "require": {
-        "php": ">=7.0.0",
+        "php": "^7.1.3",
         "syscover/pulsar-core": "dev-master",
         "syscover/pulsar-navtools": "dev-master",
         "syscover/pulsar-admin": "dev-master",
         "syscover/pulsar-crm": "dev-master",
         "syscover/pulsar-shopping-cart": "dev-master",
-        "ssheduardo/redsys-laravel": "~1.2",
+        "ssheduardo/redsys-laravel": "~1.3",
         "paypal/rest-api-sdk-php": "*"
     },
     "autoload": {
