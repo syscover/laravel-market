@@ -50,12 +50,12 @@ Route::group(['middleware' => ['sessions']], function () {
     | GROUP CUSTOMER CLASS TAX
     |----------------------------------
     */
-    Route::get('api/v1/market/group-customer-class-tax',                            ['as' => 'marketGroupCustomerClassTax',               'uses' => 'Syscover\Market\Controllers\GroupCustomerClassTaxController@index']);
-    Route::get('api/v1/market/group-customer-class-tax/{id}',                       ['as' => 'showMarketGroupCustomerClassTax',           'uses' => 'Syscover\Market\Controllers\GroupCustomerClassTaxController@show']);
-    Route::post('api/v1/market/group-customer-class-tax',                           ['as' => 'storeMarketGroupCustomerClassTax',          'uses' => 'Syscover\Market\Controllers\GroupCustomerClassTaxController@store']);
-    Route::post('api/v1/market/group-customer-class-tax/search',                    ['as' => 'searchMarketGroupCustomerClassTax',         'uses' => 'Syscover\Market\Controllers\GroupCustomerClassTaxController@search']);
-    Route::put('api/v1/market/group-customer-class-tax/{id}',                       ['as' => 'updateMarketGroupCustomerClassTax',         'uses' => 'Syscover\Market\Controllers\GroupCustomerClassTaxController@update']);
-    Route::delete('api/v1/market/group-customer-class-tax/{id}',                    ['as' => 'destroyMarketGroupCustomerClassTax',        'uses' => 'Syscover\Market\Controllers\GroupCustomerClassTaxController@destroy']);
+//    Route::get('api/v1/market/group-customer-class-tax',                            ['as' => 'marketGroupCustomerClassTax',               'uses' => 'Syscover\Market\Controllers\GroupCustomerClassTaxController@index']);
+//    Route::get('api/v1/market/group-customer-class-tax/{id}',                       ['as' => 'showMarketGroupCustomerClassTax',           'uses' => 'Syscover\Market\Controllers\GroupCustomerClassTaxController@show']);
+//    Route::post('api/v1/market/group-customer-class-tax',                           ['as' => 'storeMarketGroupCustomerClassTax',          'uses' => 'Syscover\Market\Controllers\GroupCustomerClassTaxController@store']);
+//    Route::post('api/v1/market/group-customer-class-tax/search',                    ['as' => 'searchMarketGroupCustomerClassTax',         'uses' => 'Syscover\Market\Controllers\GroupCustomerClassTaxController@search']);
+//    Route::put('api/v1/market/group-customer-class-tax/{id}',                       ['as' => 'updateMarketGroupCustomerClassTax',         'uses' => 'Syscover\Market\Controllers\GroupCustomerClassTaxController@update']);
+//    Route::delete('api/v1/market/group-customer-class-tax/{id}',                    ['as' => 'destroyMarketGroupCustomerClassTax',        'uses' => 'Syscover\Market\Controllers\GroupCustomerClassTaxController@destroy']);
 
     /*
     |----------------------------------
