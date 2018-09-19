@@ -31,10 +31,6 @@ class MarketServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__ . '/../../config/pulsar-market.php' => config_path('pulsar-market.php'),
         ]);
-
-        // register GraphQL types and schema
-        MarketGraphQLServiceProvider::bootGraphQLTypes();
-        MarketGraphQLServiceProvider::bootGraphQLSchema();
 	}
 
 	/**
