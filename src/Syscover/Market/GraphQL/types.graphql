@@ -1,0 +1,65 @@
+type MarketPaymentMethod {
+    ix: ID!
+    id: Int!
+    lang_id: String!
+    name: String!
+    order_status_successful_id: Int
+    minimum_price: Float
+    maximum_price: Float
+    instructions: String
+    sort: Int
+    active: Boolean
+    data_lang: [String]
+}
+
+type MarketOrderRow {
+    id: ID!
+    lang_id: String!
+    order_id: Int!
+    product_id: Int
+
+    # product
+    name: String
+    description: String
+    data: Object
+
+    # amounts
+    price: Float!
+    quantity: Float!
+    subtotal: Float!
+    total_without_discounts: Float!
+
+    # discounts
+    discount_subtotal_percentage: Float!
+    discount_total_percentage: Float!
+    discount_subtotal_percentage_amount: Float!
+    discount_total_percentage_amount: Float!
+    discount_subtotal_fixed_amount: Float!
+    discount_total_fixed_amount: Float!
+    discount_amount: Float!
+
+    # subtotal with discounts
+    subtotal_with_discounts: Float!
+    tax_rules: String!
+    tax_amount: Float!
+
+    # gift
+    has_gift: Boolean
+    gift_from: String
+    gift_to: String
+    gift_message: String
+    gift_comments: String
+}
+
+type MarketOrder {
+    ix: ID!
+    date: String!
+    payment_method_id: Int!
+    payment_methods: [MarketPaymentMethod!]!
+    status_id: Int!
+    ip: String
+    data: Object
+    comments: String
+    transaction_id: String
+    rows: [MarketOrderRow]
+}
