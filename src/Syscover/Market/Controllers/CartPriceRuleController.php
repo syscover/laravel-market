@@ -1,6 +1,7 @@
 <?php namespace Syscover\Market\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Syscover\Core\Controllers\CoreController;
 use Syscover\Market\Models\CartPriceRule;
 use Syscover\Market\Services\CartPriceRuleService;
@@ -28,6 +29,6 @@ class CartPriceRuleController extends CoreController
 
     public function checkCouponCode($guard = 'crm', $instance = 'default')
     {
-        return response()->json(CouponService::checkCouponCode(request('coupon_code'), user_lang(), auth($guard), $instance));
+        return response()->json(CouponService::checkCouponCode(request('coupon_code'), user_lang(), Auth::guard($guard), $instance));
     }
 }
