@@ -1,3 +1,12 @@
+type MarketSection {
+    ix: Int!
+    id: String!
+    lang_id: String!
+    name: String!
+    slug: String!
+    data_lang: [String]
+}
+
 type MarketPaymentMethod {
     ix: ID!
     id: Int!

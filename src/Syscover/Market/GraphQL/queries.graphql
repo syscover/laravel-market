@@ -1,0 +1,8 @@
+# Sections
+""" Query to get sections list """
+marketSections(sql:[CoreSQLInput]): [MarketSection!]! @field(resolver: "Syscover\\Market\\GraphQL\\Services\\SectionGraphQLService@get")
+""" Query to get section """
+marketSection(sql:[CoreSQLInput]): MarketSection @field(resolver: "Syscover\\Market\\GraphQL\\Services\\SectionGraphQLService@find")
+""" Query to get sections paginated """
+marketSectionsPagination(sql:[CoreSQLInput] filters:[CoreSQLInput]): CorePagination! @field(resolver: "Syscover\\Market\\GraphQL\\Services\\SectionGraphQLService@paginate")
+
