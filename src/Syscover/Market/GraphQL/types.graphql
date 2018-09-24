@@ -97,11 +97,86 @@ type MarketWarehouse {
     active: Boolean
 }
 
+type MarketCartPriceRule {
+    id: Int!
+    names: Object
+    descriptions: Object
+    active: Boolean!
+    customer_group_ids: Object
+    customer_ids: Object
+    combinable: Boolean!
+    priority: Int
+    has_coupon: Boolean
+    coupon_code: String
+    customer_uses: Int
+    coupon_uses: Int
+    total_uses: Int
+    enable_from: String
+    enable_to: String
+    condition_rules: Object
+    discount_type_id: Int!
+    discount_fixed_amount: Float
+    discount_percentage: Float
+    maximum_discount_amount: Float
+    apply_shipping_amount: Boolean!
+    free_shipping: Boolean!
+    product_rules: Object
+    data_lang: Object
+}
 
+type MarketCustomerDiscountHistory {
+    id: Int!
+    customer_id: Int!
+    order_id: Int!
+    applied: Boolean!
+    rule_type: String!
+    rule_id: Int
+    names: Object
+    descriptions: Object
+    has_coupon: Boolean!
+    coupon_code: String
+    """ Discount type on shopping cart discounts [without discount, discount percentage subtotal, discount fixed amount subtotal, discount percentage total, discount fixed amount total] """
+    discount_type_id: Int
+    discount_fixed_amount: Float
+    discount_percentage: Float
+    maximum_discount_amount: Float
+    apply_shipping_amount: Boolean
+    free_shipping: Boolean
+    discount_amount: Float
+    data_lang: [String]
+    price_rule: Object
+}
 
+type MarketStock {
+    warehouse_id: Int!
+    product_id: Int!
+    stock: Float!
+    minimum_stock: Float!
+}
 
-
-
+type MarketProduct {
+    ix: Int!
+    id: Int!
+    lang_id: String!
+    name: String!
+    slug: String!
+    sku: String
+    categories: [MarketCategory]
+    sections: [MarketSection]
+    field_group_id: Int
+    type_id: Int!
+    parent_id: Int
+    weight: Float!
+    active: Boolean
+    sort: Int
+    price_type_id: Int!
+    subtotal: Float
+    product_class_tax_id: Int
+    description: String
+    data_lang: [String]
+    data: Object
+    attachments: [AdminAttachment]
+}
 
 type MarketOrderRow {
     id: ID!
@@ -129,10 +204,11 @@ type MarketOrderRow {
     discount_total_fixed_amount: Float!
     discount_amount: Float!
 
-    # subtotal with discounts
+    # total and subtotal with discounts
     subtotal_with_discounts: Float!
     tax_rules: String!
     tax_amount: Float!
+    total: Float!
 
     # gift
     has_gift: Boolean
@@ -143,7 +219,7 @@ type MarketOrderRow {
 }
 
 type MarketOrder {
-    ix: ID!
+    id: ID!
     date: String!
     payment_method_id: Int!
     payment_methods: [MarketPaymentMethod!]!
@@ -153,4 +229,76 @@ type MarketOrder {
     comments: String
     transaction_id: String
     rows: [MarketOrderRow]
+    discounts: [MarketCustomerDiscountHistory]
+
+    # amounts
+    discount_amount: Float!
+    subtotal_with_discounts: Float!
+    tax_amount: Float!
+    cart_items_total_without_discounts: Float!
+    subtotal: Float!
+    shipping_amount: Float!
+    total: Float!
+
+    # gift
+    has_gift: Boolean
+    gift_from: String
+    gift_to: String
+    gift_message: String
+    gift_comments: String
+
+    # customer
+    customer_id: Int!
+    customer_group_id: Int!
+    customer_company: String
+    customer_tin: String
+    customer_name: String
+    customer_surname: String
+    customer_email: String
+    customer_mobile: String
+    customer_phone: String
+
+    # invoice data
+    has_invoice: Boolean
+    invoiced: Boolean
+    """ Invoice number from billing program """
+    invoice_number: String
+    invoice_company: String
+    invoice_tin: String
+    invoice_name: String
+    invoice_surname: String
+    invoice_email: String
+    invoice_mobile: String
+    invoice_phone: String
+    invoice_country_id: String
+    invoice_territorial_area_1_id: String
+    invoice_territorial_area_2_id: String
+    invoice_territorial_area_3_id: String
+    invoice_zip: String
+    invoice_locality: String
+    invoice_address: String
+    invoice_latitude: String
+    invoice_longitude: String
+    invoice_comments: String
+
+    # shipping data
+    has_shipping: Boolean
+    """ Code generate by shipping company to get tracking of shipping """
+    shipping_tracking_id: String
+    shipping_company: String
+    shipping_name: String
+    shipping_surname: String
+    shipping_email: String
+    shipping_mobile: String
+    shipping_phone: String
+    shipping_country_id: String
+    shipping_territorial_area_1_id: String
+    shipping_territorial_area_2_id: String
+    shipping_territorial_area_3_id: String
+    shipping_zip: String
+    shipping_locality: String
+    shipping_address: String
+    shipping_latitude: String
+    shipping_longitude: String
+    shipping_comments: String
 }

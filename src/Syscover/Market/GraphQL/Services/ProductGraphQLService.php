@@ -1,46 +1,17 @@
-<?php namespace Syscover\Market\GraphQL\Queries;
+<?php namespace Syscover\Market\GraphQL\Services;
 
-use GraphQL\Type\Definition\Type;
-use Folklore\GraphQL\Support\Query;
-use Syscover\Core\GraphQL\ScalarTypes\ObjectType;
+use Syscover\Core\GraphQL\Services\CoreGraphQLService;
+use Syscover\Market\Models\Product;
 use Syscover\Market\Models\TaxRule;
+use Syscover\Market\Services\ProductService;
 use Syscover\Market\Services\TaxRuleService;
 
-class ProductTaxesQuery extends Query
+class ProductGraphQLService extends CoreGraphQLService
 {
-    protected $attributes = [
-        'name'          => 'ProductTaxesQuery',
-        'description'   => 'Query to get a tax of product'
-    ];
+    protected $model = Product::class;
+    protected $service = ProductService::class;
 
-    public function type()
-    {
-        return app(ObjectType::class);
-    }
-
-    public function args()
-    {
-        return [
-            'price' => [
-                'name'          => 'price',
-                'type'          => Type::nonNull(Type::float()),
-                'description'   => 'subtotal price'
-            ],
-            'productClassTax' => [
-                'name'          => 'productClassTax',
-                'type'          => Type::int(),
-                'description'   => 'Product class tax'
-            ],
-            // force to calculate price over PRICE_WITHOUT_TAX or PRICE_WITH_TAX, when show product the price always is PRICE_WITHOUT_TAX
-            'product_tax_prices' => [
-                'name'          => 'product_tax_prices',
-                'type'          => Type::int(),
-                'description'   => 'Product class tax'
-            ]
-        ];
-    }
-
-    public function resolve($root, $args)
+    public function taxes($root, array $args)
     {
         $price              = $args['price'];
         $productClassTax    = $args['productClassTax'];

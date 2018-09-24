@@ -20,9 +20,9 @@ marketWarehouses(sql:[CoreSQLInput]): [MarketWarehouse!]! @field(resolver: "Sysc
 """ Query to get warehouse """
 marketWarehouse(sql:[CoreSQLInput]): MarketWarehouse @field(resolver: "Syscover\\Market\\GraphQL\\Services\\WarehouseGraphQLService@find")
 """ Query to get warehouses paginated """
-marketWarehousesPagination(sql:[CoreSQLInput] filters:[CoreSQLInput]): CorePagination! @field(resolver: "Syscover\\Market\\GraphQL\\Services\\WarehouseGraphQLService@paginate")
+marketWarehousesPagination(sql:[CoreSQLInput]): CorePagination! @field(resolver: "Syscover\\Market\\GraphQL\\Services\\WarehouseGraphQLService@paginate")
 
-# Order status
+# Order statuses
 """ Query to get order statuses list """
 marketOrderStatuses(sql:[CoreSQLInput]): [MarketOrderStatus!]! @field(resolver: "Syscover\\Market\\GraphQL\\Services\\OrderStatusGraphQLService@get")
 """ Query to get order status """
@@ -52,7 +52,7 @@ marketCustomerGroupsCustomerClassTaxes(sql:[CoreSQLInput]): [MarketCustomerGroup
 """ Query to get payment method """
 marketCustomerGroupCustomerClassTax(sql:[CoreSQLInput]): MarketCustomerGroupCustomerClassTax @field(resolver: "Syscover\\Market\\GraphQL\\Services\\CustomerGroupCustomerClassTaxGraphQLService@find")
 """ Query to get payment methods paginated """
-marketCustomerGroupsCustomerClassTaxesPagination(sql:[CoreSQLInput] filters:[CoreSQLInput]): CorePagination! @field(resolver: "Syscover\\Market\\GraphQL\\Services\\CustomerGroupCustomerClassTaxGraphQLService@paginate")
+marketCustomerGroupsCustomerClassTaxesPagination(sql:[CoreSQLInput]): CorePagination! @field(resolver: "Syscover\\Market\\GraphQL\\Services\\CustomerGroupCustomerClassTaxGraphQLService@paginate")
 
 # Product class taxes
 """ Query to get product class taxes list """
@@ -60,20 +60,70 @@ marketProductClassTaxes(sql:[CoreSQLInput]): [MarketProductClassTax!]! @field(re
 """ Query to get product class tax """
 marketProductClassTax(sql:[CoreSQLInput]): MarketProductClassTax @field(resolver: "Syscover\\Market\\GraphQL\\Services\\ProductClassTaxGraphQLService@find")
 """ Query to get product class taxes paginated """
-marketProductClassTaxesPagination(sql:[CoreSQLInput] filters:[CoreSQLInput]): CorePagination! @field(resolver: "Syscover\\Market\\GraphQL\\Services\\ProductClassTaxGraphQLService@paginate")
+marketProductClassTaxesPagination(sql:[CoreSQLInput]): CorePagination! @field(resolver: "Syscover\\Market\\GraphQL\\Services\\ProductClassTaxGraphQLService@paginate")
 
-# Tax rate zone
+# Tax rate zones
 """ Query to get tax rate zones list """
 marketTaxRateZones(sql:[CoreSQLInput]): [MarketTaxRateZone!]! @field(resolver: "Syscover\\Market\\GraphQL\\Services\\TaxRateZoneGraphQLService@get")
 """ Query to get tax rate zone """
 marketTaxRateZone(sql:[CoreSQLInput]): MarketTaxRateZone @field(resolver: "Syscover\\Market\\GraphQL\\Services\\TaxRateZoneGraphQLService@find")
 """ Query to get tax rate zones paginated """
-marketTaxRateZonesPagination(sql:[CoreSQLInput] filters:[CoreSQLInput]): CorePagination! @field(resolver: "Syscover\\Market\\GraphQL\\Services\\TaxRateZoneGraphQLService@paginate")
+marketTaxRateZonesPagination(sql:[CoreSQLInput]): CorePagination! @field(resolver: "Syscover\\Market\\GraphQL\\Services\\TaxRateZoneGraphQLService@paginate")
 
-# Tax rule
+# Tax rules
 """ Query to get tax rules list """
 marketTaxRules(sql:[CoreSQLInput]): [MarketTaxRule!]! @field(resolver: "Syscover\\Market\\GraphQL\\Services\\TaxRuleGraphQLService@get")
 """ Query to get tax rule """
 marketTaxRule(sql:[CoreSQLInput]): MarketTaxRule @field(resolver: "Syscover\\Market\\GraphQL\\Services\\TaxRuleGraphQLService@find")
 """ Query to get tax rules paginated """
 marketTaxRulesPagination(sql:[CoreSQLInput] filters:[CoreSQLInput]): CorePagination! @field(resolver: "Syscover\\Market\\GraphQL\\Services\\TaxRuleGraphQLService@paginate")
+
+# Cart price rules
+""" Query to get cart price rules list """
+marketCartPriceRules(sql:[CoreSQLInput]): [MarketCartPriceRule!]! @field(resolver: "Syscover\\Market\\GraphQL\\Services\\CartPriceRuleGraphQLService@get")
+""" Query to get cart price rule """
+marketCartPriceRule(sql:[CoreSQLInput]): MarketCartPriceRule @field(resolver: "Syscover\\Market\\GraphQL\\Services\\CartPriceRuleGraphQLService@find")
+""" Query to get cart price rules paginated """
+marketCartPriceRulesPagination(sql:[CoreSQLInput]): CorePagination! @field(resolver: "Syscover\\Market\\GraphQL\\Services\\CartPriceRuleGraphQLService@paginate")
+
+# Customer discount histories
+""" Query to get customer discount histories list """
+marketCustomerDiscountHistories(sql:[CoreSQLInput]): [MarketCustomerDiscountHistory!]! @field(resolver: "Syscover\\Market\\GraphQL\\Services\\CustomerDiscountHistoryGraphQLService@get")
+""" Query to get customer discount history """
+marketCustomerDiscountHistory(sql:[CoreSQLInput]): MarketCustomerDiscountHistory @field(resolver: "Syscover\\Market\\GraphQL\\Services\\CustomerDiscountHistoryGraphQLService@find")
+""" Query to get customer discount histories paginated """
+marketCustomerDiscountHistoriesPagination(sql:[CoreSQLInput]): CorePagination! @field(resolver: "Syscover\\Market\\GraphQL\\Services\\CustomerDiscountHistoryGraphQLService@paginate")
+
+# Stocks
+""" Query to get stocks list """
+marketStocks(sql:[CoreSQLInput]): [MarketStock!]! @field(resolver: "Syscover\\Market\\GraphQL\\Services\\StockGraphQLService@get")
+""" Query to get cart price rule """
+marketStock(sql:[CoreSQLInput]): MarketStock @field(resolver: "Syscover\\Market\\GraphQL\\Services\\StockGraphQLService@find")
+""" Query to get cart price rules paginated """
+marketStocksPagination(sql:[CoreSQLInput]): CorePagination! @field(resolver: "Syscover\\Market\\GraphQL\\Services\\StockGraphQLService@paginate")
+
+# Products
+""" Query to get products list """
+marketProducts(sql:[CoreSQLInput]): [MarketProduct!]! @field(resolver: "Syscover\\Market\\GraphQL\\Services\\ProductGraphQLService@get")
+""" Query to get product """
+marketProduct(sql:[CoreSQLInput]): MarketProduct @field(resolver: "Syscover\\Market\\GraphQL\\Services\\ProductGraphQLService@find")
+""" Query to get products paginated """
+marketProductsPagination(sql:[CoreSQLInput] filters:[CoreSQLInput]): CorePagination! @field(resolver: "Syscover\\Market\\GraphQL\\Services\\ProductGraphQLService@paginate")
+""" Query to get taxes of product """
+marketProductTaxes(price:Float! productClassTax: Int product_tax_prices: Int): Object @field(resolver: "Syscover\\Market\\GraphQL\\Services\\ProductGraphQLService@taxes")
+
+# Order rows
+""" Query to get order rows list """
+marketOrderRows(sql:[CoreSQLInput]): [MarketOrderRow!]! @field(resolver: "Syscover\\Market\\GraphQL\\Services\\OrderRowGraphQLService@get")
+""" Query to get order row """
+marketOrderRow(sql:[CoreSQLInput]): MarketOrderRow @field(resolver: "Syscover\\Market\\GraphQL\\Services\\OrderRowGraphQLService@find")
+""" Query to get order rows paginated """
+marketOrderRowsPagination(sql:[CoreSQLInput]): CorePagination! @field(resolver: "Syscover\\Market\\GraphQL\\Services\\OrderRowGraphQLService@paginate")
+
+# Orders
+""" Query to get orders list """
+marketOrders(sql:[CoreSQLInput]): [MarketOrder!]! @field(resolver: "Syscover\\Market\\GraphQL\\Services\\OrderGraphQLService@get")
+""" Query to get order """
+marketOrder(sql:[CoreSQLInput]): MarketOrder @field(resolver: "Syscover\\Market\\GraphQL\\Services\\OrderGraphQLService@find")
+""" Query to get orders paginated """
+marketOrdersPagination(sql:[CoreSQLInput]): CorePagination! @field(resolver: "Syscover\\Market\\GraphQL\\Services\\OrderGraphQLService@paginate")
