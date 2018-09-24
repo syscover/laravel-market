@@ -9,8 +9,8 @@ class CustomerDiscountHistoryService
 {
     public static function create(array $object)
     {
-        CustomerDiscountHistoryService::checkCreate($object);
-        return CustomerDiscountHistory::create(CustomerDiscountHistoryService::builder($object));
+        self::checkCreate($object);
+        return CustomerDiscountHistory::create(self::builder($object));
     }
 
     public static function insert(array $objects)
@@ -18,14 +18,14 @@ class CustomerDiscountHistoryService
         $discounts = [];
         foreach ($objects as $object)
         {
-            CustomerDiscountHistoryService::checkCreate($object);
+            self::checkCreate($object);
 
             if(! empty($object['names'])) $object['names'] = json_encode($object['names']);
             if(! empty($object['descriptions'])) $object['descriptions'] = json_encode($object['descriptions']);
             if(! empty($object['data_lang'])) $object['data_lang'] = json_encode($object['data_lang']);
             if(! empty($object['price_rule'])) $object['price_rule'] = json_encode($object['price_rule']);
 
-            $discounts[] = CustomerDiscountHistoryService::builder($object);
+            $discounts[] = self::builder($object);
         }
 
         return CustomerDiscountHistory::insert($discounts);
@@ -33,14 +33,14 @@ class CustomerDiscountHistoryService
 
     public static function update(array $object)
     {
-        CustomerDiscountHistoryService::checkUpdate($object);
+        self::checkUpdate($object);
 
         if(! empty($object['names'])) $object['names'] = json_encode($object['names']);
         if(! empty($object['descriptions'])) $object['descriptions'] = json_encode($object['descriptions']);
         if(! empty($object['data_lang'])) $object['data_lang'] = json_encode($object['data_lang']);
         if(! empty($object['price_rule'])) $object['price_rule'] = json_encode($object['price_rule']);
 
-        CustomerDiscountHistory::where('id', $object['id'])->update(CustomerDiscountHistoryService::builder($object));
+        CustomerDiscountHistory::where('id', $object['id'])->update(self::builder($object));
 
         return CustomerDiscountHistory::find($object['id']);
     }

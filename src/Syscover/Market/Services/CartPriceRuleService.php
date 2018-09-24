@@ -7,7 +7,7 @@ class CartPriceRuleService
 {
     public static function create($object)
     {
-        CartPriceRuleService::checkCreate($object);
+        self::checkCreate($object);
 
         if(empty($object['id']))
         {
@@ -16,7 +16,7 @@ class CartPriceRuleService
 
             $object['data_lang'] = CartPriceRule::addDataLang($object['lang_id']);
 
-            return CartPriceRule::create(CartPriceRuleService::builder($object));
+            return CartPriceRule::create(self::builder($object));
         }
         else
         {
@@ -54,7 +54,7 @@ class CartPriceRuleService
 
     public static function update($object)
     {
-        CartPriceRuleService::checkUpdate($object);
+        self::checkUpdate($object);
 
         if(! empty($object['name']) || ! empty($object['description']))
         {
@@ -92,7 +92,7 @@ class CartPriceRuleService
         // set customer_group_ids field
         if(! empty($object['customer_group_ids'])) $object['customer_group_ids'] = json_encode($object['customer_group_ids']);
 
-        CartPriceRule::where('id', $object['id'])->update(CartPriceRuleService::builder($object));
+        CartPriceRule::where('id', $object['id'])->update(self::builder($object));
 
         return Category::find($object['id']);
     }

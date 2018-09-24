@@ -13,8 +13,8 @@ class RedsysService
     {
         try
         {
-            $params     = RedsysService::parameters();
-            $orderId    = RedsysService::getOrderId($order->id);
+            $params     = self::parameters();
+            $orderId    = self::getOrderId($order->id);
 
             /****************************************************************
              * Attention!! the order of the definition of the parameters
@@ -76,7 +76,7 @@ class RedsysService
         // log
         Log::info('Enter in market.redsys.notification route whit parameters', request()->all());
 
-        $params = RedsysService::parameters();
+        $params = self::parameters();
 
         try
         {
@@ -135,7 +135,7 @@ class RedsysService
         // log
         Log::info('Enter in RedsysService::successful service whit parameters', request()->all());
 
-        $params = RedsysService::parameters();
+        $params = self::parameters();
 
         try {
             $parameters = Redsys::getMerchantParameters(request('Ds_MerchantParameters'));

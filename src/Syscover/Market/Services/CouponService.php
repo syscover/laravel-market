@@ -197,7 +197,7 @@ class CouponService
      */
     public static function addCouponCode($shoppingCart, $couponCode, $lang, $sessionGuard = null)
     {
-        $response       = CouponService::checkCouponCode($couponCode, $lang, $sessionGuard);
+        $response       = self::checkCouponCode($couponCode, $lang, $sessionGuard);
         $cartPriceRule  = null;
 
         // check that rule its ok

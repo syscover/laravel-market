@@ -11,26 +11,26 @@ class StockService
             ->count() > 0
         )
         {
-            return StockService::update($object);
+            return self::update($object);
         }
         else
         {
-            return StockService::create($object);
+            return self::create($object);
         }
     }
 
     public static function create($object)
     {
-        StockService::checkCreate($object);
-        return Stock::create(StockService::builder($object));
+        self::checkCreate($object);
+        return Stock::create(self::builder($object));
     }
 
     public static function update($object)
     {
-        StockService::checkUpdate($object);
+        self::checkUpdate($object);
         Stock::where('warehouse_id', $object['warehouse_id'])
             ->where('product_id', $object['product_id'])
-            ->update(StockService::builder($object));
+            ->update(self::builder($object));
 
         return Stock::where('warehouse_id', $object['warehouse_id'])
             ->where('product_id', $object['product_id'])->first();

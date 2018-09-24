@@ -6,22 +6,22 @@ class SectionService
 {
     public static function create($object)
     {
-        SectionService::checkCreate($object);
+        self::checkCreate($object);
 
         $object['data_lang'] = Section::addDataLang($object['lang_id'], $object['id']);
 
-        return Section::create(SectionService::builder($object));
+        return Section::create(self::builder($object));
     }
 
     public static function update($object)
     {
-        SectionService::checkUpdate($object);
+        self::checkUpdate($object);
 
         // get original id of section
         $section = Section::find($object['ix']);
 
-        Section::where('id', $section->id)->update(SectionService::builder($object, ['id']));
-        Section::where('ix', $object['ix'])->update(SectionService::builder($object, ['lang_id', 'name', 'slug', 'data_lang']));
+        Section::where('id', $section->id)->update(self::builder($object, ['id']));
+        Section::where('ix', $object['ix'])->update(self::builder($object, ['lang_id', 'name', 'slug', 'data_lang']));
 
         return Section::find($object['ix']);
     }

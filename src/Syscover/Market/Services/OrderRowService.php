@@ -8,13 +8,13 @@ class OrderRowService
 {
     public static function create(array $object)
     {
-        OrderRowService::checkCreate($object);
-        return OrderRow::create(OrderRowService::builder($object));
+        self::checkCreate($object);
+        return OrderRow::create(self::builder($object));
     }
 
     public static function update(array $object)
     {
-        OrderRowService::checkUpdate($object);
+        self::checkUpdate($object);
 
         if(! empty($object['data'])) $object['data'] = json_encode($object['data']);
         if(! empty($object['tax_rules'])) $object['tax_rules'] = json_encode($object['tax_rules']);
@@ -29,12 +29,12 @@ class OrderRowService
         $rows = [];
         foreach ($objects as $object)
         {
-            OrderRowService::checkCreate($object);
+            self::checkCreate($object);
 
             if(! empty($object['data'])) $object['data'] = json_encode($object['data']);
             if(! empty($object['tax_rules'])) $object['tax_rules'] = json_encode($object['tax_rules']);
 
-            $rows[] = OrderRowService::builder($object);
+            $rows[] = self::builder($object);
         }
 
         return OrderRow::insert($rows);

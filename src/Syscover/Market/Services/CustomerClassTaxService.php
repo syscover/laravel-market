@@ -6,14 +6,14 @@ class CustomerClassTaxService
 {
     public static function create($object)
     {
-        CustomerClassTaxService::checkCreate($object);
-        return CustomerClassTax::create(CustomerClassTaxService::builder($object));
+        self::checkCreate($object);
+        return CustomerClassTax::create(self::builder($object));
     }
 
     public static function update($object)
     {
-        CustomerClassTaxService::checkUpdate($object);
-        CustomerClassTax::where('id', $object['id'])->update(CustomerClassTaxService::builder($object));
+        self::checkUpdate($object);
+        CustomerClassTax::where('id', $object['id'])->update(self::builder($object));
 
         return CustomerClassTax::find($object['id']);
     }

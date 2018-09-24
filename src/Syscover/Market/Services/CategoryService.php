@@ -6,20 +6,20 @@ class CategoryService
 {
     public static function create($object)
     {
-        CategoryService::checkCreate($object);
+        self::checkCreate($object);
 
         if(empty($object['id'])) $object['id'] = next_id(Category::class);
 
         $object['data_lang'] = Category::addDataLang($object['lang_id'], $object['id']);
 
-        return Category::create(CategoryService::builder($object));
+        return Category::create(self::builder($object));
     }
 
     public static function update($object)
     {
-        CategoryService::checkUpdate($object);
-        Category::where('id', $object['id'])->update(CategoryService::builder($object, ['parent_id', 'active']));
-        Category::where('ix', $object['ix'])->update(CategoryService::builder($object, ['name', 'slug', 'description']));
+        self::checkUpdate($object);
+        Category::where('id', $object['id'])->update(self::builder($object, ['parent_id', 'active']));
+        Category::where('ix', $object['ix'])->update(self::builder($object, ['name', 'slug', 'description']));
 
         return Category::find($object['ix']);
     }

@@ -6,20 +6,20 @@ class OrderStatusService
 {
     public static function create($object)
     {
-        OrderStatusService::checkCreate($object);
+        self::checkCreate($object);
 
         if(empty($object['id'])) $object['id'] = next_id(OrderStatus::class);
 
         $object['data_lang'] = OrderStatus::addDataLang($object['lang_id'], $object['id']);
 
-        return OrderStatus::create(OrderStatusService::builder($object));
+        return OrderStatus::create(self::builder($object));
     }
 
     public static function update($object)
     {
-        OrderStatusService::checkUpdate($object);
-        OrderStatus::where('ix', $object['ix'])->update(OrderStatusService::builder($object));
-        OrderStatus::where('id', $object['id'])->update(OrderStatusService::builder($object, ['active']));
+        self::checkUpdate($object);
+        OrderStatus::where('ix', $object['ix'])->update(self::builder($object));
+        OrderStatus::where('id', $object['id'])->update(self::builder($object, ['active']));
 
         return OrderStatus::find($object['ix']);
     }

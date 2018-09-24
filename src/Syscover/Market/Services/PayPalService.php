@@ -18,7 +18,7 @@ class PayPalService
 {
     public static function createPayment($order, $xhr)
     {
-        $params = PayPalService::parameters();
+        $params = self::parameters();
 
         $payer = new Payer();
         $payer->setPaymentMethod('paypal');
@@ -135,11 +135,11 @@ class PayPalService
         {
             if($xhr)
             {
-                return PayPalService::createForm($redirectUrl);
+                return self::createForm($redirectUrl);
             }
             else
             {
-                return view('core::common.display', ['content' => PayPalService::executeRedirection($redirectUrl)]);
+                return view('core::common.display', ['content' => self::executeRedirection($redirectUrl)]);
             }
         }
         else
@@ -210,7 +210,7 @@ class PayPalService
      */
     public static function successful()
     {
-        $params     = PayPalService::parameters();
+        $params     = self::parameters();
         $paymentId  = request('paymentId');
         $payment    = Payment::get($paymentId, $params->apiContext);
         $execution  = new PaymentExecution();

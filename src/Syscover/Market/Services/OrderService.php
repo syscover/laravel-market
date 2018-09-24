@@ -9,17 +9,17 @@ class OrderService
 {
     public static function create(array $object)
     {
-        OrderService::checkCreate($object);
-        return Order::create(OrderService::builder($object));
+        self::checkCreate($object);
+        return Order::create(self::builder($object));
     }
 
     public static function update(array $object)
     {
-        OrderService::checkUpdate($object);
+        self::checkUpdate($object);
 
         if(! empty($object['data'])) $object['data'] = json_encode($object['data']);
 
-        Order::where('id', $object['id'])->update(OrderService::builder($object));
+        Order::where('id', $object['id'])->update(self::builder($object));
 
         return Order::find($object['id']);
     }

@@ -6,14 +6,14 @@ class WarehouseService
 {
     public static function create($object)
     {
-        WarehouseService::checkCreate($object);
+        self::checkCreate($object);
         return Warehouse::create($object);
     }
 
     public static function update($object)
     {
-        WarehouseService::checkUpdate($object);
-        Warehouse::where('id', $object['id'])->update(WarehouseService::builder($object));
+        self::checkUpdate($object);
+        Warehouse::where('id', $object['id'])->update(self::builder($object));
         return Warehouse::find($object['id']);
     }
 

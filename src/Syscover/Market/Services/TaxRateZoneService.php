@@ -6,14 +6,14 @@ class TaxRateZoneService
 {
     public static function create($object)
     {
-        TaxRateZoneService::checkCreate($object);
-        return TaxRateZone::create(TaxRateZoneService::builder($object));
+        self::checkCreate($object);
+        return TaxRateZone::create(self::builder($object));
     }
 
     public static function update($object)
     {
-        TaxRateZoneService::checkUpdate($object);
-        TaxRateZone::where('id', $object['id'])->update(TaxRateZoneService::builder($object));
+        self::checkUpdate($object);
+        TaxRateZone::where('id', $object['id'])->update(self::builder($object));
 
         return TaxRateZone::find($object['id']);
     }

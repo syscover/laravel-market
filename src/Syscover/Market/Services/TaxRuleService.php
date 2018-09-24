@@ -211,10 +211,10 @@ class TaxRuleService
 
 
         // filter by tas rules
-        $taxRules = TaxRuleService::filterTaxRuleByTerritorialArea($taxRules, $territorial_area_1_id, 'territorial_area_1_id');
-        $taxRules = TaxRuleService::filterTaxRuleByTerritorialArea($taxRules, $territorial_area_2_id, 'territorial_area_2_id');
-        $taxRules = TaxRuleService::filterTaxRuleByTerritorialArea($taxRules, $territorial_area_3_id, 'territorial_area_3_id');
-        $taxRules = TaxRuleService::filterTaxRuleByTerritorialArea($taxRules, $zip, 'zip', true);
+        $taxRules = self::filterTaxRuleByTerritorialArea($taxRules, $territorial_area_1_id, 'territorial_area_1_id');
+        $taxRules = self::filterTaxRuleByTerritorialArea($taxRules, $territorial_area_2_id, 'territorial_area_2_id');
+        $taxRules = self::filterTaxRuleByTerritorialArea($taxRules, $territorial_area_3_id, 'territorial_area_3_id');
+        $taxRules = self::filterTaxRuleByTerritorialArea($taxRules, $zip, 'zip', true);
 
         // return with index reset
         return $taxRules->values();
@@ -230,7 +230,7 @@ class TaxRuleService
             {
                 if($isZip)
                 {
-                    return TaxRuleService::checkZip($taxRule->zip, $territorialArea);
+                    return self::checkZip($taxRule->zip, $territorialArea);
                 }
                 else
                 {
