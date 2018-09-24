@@ -21,6 +21,51 @@ type MarketPaymentMethod {
     data_lang: [String]
 }
 
+type MarketOrderStatus {
+    ix: Int!
+    id: Int!
+    lang_id: String!
+    name: String!
+    active: Boolean
+    data_lang: [String]
+}
+
+type MarketCustomerClassTax {
+    id: Int!
+    name: String!
+}
+
+type MarketCustomerGroupCustomerClassTax {
+    customer_group_id: Int!
+    customer_group_name: String
+    customer_class_tax_id: Int!
+    customer_class_tax_name: String
+}
+
+type MarketProductClassTax {
+    id: Int!
+    name: String!
+}
+
+type MarketTaxRateZone {
+    id: Int!
+    name: String!
+    country_id: String!
+    territorial_area_1_id: String
+    territorial_area_2_id: String
+    territorial_area_3_id: String
+    zip: String
+    tax_rate: Float
+}
+
+
+
+
+
+
+
+
+
 type MarketOrderRow {
     id: ID!
     lang_id: String!
