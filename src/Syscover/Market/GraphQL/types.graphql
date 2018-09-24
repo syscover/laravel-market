@@ -7,6 +7,19 @@ type MarketSection {
     data_lang: [String]
 }
 
+type MarketCategory {
+    ix: Int!
+    id: Int!
+    lang_id: String!
+    parent_id: Int
+    name: String!
+    slug: String
+    active: Boolean
+    description: String
+    data_lang: [String]
+    data: Object
+}
+
 type MarketPaymentMethod {
     ix: ID!
     id: Int!
@@ -58,7 +71,31 @@ type MarketTaxRateZone {
     tax_rate: Float
 }
 
+type MarketTaxRule {
+    id: Int!
+    name: String!
+    translation: String!
+    priority: Int!
+    sort: Int!
+    tax_rate_zones: [MarketTaxRateZone]
+    customer_class_taxes: [MarketCustomerClassTax]
+    product_class_taxes: [MarketProductClassTax]
+}
 
+type MarketWarehouse {
+    id: Int!
+    name: String!
+    country_id: String
+    territorial_area_1_id: String
+    territorial_area_2_id: String
+    territorial_area_3_id: String
+    zip: String
+    locality: String
+    address: String
+    latitude: String
+    longitude: String
+    active: Boolean
+}
 
 
 
