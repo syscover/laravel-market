@@ -12,13 +12,13 @@ class TaxRuleGraphQLService extends CoreGraphQLService
     public function resolveCheckCustomerTaxRules($root, array $args)
     {
         return TaxRuleService::checkCustomerTaxRules(
-            $root['customer_class_tax_id'] ?? null,
-            $root['country_id'] ?? null,
-            $root['territorial_area_1_id'] ?? null,
-            $root['territorial_area_2_id'] ?? null,
-            $root['territorial_area_3_id'] ?? null,
-            $root['zip'] ?? null,
-            $root['guard'] ?? 'crm'
+            $args['customer_class_tax_id'] ?? null,
+            $args['country_id'] ?? null,
+            $args['territorial_area_1_id'] ?? null,
+            $args['territorial_area_2_id'] ?? null,
+            $args['territorial_area_3_id'] ?? null,
+            $args['zip'] ?? null,
+            $args['guard'] ?? 'crm'
         );
     }
 }
