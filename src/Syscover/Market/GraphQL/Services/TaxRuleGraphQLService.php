@@ -8,4 +8,9 @@ class TaxRuleGraphQLService extends CoreGraphQLService
 {
     protected $model = TaxRule::class;
     protected $service = TaxRuleService::class;
+
+    public function resolveChangeTaxRules($root, array $args)
+    {
+
+    }
 }

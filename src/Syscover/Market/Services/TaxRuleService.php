@@ -1,6 +1,7 @@
 <?php namespace Syscover\Market\Services;
 
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Auth;
 use Syscover\Market\Models\Product;
 use Syscover\Market\Models\TaxRule;
 use Syscover\ShoppingCart\Facades\CartProvider;
@@ -30,6 +31,36 @@ class TaxRuleService
     public static function setTaxRules($taxRules)
     {
         session(['pulsar-market.tax_rules' => $taxRules]);
+    }
+
+    public static function checkCustomerTaxRules(
+        $customer_class_tax_id,
+        $country_id,
+        $territorial_area_1_id,
+        $territorial_area_2_id,
+        $territorial_area_3_id,
+        $zip,
+        $guard = 'crm'
+    )
+    {
+        if(Auth::guard($guard)->check())
+        {
+            // save tax rules in customer instance
+            Auth::guard($guard)->user()->tax_rules = self::getCustomerTaxRules(
+                $customer_class_tax_id,
+                $country_id,
+                $territorial_area_1_id,
+                $territorial_area_2_id,
+                $territorial_area_3_id,
+                $zip
+            );
+
+            // calculate prices in shopping cart
+            self::taxCalculateOverShoppingCart(Auth::guard($guard)->user()->tax_rules);
+
+            // set tax_rules session variable, to calculate prices
+            self::setTaxRules(Auth::guard($guard)->user()->tax_rules);
+        }
     }
 
     public static function getShoppingCartTaxRules(int $productClassTaxId = null)
