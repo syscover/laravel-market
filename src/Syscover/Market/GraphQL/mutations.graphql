@@ -1,2 +1,2 @@
 # Tax rules
-marketCheckCustomerTaxRules(customer_class_tax_id:Int country_id:String territorial_area_1_id:String territorial_area_2_id:String territorial_area_3_id:String zip:String guard:String): [MarketTaxRule]! @field(resolver: "Syscover\\Market\\GraphQL\\Services\\TaxRuleGraphQLService@resolveCheckCustomerTaxRules")
+marketCheckCustomerTaxRules(customer_class_tax_id:Int country_id:String territorial_area_1_id:String territorial_area_2_id:String territorial_area_3_id:String zip:String guard:String): Object! @field(resolver: "Syscover\\Market\\GraphQL\\Services\\TaxRuleGraphQLService@resolveCheckCustomerTaxRules")
