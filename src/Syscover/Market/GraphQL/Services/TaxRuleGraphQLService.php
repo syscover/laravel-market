@@ -24,7 +24,7 @@ class TaxRuleGraphQLService extends CoreGraphQLService
 
         return [
           'tax_rules' => $taxRules,
-          'cart'      => CartProvider::instance($args['guard'] ?? 'crm' ?? null)->getCartItems()->toArray()
+          'cart'      => CartProvider::instance($args['guard'] ?? null)->toArray()
         ];
     }
 }
