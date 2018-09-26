@@ -43,29 +43,24 @@ class TaxRuleService
         $guard = 'crm'
     )
     {
-        $taxRules = collect();
+        // save tax rules in customer instance
+        $taxRules = self::getCustomerTaxRules(
+            $customer_class_tax_id,
+            $country_id,
+            $territorial_area_1_id,
+            $territorial_area_2_id,
+            $territorial_area_3_id,
+            $zip
+        );
 
-        if(Auth::guard($guard)->check())
-        {
-            // save tax rules in customer instance
-            $taxRules = self::getCustomerTaxRules(
-                $customer_class_tax_id,
-                $country_id,
-                $territorial_area_1_id,
-                $territorial_area_2_id,
-                $territorial_area_3_id,
-                $zip
-            );
+        // set tax rules in Auth guard
+        if(Auth::guard($guard)->check()) Auth::guard($guard)->user()->tax_rules = $taxRules;
 
-            // set tax rules in Auth guard
-            Auth::guard($guard)->user()->tax_rules = $taxRules;
+        // calculate prices in shopping cart
+        self::taxCalculateOverShoppingCart($taxRules);
 
-            // calculate prices in shopping cart
-            self::taxCalculateOverShoppingCart($taxRules);
-
-            // set pulsar-market.tax_rules session variable, to calculate prices
-            self::setTaxRules($taxRules);
-        }
+        // set pulsar-market.tax_rules session variable, to calculate prices
+        self::setTaxRules($taxRules);
 
         return $taxRules;
     }
