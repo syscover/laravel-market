@@ -8,9 +8,9 @@ type MarketSection {
 }
 
 type MarketCategory {
-    ix: Int!
-    id: Int!
-    lang_id: String!
+    ix: Int
+    id: Int
+    lang_id: String
     parent_id: Int
     name: String!
     slug: String
@@ -21,7 +21,7 @@ type MarketCategory {
 }
 
 type MarketPaymentMethod {
-    ix: ID!
+    ix: Int!
     id: Int!
     lang_id: String!
     name: String!
@@ -179,7 +179,7 @@ type MarketProduct {
 }
 
 type MarketOrderRow {
-    id: ID!
+    id: Int!
     lang_id: String!
     order_id: Int!
     product_id: Int
@@ -219,7 +219,7 @@ type MarketOrderRow {
 }
 
 type MarketOrder {
-    id: ID!
+    id: Int!
     date: String!
     payment_method_id: Int!
     payment_methods: [MarketPaymentMethod!]!

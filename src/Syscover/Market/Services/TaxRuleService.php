@@ -16,6 +16,60 @@ class TaxRuleService
     const PRICE_WITHOUT_TAX = 1;
     const PRICE_WITH_TAX    = 2;
 
+    public static function create($object)
+    {
+        self::checkCreate($object);
+
+        $taxRule = TaxRule::create(self::builder($object));
+
+        $taxRule->tax_rate_zones()->sync($object['tax_rate_zones_id']);
+        $taxRule->customer_class_taxes()->sync($object['customer_class_taxes_id']);
+        $taxRule->product_class_taxes()->sync($object['product_class_taxes_id']);
+
+        return $taxRule;
+    }
+
+    public static function update($object)
+    {
+        self::checkUpdate($object);
+
+        TaxRule::where('id', $object['id'])->update(self::builder($object));
+
+        $taxRule = TaxRule::find($object['id']);
+
+        $taxRule->tax_rate_zones()->sync($object['tax_rate_zones_id']);
+        $taxRule->customer_class_taxes()->sync($object['customer_class_taxes_id']);
+        $taxRule->product_class_taxes()->sync($object['product_class_taxes_id']);
+
+        return $taxRule;
+    }
+
+    private static function builder($object, $filterKeys = null)
+    {
+        $object = collect($object);
+        if($filterKeys) return $object->only($filterKeys)->toArray();
+
+        return  $object->only(['id', 'name', 'translation', 'priority', 'sort'])->toArray();
+    }
+
+    private static function checkCreate($object)
+    {
+        if(empty($object['name']))                                                                      throw new \Exception('You have to define a name field to create a tax rule');
+        if(empty($object['priority']))                                                                  throw new \Exception('You have to define a priority field to create a tax rule');
+        if(empty($object['sort']))                                                                      throw new \Exception('You have to define a sort field to create a tax rule');
+        if(! is_array($object['tax_rate_zones_id']) || empty($object['tax_rate_zones_id']))             throw new \Exception('You have to define a tax_rate_zones_id array field with elements to create a tax rule');
+        if(! is_array($object['customer_class_taxes_id']) || empty($object['customer_class_taxes_id'])) throw new \Exception('You have to define a customer_class_taxes_id array field with elements to create a tax rule');
+        if(! is_array($object['product_class_taxes_id']) || empty($object['product_class_taxes_id']))   throw new \Exception('You have to define a product_class_taxes_id array field with elements to create a tax rule');
+    }
+
+    private static function checkUpdate($object)
+    {
+        if(empty($object['id']))                                                                        throw new \Exception('You have to define a id field to update a tax rule');
+        if(! is_array($object['tax_rate_zones_id']) || empty($object['tax_rate_zones_id']))             throw new \Exception('You have to define a tax_rate_zones_id array field with elements to update a tax rule');
+        if(! is_array($object['customer_class_taxes_id']) || empty($object['customer_class_taxes_id'])) throw new \Exception('You have to define a customer_class_taxes_id array field with elements to update a tax rule');
+        if(! is_array($object['product_class_taxes_id']) || empty($object['product_class_taxes_id']))   throw new \Exception('You have to define a product_class_taxes_id array field with elements to update a tax rule');
+    }
+
     public static function getTaxRules(): Collection
     {
         if(session('pulsar-market.tax_rules'))

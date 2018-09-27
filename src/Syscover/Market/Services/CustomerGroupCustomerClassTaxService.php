@@ -13,9 +13,14 @@ class CustomerGroupCustomerClassTaxService
     public static function update($object)
     {
         self::checkUpdate($object);
-        CustomerGroupCustomerClassTax::where('id', $object['id'])->update(self::builder($object));
 
-        return CustomerGroupCustomerClassTax::find($object['id']);
+        CustomerGroupCustomerClassTax::where('customer_group_id', $object['customer_group_id'])
+            ->where('customer_class_tax_id', $object['customer_class_tax_id'])
+            ->update(self::builder($object['object']));
+
+        return CustomerGroupCustomerClassTax::where('customer_group_id', $object['object']['customer_group_id'])
+            ->where('customer_class_tax_id', $object['object']['customer_class_tax_id'])
+            ->first();
     }
 
     private static function builder($object)
@@ -34,5 +39,6 @@ class CustomerGroupCustomerClassTaxService
     {
         if(empty($object['customer_group_id'])) throw new \Exception('You have to define a customer_group_id field to update a customer group customer class tax');
         if(empty($object['customer_class_tax_id'])) throw new \Exception('You have to define a customer_class_tax_id field to update a customer group customer class tax');
+        if(empty($object['object'])) throw new \Exception('You have to define a object field that contain the customer group customer class tax that will be updated');
     }
 }

@@ -1,0 +1,81 @@
+input MarketSectionInput {
+    ix: Int
+    id: String
+    lang_id: String
+    name: String!
+    slug: String!
+    data_lang: [String]
+}
+
+input MarketCategoryInput {
+    ix: Int
+    id: Int
+    lang_id: String
+    parent_id: Int
+    name: String
+    slug: String
+    active: Boolean
+    description: String
+    data_lang: [String]
+    data: Object
+}
+
+input MarketPaymentMethodInput {
+    ix: Int
+    id: Int
+    lang_id: String
+    name: String
+    order_status_successful_id: Int
+    minimum_price: Float
+    maximum_price: Float
+    instructions: String
+    sort: Int
+    active: Boolean
+    data_lang: [String]
+}
+
+input MarketOrderStatusInput {
+    ix: Int
+    id: Int
+    lang_id: String
+    name: String
+    active: Boolean
+    data_lang: [String]
+}
+
+input MarketCustomerClassTaxInput {
+    id: Int
+    name: String
+}
+
+input MarketCustomerGroupCustomerClassTaxInput {
+    customer_group_id: Int
+    customer_class_tax_id: Int
+}
+
+input MarketProductClassTaxInput {
+    id: Int
+    name: String
+}
+
+input MarketTaxRateZoneInput {
+    id: Int
+    name: String
+    country_id: String
+    territorial_area_1_id: String
+    territorial_area_2_id: String
+    territorial_area_3_id: String
+    zip: String
+    tax_rate: Float
+}
+
+input MarketTaxRuleInput {
+    id: Int
+    name: String
+    translation: String
+    priority: Int
+    sort: Int
+    tax_rate_zones_id: [Int]
+    customer_class_taxes_id: [Int]
+    product_class_taxes_id: [Int]
+}

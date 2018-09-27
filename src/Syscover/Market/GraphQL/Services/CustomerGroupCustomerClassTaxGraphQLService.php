@@ -8,4 +8,22 @@ class CustomerGroupCustomerClassTaxGraphQLService extends CoreGraphQLService
 {
     protected $model = CustomerGroupCustomerClassTax::class;
     protected $service = CustomerGroupCustomerClassTaxService::class;
+
+    public function update($root, array $args)
+    {
+        return CustomerGroupCustomerClassTaxService::update($args);
+    }
+
+    public function delete($root, array $args)
+    {
+        // Custom delete a single record
+        $object = CustomerGroupCustomerClassTax::builder()
+            ->where('customer_group_id', $args['customer_group_id'])
+            ->where('customer_class_tax_id', $args['customer_class_tax_id'])
+            ->first();
+
+        $object->delete();
+
+        return $object;
+    }
 }
