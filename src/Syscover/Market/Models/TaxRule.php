@@ -50,31 +50,6 @@ class TaxRule extends CoreModel
     public function scopePaginationBuilder($query)
     {
         return $query;
-        // comment code
-        // not necessary for paginate, duplicate rows for group by
-
-//            ->join('market_tax_rules_customer_class_taxes', 'market_tax_rule.id', '=', 'market_tax_rules_customer_class_taxes.tax_rule_id')
-//            ->join('market_tax_rules_product_class_taxes', 'market_tax_rule.id', '=', 'market_tax_rules_product_class_taxes.tax_rule_id')
-//            ->join('market_customer_class_tax', 'market_tax_rules_customer_class_taxes.customer_class_tax_id', '=', 'market_customer_class_tax.id')
-//            ->join('market_product_class_tax', 'market_tax_rules_product_class_taxes.product_class_tax_id', '=', 'market_product_class_tax.id')
-//            ->addSelect(
-//                'market_product_class_tax.*',
-//                'market_customer_class_tax.*',
-//                'market_tax_rules_product_class_taxes.*',
-//                'market_tax_rules_customer_class_taxes.*',
-//                'market_tax_rule.*',
-//                'market_product_class_tax.id as market_product_class_tax_id',
-//                'market_customer_class_tax.id as market_customer_class_tax_id'
-//            )
-//            ->groupBy(
-//                'market_tax_rule.id',
-//                'market_tax_rule.name',
-//                'market_tax_rule.translation',
-//                'market_tax_rule.priority',
-//                'market_tax_rule.sort',
-//                'market_product_class_tax.id',
-//                'market_customer_class_tax.id'
-//            );
     }
 
     public function tax_rate_zones()
