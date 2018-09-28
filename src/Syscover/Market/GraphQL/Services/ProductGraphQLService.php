@@ -12,12 +12,6 @@ class ProductGraphQLService extends CoreGraphQLService
     protected $model = Product::class;
     protected $service = ProductService::class;
 
-    public function update2($root, array $args)
-    {
-        Log::info('XXXX:', $args);
-        return 'OK';
-    }
-
     public function taxes($root, array $args)
     {
         $price              = $args['price'];
