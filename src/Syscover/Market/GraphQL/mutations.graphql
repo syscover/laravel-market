@@ -52,5 +52,7 @@ marketDeleteCartPriceRule(id:Int! lang_id:String!): MarketCartPriceRule @field(r
 # Stocks
 marketSetStock(object:MarketStockInput!): MarketStock @field(resolver: "Syscover\\Market\\GraphQL\\Services\\StockGraphQLService@resolveSetStock")
 
-
+# Products
+marketCreateProduct(object:MarketProductInput!): MarketProduct @field(resolver: "Syscover\\Market\\GraphQL\\Services\\ProductGraphQLService@create")
 marketUpdateProduct(object:MarketProductInput!):MarketProduct @field(resolver: "Syscover\\Market\\GraphQL\\Services\\ProductGraphQLService@update")
+marketDeleteProduct(id:Int! lang_id:String!): MarketProduct @field(resolver: "Syscover\\Market\\GraphQL\\Services\\ProductGraphQLService@delete")

@@ -1,6 +1,5 @@
 <?php namespace Syscover\Market\GraphQL\Services;
 
-use Illuminate\Support\Facades\Log;
 use Syscover\Core\GraphQL\Services\CoreGraphQLService;
 use Syscover\Market\Models\Product;
 use Syscover\Market\Models\TaxRule;
