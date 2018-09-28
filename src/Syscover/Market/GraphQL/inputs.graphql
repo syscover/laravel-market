@@ -79,3 +79,79 @@ input MarketTaxRuleInput {
     customer_class_taxes_id: [Int]
     product_class_taxes_id: [Int]
 }
+
+input MarketWarehouseInput {
+    id: Int
+    name: String
+    country_id: String
+    territorial_area_1_id: String
+    territorial_area_2_id: String
+    territorial_area_3_id: String
+    zip: String
+    locality: String
+    address: String
+    latitude: String
+    longitude: String
+    active: Boolean
+}
+
+input MarketCartPriceRuleInput {
+    id: Int
+    lang_id: String
+    name: String
+    description: String
+    active: Boolean
+    customer_group_ids: Object
+    customer_ids: Object
+    combinable: Boolean
+    priority: Int
+    has_coupon: Boolean
+    coupon_code: String
+    customer_uses: Int
+    coupon_uses: Int
+    total_uses: Int
+    enable_from: String
+    enable_to: String
+    condition_rules: Object
+    discount_type_id: Int
+    discount_fixed_amount: Float
+    discount_percentage: Float
+    maximum_discount_amount: Float
+    apply_shipping_amount: Boolean
+    free_shipping: Boolean
+    product_rules: Object
+    data_lang: Object
+}
+
+input MarketStockInput {
+    warehouse_id: Int
+    product_id: Int
+    stock: Float
+    minimum_stock: Float
+}
+
+input MarketProductInput {
+    active: Boolean
+    attachments: [AdminAttachmentInput]
+    categories_id: [Int]
+    custom_fields: Object
+    data: Object
+    data_lang: [String]
+    description: String
+    field_group_id: Int
+    id: Int
+    ix: Int
+    lang_id: String
+    name: String
+    parent_id: Int
+    price: Float
+    price_type_id: Int
+    product_class_tax_id: Int
+    sections_id: [String]
+    sku: String
+    slug: String
+    sort: Int
+    subtotal: Float
+    type_id: Int
+    weight: Float
+}

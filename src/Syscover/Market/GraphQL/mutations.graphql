@@ -37,6 +37,20 @@ marketDeleteTaxRateZone(id:Int!): MarketTaxRateZone @field(resolver: "Syscover\\
 marketCreateTaxRule(object:MarketTaxRuleInput!): MarketTaxRule @field(resolver: "Syscover\\Market\\GraphQL\\Services\\TaxRuleGraphQLService@create")
 marketUpdateTaxRule(object:MarketTaxRuleInput!): MarketTaxRule @field(resolver: "Syscover\\Market\\GraphQL\\Services\\TaxRuleGraphQLService@update")
 marketDeleteTaxRule(id:Int!): MarketTaxRule @field(resolver: "Syscover\\Market\\GraphQL\\Services\\TaxRuleGraphQLService@delete")
-
-# Tax rules
 marketCheckCustomerTaxRules(customer_class_tax_id:Int country_id:String territorial_area_1_id:String territorial_area_2_id:String territorial_area_3_id:String zip:String guard:String): Object! @field(resolver: "Syscover\\Market\\GraphQL\\Services\\TaxRuleGraphQLService@resolveCheckCustomerTaxRules")
+
+# Warehouses
+marketCreateWarehouse(object:MarketWarehouseInput!): MarketWarehouse @field(resolver: "Syscover\\Market\\GraphQL\\Services\\WarehouseGraphQLService@create")
+marketUpdateWarehouse(object:MarketTaxRuleInput!): MarketWarehouse @field(resolver: "Syscover\\Market\\GraphQL\\Services\\WarehouseGraphQLService@update")
+marketDeleteWarehouse(id:Int!): MarketWarehouse @field(resolver: "Syscover\\Market\\GraphQL\\Services\\WarehouseGraphQLService@delete")
+
+# Cart price rules
+marketCreateCartPriceRule(object:MarketCartPriceRuleInput!): MarketCartPriceRule @field(resolver: "Syscover\\Market\\GraphQL\\Services\\CartPriceRuleGraphQLService@create")
+marketUpdateCartPriceRule(object:MarketCartPriceRuleInput!): MarketCartPriceRule @field(resolver: "Syscover\\Market\\GraphQL\\Services\\CartPriceRuleGraphQLService@update")
+marketDeleteCartPriceRule(id:Int! lang_id:String!): MarketCartPriceRule @field(resolver: "Syscover\\Market\\GraphQL\\Services\\CartPriceRuleGraphQLService@delete")
+
+# Stocks
+marketSetStock(object:MarketStockInput!): MarketStock @field(resolver: "Syscover\\Market\\GraphQL\\Services\\StockGraphQLService@resolveSetStock")
+
+
+marketUpdateProduct(object:MarketProductInput!):MarketProduct @field(resolver: "Syscover\\Market\\GraphQL\\Services\\ProductGraphQLService@update")

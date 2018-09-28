@@ -1,5 +1,6 @@
 <?php namespace Syscover\Market\GraphQL\Services;
 
+use Illuminate\Support\Facades\Log;
 use Syscover\Core\GraphQL\Services\CoreGraphQLService;
 use Syscover\Market\Models\Product;
 use Syscover\Market\Models\TaxRule;
@@ -10,6 +11,12 @@ class ProductGraphQLService extends CoreGraphQLService
 {
     protected $model = Product::class;
     protected $service = ProductService::class;
+
+    public function update2($root, array $args)
+    {
+        Log::info('XXXX:', $args);
+        return 'OK';
+    }
 
     public function taxes($root, array $args)
     {

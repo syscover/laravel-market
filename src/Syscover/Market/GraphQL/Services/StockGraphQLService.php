@@ -8,4 +8,9 @@ class StockGraphQLService extends CoreGraphQLService
 {
     protected $model = Stock::class;
     protected $service = StockService::class;
+
+    public function resolveSetStock($root, array $args)
+    {
+        return StockService::set($args['object']);
+    }
 }
