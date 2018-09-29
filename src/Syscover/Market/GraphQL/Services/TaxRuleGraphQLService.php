@@ -38,7 +38,7 @@ class TaxRuleGraphQLService extends CoreGraphQLService
 
     public function delete($root, array $args)
     {
-        $object = SQLService::destroyRecord($args['id'], $this->model);
+        $object = SQLService::deleteRecord($args['id'], $this->model);
 
         $object->tax_rate_zones()->detach();
         $object->customer_class_taxes()->detach();

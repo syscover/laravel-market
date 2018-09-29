@@ -1,7 +1,10 @@
 <?php namespace Syscover\Market\GraphQL\Services;
 
+use Syscover\Admin\Services\AttachmentService;
 use Syscover\Core\GraphQL\Services\CoreGraphQLService;
+use Syscover\Core\Services\SQLService;
 use Syscover\Market\Models\Product;
+use Syscover\Market\Models\ProductLang;
 use Syscover\Market\Models\TaxRule;
 use Syscover\Market\Services\ProductService;
 use Syscover\Market\Services\TaxRuleService;
@@ -55,5 +58,16 @@ class ProductGraphQLService extends CoreGraphQLService
             'taxAmountFormat'   => number_format($taxAmount, 2, ',', '.'),
             'totalFormat'       => number_format($total, 2, ',', '.'),
         ];
+    }
+
+    public function delete($root, array $args)
+    {
+        // delete object
+        $object = SQLService::deleteRecord($args['id'], $this->model, $args['lang_id'] ?? null, ProductLang::class);
+
+        // delete object
+        AttachmentService::deleteAttachments($args['id'], Product::class, $args['lang_id']);
+
+        return $object;
     }
 }

@@ -70,7 +70,7 @@ class DeleteOrderMutation extends OrderMutation
 
     public function resolve($root, $args)
     {
-        $object = SQLService::destroyRecord($args['id'], Order::class);
+        $object = SQLService::deleteRecord($args['id'], Order::class);
 
         return $object;
     }
