@@ -35,8 +35,7 @@ class Product extends CoreModel
         'field_group',
         'categories',
         'stocks',
-        'children_products',
-        'attachments'
+        'children_products'
     ];
     protected $appends      = ['tax_amount', 'price'];
     public $lazyRelations   = ['attachments'];
@@ -131,6 +130,14 @@ class Product extends CoreModel
         );
     }
 
+    /**
+     * Is not possible add 'attachments' to $with paramenter, it need to be instantiated to get lang parameter
+     * It's possible pass lang parameter with this method
+     *
+     * Product::with(['attachments' => function ($q) use ($langId) {
+     *   $q->where('admin_attachment.lang_id', $langId);
+     * }])->get();
+     */
     public function attachments()
     {
         return $this->morphMany(
