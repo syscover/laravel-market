@@ -62,7 +62,7 @@ class RedsysService
         {
             // log register on order
             OrderService::log($order->id, __('market::pulsar.message_customer_redsys_error', ['error' => $e->getMessage()]));
-            Log::error($e->getMessage());
+            Log::critical($e->getMessage());
 
             throw new \Exception('Exception to create payment Redsys: ' . $e->getMessage());
         }

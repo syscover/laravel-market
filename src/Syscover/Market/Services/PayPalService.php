@@ -111,6 +111,7 @@ class PayPalService
         }
         catch(\Exception $e)
         {
+            Log::critical($e->getMessage());
             throw new \Exception('There are any error to create PayPal payment: ' . $e->getMessage());
         }
         
