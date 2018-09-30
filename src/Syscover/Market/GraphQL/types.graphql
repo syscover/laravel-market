@@ -1,102 +1,3 @@
-type MarketSection {
-    ix: Int!
-    id: String!
-    lang_id: String!
-    name: String!
-    slug: String!
-    data_lang: [String]
-}
-
-type MarketCategory {
-    ix: Int
-    id: Int
-    lang_id: String
-    parent_id: Int
-    name: String!
-    slug: String
-    active: Boolean
-    description: String
-    data_lang: [String]
-    data: Object
-}
-
-type MarketPaymentMethod {
-    ix: Int!
-    id: Int!
-    lang_id: String!
-    name: String!
-    order_status_successful_id: Int
-    minimum_price: Float
-    maximum_price: Float
-    instructions: String
-    sort: Int
-    active: Boolean
-    data_lang: [String]
-}
-
-type MarketOrderStatus {
-    ix: Int!
-    id: Int!
-    lang_id: String!
-    name: String!
-    active: Boolean
-    data_lang: [String]
-}
-
-type MarketCustomerClassTax {
-    id: Int!
-    name: String!
-}
-
-type MarketCustomerGroupCustomerClassTax {
-    customer_group_id: Int!
-    customer_group_name: String
-    customer_class_tax_id: Int!
-    customer_class_tax_name: String
-}
-
-type MarketProductClassTax {
-    id: Int!
-    name: String!
-}
-
-type MarketTaxRateZone {
-    id: Int!
-    name: String!
-    country_id: String!
-    territorial_area_1_id: String
-    territorial_area_2_id: String
-    territorial_area_3_id: String
-    zip: String
-    tax_rate: Float
-}
-
-type MarketTaxRule {
-    id: Int!
-    name: String!
-    translation: String!
-    priority: Int!
-    sort: Int!
-    tax_rate_zones: [MarketTaxRateZone]
-    customer_class_taxes: [MarketCustomerClassTax]
-    product_class_taxes: [MarketProductClassTax]
-}
-
-type MarketWarehouse {
-    id: Int!
-    name: String!
-    country_id: String
-    territorial_area_1_id: String
-    territorial_area_2_id: String
-    territorial_area_3_id: String
-    zip: String
-    locality: String
-    address: String
-    latitude: String
-    longitude: String
-    active: Boolean
-}
-
 type MarketCartPriceRule {
     id: Int!
     names: Object
@@ -124,6 +25,24 @@ type MarketCartPriceRule {
     data_lang: Object
 }
 
+type MarketCategory {
+    ix: Int
+    id: Int
+    lang_id: String
+    parent_id: Int
+    name: String!
+    slug: String
+    active: Boolean
+    description: String
+    data_lang: [String]
+    data: Object
+}
+
+type MarketCustomerClassTax {
+    id: Int!
+    name: String!
+}
+
 type MarketCustomerDiscountHistory {
     id: Int!
     customer_id: Int!
@@ -147,75 +66,11 @@ type MarketCustomerDiscountHistory {
     price_rule: Object
 }
 
-type MarketStock {
-    warehouse_id: Int!
-    product_id: Int!
-    stock: Float!
-    minimum_stock: Float!
-}
-
-type MarketProduct {
-    ix: Int!
-    id: Int!
-    lang_id: String!
-    name: String!
-    slug: String!
-    sku: String
-    categories: [MarketCategory]
-    sections: [MarketSection]
-    field_group_id: Int
-    type_id: Int!
-    parent_id: Int
-    weight: Float!
-    active: Boolean
-    sort: Int
-    price_type_id: Int!
-    subtotal: Float
-    product_class_tax_id: Int
-    description: String
-    data_lang: [String]
-    data: Object
-    attachments: [AdminAttachment]
-}
-
-type MarketOrderRow {
-    id: Int!
-    lang_id: String!
-    order_id: Int!
-    product_id: Int
-
-    # product
-    name: String
-    description: String
-    data: Object
-
-    # amounts
-    price: Float!
-    quantity: Float!
-    subtotal: Float!
-    total_without_discounts: Float!
-
-    # discounts
-    discount_subtotal_percentage: Float!
-    discount_total_percentage: Float!
-    discount_subtotal_percentage_amount: Float!
-    discount_total_percentage_amount: Float!
-    discount_subtotal_fixed_amount: Float!
-    discount_total_fixed_amount: Float!
-    discount_amount: Float!
-
-    # total and subtotal with discounts
-    subtotal_with_discounts: Float!
-    tax_rules: String!
-    tax_amount: Float!
-    total: Float!
-
-    # gift
-    has_gift: Boolean
-    gift_from: String
-    gift_to: String
-    gift_message: String
-    gift_comments: String
+type MarketCustomerGroupCustomerClassTax {
+    customer_group_id: Int!
+    customer_group_name: String
+    customer_class_tax_id: Int!
+    customer_class_tax_name: String
 }
 
 type MarketOrder {
@@ -301,4 +156,149 @@ type MarketOrder {
     shipping_latitude: String
     shipping_longitude: String
     shipping_comments: String
+}
+
+type MarketOrderRow {
+    id: Int!
+    lang_id: String!
+    order_id: Int!
+    product_id: Int
+
+    # product
+    name: String
+    description: String
+    data: Object
+
+    # amounts
+    price: Float!
+    quantity: Float!
+    subtotal: Float!
+    total_without_discounts: Float!
+
+    # discounts
+    discount_subtotal_percentage: Float!
+    discount_total_percentage: Float!
+    discount_subtotal_percentage_amount: Float!
+    discount_total_percentage_amount: Float!
+    discount_subtotal_fixed_amount: Float!
+    discount_total_fixed_amount: Float!
+    discount_amount: Float!
+
+    # total and subtotal with discounts
+    subtotal_with_discounts: Float!
+    tax_rules: String!
+    tax_amount: Float!
+    total: Float!
+
+    # gift
+    has_gift: Boolean
+    gift_from: String
+    gift_to: String
+    gift_message: String
+    gift_comments: String
+}
+
+type MarketOrderStatus {
+    ix: Int!
+    id: Int!
+    lang_id: String!
+    name: String!
+    active: Boolean
+    data_lang: [String]
+}
+
+type MarketPaymentMethod {
+    ix: Int!
+    id: Int!
+    lang_id: String!
+    name: String!
+    order_status_successful_id: Int
+    minimum_price: Float
+    maximum_price: Float
+    instructions: String
+    sort: Int
+    active: Boolean
+    data_lang: [String]
+}
+
+type MarketProduct {
+    ix: Int!
+    id: Int!
+    lang_id: String!
+    name: String!
+    slug: String!
+    sku: String
+    categories: [MarketCategory]
+    sections: [MarketSection]
+    field_group_id: Int
+    type_id: Int!
+    parent_id: Int
+    weight: Float!
+    active: Boolean
+    sort: Int
+    price_type_id: Int!
+    subtotal: Float
+    product_class_tax_id: Int
+    description: String
+    data_lang: [String]
+    data: Object
+    attachments: [AdminAttachment]
+}
+
+type MarketProductClassTax {
+    id: Int!
+    name: String!
+}
+
+type MarketSection {
+    ix: Int!
+    id: String!
+    lang_id: String!
+    name: String!
+    slug: String!
+    data_lang: [String]
+}
+
+type MarketStock {
+    warehouse_id: Int!
+    product_id: Int!
+    stock: Float!
+    minimum_stock: Float!
+}
+
+type MarketTaxRateZone {
+    id: Int!
+    name: String!
+    country_id: String!
+    territorial_area_1_id: String
+    territorial_area_2_id: String
+    territorial_area_3_id: String
+    zip: String
+    tax_rate: Float
+}
+
+type MarketTaxRule {
+    id: Int!
+    name: String!
+    translation: String!
+    priority: Int!
+    sort: Int!
+    tax_rate_zones: [MarketTaxRateZone]
+    customer_class_taxes: [MarketCustomerClassTax]
+    product_class_taxes: [MarketProductClassTax]
+}
+
+type MarketWarehouse {
+    id: Int!
+    name: String!
+    country_id: String
+    territorial_area_1_id: String
+    territorial_area_2_id: String
+    territorial_area_3_id: String
+    zip: String
+    locality: String
+    address: String
+    latitude: String
+    longitude: String
+    active: Boolean
 }

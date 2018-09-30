@@ -1,10 +1,29 @@
-input MarketSectionInput {
-    ix: Int
-    id: String
+input MarketCartPriceRuleInput {
+    id: Int
     lang_id: String
-    name: String!
-    slug: String!
-    data_lang: [String]
+    name: String
+    description: String
+    active: Boolean
+    customer_group_ids: Object
+    customer_ids: Object
+    combinable: Boolean
+    priority: Int
+    has_coupon: Boolean
+    coupon_code: String
+    customer_uses: Int
+    coupon_uses: Int
+    total_uses: Int
+    enable_from: String
+    enable_to: String
+    condition_rules: Object
+    discount_type_id: Int
+    discount_fixed_amount: Float
+    discount_percentage: Float
+    maximum_discount_amount: Float
+    apply_shipping_amount: Boolean
+    free_shipping: Boolean
+    product_rules: Object
+    data_lang: Object
 }
 
 input MarketCategoryInput {
@@ -18,6 +37,147 @@ input MarketCategoryInput {
     description: String
     data_lang: [String]
     data: Object
+}
+
+input MarketCustomerClassTaxInput {
+    id: Int
+    name: String
+}
+
+input MarketCustomerGroupCustomerClassTaxInput {
+    customer_group_id: Int
+    customer_class_tax_id: Int
+}
+
+input MarketOrderInput {
+    id: Int
+    date: String
+    payment_method_id: Int
+    status_id: Int
+    ip: String
+    data: Object
+    comments: String
+    transaction_id: String
+
+    # amounts
+    discount_amount: Float
+    subtotal_with_discounts: Float
+    tax_amount: Float
+    cart_items_total_without_discounts: Float
+    subtotal: Float
+    shipping_amount: Float
+    total: Float
+
+    # gift
+    has_gift: Boolean
+    gift_from: String
+    gift_to: String
+    gift_message: String
+    gift_comments: String
+
+    # customer
+    customer_id: Int
+    customer_group_id: Int
+    customer_company: String
+    customer_tin: String
+    customer_name: String
+    customer_surname: String
+    customer_email: String
+    customer_mobile: String
+    customer_phone: String
+
+    # invoice data
+    has_invoice: Boolean
+    invoiced: Boolean
+    """ Invoice number from billing program """
+    invoice_number: String
+    invoice_company: String
+    invoice_tin: String
+    invoice_name: String
+    invoice_surname: String
+    invoice_email: String
+    invoice_mobile: String
+    invoice_phone: String
+    invoice_country_id: String
+    invoice_territorial_area_1_id: String
+    invoice_territorial_area_2_id: String
+    invoice_territorial_area_3_id: String
+    invoice_zip: String
+    invoice_locality: String
+    invoice_address: String
+    invoice_latitude: String
+    invoice_longitude: String
+    invoice_comments: String
+
+    # shipping data
+    has_shipping: Boolean
+    """ Code generate by shipping company to get tracking of shipping """
+    shipping_tracking_id: String
+    shipping_company: String
+    shipping_name: String
+    shipping_surname: String
+    shipping_email: String
+    shipping_mobile: String
+    shipping_phone: String
+    shipping_country_id: String
+    shipping_territorial_area_1_id: String
+    shipping_territorial_area_2_id: String
+    shipping_territorial_area_3_id: String
+    shipping_zip: String
+    shipping_locality: String
+    shipping_address: String
+    shipping_latitude: String
+    shipping_longitude: String
+    shipping_comments: String
+}
+
+input MarketOrderRowInput {
+    id: Int
+    lang_id: String
+    order_id: Int
+    product_id: Int
+
+    # product
+    name: String
+    description: String
+    data: Object
+
+    # amounts
+    price: Float
+    quantity: Float
+    subtotal: Float
+    total_without_discounts: Float
+
+    # discounts
+    discount_subtotal_percentage: Float
+    discount_total_percentage: Float
+    discount_subtotal_percentage_amount: Float
+    discount_total_percentage_amount: Float
+    discount_subtotal_fixed_amount: Float
+    discount_total_fixed_amount: Float
+    discount_amount: Float
+
+    # total and subtotal with discounts
+    subtotal_with_discounts: Float
+    tax_rules: String
+    tax_amount: Float
+    total: Float
+
+    # gift
+    has_gift: Boolean
+    gift_from: String
+    gift_to: String
+    gift_message: String
+    gift_comments: String
+}
+
+input MarketOrderStatusInput {
+    ix: Int
+    id: Int
+    lang_id: String
+    name: String
+    active: Boolean
+    data_lang: [String]
 }
 
 input MarketPaymentMethodInput {
@@ -34,28 +194,51 @@ input MarketPaymentMethodInput {
     data_lang: [String]
 }
 
-input MarketOrderStatusInput {
-    ix: Int
+input MarketProductInput {
+    active: Boolean
+    attachments: [AdminAttachmentInput]
+    categories_id: [Int]
+    custom_fields: Object
+    data: Object
+    data_lang: [String]
+    description: String
+    field_group_id: Int
     id: Int
+    ix: Int
     lang_id: String
     name: String
-    active: Boolean
-    data_lang: [String]
-}
-
-input MarketCustomerClassTaxInput {
-    id: Int
-    name: String
-}
-
-input MarketCustomerGroupCustomerClassTaxInput {
-    customer_group_id: Int
-    customer_class_tax_id: Int
+    parent_id: Int
+    price: Float
+    price_type_id: Int
+    product_class_tax_id: Int
+    sections_id: [String]
+    sku: String
+    slug: String
+    sort: Int
+    subtotal: Float
+    type_id: Int
+    weight: Float
 }
 
 input MarketProductClassTaxInput {
     id: Int
     name: String
+}
+
+input MarketSectionInput {
+    ix: Int
+    id: String
+    lang_id: String
+    name: String!
+    slug: String!
+    data_lang: [String]
+}
+
+input MarketStockInput {
+    warehouse_id: Int
+    product_id: Int
+    stock: Float
+    minimum_stock: Float
 }
 
 input MarketTaxRateZoneInput {
@@ -93,65 +276,4 @@ input MarketWarehouseInput {
     latitude: String
     longitude: String
     active: Boolean
-}
-
-input MarketCartPriceRuleInput {
-    id: Int
-    lang_id: String
-    name: String
-    description: String
-    active: Boolean
-    customer_group_ids: Object
-    customer_ids: Object
-    combinable: Boolean
-    priority: Int
-    has_coupon: Boolean
-    coupon_code: String
-    customer_uses: Int
-    coupon_uses: Int
-    total_uses: Int
-    enable_from: String
-    enable_to: String
-    condition_rules: Object
-    discount_type_id: Int
-    discount_fixed_amount: Float
-    discount_percentage: Float
-    maximum_discount_amount: Float
-    apply_shipping_amount: Boolean
-    free_shipping: Boolean
-    product_rules: Object
-    data_lang: Object
-}
-
-input MarketStockInput {
-    warehouse_id: Int
-    product_id: Int
-    stock: Float
-    minimum_stock: Float
-}
-
-input MarketProductInput {
-    active: Boolean
-    attachments: [AdminAttachmentInput]
-    categories_id: [Int]
-    custom_fields: Object
-    data: Object
-    data_lang: [String]
-    description: String
-    field_group_id: Int
-    id: Int
-    ix: Int
-    lang_id: String
-    name: String
-    parent_id: Int
-    price: Float
-    price_type_id: Int
-    product_class_tax_id: Int
-    sections_id: [String]
-    sku: String
-    slug: String
-    sort: Int
-    subtotal: Float
-    type_id: Int
-    weight: Float
 }
