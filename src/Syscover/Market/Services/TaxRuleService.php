@@ -296,6 +296,7 @@ class TaxRuleService
             ->orderBy('priority', 'asc')
             ->get();
 
+        // if has not tax rules, get tax rules with default values
         if($taxRules->count() === 0)
         {
             $taxRules = TaxRule::builder()
@@ -305,8 +306,7 @@ class TaxRuleService
                 ->get();
 
         }
-
-
+        
         // filter by tas rules
         $taxRules = self::filterTaxRuleByTerritorialArea($taxRules, $territorial_area_1_id, 'territorial_area_1_id');
         $taxRules = self::filterTaxRuleByTerritorialArea($taxRules, $territorial_area_2_id, 'territorial_area_2_id');
