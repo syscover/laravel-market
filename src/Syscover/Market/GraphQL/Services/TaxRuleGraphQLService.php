@@ -13,7 +13,7 @@ class TaxRuleGraphQLService extends CoreGraphQLService
 
     public function resolveCheckCustomerTaxRules($root, array $args)
     {
-        $taxRules = $this->serviceInstance->checkCustomerTaxRules(
+        $taxRules = $this->service->checkCustomerTaxRules(
                 $args['customer_class_tax_id'] ?? null,
                 $args['country_id'] ?? null,
                 $args['territorial_area_1_id'] ?? null,
@@ -32,13 +32,13 @@ class TaxRuleGraphQLService extends CoreGraphQLService
     public function paginate($root, array $args)
     {
         return (Object) [
-            'query' => $this->modelInstance->calculateFoundRows()->paginationBuilder()
+            'query' => $this->model->calculateFoundRows()->paginationBuilder()
         ];
     }
 
     public function delete($root, array $args)
     {
-        $object = SQLService::deleteRecord($args['id'], $this->model);
+        $object = SQLService::deleteRecord($args['id'], $this->modelClassName);
 
         $object->tax_rate_zones()->detach();
         $object->customer_class_taxes()->detach();
