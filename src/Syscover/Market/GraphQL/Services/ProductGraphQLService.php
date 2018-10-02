@@ -11,8 +11,8 @@ use Syscover\Market\Services\TaxRuleService;
 
 class ProductGraphQLService extends CoreGraphQLService
 {
-    protected $model = Product::class;
-    protected $service = ProductService::class;
+    protected $modelClassName = Product::class;
+    protected $serviceClassName = ProductService::class;
 
     public function taxes($root, array $args)
     {
@@ -63,10 +63,10 @@ class ProductGraphQLService extends CoreGraphQLService
     public function delete($root, array $args)
     {
         // delete object
-        $object = SQLService::deleteRecord($args['id'], $this->model, $args['lang_id'] ?? null, ProductLang::class);
+        $object = SQLService::deleteRecord($args['id'], $this->modelClassName, $args['lang_id'] ?? null, ProductLang::class);
 
         // delete object
-        AttachmentService::deleteAttachments($args['id'], Product::class, $args['lang_id']);
+        AttachmentService::deleteAttachments($args['id'], $this->modelClassName, $args['lang_id']);
 
         return $object;
     }

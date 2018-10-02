@@ -8,12 +8,12 @@ use Syscover\ShoppingCart\Facades\CartProvider;
 
 class TaxRuleGraphQLService extends CoreGraphQLService
 {
-    protected $model = TaxRule::class;
-    protected $service = TaxRuleService::class;
+    protected $modelClassName = TaxRule::class;
+    protected $serviceClassName = TaxRuleService::class;
 
     public function resolveCheckCustomerTaxRules($root, array $args)
     {
-        $taxRules = $this->service->checkCustomerTaxRules(
+        $taxRules = $this->serviceInstance->checkCustomerTaxRules(
                 $args['customer_class_tax_id'] ?? null,
                 $args['country_id'] ?? null,
                 $args['territorial_area_1_id'] ?? null,
@@ -32,7 +32,7 @@ class TaxRuleGraphQLService extends CoreGraphQLService
     public function paginate($root, array $args)
     {
         return (Object) [
-            'query' => $this->model->calculateFoundRows()->paginationBuilder()
+            'query' => $this->modelInstance->calculateFoundRows()->paginationBuilder()
         ];
     }
 

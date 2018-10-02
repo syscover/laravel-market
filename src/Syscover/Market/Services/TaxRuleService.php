@@ -88,13 +88,13 @@ class TaxRuleService
     }
 
     public static function checkCustomerTaxRules(
-        $customer_class_tax_id = null,
-        $country_id = null,
-        $territorial_area_1_id = null,
-        $territorial_area_2_id = null,
-        $territorial_area_3_id = null,
-        $zip = null,
-        $guard = 'crm'
+        int $customer_class_tax_id = null,
+        string $country_id = null,
+        string $territorial_area_1_id = null,
+        string $territorial_area_2_id = null,
+        string $territorial_area_3_id = null,
+        string $zip = null,
+        string $guard = 'crm'
     )
     {
         // save tax rules in customer instance
@@ -281,12 +281,12 @@ class TaxRuleService
     }
 
     public static function getCustomerTaxRules(
-        $customer_class_tax_id = null,
-        $country_id = null,
-        $territorial_area_1_id = null,
-        $territorial_area_2_id = null,
-        $territorial_area_3_id = null,
-        $zip = null
+        int $customer_class_tax_id = null,
+        string $country_id = null,
+        string $territorial_area_1_id = null,
+        string $territorial_area_2_id = null,
+        string $territorial_area_3_id = null,
+        string $zip = null
     )
     {
         // get tax rules for all product_class_tax_id
@@ -306,7 +306,7 @@ class TaxRuleService
                 ->get();
 
         }
-        
+
         // filter by tas rules
         $taxRules = self::filterTaxRuleByTerritorialArea($taxRules, $territorial_area_1_id, 'territorial_area_1_id');
         $taxRules = self::filterTaxRuleByTerritorialArea($taxRules, $territorial_area_2_id, 'territorial_area_2_id');

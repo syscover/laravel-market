@@ -6,6 +6,6 @@ use Syscover\Market\Services\TaxRateZoneService;
 
 class TaxRateZoneGraphQLService extends CoreGraphQLService
 {
-    protected $model = TaxRateZone::class;
-    protected $service = TaxRateZoneService::class;
+    protected $modelClassName = TaxRateZone::class;
+    protected $serviceClassName = TaxRateZoneService::class;
 }

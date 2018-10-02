@@ -6,6 +6,6 @@ use Syscover\Market\Services\OrderStatusService;
 
 class OrderStatusGraphQLService extends CoreGraphQLService
 {
-    protected $model = OrderStatus::class;
-    protected $service = OrderStatusService::class;
+    protected $modelClassName = OrderStatus::class;
+    protected $serviceClassName = OrderStatusService::class;
 }

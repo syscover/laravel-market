@@ -6,6 +6,6 @@ use Syscover\Market\Services\CartPriceRuleService;
 
 class CartPriceRuleGraphQLService extends CoreGraphQLService
 {
-    protected $model = CartPriceRule::class;
-    protected $service = CartPriceRuleService::class;
+    protected $modelClassName = CartPriceRule::class;
+    protected $serviceClassName = CartPriceRuleService::class;
 }

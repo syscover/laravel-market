@@ -6,6 +6,6 @@ use Syscover\Market\Services\ProductClassTaxService;
 
 class ProductClassTaxGraphQLService extends CoreGraphQLService
 {
-    protected $model = ProductClassTax::class;
-    protected $service = ProductClassTaxService::class;
+    protected $modelClassName = ProductClassTax::class;
+    protected $serviceClassName = ProductClassTaxService::class;
 }

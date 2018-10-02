@@ -6,18 +6,18 @@ use Syscover\Market\Services\CustomerGroupCustomerClassTaxService;
 
 class CustomerGroupCustomerClassTaxGraphQLService extends CoreGraphQLService
 {
-    protected $model = CustomerGroupCustomerClassTax::class;
-    protected $service = CustomerGroupCustomerClassTaxService::class;
+    protected $modelClassName = CustomerGroupCustomerClassTax::class;
+    protected $serviceClassName = CustomerGroupCustomerClassTaxService::class;
 
     public function update($root, array $args)
     {
-        return CustomerGroupCustomerClassTaxService::update($args);
+        return $this->service->update($args);
     }
 
     public function delete($root, array $args)
     {
         // Custom delete a single record
-        $object = CustomerGroupCustomerClassTax::builder()
+        $object = $this->model->builder()
             ->where('customer_group_id', $args['customer_group_id'])
             ->where('customer_class_tax_id', $args['customer_class_tax_id'])
             ->first();
