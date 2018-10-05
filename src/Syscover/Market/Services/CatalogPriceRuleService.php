@@ -5,7 +5,7 @@ class CatalogPriceRuleService
     public static function checkFreeShipping($object)
     {
         $freeShippingCountry    = collect(config('pulsar-market.free_shipping'))->get($object['ship_to_country']);
-        $freeShippingZips       = $freeShippingCountry->get('zip'); // get zips from country
+        $freeShippingZips       = collect($freeShippingCountry)->get('zip'); // get zips from country
         $zipPattern             = $object['ship_to_zip'];
 
         for ($i = strlen($object['ship_to_zip']); $i > 0; $i--)
