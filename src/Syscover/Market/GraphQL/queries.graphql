@@ -119,8 +119,10 @@ marketTaxRules(sql:[CoreSQLInput]): [MarketTaxRule!]! @field(resolver: "Syscover
 marketTaxRule(sql:[CoreSQLInput]): MarketTaxRule @field(resolver: "Syscover\\Market\\GraphQL\\Services\\TaxRuleGraphQLService@find")
 """ Query to get tax rules paginated """
 marketTaxRulesPagination(sql:[CoreSQLInput] filters:[CoreSQLInput]): CorePagination! @field(resolver: "Syscover\\Market\\GraphQL\\Services\\TaxRuleGraphQLService@paginate")
+
+# TaxRule of Customer
 """ Query to check tax rules """
-marketCheckCustomerTaxRules(customer_class_tax_id:Int country_id:String territorial_area_1_id:String territorial_area_2_id:String territorial_area_3_id:String zip:String guard:String): Object! @field(resolver: "Syscover\\Market\\GraphQL\\Services\\TaxRuleGraphQLService@resolveCheckCustomerTaxRules")
+marketCustomerTaxRules(customer_class_tax_id:Int country_id:String territorial_area_1_id:String territorial_area_2_id:String territorial_area_3_id:String zip:String guard:String): Object! @field(resolver: "Syscover\\Market\\GraphQL\\Services\\TaxRuleGraphQLService@resolveCheckCustomerTaxRules")
 
 # Warehouse
 """ Query to get warehouses list """
