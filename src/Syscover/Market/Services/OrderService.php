@@ -149,13 +149,10 @@ class OrderService
         $order->save();
     }
 
-    public static function getDataOrder(Customer $customer, string $instance = null)
+    public static function initDataOrder(Customer $customer, string $instance = null)
     {
         // get cart instance
         $cart = CartProvider::instance($instance);
-
-        // set all input from request
-        $data                                           = request()->all();
 
         // set customer IP
         $data['ip']                                     = request()->ip();
