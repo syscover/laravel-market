@@ -1,65 +1,65 @@
 # CartPriceRule
-marketCreateCartPriceRule(object:MarketCartPriceRuleInput!): MarketCartPriceRule @field(resolver: "Syscover\\Market\\GraphQL\\Services\\CartPriceRuleGraphQLService@create")
-marketUpdateCartPriceRule(object:MarketCartPriceRuleInput!): MarketCartPriceRule @field(resolver: "Syscover\\Market\\GraphQL\\Services\\CartPriceRuleGraphQLService@update")
+marketCreateCartPriceRule(payload:MarketCartPriceRuleInput!): MarketCartPriceRule @field(resolver: "Syscover\\Market\\GraphQL\\Services\\CartPriceRuleGraphQLService@create")
+marketUpdateCartPriceRule(payload:MarketCartPriceRuleInput!): MarketCartPriceRule @field(resolver: "Syscover\\Market\\GraphQL\\Services\\CartPriceRuleGraphQLService@update")
 marketDeleteCartPriceRule(id:Int! lang_id:String!): MarketCartPriceRule @field(resolver: "Syscover\\Market\\GraphQL\\Services\\CartPriceRuleGraphQLService@delete")
 
 # Category
-marketCreateCategory(object:MarketCategoryInput!): MarketCategory @field(resolver: "Syscover\\Market\\GraphQL\\Services\\CategoryGraphQLService@create")
-marketUpdateCategory(object:MarketCategoryInput!): MarketCategory @field(resolver: "Syscover\\Market\\GraphQL\\Services\\CategoryGraphQLService@update")
+marketCreateCategory(payload:MarketCategoryInput!): MarketCategory @field(resolver: "Syscover\\Market\\GraphQL\\Services\\CategoryGraphQLService@create")
+marketUpdateCategory(payload:MarketCategoryInput!): MarketCategory @field(resolver: "Syscover\\Market\\GraphQL\\Services\\CategoryGraphQLService@update")
 marketDeleteCategory(id:Int! lang_id:String!): MarketCategory @field(resolver: "Syscover\\Market\\GraphQL\\Services\\CategoryGraphQLService@delete")
 
 # CustomerClassTax
-marketCreateCustomerClassTax(object:MarketCustomerClassTaxInput!): MarketCustomerClassTax @field(resolver: "Syscover\\Market\\GraphQL\\Services\\CustomerClassTaxGraphQLService@create")
-marketUpdateCustomerClassTax(object:MarketCustomerClassTaxInput!): MarketCustomerClassTax @field(resolver: "Syscover\\Market\\GraphQL\\Services\\CustomerClassTaxGraphQLService@update")
+marketCreateCustomerClassTax(payload:MarketCustomerClassTaxInput!): MarketCustomerClassTax @field(resolver: "Syscover\\Market\\GraphQL\\Services\\CustomerClassTaxGraphQLService@create")
+marketUpdateCustomerClassTax(payload:MarketCustomerClassTaxInput!): MarketCustomerClassTax @field(resolver: "Syscover\\Market\\GraphQL\\Services\\CustomerClassTaxGraphQLService@update")
 marketDeleteCustomerClassTax(id:Int!): MarketCustomerClassTax @field(resolver: "Syscover\\Market\\GraphQL\\Services\\CustomerClassTaxGraphQLService@delete")
 
 # CustomerGroupCustomerClassTax
-marketCreateCustomerGroupCustomerClassTax(object:MarketCustomerGroupCustomerClassTaxInput!): MarketCustomerGroupCustomerClassTax @field(resolver: "Syscover\\Market\\GraphQL\\Services\\CustomerGroupCustomerClassTaxGraphQLService@create")
+marketCreateCustomerGroupCustomerClassTax(payload:MarketCustomerGroupCustomerClassTaxInput!): MarketCustomerGroupCustomerClassTax @field(resolver: "Syscover\\Market\\GraphQL\\Services\\CustomerGroupCustomerClassTaxGraphQLService@create")
 marketUpdateCustomerGroupCustomerClassTax(customer_group_id:Int! customer_class_tax_id:Int! object:MarketCustomerGroupCustomerClassTaxInput!): MarketCustomerGroupCustomerClassTax @field(resolver: "Syscover\\Market\\GraphQL\\Services\\CustomerGroupCustomerClassTaxGraphQLService@update")
 marketDeleteCustomerGroupCustomerClassTax(customer_group_id:Int! customer_class_tax_id:Int!): MarketCustomerGroupCustomerClassTax @field(resolver: "Syscover\\Market\\GraphQL\\Services\\CustomerGroupCustomerClassTaxGraphQLService@delete")
 
 # Order
-marketCreateOrder(object:MarketOrderInput!): MarketOrder @field(resolver: "Syscover\\Market\\GraphQL\\Services\\OrderGraphQLService@create")
-marketUpdateOrder(object:MarketOrderInput!): MarketOrder @field(resolver: "Syscover\\Market\\GraphQL\\Services\\OrderGraphQLService@update")
+marketCreateOrder(payload:MarketOrderInput!): MarketOrder @field(resolver: "Syscover\\Market\\GraphQL\\Services\\OrderGraphQLService@create")
+marketUpdateOrder(payload:MarketOrderInput!): MarketOrder @field(resolver: "Syscover\\Market\\GraphQL\\Services\\OrderGraphQLService@update")
 marketDeleteOrder(id:Int!): MarketOrder @field(resolver: "Syscover\\Market\\GraphQL\\Services\\OrderGraphQLService@delete")
 
 # OrderStatus
-marketCreateOrderStatus(object:MarketOrderStatusInput!): MarketOrderStatus @field(resolver: "Syscover\\Market\\GraphQL\\Services\\OrderStatusGraphQLService@create")
-marketUpdateOrderStatus(object:MarketOrderStatusInput!): MarketOrderStatus @field(resolver: "Syscover\\Market\\GraphQL\\Services\\OrderStatusGraphQLService@update")
+marketCreateOrderStatus(payload:MarketOrderStatusInput!): MarketOrderStatus @field(resolver: "Syscover\\Market\\GraphQL\\Services\\OrderStatusGraphQLService@create")
+marketUpdateOrderStatus(payload:MarketOrderStatusInput!): MarketOrderStatus @field(resolver: "Syscover\\Market\\GraphQL\\Services\\OrderStatusGraphQLService@update")
 marketDeleteOrderStatus(id:Int! lang_id:String!): MarketOrderStatus @field(resolver: "Syscover\\Market\\GraphQL\\Services\\OrderStatusGraphQLService@delete")
 
 # ProductClassTax
-marketCreateProductClassTax(object:MarketProductClassTaxInput!): MarketProductClassTax @field(resolver: "Syscover\\Market\\GraphQL\\Services\\ProductClassTaxGraphQLService@create")
-marketUpdateProductClassTax(object:MarketProductClassTaxInput!): MarketProductClassTax @field(resolver: "Syscover\\Market\\GraphQL\\Services\\ProductClassTaxGraphQLService@update")
+marketCreateProductClassTax(payload:MarketProductClassTaxInput!): MarketProductClassTax @field(resolver: "Syscover\\Market\\GraphQL\\Services\\ProductClassTaxGraphQLService@create")
+marketUpdateProductClassTax(payload:MarketProductClassTaxInput!): MarketProductClassTax @field(resolver: "Syscover\\Market\\GraphQL\\Services\\ProductClassTaxGraphQLService@update")
 marketDeleteProductClassTax(id:Int!): MarketProductClassTax @field(resolver: "Syscover\\Market\\GraphQL\\Services\\ProductClassTaxGraphQLService@delete")
 
 # Section
-marketCreateSection(object:MarketSectionInput!): MarketSection @field(resolver: "Syscover\\Market\\GraphQL\\Services\\SectionGraphQLService@create")
-marketUpdateSection(object:MarketSectionInput!): MarketSection @field(resolver: "Syscover\\Market\\GraphQL\\Services\\SectionGraphQLService@update")
+marketCreateSection(payload:MarketSectionInput!): MarketSection @field(resolver: "Syscover\\Market\\GraphQL\\Services\\SectionGraphQLService@create")
+marketUpdateSection(payload:MarketSectionInput!): MarketSection @field(resolver: "Syscover\\Market\\GraphQL\\Services\\SectionGraphQLService@update")
 marketDeleteSection(id:String! lang_id:String!): MarketSection @field(resolver: "Syscover\\Market\\GraphQL\\Services\\SectionGraphQLService@delete")
 
 # Stock
-marketSetStock(object:MarketStockInput!): MarketStock @field(resolver: "Syscover\\Market\\GraphQL\\Services\\StockGraphQLService@resolveSetStock")
+marketSetStock(payload:MarketStockInput!): MarketStock @field(resolver: "Syscover\\Market\\GraphQL\\Services\\StockGraphQLService@resolveSetStock")
 
 # Product
-marketCreateProduct(object:MarketProductInput!): MarketProduct @field(resolver: "Syscover\\Market\\GraphQL\\Services\\ProductGraphQLService@create")
-marketUpdateProduct(object:MarketProductInput!):MarketProduct @field(resolver: "Syscover\\Market\\GraphQL\\Services\\ProductGraphQLService@update")
+marketCreateProduct(payload:MarketProductInput!): MarketProduct @field(resolver: "Syscover\\Market\\GraphQL\\Services\\ProductGraphQLService@create")
+marketUpdateProduct(payload:MarketProductInput!):MarketProduct @field(resolver: "Syscover\\Market\\GraphQL\\Services\\ProductGraphQLService@update")
 marketDeleteProduct(id:Int! lang_id:String!): MarketProduct @field(resolver: "Syscover\\Market\\GraphQL\\Services\\ProductGraphQLService@delete")
 
 # TaxRateZone
-marketCreateTaxRateZone(object:MarketTaxRateZoneInput!): MarketTaxRateZone @field(resolver: "Syscover\\Market\\GraphQL\\Services\\TaxRateZoneGraphQLService@create")
-marketUpdateTaxRateZone(object:MarketTaxRateZoneInput!): MarketTaxRateZone @field(resolver: "Syscover\\Market\\GraphQL\\Services\\TaxRateZoneGraphQLService@update")
+marketCreateTaxRateZone(payload:MarketTaxRateZoneInput!): MarketTaxRateZone @field(resolver: "Syscover\\Market\\GraphQL\\Services\\TaxRateZoneGraphQLService@create")
+marketUpdateTaxRateZone(payload:MarketTaxRateZoneInput!): MarketTaxRateZone @field(resolver: "Syscover\\Market\\GraphQL\\Services\\TaxRateZoneGraphQLService@update")
 marketDeleteTaxRateZone(id:Int!): MarketTaxRateZone @field(resolver: "Syscover\\Market\\GraphQL\\Services\\TaxRateZoneGraphQLService@delete")
 
 # TaxRule
-marketCreateTaxRule(object:MarketTaxRuleInput!): MarketTaxRule @field(resolver: "Syscover\\Market\\GraphQL\\Services\\TaxRuleGraphQLService@create")
-marketUpdateTaxRule(object:MarketTaxRuleInput!): MarketTaxRule @field(resolver: "Syscover\\Market\\GraphQL\\Services\\TaxRuleGraphQLService@update")
+marketCreateTaxRule(payload:MarketTaxRuleInput!): MarketTaxRule @field(resolver: "Syscover\\Market\\GraphQL\\Services\\TaxRuleGraphQLService@create")
+marketUpdateTaxRule(payload:MarketTaxRuleInput!): MarketTaxRule @field(resolver: "Syscover\\Market\\GraphQL\\Services\\TaxRuleGraphQLService@update")
 marketDeleteTaxRule(id:Int!): MarketTaxRule @field(resolver: "Syscover\\Market\\GraphQL\\Services\\TaxRuleGraphQLService@delete")
 
 # TaxRule of Customer
 marketUpdateCustomerTaxRules(customer_class_tax_id:Int country_id:String territorial_area_1_id:String territorial_area_2_id:String territorial_area_3_id:String zip:String guard:String): Object! @field(resolver: "Syscover\\Market\\GraphQL\\Services\\TaxRuleGraphQLService@resolveCheckCustomerTaxRules")
 
 # Warehouse
-marketCreateWarehouse(object:MarketWarehouseInput!): MarketWarehouse @field(resolver: "Syscover\\Market\\GraphQL\\Services\\WarehouseGraphQLService@create")
-marketUpdateWarehouse(object:MarketTaxRuleInput!): MarketWarehouse @field(resolver: "Syscover\\Market\\GraphQL\\Services\\WarehouseGraphQLService@update")
+marketCreateWarehouse(payload:MarketWarehouseInput!): MarketWarehouse @field(resolver: "Syscover\\Market\\GraphQL\\Services\\WarehouseGraphQLService@create")
+marketUpdateWarehouse(payload:MarketTaxRuleInput!): MarketWarehouse @field(resolver: "Syscover\\Market\\GraphQL\\Services\\WarehouseGraphQLService@update")
 marketDeleteWarehouse(id:Int!): MarketWarehouse @field(resolver: "Syscover\\Market\\GraphQL\\Services\\WarehouseGraphQLService@delete")

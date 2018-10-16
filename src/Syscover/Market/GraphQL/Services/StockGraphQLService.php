@@ -11,6 +11,6 @@ class StockGraphQLService extends CoreGraphQLService
 
     public function resolveSetStock($root, array $args)
     {
-        return $this->service->set($args['object']);
+        return $this->service->set($args['payload']);
     }
 }
