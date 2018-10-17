@@ -20,7 +20,7 @@ class MarketServiceProvider extends ServiceProvider
         $this->loadMigrationsFrom(__DIR__ .'/../../database/migrations');
 
         // register translations
-        $this->loadTranslationsFrom(__DIR__ . '/../../lang', 'market');
+        $this->loadTranslationsFrom(__DIR__ . '/../../resources/lang', 'market');
 
         // register seeds
         $this->publishes([
