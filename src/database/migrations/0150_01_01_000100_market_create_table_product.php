@@ -21,6 +21,10 @@ class MarketCreateTableProduct extends Migration
                 $table->string('sku', 50)->nullable();
 				$table->integer('field_group_id')->unsigned()->nullable();
 
+				// marketable fields
+                $table->string('object_type')->nullable();
+                $table->integer('object_id')->unsigned()->nullable();
+
 				// 1 - downloaded
 				// 2 - transportable
 				// 3 - downloaded and transportable
@@ -49,6 +53,8 @@ class MarketCreateTableProduct extends Migration
                 $table->softDeletes();
 
                 $table->index(['sku'], 'ix01_market_product');
+                $table->index(['object_type', 'object_id'], 'ix02_market_product');
+
 				$table->foreign('field_group_id', 'fk01_market_product')
 					->references('id')
 					->on('admin_field_group')
