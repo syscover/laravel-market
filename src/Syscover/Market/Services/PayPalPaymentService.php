@@ -18,7 +18,8 @@ class PayPalPaymentService
 {
     public static function createPayment($order, $xhr)
     {
-        $params = self::parameters();
+        // get paypal parameters
+        $payPalParameters = self::parameters();
 
         $payer = new Payer();
         $payer->setPaymentMethod('paypal');
@@ -100,14 +101,16 @@ class PayPalPaymentService
         $payment = new Payment();
         $payment
             ->setIntent('sale')
-            //->setExperienceProfileId($this->webProfile)
             ->setPayer($payer)
             ->setRedirectUrls($redirectUrls)
             ->setTransactions([$transaction]);
 
+        // set payment experience
+        if($payPalParameters->web_profile) $payment->setExperienceProfileId($payPalParameters->web_profile);
+
         try
         {
-            $payment->create($params->apiContext);
+            $payment->create(PayPalCoreService::getApiContext());
         }
         catch(\Exception $e)
         {
@@ -170,22 +173,18 @@ class PayPalPaymentService
     /**
      * Get Paypal parameters
      */
-    public static function parameters()
+    private static function parameters()
     {
         if(config('pulsar-market.paypal_mode') == 'sandbox')
         {
             $parameters = [
-                'webProfile'                => config('pulsar-market.paypal_sandbox_web_profile'),
-                'clientID'                  => config('pulsar-market.paypal_sandbox_client_id'),
-                'secret'                    => config('pulsar-market.paypal_sandbox_secret')
+                'web_profile' => config('pulsar-market.paypal_sandbox_web_profile'),
             ];
         }
         elseif(config('pulsar-market.paypal_mode') == 'live')
         {
             $parameters = [
-                'webProfile'                => config('pulsar-market.paypal_live_web_profile'),
-                'clientID'                  => config('pulsar-market.paypal_live_client_id'),
-                'secret'                    => config('pulsar-market.paypal_live_secret')
+                'web_profile' => config('pulsar-market.paypal_live_web_profile'),
             ];
         }
         else
@@ -193,17 +192,7 @@ class PayPalPaymentService
             throw new \Exception('You must set MARKET_PAYPAL_MODE like sandbox or live');
         }
 
-        $parameters['apiContext']           = new ApiContext(new OAuthTokenCredential($parameters['clientID'], $parameters['secret']));
-        // SDK configuration
-        $parameters['apiContext']->setConfig([
-            'mode'                          => config('pulsar-market.paypal_mode'),    // Specify mode, sandbox or live
-            'http.ConnectionTimeOut'        => 30,                                          // Specify the max request time in seconds
-            'log.LogEnabled'                => true,                                        // Whether want to log to a file
-            'log.FileName'                  => storage_path() . '/logs/paypal.log',         // Specify the file that want to write on
-            'log.LogLevel'                  => 'FINE'                                       // Available option 'FINE', 'INFO', 'WARN' or 'ERROR', Logging is most verbose in the 'FINE' level and decreases as you proceed towards ERROR
-        ]);
-
-        return (object)$parameters;
+        return (object) $parameters;
     }
 
     /**
@@ -211,15 +200,16 @@ class PayPalPaymentService
      */
     public static function successful()
     {
-        $params     = self::parameters();
+        $apiContext = PayPalCoreService::getApiContext();
+
         $paymentId  = request('paymentId');
-        $payment    = Payment::get($paymentId, $params->apiContext);
+        $payment    = Payment::get($paymentId, $apiContext);
         $execution  = new PaymentExecution();
         $execution->setPayerId(request('PayerID'));
 
         try
         {
-            $response = $payment->execute($execution, $params->apiContext);
+            $response = $payment->execute($execution, $apiContext);
         }
         catch(\Exception $e)
         {
@@ -256,7 +246,7 @@ class PayPalPaymentService
         Log::info('Enter in PayPalPaymentService::error service whit parameters: ', request()->all());
 
         // get order ID
-        $order      = Order::find($id);
+        $order = Order::find($id);
 
         // log
         OrderService::log($order->id, __('market::pulsar.message_paypal_payment_error'));

@@ -5,47 +5,16 @@ use PayPal\Api\FlowConfig;
 use PayPal\Api\InputFields;
 use PayPal\Api\Presentation;
 use PayPal\Api\WebProfile;
-use PayPal\Auth\OAuthTokenCredential;
-use PayPal\Rest\ApiContext;
 
 class PayPalWebProfileService
 {
-    private static function getApiContext()
-    {
-        // Set mode
-        if(config('pulsar-market.paypal_mode') == 'live')
-        {
-            $clientId   = config('pulsar-market.paypal_live_client_id');
-            $secret     = config('pulsar-market.paypal_live_secret');
-        }
-        else
-        {
-            $clientId   = config('pulsar-market.paypal_sandbox_client_id');
-            $secret     = config('pulsar-market.paypal_sandbox_secret');
-        }
-
-        // init PayPal API Context
-        $apiContext       = new ApiContext(new OAuthTokenCredential($clientId, $secret));
-
-        // SDK configuration
-        $apiContext->setConfig([
-            'mode'                      => config('pulsar-market.paypal_mode'),    // Specify mode, sandbox or live
-            'http.ConnectionTimeOut'    => 30,                                          // Specify the max request time in seconds
-            'log.LogEnabled'            => true,                                        // Whether want to log to a file
-            'log.FileName'              => storage_path() . '/logs/paypal.log',         // Specify the file that want to write on
-            'log.LogLevel'              => 'FINE'                                       // Available option 'FINE', 'INFO', 'WARN' or 'ERROR', Logging is most verbose in the 'FINE' level and decreases as you proceed towards ERROR
-        ]);
-
-        return $apiContext;
-    }
-
     public static function list()
     {
         $response = null;
 
         try
         {
-            $response = WebProfile::get_list(self::getApiContext());
+            $response = WebProfile::get_list(PayPalCoreService::getApiContext());
         }
         catch (\Exception $e)
         {
@@ -61,7 +30,7 @@ class PayPalWebProfileService
 
         try
         {
-            $webProfile = WebProfile::get($payload['id'], self::getApiContext());
+            $webProfile = WebProfile::get($payload['id'], PayPalCoreService::getApiContext());
         }
         catch (\Exception $e)
         {
@@ -166,7 +135,7 @@ class PayPalWebProfileService
 
         try
         {
-            $createProfileResponse = $webProfile->create(self::getApiContext());
+            $createProfileResponse = $webProfile->create(PayPalCoreService::getApiContext());
         }
         catch (\Exception $e)
         {
@@ -183,7 +152,7 @@ class PayPalWebProfileService
 
         try
         {
-            $webProfile->delete(self::getApiContext());
+            $webProfile->delete(PayPalCoreService::getApiContext());
         }
         catch (\Exception $e)
         {
