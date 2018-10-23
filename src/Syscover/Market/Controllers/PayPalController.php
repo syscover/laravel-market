@@ -6,13 +6,13 @@ use Syscover\Market\Events\PaymentResponseError;
 use Syscover\Market\Events\PaymentResponseSuccessful;
 use Syscover\Market\Events\PaypalResponseError;
 use Syscover\Market\Events\PaypalResponseSuccessful;
-use Syscover\Market\Services\PayPalService;
+use Syscover\Market\Services\PayPalPaymentService;
 
 class PayPalController extends BaseController
 {
     public function successful()
     {
-        $order = PayPalService::successful();
+        $order = PayPalPaymentService::successful();
 
         $paymentResponses   = event(new PaymentResponseSuccessful($order));
         $paypalResponses    = event(new PaypalResponseSuccessful($order));
@@ -35,7 +35,7 @@ class PayPalController extends BaseController
 
     public function error($id)
     {
-        $order = PayPalService::error($id);
+        $order = PayPalPaymentService::error($id);
 
         $paymentResponses   = event(new PaymentResponseError($order));
         $paypalResponses    = event(new PaypalResponseError($order));

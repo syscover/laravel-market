@@ -58,7 +58,7 @@ class PaymentMethodService
         // PayPal Payment
         elseif((int) $paymentMethodId === 2)
         {
-            return PayPalService::createPayment($order, $xhr);
+            return PayPalPaymentService::createPayment($order, $xhr);
         }
 
         // Stripe Payment

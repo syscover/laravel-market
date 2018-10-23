@@ -14,7 +14,7 @@ use PayPal\Api\Payment;
 use PayPal\Api\PaymentExecution;
 use Syscover\Market\Models\Order;
 
-class PayPalService
+class PayPalPaymentService
 {
     public static function createPayment($order, $xhr)
     {
@@ -253,7 +253,7 @@ class PayPalService
     public static function error($id)
     {
         // log
-        Log::info('Enter in PayPalService::error service whit parameters: ', request()->all());
+        Log::info('Enter in PayPalPaymentService::error service whit parameters: ', request()->all());
 
         // get order ID
         $order      = Order::find($id);

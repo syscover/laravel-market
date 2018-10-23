@@ -131,3 +131,11 @@ marketWarehouses(sql:[CoreSQLInput]): [MarketWarehouse!]! @field(resolver: "Sysc
 marketWarehouse(sql:[CoreSQLInput]): MarketWarehouse @field(resolver: "Syscover\\Market\\GraphQL\\Services\\WarehouseGraphQLService@find")
 """ Query to get warehouses paginated """
 marketWarehousesPagination(sql:[CoreSQLInput]): CorePagination! @field(resolver: "Syscover\\Market\\GraphQL\\Services\\WarehouseGraphQLService@paginate")
+
+# PayPalWebProfile
+""" Query to get web profiles list """
+marketWarehouses(sql:[CoreSQLInput]): [MarketWarehouse!]! @field(resolver: "Syscover\\Market\\GraphQL\\Services\\WarehouseGraphQLService@get")
+""" Query to get warehouse """
+marketWarehouse(sql:[CoreSQLInput]): MarketWarehouse @field(resolver: "Syscover\\Market\\GraphQL\\Services\\WarehouseGraphQLService@find")
+""" Query to get warehouses paginated """
+marketPaypalWebProfilesPagination(sql:[CoreSQLInput]): CorePagination! @field(resolver: "Syscover\\Market\\GraphQL\\Services\\PayPalWebProfileGraphQLService@paginate")
