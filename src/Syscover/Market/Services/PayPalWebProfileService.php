@@ -24,7 +24,7 @@ class PayPalWebProfileService
         return $response;
     }
 
-    public static function get($payload)
+    public static function find($payload)
     {
         $webProfile = null;
 
