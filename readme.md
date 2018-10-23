@@ -176,14 +176,14 @@ MARKET_REDSYS_LIVE_MERCHANT_CODE=xxxxxxxxx
 MARKET_REDSYS_LIVE_KEY=xXxXxXxXxXxXxXxXxXxXxXxXxXxXxXxXx
 ```
 
-**Options**
+## Events
 
 You can register this events in app/Providers/EventServiceProvider.php to manage various actions. 
 
 ```
 protected $listen = [
     ...
-    'Syscover\Market\Events\RedsysResponseSuccessful' => [
+    'Syscover\...\Events\YourEvent' => [
         'App\Listeners\YourListener'
     ],
     ...
