@@ -302,3 +302,8 @@ type MarketWarehouse {
     longitude: String
     active: Boolean
 }
+
+type MarketPaypalWebProfile {
+    id: String!
+    name: String!
+}
