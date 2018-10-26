@@ -61,5 +61,10 @@ marketUpdateCustomerTaxRules(customer_class_tax_id:Int country_id:String territo
 
 # Warehouse
 marketCreateWarehouse(payload:MarketWarehouseInput!): MarketWarehouse @field(resolver: "Syscover\\Market\\GraphQL\\Services\\WarehouseGraphQLService@create")
-marketUpdateWarehouse(payload:MarketTaxRuleInput!): MarketWarehouse @field(resolver: "Syscover\\Market\\GraphQL\\Services\\WarehouseGraphQLService@update")
+marketUpdateWarehouse(payload:MarketWarehouseInput!): MarketWarehouse @field(resolver: "Syscover\\Market\\GraphQL\\Services\\WarehouseGraphQLService@update")
 marketDeleteWarehouse(id:Int!): MarketWarehouse @field(resolver: "Syscover\\Market\\GraphQL\\Services\\WarehouseGraphQLService@delete")
+
+# Warehouse
+marketCreatePaypalWebProfile(payload:MarketPaypalWebProfileInput!): MarketPaypalWebProfile @field(resolver: "Syscover\\Market\\GraphQL\\Services\\PayPalWebProfileGraphQLService@create")
+marketUpdatePaypalWebProfile(payload:MarketPaypalWebProfileInput!): MarketPaypalWebProfile @field(resolver: "Syscover\\Market\\GraphQL\\Services\\PayPalWebProfileGraphQLService@update")
+marketDeletePaypalWebProfile(id:String!): MarketPaypalWebProfile @field(resolver: "Syscover\\Market\\GraphQL\\Services\\PayPalWebProfileGraphQLService@delete")

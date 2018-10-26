@@ -221,6 +221,36 @@ type MarketPaymentMethod {
     data_lang: [String]
 }
 
+type MarketPaypalWebProfile {
+    id: String!
+    name: String!
+    temporary: Boolean!
+    flow_config: MarketPaypalWebProfileFlowConfig!
+    input_fields: MarketPaypalWebProfileInputFields!
+    presentation: MarketPaypalWebProfilePresentation!
+}
+
+type MarketPaypalWebProfileFlowConfig {
+    landing_page_type: String!
+    bank_txn_pending_url: String!
+    user_action: String!
+    return_uri_http_method: String!
+}
+
+type MarketPaypalWebProfileInputFields {
+    allow_note: Boolean!
+    no_shipping: Int!
+    address_override: Int!
+}
+
+type MarketPaypalWebProfilePresentation {
+    brand_name: String!
+    logo_image: String!
+    locale_code: String!
+    return_url_label: String!
+    note_to_seller_label: String!
+}
+
 type MarketProduct {
     ix: Int!
     id: Int!
@@ -301,9 +331,4 @@ type MarketWarehouse {
     latitude: String
     longitude: String
     active: Boolean
-}
-
-type MarketPaypalWebProfile {
-    id: String!
-    name: String!
 }

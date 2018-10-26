@@ -194,6 +194,36 @@ input MarketPaymentMethodInput {
     data_lang: [String]
 }
 
+input MarketPaypalWebProfileInput {
+    id: String!
+    name: String!
+    temporary: Boolean!
+    flow_config: MarketPaypalWebProfileFlowConfigInput!
+    input_fields: MarketPaypalWebProfileInputFieldsInput!
+    presentation: MarketPaypalWebProfilePresentationInput!
+}
+
+input MarketPaypalWebProfileFlowConfigInput {
+    landing_page_type: String!
+    bank_txn_pending_url: String!
+    user_action: String!
+    return_uri_http_method: String!
+}
+
+input MarketPaypalWebProfileInputFieldsInput {
+    allow_note: Boolean!
+    no_shipping: Int!
+    address_override: Int!
+}
+
+input MarketPaypalWebProfilePresentationInput {
+    brand_name: String!
+    logo_image: String!
+    locale_code: String!
+    return_url_label: String!
+    note_to_seller_label: String!
+}
+
 input MarketProductInput {
     active: Boolean
     attachments: [AdminAttachmentInput]
