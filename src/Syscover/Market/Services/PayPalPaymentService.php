@@ -133,7 +133,7 @@ class PayPalPaymentService
 
         // log
         OrderService::log($order->id, __('market::pulsar.message_customer_throw_to_paypal'));
-        Log::info('Create form to throw to PauPal, order: ' . $order->id);
+        Log::info('Create form to throw to PayPal, order: ' . $order->id);
 
         if(isset($redirectUrl))
         {

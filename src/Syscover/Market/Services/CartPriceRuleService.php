@@ -94,7 +94,7 @@ class CartPriceRuleService
 
         CartPriceRule::where('id', $object['id'])->update(self::builder($object));
 
-        return Category::find($object['id']);
+        return CartPriceRule::find($object['id']);
     }
 
     private static function builder($object, $filterKeys = null)

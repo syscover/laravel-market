@@ -9,8 +9,11 @@ class PayPalWebProfileGraphQLService extends CoreGraphQLService
 
     public function paginate($root, array $args)
     {
+        $webProfiles = collect($this->service->list());
 
-        $webProfiles = $this->service->list();
+        $webProfiles = $webProfiles->map(function($webProfile) {
+            return $webProfile->toArray();
+        });
 
         $total = count($webProfiles);
 
