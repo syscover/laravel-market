@@ -104,7 +104,7 @@ class PayPalWebProfileService
     private static function checkCreate($payload)
     {
         if(empty($payload['name']))                                     throw new \Exception('You have to define a name field to create a payment method');
-        if(empty($payload['temporary']))                                throw new \Exception('You have to define a temporary field to create a payment method');
+        if(! isset($payload['temporary']))                              throw new \Exception('You have to define a temporary field to create a payment method');
 
         if(empty($payload['presentation']['logo_image']))               throw new \Exception('You have to define a presentation.logo_image field to create a PayPal web profile');
         if(empty($payload['presentation']['brand_name']))               throw new \Exception('You have to define a presentation.brand_name field to create a PayPal web profile');
@@ -126,7 +126,7 @@ class PayPalWebProfileService
     {
         if(empty($payload['id']))                                       throw new \Exception('You have to define a id field to update a PayPal web profile');
         if(empty($payload['name']))                                     throw new \Exception('You have to define a name field to update a payment method');
-        if(empty($payload['temporary']))                                throw new \Exception('You have to define a temporary field to update a payment method');
+        if(! isset($payload['temporary']))                              throw new \Exception('You have to define a temporary field to update a payment method');
 
         if(empty($payload['presentation']['logo_image']))               throw new \Exception('You have to define a presentation.logo_image field to update a PayPal web profile');
         if(empty($payload['presentation']['brand_name']))               throw new \Exception('You have to define a presentation.brand_name field to update a PayPal web profile');
