@@ -18,7 +18,8 @@ class PayPalWebProfileService
         }
         catch (\Exception $e)
         {
-            Log::warning($e->getMessage());
+            Log::error($e->getMessage());
+            throw new \Exception($e->getMessage());
         }
 
         return $response;
@@ -34,7 +35,8 @@ class PayPalWebProfileService
         }
         catch (\Exception $e)
         {
-            Log::warning($e->getMessage());
+            Log::error($e->getMessage());
+            throw new \Exception($e->getMessage());
         }
 
         return $webProfile;
@@ -54,7 +56,8 @@ class PayPalWebProfileService
         }
         catch (\Exception $e)
         {
-            Log::warning($e->getMessage());
+            Log::error($e->getMessage());
+            throw new \Exception($e->getMessage());
         }
 
         return $createProfileResponse;
@@ -74,7 +77,9 @@ class PayPalWebProfileService
         }
         catch (\Exception $e)
         {
-            Log::warning($e->getMessage());
+            Log::error($e->getMessage());
+            throw new \Exception($e->getMessage());
+
         }
 
         return $webProfile;
@@ -95,7 +100,8 @@ class PayPalWebProfileService
         }
         catch (\Exception $e)
         {
-            Log::warning($e->getMessage());
+            Log::error($e->getMessage());
+            throw new \Exception($e->getMessage());
         }
 
         return $profile;
@@ -117,9 +123,9 @@ class PayPalWebProfileService
         if(empty($payload['flow_config']['user_action']))               throw new \Exception('You have to define a flow_config.user_action field to create a PayPal web profile');
         if(empty($payload['flow_config']['return_uri_http_method']))    throw new \Exception('You have to define a flow_config.return_uri_http_method field to create a PayPal web profile');
 
-        if(empty($payload['input_fields']['allow_note']))               throw new \Exception('You have to define a input_fields.allow_note field to create a PayPal web profile');
-        if(empty($payload['input_fields']['no_shipping']))              throw new \Exception('You have to define a input_fields.no_shipping field to create a PayPal web profile');
-        if(empty($payload['input_fields']['address_override']))         throw new \Exception('You have to define a input_fields.address_override field to create a PayPal web profile');
+        if(! isset($payload['input_fields']['allow_note']))             throw new \Exception('You have to define a input_fields.allow_note field to create a PayPal web profile');
+        if(! isset($payload['input_fields']['no_shipping']))            throw new \Exception('You have to define a input_fields.no_shipping field to create a PayPal web profile');
+        if(! isset($payload['input_fields']['address_override']))       throw new \Exception('You have to define a input_fields.address_override field to create a PayPal web profile');
     }
 
     private static function checkUpdate($payload)
@@ -139,9 +145,9 @@ class PayPalWebProfileService
         if(empty($payload['flow_config']['user_action']))               throw new \Exception('You have to define a flow_config.user_action field to update a PayPal web profile');
         if(empty($payload['flow_config']['return_uri_http_method']))    throw new \Exception('You have to define a flow_config.return_uri_http_method field to update a PayPal web profile');
 
-        if(empty($payload['input_fields']['allow_note']))               throw new \Exception('You have to define a input_fields.allow_note field to update a PayPal web profile');
-        if(empty($payload['input_fields']['no_shipping']))              throw new \Exception('You have to define a input_fields.no_shipping field to update a PayPal web profile');
-        if(empty($payload['input_fields']['address_override']))         throw new \Exception('You have to define a input_fields.address_override field to update a PayPal web profile');
+        if(! isset($payload['input_fields']['allow_note']))             throw new \Exception('You have to define a input_fields.allow_note field to update a PayPal web profile');
+        if(! isset($payload['input_fields']['no_shipping']))            throw new \Exception('You have to define a input_fields.no_shipping field to update a PayPal web profile');
+        if(! isset($payload['input_fields']['address_override']))       throw new \Exception('You have to define a input_fields.address_override field to update a PayPal web profile');
     }
 
     private static function createWebProfile(array $payload)
@@ -208,7 +214,7 @@ class PayPalWebProfileService
         $webProfile = new WebProfile();
 
         // Set Id to update web profile
-        if(isset($payload['id']))
+        if($payload['id'])
         {
             $webProfile->setId($payload['id']);
         }

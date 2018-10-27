@@ -195,7 +195,7 @@ input MarketPaymentMethodInput {
 }
 
 input MarketPaypalWebProfileInput {
-    id: String!
+    id: String
     name: String!
     temporary: Boolean!
     flow_config: MarketPaypalWebProfileFlowConfigInput!
