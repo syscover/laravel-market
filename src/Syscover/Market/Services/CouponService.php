@@ -1,5 +1,6 @@
 <?php namespace Syscover\Market\Services;
 
+use Illuminate\Support\Facades\App;
 use Syscover\Market\Models\CartPriceRule;
 use Syscover\Market\Models\CustomerDiscountHistory;
 use Syscover\ShoppingCart\Exceptions\ShoppingCartNotCombinablePriceRuleException;
@@ -17,6 +18,9 @@ class CouponService
      */
     public static function checkCoupon($couponCode, $lang, $sessionGuard = null, $instance = 'default')
     {
+        // set app locale to get translations
+        App::setLocale($lang);
+
         $shoppingCart   = CartProvider::instance($instance);
         $cartPriceRule  = CartPriceRule::builder($lang)
             ->where('coupon_code', 'like', $couponCode)

@@ -32,7 +32,7 @@ class TaxRuleController extends CoreController
 
         return response()->json($response);
     }
-    
+
     public function update(Request $request, $id)
     {
         TaxRule::where('id', $id)->update([
