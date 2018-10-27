@@ -1,6 +1,7 @@
 <?php namespace Syscover\Market\Services;
 
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Log;
 use Syscover\Market\Models\CartPriceRule;
 use Syscover\Market\Models\CustomerDiscountHistory;
 use Syscover\ShoppingCart\Exceptions\ShoppingCartNotCombinablePriceRuleException;
@@ -10,20 +11,20 @@ use Syscover\ShoppingCart\PriceRule;
 class CouponService
 {
     /**
-     * @param   string                          $couponCode
+     * @param   string                          $coupon
      * @param   string                          $lang           Check coupon code from this language
      * @param   string                          $instance       Cart instance
      * @param   \Illuminate\Auth\SessionGuard   $sessionGuard   request session guard to check if user is authenticated, for cases necessary
      * @return array
      */
-    public static function checkCoupon($couponCode, $lang, $sessionGuard = null, $instance = 'default')
+    public static function checkCoupon($coupon, $lang, $sessionGuard = null, $instance = 'default')
     {
         // set app locale to get translations
         App::setLocale($lang);
 
         $shoppingCart   = CartProvider::instance($instance);
         $cartPriceRule  = CartPriceRule::builder($lang)
-            ->where('coupon_code', 'like', $couponCode)
+            ->where('coupon_code', 'like', $coupon)
             ->first();
         $errors         = [];
 
@@ -36,7 +37,7 @@ class CouponService
                 'message'   => 'This coupon code, does not exist',
                 'trans'     => __('market::pulsar.error_coupon_code_01'),
                 'data'      => [
-                    'couponCode' => $couponCode
+                    'coupon' => $coupon
                 ]
             ];
         }
@@ -50,7 +51,7 @@ class CouponService
                 'message'   => 'This coupon has exceeded the limit of uses',
                 'trans'     => trans('market::pulsar.error_coupon_code_02'),
                 'data'      => [
-                    'couponCode'    => $couponCode,
+                    'coupon'        => $coupon,
                     'couponUses'    => $cartPriceRule->coupon_uses,
                     'totalUses'     => $cartPriceRule->total_uses,
                 ]
@@ -68,11 +69,11 @@ class CouponService
                     'message'   => 'User has to be authenticated to use this coupon code',
                     'trans'     => trans('market::pulsar.error_coupon_code_03'),
                     'data'      => [
-                        'couponCode' => $couponCode
+                        'coupon' => $coupon
                     ]
                 ];
             }
-            elseif(CustomerDiscountHistory::builder()->where('market_customer_discount_history.customer_id', $sessionGuard->user()->id)->where('market_customer_discount_history.coupon_code', $couponCode)->where('market_customer_discount_history.applied', true)->count() >= $cartPriceRule->customer_uses)
+            elseif(CustomerDiscountHistory::builder()->where('market_customer_discount_history.customer_id', $sessionGuard->user()->id)->where('market_customer_discount_history.coupon_code', $coupon)->where('market_customer_discount_history.applied', true)->count() >= $cartPriceRule->customer_uses)
             {
                 $errors[] = [
                     'status'    => 'error',
@@ -80,7 +81,7 @@ class CouponService
                     'message'   => 'User has exceeded the limit of uses',
                     'trans'     => trans('market::pulsar.error_coupon_code_04'),
                     'data'      => [
-                        'couponCode' => $couponCode
+                        'coupon' => $coupon
                     ]
                 ];
             }
@@ -94,7 +95,7 @@ class CouponService
                 'message'   => 'This coupon is not yet in its period of validity',
                 'trans'     => trans('market::pulsar.error_coupon_code_05'),
                 'data'      => [
-                    'couponCode' => $couponCode
+                    'coupon' => $coupon
                 ]
             ];
         }
@@ -109,7 +110,7 @@ class CouponService
                 'message'   => 'This coupon is expired',
                 'trans'     => trans('market::pulsar.error_coupon_code_06'),
                 'data'      => [
-                    'couponCode' => $couponCode
+                    'coupon' => $coupon
                 ]
             ];
         }
@@ -122,7 +123,7 @@ class CouponService
                 'message'   => 'This coupon is inactive',
                 'trans'     => trans('market::pulsar.error_coupon_code_07'),
                 'data'      => [
-                    'couponCode' => $couponCode
+                    'coupon' => $coupon
                 ]
             ];
         }
@@ -135,7 +136,7 @@ class CouponService
                 'message'   => 'This coupon is not combinable with other coupon',
                 'trans'     => trans('market::pulsar.error_coupon_code_08'),
                 'data'      => [
-                    'couponCode'                    => $couponCode,
+                    'coupon'                        => $coupon,
                     'priceRuleInCartNotCombinable'  => $shoppingCart->getCartPriceRulesNotCombinable()->toArray()
                 ]
             ];
@@ -157,7 +158,7 @@ class CouponService
                 'message'   => 'This coupon already exist in cart',
                 'trans'     => trans('market::pulsar.error_coupon_code_09'),
                 'data'      => [
-                    'couponCode' => $couponCode
+                    'coupon' => $coupon
                 ]
             ];
         }
@@ -168,10 +169,10 @@ class CouponService
             $errors[] = [
                 'status'    => 'error',
                 'code'      => 10,
-                'message'   => 'there are no shipping costs, this coupon is not necessary',
+                'message'   => 'There are no shipping costs, this coupon is not necessary',
                 'trans'     => trans('market::pulsar.error_coupon_code_10'),
                 'data'      => [
-                    'couponCode' =>  $couponCode
+                    'coupon' =>  $coupon
                 ]
             ];
         }
@@ -187,28 +188,29 @@ class CouponService
         {
             return [
                 'status'        => 'success',
-                'couponCode'    => $couponCode
+                'coupon'        => $coupon
             ];
         }
     }
 
     /**
      * @param \Syscover\ShoppingCart\Cart           $shoppingCart
-     * @param string                                $couponCode
+     * @param string                                $coupon
      * @param string                                $lang           add coupon code from this language
      * @param \Illuminate\Auth\SessionGuard         $sessionGuard   request session guard to check if user is authenticated, for cases necessary
      * @return null | \Syscover\Market\Models\CartPriceRule
+     * @throws \Exception
      */
-    public static function addCoupon($shoppingCart, $couponCode, $lang, $sessionGuard = null)
+    public static function addCoupon($shoppingCart, $coupon, $lang, $sessionGuard = null)
     {
-        $response       = self::checkCoupon($couponCode, $lang, $sessionGuard);
+        $response       = self::checkCoupon($coupon, $lang, $sessionGuard);
         $cartPriceRule  = null;
 
         // check that rule its ok
         if($response['status'] == 'success')
         {
             // get price rule from database
-            $cartPriceRule = CartPriceRule::builder($lang)->where('coupon_code', 'like', $couponCode)->first();
+            $cartPriceRule = CartPriceRule::builder($lang)->where('coupon_code', 'like', $coupon)->first();
 
             if($cartPriceRule != null)
             {
@@ -235,17 +237,19 @@ class CouponService
                 }
                 catch (ShoppingCartNotCombinablePriceRuleException $e)
                 {
-                    dd($e->getMessage());
+                    Log::error($e->getMessage());
+                    throw new \Exception($e->getMessage());
                 }
                 catch (\Exception $e)
                 {
-                    dd($e->getMessage());
+                    Log::error($e->getMessage());
+                    throw new \Exception($e->getMessage());
                 }
             }
             else
             {
-                // TODO controlar error
-                dd("this coupon number not exist");
+                Log::error('This coupon code, does not exist');
+                throw new \Exception('This coupon code, does not exist');
             }
         }
 
