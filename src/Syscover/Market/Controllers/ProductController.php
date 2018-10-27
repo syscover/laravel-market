@@ -16,9 +16,6 @@ class ProductController extends CoreController
     protected $model        = Product::class;
     protected $modelLang    = ProductLang::class;
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store()
     {
         $response['status']     = 200;
@@ -28,9 +25,6 @@ class ProductController extends CoreController
         return response()->json($response);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update($id, $lang)
     {
         $response['status']     = 200;

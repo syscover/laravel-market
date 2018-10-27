@@ -9,12 +9,6 @@ class CategoryController extends CoreController
 {
     protected $model = Category::class;
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         $response['status'] = "success";
@@ -23,12 +17,6 @@ class CategoryController extends CoreController
         return response()->json($response);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param   \Illuminate\Http\Request  $request
-     * @return  \Illuminate\Http\JsonResponse
-     */
     public function update(Request $request)
     {
         $response['status'] = "success";

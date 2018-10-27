@@ -13,12 +13,6 @@ class TaxRateZoneController extends CoreController
 {
     protected $model = TaxRateZone::class;
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         $object = TaxRateZone::create([
@@ -37,13 +31,6 @@ class TaxRateZoneController extends CoreController
         return response()->json($response);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param   \Illuminate\Http\Request  $request
-     * @param   int     $id
-     * @return  \Illuminate\Http\JsonResponse
-     */
     public function update(Request $request, $id)
     {
         TaxRateZone::where('id', $id)->update([

@@ -14,12 +14,6 @@ class TaxRuleController extends CoreController
 {
     protected $model = TaxRule::class;
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         $object = TaxRule::create([
@@ -38,14 +32,7 @@ class TaxRuleController extends CoreController
 
         return response()->json($response);
     }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param   \Illuminate\Http\Request  $request
-     * @param   int     $id
-     * @return  \Illuminate\Http\JsonResponse
-     */
+    
     public function update(Request $request, $id)
     {
         TaxRule::where('id', $id)->update([

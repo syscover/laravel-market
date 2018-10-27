@@ -8,12 +8,6 @@ class CustomerClassTaxController extends CoreController
 {
     protected $model = CustomerClassTax::class;
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         $object = CustomerClassTax::create([
@@ -26,13 +20,6 @@ class CustomerClassTaxController extends CoreController
         return response()->json($response);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param   \Illuminate\Http\Request  $request
-     * @param   int     $id
-     * @return  \Illuminate\Http\JsonResponse
-     */
     public function update(Request $request, $id)
     {
         CustomerClassTax::where('id', $id)->update([
