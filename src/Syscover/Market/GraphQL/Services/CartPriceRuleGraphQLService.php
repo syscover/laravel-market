@@ -16,7 +16,7 @@ class CartPriceRuleGraphQLService extends CoreGraphQLService
         return response()->json(
             CouponService::checkCoupon(
                 $args['coupon'],
-                user_lang(),
+                $args['lang_id'],
                 Auth::guard($args['guard'] ?? 'crm'),
                 $args['instance'] ?? 'default'
             ));
