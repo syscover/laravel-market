@@ -64,7 +64,7 @@ marketCreateWarehouse(payload:MarketWarehouseInput!): MarketWarehouse @field(res
 marketUpdateWarehouse(payload:MarketWarehouseInput!): MarketWarehouse @field(resolver: "Syscover\\Market\\GraphQL\\Services\\WarehouseGraphQLService@update")
 marketDeleteWarehouse(id:Int!): MarketWarehouse @field(resolver: "Syscover\\Market\\GraphQL\\Services\\WarehouseGraphQLService@delete")
 
-# Warehouse
+# PayPal Web Profile
 marketCreatePaypalWebProfile(payload:MarketPaypalWebProfileInput!): MarketPaypalWebProfile @field(resolver: "Syscover\\Market\\GraphQL\\Services\\PayPalWebProfileGraphQLService@create")
 marketUpdatePaypalWebProfile(payload:MarketPaypalWebProfileInput!): MarketPaypalWebProfile @field(resolver: "Syscover\\Market\\GraphQL\\Services\\PayPalWebProfileGraphQLService@update")
 marketDeletePaypalWebProfile(id:String!): MarketPaypalWebProfile @field(resolver: "Syscover\\Market\\GraphQL\\Services\\PayPalWebProfileGraphQLService@delete")
