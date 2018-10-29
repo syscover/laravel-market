@@ -133,9 +133,9 @@ class ProductService
 
     private static function checkCreate($object)
     {
-        if(empty($object['lang_id']))   throw new \Exception('You have to define a lang_id field to create a category');
-        if(empty($object['name']))      throw new \Exception('You have to define a name field to create a category');
-        if(empty($object['slug']))      throw new \Exception('You have to define a slug field to create a category');
+        if(empty($object['lang_id']))   throw new \Exception('You have to define a lang_id field to create a product');
+        if(empty($object['name']))      throw new \Exception('You have to define a name field to create a product');
+        if(empty($object['slug']))      throw new \Exception('You have to define a slug field to create a product');
     }
 
     private static function checkUpdate($object)

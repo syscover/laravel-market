@@ -250,6 +250,16 @@ input MarketProductInput {
     weight: Float
 }
 
+input MarketMarketable {
+    categories_id: [String]
+    name: String
+    parent_id: Int
+    price: Float
+    sections_id: [String]
+    sku: String
+    slug: String
+}
+
 input MarketProductClassTaxInput {
     id: Int
     name: String
