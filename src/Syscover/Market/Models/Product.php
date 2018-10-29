@@ -132,7 +132,7 @@ class Product extends CoreModel
 
     public function marketable()
     {
-        return $this->morphTo('object', 'object_type', 'object_id', 'id');
+        return $this->morphTo('marketable', 'object_type', 'object_id', 'id');
     }
 
     /**

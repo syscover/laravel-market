@@ -15,7 +15,7 @@ class ProductService
         if(empty($object['id']))
         {
             // create new product
-            $product = Product::create(self::builder($object, ['sku', 'field_group_id', 'type_id', 'parent_id', 'weight', 'active', 'sort', 'price_type_id', 'subtotal', 'product_class_tax_id', 'data_lang']));
+            $product = Product::create(self::builder($object, ['object_type', 'object_id', 'sku', 'field_group_id', 'type_id', 'parent_id', 'weight', 'active', 'sort', 'price_type_id', 'subtotal', 'product_class_tax_id', 'data_lang']));
             $object['id'] = $product->id;
         }
 
@@ -108,6 +108,8 @@ class ProductService
             $object = $object->only([
                 'id',
                 'lang_id',
+                'object_type',
+                'object_id',
                 'name',
                 'slug',
                 'description',
@@ -133,9 +135,11 @@ class ProductService
 
     private static function checkCreate($object)
     {
-        if(empty($object['lang_id']))   throw new \Exception('You have to define a lang_id field to create a product');
-        if(empty($object['name']))      throw new \Exception('You have to define a name field to create a product');
-        if(empty($object['slug']))      throw new \Exception('You have to define a slug field to create a product');
+        if(empty($object['lang_id']))       throw new \Exception('You have to define a lang_id field to create a product');
+        if(empty($object['name']))          throw new \Exception('You have to define a name field to create a product');
+        if(empty($object['slug']))          throw new \Exception('You have to define a slug field to create a product');
+        if(empty($object['type_id']))       throw new \Exception('You have to define a type_id field to create a product');
+        if(empty($object['price_type_id'])) throw new \Exception('You have to define a price_type_id field to create a product');
     }
 
     private static function checkUpdate($object)

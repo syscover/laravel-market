@@ -251,13 +251,19 @@ input MarketProductInput {
 }
 
 input MarketMarketable {
+    active: Boolean
     categories_id: [String]
+    lang_id: String
     name: String
     parent_id: Int
     price: Float
+    price_type_id: Int
     sections_id: [String]
     sku: String
     slug: String
+    sort: Int
+    type_id: Int
+    weight: Float
 }
 
 input MarketProductClassTaxInput {
