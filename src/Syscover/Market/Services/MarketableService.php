@@ -1,6 +1,5 @@
 <?php namespace Syscover\Market\Services;
 
-use Syscover\Admin\Services\AttachmentService;
 use Syscover\Market\Models\Product;
 use Syscover\Market\Models\ProductLang;
 
@@ -48,16 +47,6 @@ class MarketableService
         // set sections
         if(! empty($payload['sections_id'])) $product->sections()->sync($payload['sections_id']);
 
-        // set attachments
-        if(isset($payload['attachments']) && is_array($payload['attachments']))
-        {
-            // first save libraries to get id
-            $attachments = AttachmentService::storeAttachmentsLibrary($payload['attachments']);
-
-            // then save attachments
-            AttachmentService::storeAttachments($attachments, 'storage/app/public/market/products', 'storage/market/products', Product::class, $product->id, $product->lang_id);
-        }
-
         return $product;
     }
 
@@ -86,16 +75,6 @@ class MarketableService
 
         // set sections
         if(! empty($payload['sections_id'])) $product->sections()->sync($payload['sections_id']);
-
-        // set attachments
-        if(isset($payload['attachments']) && is_array($payload['attachments']))
-        {
-            // first save libraries to get id
-            $attachments = AttachmentService::storeAttachmentsLibrary($payload['attachments']);
-
-            // then save attachments
-            AttachmentService::updateAttachments($attachments, 'storage/app/public/market/products', 'storage/market/products', Product::class, $product->id,  $product->lang_id);
-        }
 
         return $product;
     }

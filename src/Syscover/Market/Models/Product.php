@@ -137,7 +137,7 @@ class Product extends CoreModel
     }
 
     /**
-     * Is not possible add 'attachments' to $with paramenter, it need to be instantiated to get lang parameter
+     * Is not possible add 'attachments' to $with parameter, it need to be instantiated to get lang parameter
      * It's possible pass lang parameter with this method
      *
      * Product::with(['attachments' => function ($q) use ($langId) {
