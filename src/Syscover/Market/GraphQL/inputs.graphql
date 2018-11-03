@@ -225,9 +225,7 @@ input MarketPaypalWebProfilePresentationInput {
 }
 
 input MarketProductInput {
-    active: Boolean
     attachments: [AdminAttachmentInput]
-    categories_id: [Int]
     custom_fields: Object
     data: Object
     data_lang: [String]
@@ -235,6 +233,10 @@ input MarketProductInput {
     field_group_id: Int
     id: Int
     ix: Int
+
+    # Marketable properties
+    active: Boolean
+    categories_id: [String]
     lang_id: String
     name: String
     parent_id: Int
@@ -246,22 +248,6 @@ input MarketProductInput {
     slug: String
     sort: Int
     subtotal: Float
-    type_id: Int
-    weight: Float
-}
-
-input MarketMarketable {
-    active: Boolean
-    categories_id: [String]
-    lang_id: String
-    name: String
-    parent_id: Int
-    price: Float
-    price_type_id: Int
-    sections_id: [String]
-    sku: String
-    slug: String
-    sort: Int
     type_id: Int
     weight: Float
 }

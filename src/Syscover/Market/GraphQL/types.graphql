@@ -252,27 +252,29 @@ type MarketPaypalWebProfilePresentation {
 }
 
 type MarketProduct {
+    attachments: [AdminAttachment]
+    field_group_id: Int
+    data: Object
+    data_lang: [String]
+    description: String
     ix: Int!
     id: Int!
+
+    # Marketable properties
+    active: Boolean
+    categories: [MarketCategory]
     lang_id: String!
     name: String!
-    slug: String!
-    sku: String
-    categories: [MarketCategory]
-    sections: [MarketSection]
-    field_group_id: Int
-    type_id: Int!
     parent_id: Int
-    weight: Float!
-    active: Boolean
-    sort: Int
     price_type_id: Int!
-    subtotal: Float
     product_class_tax_id: Int
-    description: String
-    data_lang: [String]
-    data: Object
-    attachments: [AdminAttachment]
+    sections: [MarketSection]
+    sku: String
+    slug: String!
+    sort: Int
+    subtotal: Float
+    type_id: Int!
+    weight: Float!
 }
 
 type MarketProductClassTax {

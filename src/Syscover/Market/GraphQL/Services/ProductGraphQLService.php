@@ -63,9 +63,9 @@ class ProductGraphQLService extends CoreGraphQLService
     public function delete($root, array $args)
     {
         // delete object
-        $object = SQLService::deleteRecord($args['id'], $this->modelClassName, $args['lang_id'] ?? null, ProductLang::class);
+        $object = SQLService::deleteRecord($args['id'], $this->modelClassName, $args['lang_id'], ProductLang::class);
 
-        // delete object
+        // delete attachments object
         AttachmentService::deleteAttachments($args['id'], $this->modelClassName, $args['lang_id']);
 
         return $object;

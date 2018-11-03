@@ -6,7 +6,7 @@ use Syscover\Core\Models\CoreModel;
 use Syscover\Admin\Traits\Translatable;
 
 /**
- * Class Product
+ * Class ProductLang
  * @package Syscover\Market\Models
  */
 
@@ -16,7 +16,7 @@ class ProductLang extends CoreModel
 
 	protected $table        = 'market_product_lang';
     protected $primaryKey   = 'ix';
-    protected $fillable     = ['ix', 'id', 'lang_id', 'name', 'slug', 'description', 'data'];
+    protected $fillable     = ['id', 'lang_id', 'name', 'slug', 'description', 'data'];
     public $incrementing    = false;
     protected $casts        = [
         'data' => 'array'

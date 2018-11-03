@@ -1,7 +1,6 @@
 <?php namespace Syscover\Market\Services;
 
 use Syscover\Admin\Services\AttachmentService;
-use Syscover\Market\Models\Category;
 use Syscover\Market\Models\Product;
 use Syscover\Market\Models\ProductLang;
 
@@ -128,7 +127,7 @@ class ProductService
             ]);
         }
 
-        if($object->has('weight') && $object->get('weight') === null) $data['weight'] = 0;
+        if($object->has('weight') && $object->get('weight') === null) $object['weight'] = 0;
 
         return $object->toArray();
     }
@@ -138,8 +137,13 @@ class ProductService
         if(empty($object['lang_id']))       throw new \Exception('You have to define a lang_id field to create a product');
         if(empty($object['name']))          throw new \Exception('You have to define a name field to create a product');
         if(empty($object['slug']))          throw new \Exception('You have to define a slug field to create a product');
-        if(empty($object['type_id']))       throw new \Exception('You have to define a type_id field to create a product');
-        if(empty($object['price_type_id'])) throw new \Exception('You have to define a price_type_id field to create a product');
+
+        // avoid check if is create lang action
+        if(empty($object['id']))
+        {
+            if(empty($object['type_id']))       throw new \Exception('You have to define a type_id field to create a product');
+            if(empty($object['price_type_id'])) throw new \Exception('You have to define a price_type_id field to create a product');
+        }
     }
 
     private static function checkUpdate($object)

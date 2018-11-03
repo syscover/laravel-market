@@ -22,7 +22,7 @@ class Product extends CoreModel
     use CustomizableFields, Translatable;
 
 	protected $table        = 'market_product';
-	protected $fillable     = ['id', 'sku', 'field_group_id', 'object_type', 'object_id', 'type_id', 'parent_id', 'weight', 'active', 'sort', 'price_type_id', 'subtotal', 'product_class_tax_id', 'data_lang', 'data'];
+	protected $fillable     = ['sku', 'field_group_id', 'object_type', 'object_id', 'type_id', 'parent_id', 'weight', 'active', 'sort', 'price_type_id', 'subtotal', 'product_class_tax_id', 'data_lang', 'data'];
     protected $casts        = [
         'active'                    => 'boolean',
         'data_lang'                 => 'array',
