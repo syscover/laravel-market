@@ -31,11 +31,12 @@ class Product extends CoreModel
         'market_product_lang_data'  => 'array', // field created from join in builder scope
     ];
     protected $with         = [
-        'lang',
-        'field_group',
         'categories',
-        'stocks',
-        'children_products'
+        'children_products',
+        'field_group',
+        'lang',
+        'sections',
+        'stocks'
     ];
     protected $appends      = ['tax_amount', 'price'];
     public $lazyRelations   = ['attachments'];

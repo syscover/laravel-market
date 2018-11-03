@@ -6,7 +6,7 @@ use Syscover\Market\Models\ProductLang;
 
 class MarketableService
 {
-    public static function create($payload)
+    public static function create($payload, $marketable)
     {
         self::checkCreate($payload);
 
@@ -24,6 +24,10 @@ class MarketableService
             // create new product
             $product = Product::create(self::builder($payload, ['object_type', 'object_id', 'sku', 'field_group_id', 'type_id', 'parent_id', 'weight', 'active', 'sort', 'price_type_id', 'subtotal', 'product_class_tax_id', 'data_lang']));
             $payload['id'] = $product->id;
+
+            // set product id in marketable object
+            $marketable->product_id = $product->id;
+            $marketable->save();
         }
 
         // create product lang
@@ -127,7 +131,7 @@ class MarketableService
                 'data'
             ]);
         }
-        
+
         if($payload->has('weight') && $payload->get('weight') === null) $payload['weight'] = 0;
 
         return $payload->toArray();
