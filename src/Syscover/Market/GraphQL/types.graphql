@@ -267,7 +267,7 @@ type MarketProduct {
     # Marketable columns
     active: Boolean
     categories: [MarketCategory]
-    cost: Float!
+    cost: Float
     ends_at: String
     ends_sale: String
     lang_id: String!
