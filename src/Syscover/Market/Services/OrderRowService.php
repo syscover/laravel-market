@@ -59,6 +59,10 @@ class OrderRowService
                 'description',
                 'data',
 
+                // costs
+                'cost',
+                'total_cost',
+
                 // amounts
                 'price',
                 'quantity',
@@ -139,6 +143,10 @@ class OrderRowService
                 'name'                                  => $item->name,
                 'description'                           => $item->options->product->description,
                 'data'                                  => ['product' => $item->options->product],
+
+                // costs
+                'cost'                                  => $item->cost,
+                'total_cost'                            => $item->totalCost,
 
                 // amounts
                 'price'                                 => $item->price,                    // unit price without tax
