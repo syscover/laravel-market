@@ -14,7 +14,7 @@ class ProductService
         if(empty($object['id']))
         {
             // create new product
-            $product = Product::create(self::builder($object, ['object_type', 'object_id', 'sku', 'field_group_id', 'type_id', 'parent_id', 'weight', 'active', 'sort', 'price_type_id', 'subtotal', 'product_class_tax_id', 'data_lang']));
+            $product = Product::create(self::builder($object, ['object_type', 'object_id', 'sku', 'field_group_id', 'type_id', 'parent_id', 'weight', 'active', 'sort', 'price_type_id', 'cost', 'subtotal', 'starts_sale', 'ends_sale', 'starts_at', 'ends_at', 'limited_capacity', 'product_class_tax_id', 'data_lang']));
             $object['id'] = $product->id;
         }
 
@@ -55,7 +55,7 @@ class ProductService
     public static function update($object)
     {
         self::checkUpdate($object);
-        Product::where('id', $object['id'])->update(self::builder($object, ['sku', 'field_group_id', 'type_id', 'parent_id', 'weight', 'active', 'sort', 'price_type_id', 'subtotal', 'product_class_tax_id', 'data_lang']));
+        Product::where('id', $object['id'])->update(self::builder($object, ['sku', 'field_group_id', 'type_id', 'parent_id', 'weight', 'active', 'sort', 'price_type_id', 'cost', 'subtotal', 'starts_sale', 'ends_sale', 'starts_at', 'ends_at', 'limited_capacity', 'product_class_tax_id', 'data_lang']));
 
         // set custom fields
         if(! empty($object['field_group_id']))
@@ -120,7 +120,13 @@ class ProductService
                 'active',
                 'sort',
                 'price_type_id',
+                'cost',
                 'subtotal',
+                'starts_sale',
+                'ends_sale',
+                'starts_at',
+                'ends_at',
+                'limited_capacity',
                 'product_class_tax_id',
                 'data_lang',
                 'data'
