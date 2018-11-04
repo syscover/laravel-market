@@ -25,24 +25,24 @@ class MarketCreateTableOrder extends Migration
 				$table->string('ip')->nullable();
 				$table->json('data')->nullable();
 				$table->text('comments')->nullable();
-                $table->string('transaction_id')->nullable();                                               // code generate by payment platform (PayPal or Bank), field to record any payment ID transaction
+                $table->string('transaction_id')->nullable();                                                       // code generate by payment platform (PayPal or Bank), field to record any payment ID transaction
 
                 //****************
                 //* amounts
                 //****************
-                $table->decimal('cart_items_total_without_discounts', 12, 4)->default(0);      // total of cart items. Amount with tax, without discount and without shipping
-				$table->decimal('subtotal', 12, 4)->default(0);					                // amount without tax, without shipping and without discounts
-                $table->decimal('discount_amount', 12, 4)->default(0);                         // total amount to discount, fixed plus percentage discounts
-				$table->decimal('subtotal_with_discounts', 12, 4)->default(0);                 // subtotal with discounts applied
-                $table->decimal('tax_amount', 12, 4)->default(0);                              // total tax amount
-                $table->decimal('shipping_amount', 12, 4)->default(0);			                // shipping amount
-                $table->decimal('total', 12, 4)->default(0); 				                    // subtotal and shipping amount with tax
+                $table->decimal('cart_items_total_without_discounts', 12, 4)->default(0);       // total of cart items. Amount with tax, without discount and without shipping
+				$table->decimal('subtotal', 12, 4)->default(0);					               // amount without tax, without shipping and without discounts
+                $table->decimal('discount_amount', 12, 4)->default(0);                          // total amount to discount, fixed plus percentage discounts
+				$table->decimal('subtotal_with_discounts', 12, 4)->default(0);                  // subtotal with discounts applied
+                $table->decimal('tax_amount', 12, 4)->default(0);                               // total tax amount
+                $table->decimal('shipping_amount', 12, 4)->default(0);			               // shipping amount
+                $table->decimal('total', 12, 4)->default(0); 				                   // subtotal and shipping amount with tax
 
                 //****************
                 //* customer
                 //****************
-				$table->integer('customer_id')->unsigned();                                 // Customer ID
-                $table->integer('customer_group_id')->unsigned();                           // Group ID
+				$table->integer('customer_id')->unsigned();                                                         // Customer ID
+                $table->integer('customer_group_id')->unsigned();                                                   // Group ID
 				$table->string('customer_company')->nullable();
 				$table->string('customer_tin')->nullable();
 				$table->string('customer_name')->nullable();
@@ -55,7 +55,7 @@ class MarketCreateTableOrder extends Migration
                 //* shipping data
                 //****************
                 $table->boolean('has_shipping')->default(false);
-                $table->string('shipping_tracking_id')->nullable();                                  // code generate by shipping company to get tracking of shipping
+                $table->string('shipping_tracking_id')->nullable();                                                 // code generate by shipping company to get tracking of shipping
                 $table->string('shipping_company')->nullable();
                 $table->string('shipping_name')->nullable();
                 $table->string('shipping_surname')->nullable();
@@ -76,9 +76,9 @@ class MarketCreateTableOrder extends Migration
 				//****************
                 //* invoice data
                 //****************
-				$table->boolean('has_invoice')->default(false);	    					    // Check if this order has invoice
-				$table->boolean('invoiced')->default(false);							        // Check if has been created invoice on billing program
-                $table->string('invoice_number')->nullable();                               // If has invoice, set invoice number
+				$table->boolean('has_invoice')->default(false);	    					                    // Check if this order has invoice
+				$table->boolean('invoiced')->default(false);							                        // Check if has been created invoice on billing program
+                $table->string('invoice_number')->nullable();                                                       // If has invoice, set invoice number
                 $table->string('invoice_company')->nullable();
                 $table->string('invoice_tin')->nullable();
                 $table->string('invoice_name')->nullable();
@@ -96,8 +96,6 @@ class MarketCreateTableOrder extends Migration
 				$table->string('invoice_latitude')->nullable();
 				$table->string('invoice_longitude')->nullable();
                 $table->text('invoice_comments')->nullable();
-
-
 
                 //****************
                 //* gift

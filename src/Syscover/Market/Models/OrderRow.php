@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Validator;
 class OrderRow extends CoreModel
 {
 	protected $table        = 'market_order_row';
-    protected $fillable     = ['id', 'lang_id', 'order_id', 'product_id', 'name', 'description', 'data', 'price', 'quantity', 'subtotal', 'total_without_discounts', 'discount_subtotal_percentage', 'discount_total_percentage', 'discount_subtotal_percentage_amount', 'discount_total_percentage_amount', 'discount_subtotal_fixed_amount', 'discount_total_fixed_amount', 'discount_amount', 'tax_rules', 'tax_amount', 'has_gift', 'gift_from', 'gift_to', 'gift_message'];
+    protected $fillable     = ['id', 'lang_id', 'order_id', 'product_id', 'name', 'description', 'data', 'cost', 'total_cost', 'price', 'quantity', 'subtotal', 'total_without_discounts', 'discount_subtotal_percentage', 'discount_total_percentage', 'discount_subtotal_percentage_amount', 'discount_total_percentage_amount', 'discount_subtotal_fixed_amount', 'discount_total_fixed_amount', 'discount_amount', 'tax_rules', 'tax_amount', 'has_gift', 'gift_from', 'gift_to', 'gift_message'];
     protected $casts        = [
         'data'      => 'array',
         'tax_rules' => 'array'

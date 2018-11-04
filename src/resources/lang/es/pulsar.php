@@ -18,6 +18,7 @@ return [
     'error_coupon_code_08'                          => 'Este cupón no es combinable con uno de los cupones introducidos',
     'error_coupon_code_09'                          => 'Este cupón ya ha sido introducido',
     'error_coupon_code_10'                          => 'Actualmente no hay costes de envío en el carro de compra',
+    'event'                                         => 'Evento',
     'message_customer_redsys_error'                 => 'Error de REDSYS, Error: :error',
     'message_customer_sent_order_email'             => 'Email enviado con el pedido a los emails: :emails',
     'message_customer_throw_to_paypal'              => 'Cliente enviado a PayPal',

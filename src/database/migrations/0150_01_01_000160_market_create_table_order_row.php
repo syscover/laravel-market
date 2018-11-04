@@ -30,11 +30,17 @@ class MarketCreateTableOrderRow extends Migration
 				$table->json('data')->nullable();
 
                 //****************
+                //* cost
+                //****************
+                $table->decimal('cost', 12, 4)->nullable();
+                $table->decimal('total_cost', 12, 4)->nullable();
+
+                //****************
                 //* amounts
                 //****************
-				$table->decimal('price', 12, 4); 								    // unit price
+				$table->decimal('price', 12, 4); 								    // unit price, this price will be tar or not, depending of MARKET_TAX_SHIPPING_PRICES
 				$table->decimal('quantity', 12, 4); 							    // number of units
-				$table->decimal('subtotal', 12, 4);								    // subtotal without tax
+				$table->decimal('subtotal', 12, 4);								    // amount without tax
                 $table->decimal('total_without_discounts', 12, 4);                 // total from row without discounts
 
                 //****************
