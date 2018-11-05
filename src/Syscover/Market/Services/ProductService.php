@@ -14,7 +14,27 @@ class ProductService
         if(empty($object['id']))
         {
             // create new product
-            $product = Product::create(self::builder($object, ['object_type', 'object_id', 'sku', 'field_group_id', 'type_id', 'parent_id', 'weight', 'active', 'sort', 'price_type_id', 'cost', 'subtotal', 'enable_from', 'enable_to', 'starts_at', 'ends_at', 'limited_capacity', 'product_class_tax_id', 'data_lang']));
+            $product = Product::create(self::builder($object, [
+                'sku',
+                'field_group_id',
+                'parent_id',
+                'type_id',
+                'enable_from',
+                'enable_to',
+                'starts_at',
+                'ends_at',
+                'limited_capacity',
+                'fixed_cost',
+                'cost_per_sale',
+                'weight',
+                'active',
+                'sort',
+                'price_type_id',
+                'product_class_tax_id',
+                'cost',
+                'subtotal',
+                'data_lang'
+            ]));
             $object['id'] = $product->id;
         }
 
@@ -22,7 +42,14 @@ class ProductService
         if(isset($object['field_group_id'])) $object['data']['custom_fields'] = $object['custom_fields'];
 
         // create product lang
-        $product = ProductLang::create(self::builder($object, ['id', 'lang_id', 'name', 'slug', 'description', 'data']));
+        $product = ProductLang::create(self::builder($object, [
+            'id',
+            'lang_id',
+            'name',
+            'slug',
+            'description',
+            'data'
+        ]));
 
         // product already is create, it's not necessary update product with data_lang value
         Product::addDataLang($object['lang_id'], $object['id']);
@@ -55,7 +82,27 @@ class ProductService
     public static function update($object)
     {
         self::checkUpdate($object);
-        Product::where('id', $object['id'])->update(self::builder($object, ['sku', 'field_group_id', 'type_id', 'parent_id', 'weight', 'active', 'sort', 'price_type_id', 'cost', 'subtotal', 'enable_from', 'enable_to', 'starts_at', 'ends_at', 'limited_capacity', 'product_class_tax_id', 'data_lang']));
+        Product::where('id', $object['id'])->update(self::builder($object, [
+            'sku',
+            'field_group_id',
+            'parent_id',
+            'type_id',
+            'enable_from',
+            'enable_to',
+            'starts_at',
+            'ends_at',
+            'limited_capacity',
+            'fixed_cost',
+            'cost_per_sale',
+            'weight',
+            'active',
+            'sort',
+            'price_type_id',
+            'product_class_tax_id',
+            'cost',
+            'subtotal',
+            'data_lang'
+        ]));
 
         // set custom fields
         if(! empty($object['field_group_id']))
@@ -68,7 +115,12 @@ class ProductService
         // update product lang
         ProductLang::where('market_product_lang.id', $object['id'])
             ->where('market_product_lang.lang_id', $object['lang_id'])
-            ->update(self::builder($object, ['name', 'slug', 'description', 'data']));
+            ->update(self::builder($object, [
+                'name',
+                'slug',
+                'description',
+                'data'
+            ]));
 
         // get product instance
         $product = Product::builder()
@@ -107,27 +159,27 @@ class ProductService
             $object = $object->only([
                 'id',
                 'lang_id',
-                'object_type',
-                'object_id',
                 'name',
                 'slug',
                 'description',
                 'sku',
                 'field_group_id',
-                'type_id',
                 'parent_id',
-                'weight',
-                'active',
-                'sort',
-                'price_type_id',
-                'cost',
-                'subtotal',
+                'type_id',
                 'enable_from',
                 'enable_to',
                 'starts_at',
                 'ends_at',
                 'limited_capacity',
+                'fixed_cost',
+                'cost_per_sale',
+                'weight',
+                'active',
+                'sort',
+                'price_type_id',
                 'product_class_tax_id',
+                'cost',
+                'subtotal',
                 'data_lang',
                 'data'
             ]);

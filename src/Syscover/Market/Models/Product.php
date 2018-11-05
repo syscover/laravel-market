@@ -1,5 +1,6 @@
 <?php namespace Syscover\Market\Models;
 
+use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Syscover\Admin\Models\Attachment;
@@ -22,7 +23,7 @@ class Product extends CoreModel
     use CustomizableFields, Translatable;
 
 	protected $table        = 'market_product';
-	protected $fillable     = ['sku', 'field_group_id', 'object_type', 'object_id', 'type_id', 'parent_id', 'weight', 'active', 'sort', 'price_type_id', 'cost', 'subtotal', 'enable_from', 'enable_to', 'starts_at', 'ends_at', 'limited_capacity', 'product_class_tax_id', 'data_lang', 'data'];
+	protected $fillable     = ['sku', 'field_group_id', 'parent_id', 'object_type', 'object_id', 'type_id', 'enable_from', 'enable_to', 'starts_at', 'ends_at', 'limited_capacity', 'fixed_cost', 'cost_per_sale', 'weight', 'active', 'sort', 'price_type_id', 'product_class_tax_id', 'cost', 'subtotal', 'data_lang', 'data'];
     protected $casts        = [
         'active'                    => 'boolean',
         'data_lang'                 => 'array',
@@ -89,6 +90,51 @@ class Product extends CoreModel
                     ->groupBy('product_id')
                     ->get();
             });
+    }
+
+    // Accessors
+    public function getEnableFromAttribute($value)
+    {
+        // https://es.wikipedia.org/wiki/ISO_8601
+        // return (new Carbon($value))->toW3cString();
+        if($value)
+        {
+            return (new Carbon($value))->format('Y-m-d\TH:i:s');
+        }
+        return null;
+    }
+
+    public function getEnableToAttribute($value)
+    {
+        // https://es.wikipedia.org/wiki/ISO_8601
+        // return (new Carbon($value))->toW3cString();
+        if($value)
+        {
+            return (new Carbon($value))->format('Y-m-d\TH:i:s');
+        }
+        return null;
+    }
+
+    public function getStartsAtAttribute($value)
+    {
+        // https://es.wikipedia.org/wiki/ISO_8601
+        // return (new Carbon($value))->toW3cString();
+        if($value)
+        {
+            return (new Carbon($value))->format('Y-m-d\TH:i:s');
+        }
+        return null;
+    }
+
+    public function getEndsAtAttribute($value)
+    {
+        // https://es.wikipedia.org/wiki/ISO_8601
+        // return (new Carbon($value))->toW3cString();
+        if($value)
+        {
+            return (new Carbon($value))->format('Y-m-d\TH:i:s');
+        }
+        return null;
     }
 
     public function children_products()

@@ -23,15 +23,15 @@ class MarketUpdateV12 extends Migration
 
                 $table->decimal('cost', 12, 4)->nullable()->after('price_type_id');
 
-                $table->timestamp('enable_from')->nullable()->after('subtotal');
+                $table->timestamp('enable_from')->nullable()->after('type_id');
                 $table->timestamp('enable_to')->nullable()->after('enable_from');
 
                 $table->timestamp('starts_at')->nullable()->after('enable_to');
                 $table->timestamp('ends_at')->nullable()->after('starts_at');
 
                 $table->integer('limited_capacity')->nullable()->after('ends_at');
-                $table->decimal('fixed_cost', 12, 4)->nullable()->after('data');
-                $table->decimal('cost_per_sale', 12, 4)->nullable()->after('cost');
+                $table->decimal('fixed_cost', 12, 4)->nullable()->after('limited_capacity');
+                $table->decimal('cost_per_sale', 12, 4)->nullable()->after('fixed_cost');
             });
 
             Schema::table('market_order_row', function (Blueprint $table) {

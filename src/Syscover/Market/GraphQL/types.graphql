@@ -268,9 +268,11 @@ type MarketProduct {
     active: Boolean
     categories: [MarketCategory]
     cost: Float
+    cost_per_sale: Float
     enable_from: String
     enable_to: String
     ends_at: String
+    fixed_cost: Float
     lang_id: String!
     limited_capacity: Int
     name: String!
