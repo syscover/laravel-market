@@ -21,7 +21,7 @@ class MarketableService
         else
         {
             // create new product
-            $product = Product::create(self::builder($payload, ['object_type', 'object_id', 'sku', 'field_group_id', 'type_id', 'parent_id', 'weight', 'active', 'sort', 'price_type_id', 'cost', 'subtotal', 'starts_sale', 'ends_sale', 'starts_at', 'ends_at', 'limited_capacity', 'product_class_tax_id', 'data_lang']));
+            $product = Product::create(self::builder($payload, ['object_type', 'object_id', 'sku', 'field_group_id', 'type_id', 'parent_id', 'weight', 'active', 'sort', 'price_type_id', 'cost', 'subtotal', 'enable_from', 'enable_to', 'starts_at', 'ends_at', 'limited_capacity', 'product_class_tax_id', 'data_lang']));
             $payload['id'] = $product->id;
 
             // set product id in marketable object
@@ -57,7 +57,7 @@ class MarketableService
         // get product related
         $product = Product::where('object_type', $payload['object_type'])->where('object_id', $payload['object_id'])->first();
 
-        Product::where('id', $product->id)->update(self::builder($payload, ['sku', 'field_group_id', 'type_id', 'parent_id', 'weight', 'active', 'sort', 'price_type_id', 'cost', 'subtotal', 'starts_sale', 'ends_sale', 'starts_at', 'ends_at', 'limited_capacity', 'product_class_tax_id', 'data_lang']));
+        Product::where('id', $product->id)->update(self::builder($payload, ['sku', 'field_group_id', 'type_id', 'parent_id', 'weight', 'active', 'sort', 'price_type_id', 'cost', 'subtotal', 'enable_from', 'enable_to', 'starts_at', 'ends_at', 'limited_capacity', 'product_class_tax_id', 'data_lang']));
 
         // update product lang
         ProductLang::where('market_product_lang.id', $product->id)
@@ -106,8 +106,8 @@ class MarketableService
                 'price_type_id',
                 'cost',
                 'subtotal',
-                'starts_sale',
-                'ends_sale',
+                'enable_from',
+                'enable_to',
                 'starts_at',
                 'ends_at',
                 'limited_capacity',

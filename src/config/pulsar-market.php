@@ -15,7 +15,7 @@ return [
         (object)['id' => 2, 'name' => 'market::pulsar.transportable'],
         (object)['id' => 3, 'name' => 'market::pulsar.transportable_downloadable'],
         (object)['id' => 4, 'name' => 'market::pulsar.service'],
-        (object)['id' => 4, 'name' => 'market::pulsar.event']
+        (object)['id' => 5, 'name' => 'market::pulsar.event']
     ],
 
     //******************************************************************************************************************

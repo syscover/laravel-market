@@ -242,8 +242,9 @@ input MarketProductInput {
     active: Boolean
     categories_id: [String]
     cost: Float
+    enable_from: String
+    enable_to: String
     ends_at: String
-    ends_sale: String
     lang_id: String
     limited_capacity: Int
     name: String
@@ -256,7 +257,6 @@ input MarketProductInput {
     slug: String
     sort: Int
     starts_at: String
-    starts_sale: String
     subtotal: Float
     type_id: Int
     weight: Float

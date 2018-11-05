@@ -28,7 +28,8 @@ class MarketCreateTableProduct extends Migration
 				// 1 - downloaded
 				// 2 - transportable
 				// 3 - downloaded and transportable
-                // 4 - event
+                // 4 - service
+                // 5 - event
 				$table->tinyInteger('type_id')->unsigned();
 
 				// set parent product and config like subproduct
@@ -45,15 +46,14 @@ class MarketCreateTableProduct extends Migration
                 $table->decimal('cost', 12, 4)->nullable();
 				$table->decimal('subtotal', 12, 4)->nullable();
 
-				// limit time of sale
-                $this->timestamp('starts_sale')->default(DB::raw('CURRENT_TIMESTAMP'))->nullable();
-                $this->timestamp('ends_sale')->nullable();
+				// limit time of publish product
+                $this->timestamp('enable_from')->nullable();
+                $this->timestamp('enable_to')->nullable();
 
                 // events
                 $this->timestamp('starts_at')->nullable();
                 $this->timestamp('ends_at')->nullable();
                 $this->integer('limited_capacity')->nullable();
-
                 $table->decimal('fixed_cost', 12, 4)->nullable();
                 $table->decimal('cost_per_sale', 12, 4)->nullable();
 
