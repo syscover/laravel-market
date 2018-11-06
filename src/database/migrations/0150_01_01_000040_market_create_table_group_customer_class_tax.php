@@ -23,6 +23,7 @@ class MarketCreateTableGroupCustomerClassTax extends Migration {
                 $table->timestamps();
                 $table->softDeletes();
 				
+				$table->primary('customer_group_id', 'pk01_market_customer_group_customer_class_tax');
 				$table->foreign('customer_group_id', 'fk01_market_customer_group_customer_class_tax')
 					->references('id')
 					->on('crm_customer_group')
@@ -34,7 +35,6 @@ class MarketCreateTableGroupCustomerClassTax extends Migration {
 					->onDelete('cascade')
 					->onUpdate('cascade');
 
-				$table->primary('customer_group_id', 'pk01_market_customer_group_customer_class_tax');
 			});
 		}
 	}

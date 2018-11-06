@@ -19,6 +19,7 @@ class MarketCreateTableStock extends Migration
 
                 $table->timestamps();
 
+                $table->primary(['warehouse_id', 'product_id'], 'pk01_market_stock');
 				$table->foreign('warehouse_id', 'fk01_market_stock')
 					->references('id')
 					->on('market_warehouse')
@@ -30,8 +31,6 @@ class MarketCreateTableStock extends Migration
                     ->on('market_product')
                     ->onDelete('cascade')
                     ->onUpdate('cascade');
-
-                $table->primary(['warehouse_id', 'product_id'], 'pk01_market_stock');
 			});
 		}
 	}
