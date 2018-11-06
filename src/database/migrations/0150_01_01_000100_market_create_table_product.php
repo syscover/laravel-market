@@ -36,13 +36,13 @@ class MarketCreateTableProduct extends Migration
 				$table->tinyInteger('type_id')->unsigned();
 
                 // schedule limit time of publish product
-                $this->timestamp('enable_from')->nullable();
-                $this->timestamp('enable_to')->nullable();
+                $table->timestamp('enable_from')->nullable();
+                $table->timestamp('enable_to')->nullable();
 
                 // events
-                $this->timestamp('starts_at')->nullable();
-                $this->timestamp('ends_at')->nullable();
-                $this->integer('limited_capacity')->nullable();
+                $table->timestamp('starts_at')->nullable();
+                $table->timestamp('ends_at')->nullable();
+                $table->integer('limited_capacity')->nullable();
                 $table->decimal('fixed_cost', 12, 4)->nullable();
                 $table->decimal('cost_per_sale', 12, 4)->nullable();
 
