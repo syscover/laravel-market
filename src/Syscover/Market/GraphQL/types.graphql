@@ -22,7 +22,7 @@ type MarketCartPriceRule {
     apply_shipping_amount: Boolean!
     free_shipping: Boolean!
     product_rules: Object
-    data_lang: Object
+    data_lang: [String]
 }
 
 type MarketCategory {

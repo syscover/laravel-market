@@ -41,7 +41,7 @@ class CategoryService
 
     private static function checkUpdate($object)
     {
-        if(empty($object['ix'])) throw new \Exception('You have to define a ix field to update a question');
-        if(empty($object['id'])) throw new \Exception('You have to define a id field to update a question');
+        if(empty($object['ix'])) throw new \Exception('You have to define a ix field to update a category');
+        if(empty($object['id'])) throw new \Exception('You have to define a id field to update a category');
     }
 }
