@@ -241,6 +241,7 @@ input MarketProductInput {
     # Marketable columns
     active: Boolean
     categories_id: [String]
+    class_id: Int
     cost: Float
     cost_per_sale: Float
     enable_from: String
@@ -260,7 +261,6 @@ input MarketProductInput {
     sort: Int
     starts_at: String
     subtotal: Float
-    class_id: Int
     weight: Float
 }
 

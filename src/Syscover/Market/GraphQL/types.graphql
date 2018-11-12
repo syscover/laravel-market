@@ -267,6 +267,7 @@ type MarketProduct {
     # Marketable columns
     active: Boolean
     categories: [MarketCategory]
+    class_id: Int!
     cost: Float
     cost_per_sale: Float
     enable_from: String
@@ -285,7 +286,6 @@ type MarketProduct {
     sort: Int
     starts_at: String
     subtotal: Float
-    class_id: Int!
     weight: Float!
 }
 
