@@ -23,7 +23,7 @@ class MarketUpdateV12 extends Migration
 
                 $table->decimal('cost', 12, 4)->nullable()->after('price_type_id');
 
-                $table->timestamp('enable_from')->nullable()->after('type_id');
+                $table->timestamp('enable_from')->nullable()->after('class_id');
                 $table->timestamp('enable_to')->nullable()->after('enable_from');
 
                 $table->timestamp('starts_at')->nullable()->after('enable_to');

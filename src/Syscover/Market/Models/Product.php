@@ -23,7 +23,7 @@ class Product extends CoreModel
     use CustomizableFields, Translatable;
 
 	protected $table        = 'market_product';
-	protected $fillable     = ['sku', 'field_group_id', 'parent_id', 'object_type', 'object_id', 'type_id', 'enable_from', 'enable_to', 'starts_at', 'ends_at', 'limited_capacity', 'fixed_cost', 'cost_per_sale', 'weight', 'active', 'sort', 'price_type_id', 'product_class_tax_id', 'cost', 'subtotal', 'data_lang', 'data'];
+	protected $fillable     = ['sku', 'field_group_id', 'parent_id', 'object_type', 'object_id', 'class_id', 'enable_from', 'enable_to', 'starts_at', 'ends_at', 'limited_capacity', 'fixed_cost', 'cost_per_sale', 'weight', 'active', 'sort', 'price_type_id', 'product_class_tax_id', 'cost', 'subtotal', 'data_lang', 'data'];
     protected $casts        = [
         'active'                    => 'boolean',
         'data_lang'                 => 'array',
@@ -44,7 +44,7 @@ class Product extends CoreModel
 
     private static $rules   = [
         'price_type_id'         => 'required',
-        'type_id'               => 'required',
+        'class_id'              => 'required',
     ];
 
     public static function validate($data)

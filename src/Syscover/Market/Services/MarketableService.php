@@ -27,7 +27,7 @@ class MarketableService
                 'parent_id',
                 'object_type',
                 'object_id',
-                'type_id',
+                'class_id',
                 'enable_from',
                 'enable_to',
                 'starts_at',
@@ -91,7 +91,7 @@ class MarketableService
             'parent_id',
             'object_type',
             'object_id',
-            'type_id',
+            'class_id',
             'enable_from',
             'enable_to',
             'starts_at',
@@ -150,7 +150,7 @@ class MarketableService
                 'sku',
                 'field_group_id',
                 'parent_id',
-                'type_id',
+                'class_id',
                 'enable_from',
                 'enable_to',
                 'starts_at',
@@ -184,7 +184,7 @@ class MarketableService
         // avoid check if is create lang action
         if(empty($payload['id']))
         {
-            if(empty($payload['type_id']))       throw new \Exception('You have to define a type_id field to create a product');
+            if(empty($payload['class_id']))      throw new \Exception('You have to define a class_id field to create a product');
             if(empty($payload['price_type_id'])) throw new \Exception('You have to define a price_type_id field to create a product');
         }
     }

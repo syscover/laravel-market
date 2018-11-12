@@ -8,9 +8,9 @@ return [
     'order_id_suffix' => env('MARKET_ORDER_ID_SUFFIX', ''),
 
     //******************************************************************************************************************
-    //***   Type of product
+    //***   Class of product
     //******************************************************************************************************************
-    'product_types' => [
+    'product_classes' => [
         (object)['id' => 1, 'name' => 'market::pulsar.downloadable'],
         (object)['id' => 2, 'name' => 'market::pulsar.transportable'],
         (object)['id' => 3, 'name' => 'market::pulsar.transportable_downloadable'],

@@ -285,7 +285,7 @@ type MarketProduct {
     sort: Int
     starts_at: String
     subtotal: Float
-    type_id: Int!
+    class_id: Int!
     weight: Float!
 }
 

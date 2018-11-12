@@ -33,7 +33,7 @@ class MarketCreateTableProduct extends Migration
 				// 3 - downloaded and transportable
                 // 4 - service
                 // 5 - event
-				$table->tinyInteger('type_id')->unsigned();
+				$table->tinyInteger('class_id')->unsigned();
 
                 // schedule limit time of publish product
                 $table->timestamp('enable_from')->nullable();

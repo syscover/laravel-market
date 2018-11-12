@@ -18,7 +18,7 @@ class ProductService
                 'sku',
                 'field_group_id',
                 'parent_id',
-                'type_id',
+                'class_id',
                 'enable_from',
                 'enable_to',
                 'starts_at',
@@ -86,7 +86,7 @@ class ProductService
             'sku',
             'field_group_id',
             'parent_id',
-            'type_id',
+            'class_id',
             'enable_from',
             'enable_to',
             'starts_at',
@@ -165,7 +165,7 @@ class ProductService
                 'sku',
                 'field_group_id',
                 'parent_id',
-                'type_id',
+                'class_id',
                 'enable_from',
                 'enable_to',
                 'starts_at',
@@ -199,7 +199,7 @@ class ProductService
         // avoid check if is create lang action
         if(empty($object['id']))
         {
-            if(empty($object['type_id']))       throw new \Exception('You have to define a type_id field to create a product');
+            if(empty($object['class_id']))      throw new \Exception('You have to define a class_id field to create a product');
             if(empty($object['price_type_id'])) throw new \Exception('You have to define a price_type_id field to create a product');
         }
     }
