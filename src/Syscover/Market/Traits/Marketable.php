@@ -7,6 +7,34 @@ use Syscover\Market\Models\Stock;
 
 trait Marketable
 {
+    public function scopeSectionsProducts($query, $sections)
+    {
+        return $query
+            ->builder()
+            ->whereIn('market_product.id', function($query) use ($sections) {
+                $query
+                    ->select('product_id')
+                    ->from('market_products_sections')
+                    ->whereIn('section_id', $sections)
+                    ->groupBy('product_id')
+                    ->get();
+            });
+    }
+
+    public function scopeCategoriesProducts($query, $categories)
+    {
+        return $query
+            ->builder()
+            ->whereIn('market_product.id', function($query) use ($categories) {
+                $query
+                    ->select('product_id')
+                    ->from('market_products_categories')
+                    ->whereIn('category_id', $categories)
+                    ->groupBy('product_id')
+                    ->get();
+            });
+    }
+
     public function products()
     {
         return $this->morphMany(Product::class, 'object', 'object_type', 'object_id', 'id');
