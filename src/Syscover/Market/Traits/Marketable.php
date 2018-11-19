@@ -4,6 +4,7 @@ use Syscover\Market\Models\Category;
 use Syscover\Market\Models\Product;
 use Syscover\Market\Models\Section;
 use Syscover\Market\Models\Stock;
+use Syscover\Market\Services\TaxRuleService;
 
 trait Marketable
 {
@@ -71,5 +72,50 @@ trait Marketable
             'product_id',
             'product_id'
         );
+    }
+
+    public function __get($name)
+    {
+        // price of product
+        if($name === 'price')
+        {
+            if(config('pulsar-market.product_tax_display_prices') == TaxRuleService::PRICE_WITHOUT_TAX)
+            {
+                return $this->subtotal;
+            }
+            elseif(config('pulsar-market.product_tax_display_prices') == TaxRuleService::PRICE_WITH_TAX)
+            {
+                return $this->total; // call magic method
+            }
+        }
+
+        // total price
+        if($name === 'total')
+        {
+            if($this->tax_amount !== null)
+            {
+                return $this->subtotal + $this->tax_amount;
+            }
+
+            $taxes              = TaxRuleService::taxCalculateOverSubtotal($this->subtotal, $this->tax_rules);
+            $this->tax_amount   = $taxes->sum('tax_amount');
+            $this->total        = $this->subtotal + $this->tax_amount;
+
+            return $this->total;
+        }
+
+        // taxAmount property
+        if($name === 'tax_amount')
+        {
+            $taxes = TaxRuleService::taxCalculateOverSubtotal($this->subtotal, $this->tax_rules);
+            return $taxes->sum('tax_amount');
+        }
+
+        if($name === 'tax_rules')
+        {
+            return TaxRuleService::getTaxRules()->where('product_class_tax_id', $this->product_class_tax_id);
+        }
+
+        return parent::__get($name);
     }
 }
