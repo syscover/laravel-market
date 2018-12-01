@@ -88,7 +88,7 @@ trait Purchaseable
                 AddressService::create([
                     'type_id'               => 2,
                     'customer_id'           => $customer->id,
-                    'alias'                 => $request->input('invoiceAddressAlias') ? $request->input('invoiceAddressAlias') : __('web.main'),
+                    'alias'                 => $request->input('invoiceAddressAlias') ? $request->input('invoiceAddressAlias') : __('core::common.main'),
                     'lang_id'               => user_lang(),
                     'company'               => $invoiceAddress->get('company'),
                     'tin'                   => $invoiceAddress->get('tin'),
