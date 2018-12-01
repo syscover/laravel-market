@@ -61,7 +61,7 @@ trait Purchaseable
             AddressService::create([
                 'type_id'               => 1,
                 'customer_id'           => $customer->id,
-                'alias'                 => $request->input('shippingAddressAlias') ? $request->input('shippingAddressAlias') : __('web.main'),
+                'alias'                 => $request->input('shippingAddressAlias') ? $request->input('shippingAddressAlias') : __('core::common.main'),
                 'lang_id'               => user_lang(),
                 'company'               => $shippingAddress->get('company'),
                 'name'                  => $shippingAddress->get('name'),
