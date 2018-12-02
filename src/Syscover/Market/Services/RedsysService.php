@@ -1,5 +1,6 @@
 <?php namespace Syscover\Market\Services;
 
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Ssheduardo\Redsys\Facades\Redsys;
 use Syscover\Market\Models\Order;
@@ -71,20 +72,20 @@ class RedsysService
     /**
      * Create async response for Redsys
      */
-    public static function asyncResponse()
+    public static function asyncResponse(Request $request)
     {
         // log
-        Log::info('Enter in market.redsys.notification route whit parameters', request()->all());
+        Log::info('Enter in market.redsys.notification route whit parameters', $request->all());
 
         $params = self::parameters();
 
         try
         {
-            $parameters = Redsys::getMerchantParameters(request('Ds_MerchantParameters'));
+            $parameters = Redsys::getMerchantParameters($request->input('Ds_MerchantParameters'));
             $DsResponse = $parameters['Ds_Response'];
             $DsResponse += 0;
 
-            if(Redsys::check($params->key, request()->all()) && $DsResponse <= 99)
+            if(Redsys::check($params->key, $request->all()) && $DsResponse <= 99)
             {
                 // get order ID
                 $orderId = str_replace(config('pulsar-market.order_id_suffix'), '', $parameters['Ds_Order']);
@@ -130,19 +131,19 @@ class RedsysService
     /**
      * Actions to do when Redsys response is successful
      */
-    public static function successful()
+    public static function successful(Request $request)
     {
         // log
-        Log::info('Enter in RedsysService::successful service whit parameters', request()->all());
+        Log::info('Enter in RedsysService::successful service whit parameters', $request->all());
 
         $params = self::parameters();
 
         try {
-            $parameters = Redsys::getMerchantParameters(request('Ds_MerchantParameters'));
+            $parameters = Redsys::getMerchantParameters($request->input('Ds_MerchantParameters'));
             $DsResponse = $parameters['Ds_Response'];
             $DsResponse += 0;
 
-            if (Redsys::check($params->key, request()->all()) && $DsResponse <= 99)
+            if (Redsys::check($params->key, $request->all()) && $DsResponse <= 99)
             {
                 // get order ID
                 $orderId =  str_replace(config('pulsar-market.order_id_suffix'), '', $parameters['Ds_Order']);
@@ -166,14 +167,14 @@ class RedsysService
     /**
      * Actions to do when Redsys response is error
      */
-    public static function error()
+    public static function error(Request $request)
     {
         // log
-        Log::info('Enter in RedsysService::error service whit parameters: ', request()->all());
+        Log::info('Enter in RedsysService::error service whit parameters: ', $request->all());
 
         try
         {
-            $parameters = Redsys::getMerchantParameters(request('Ds_MerchantParameters'));
+            $parameters = Redsys::getMerchantParameters($request->input('Ds_MerchantParameters'));
 
             // get order ID
             $orderId    = str_replace(config('pulsar-market.order_id_suffix'), '', $parameters['Ds_Order']);
