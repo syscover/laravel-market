@@ -19,7 +19,7 @@ class MarketCreateTableStock extends Migration
 
                 $table->timestamps();
 
-                $table->primary(['warehouse_id', 'product_id'], 'pk01_market_stock');
+                $table->primary(['warehouse_id', 'product_id']);
 				$table->foreign('warehouse_id', 'fk01_market_stock')
 					->references('id')
 					->on('market_warehouse')

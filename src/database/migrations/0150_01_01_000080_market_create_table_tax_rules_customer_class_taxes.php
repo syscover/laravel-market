@@ -20,7 +20,7 @@ class MarketCreateTableTaxRulesCustomerClassTaxes extends Migration {
 				$table->integer('tax_rule_id')->unsigned();
 				$table->integer('customer_class_tax_id')->unsigned();
 
-				$table->primary(['tax_rule_id', 'customer_class_tax_id'], 'pk01_market_tax_rules_customer_class_taxes');
+				$table->primary(['tax_rule_id', 'customer_class_tax_id']);
 			});
 		}
 	}

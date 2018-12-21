@@ -20,7 +20,7 @@ class MarketCreateTableTaxRulesTaxRatesZones extends Migration {
 				$table->integer('tax_rule_id')->unsigned();
 				$table->integer('tax_rate_zone_id')->unsigned();
 
-				$table->primary(['tax_rule_id', 'tax_rate_zone_id'], 'pk01_market_tax_rules_tax_rates_zones');
+				$table->primary(['tax_rule_id', 'tax_rate_zone_id']);
 			});
 		}
 	}

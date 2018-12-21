@@ -20,7 +20,7 @@ class MarketCreateTableProductsCategories extends Migration {
 				$table->integer('product_id')->unsigned();
 				$table->integer('category_id')->unsigned();
 
-				$table->primary(['product_id', 'category_id'], 'pk01_market_products_categories');
+				$table->primary(['product_id', 'category_id']);
 			});
 		}
 	}
