@@ -17,7 +17,7 @@ class MarketCreateTableCustomerDiscountHistory extends Migration
 			Schema::create('market_customer_discount_history', function (Blueprint $table) {
 				$table->engine = 'InnoDB';
 
-                $table->increments('id')->unsigned();
+                $table->increments('id');
 
                 $table->integer('customer_id')->unsigned();
                 $table->integer('order_id')->unsigned();

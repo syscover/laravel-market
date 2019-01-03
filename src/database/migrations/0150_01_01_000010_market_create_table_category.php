@@ -17,7 +17,7 @@ class MarketCreateTableCategory extends Migration
 			Schema::create('market_category', function (Blueprint $table) {
 				$table->engine = 'InnoDB';
 				
-				$table->increments('ix')->unsigned();
+				$table->increments('ix');
 				$table->integer('id')->unsigned();
                 $table->string('lang_id', 2);
 				$table->integer('parent_id')->unsigned()->nullable();

@@ -17,7 +17,7 @@ class MarketCreateTableCartPriceRule extends Migration
 			Schema::create('market_cart_price_rule', function (Blueprint $table) {
 				$table->engine = 'InnoDB';
 
-                $table->increments('id')->unsigned();
+                $table->increments('id');
 
                 $table->json('names')->nullable(); // name value in different languages
                 $table->json('descriptions')->nullable(); //description value in different languages
