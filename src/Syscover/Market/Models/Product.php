@@ -97,44 +97,30 @@ class Product extends CoreModel
     {
         // https://es.wikipedia.org/wiki/ISO_8601
         // return (new Carbon($value))->toW3cString();
-        if($value)
-        {
-            return (new Carbon($value))->format('Y-m-d\TH:i:s');
-        }
-        return null;
+        return $value ? (new Carbon($value))->format('Y-m-d\TH:i:s') : null;
+
     }
 
     public function getEnableToAttribute($value)
     {
         // https://es.wikipedia.org/wiki/ISO_8601
         // return (new Carbon($value))->toW3cString();
-        if($value)
-        {
-            return (new Carbon($value))->format('Y-m-d\TH:i:s');
-        }
-        return null;
+        return $value ? (new Carbon($value))->format('Y-m-d\TH:i:s') : null;
+
     }
 
     public function getStartsAtAttribute($value)
     {
         // https://es.wikipedia.org/wiki/ISO_8601
         // return (new Carbon($value))->toW3cString();
-        if($value)
-        {
-            return (new Carbon($value))->format('Y-m-d\TH:i:s');
-        }
-        return null;
+        return $value ? (new Carbon($value))->format('Y-m-d\TH:i:s') : null;
     }
 
     public function getEndsAtAttribute($value)
     {
         // https://es.wikipedia.org/wiki/ISO_8601
         // return (new Carbon($value))->toW3cString();
-        if($value)
-        {
-            return (new Carbon($value))->format('Y-m-d\TH:i:s');
-        }
-        return null;
+        return $value ? (new Carbon($value))->format('Y-m-d\TH:i:s') : null;
     }
 
     public function children_products()
