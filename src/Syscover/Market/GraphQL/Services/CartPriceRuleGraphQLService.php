@@ -8,7 +8,7 @@ use Syscover\Market\Services\CouponService;
 
 class CartPriceRuleGraphQLService extends CoreGraphQLService
 {
-    protected $modelClassName = CartPriceRule::class;
+    protected $model = CartPriceRule::class;
     protected $serviceClassName = CartPriceRuleService::class;
 
     public function checkCoupon($root, array $args)

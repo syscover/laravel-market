@@ -6,6 +6,6 @@ use Syscover\Market\Services\WarehouseService;
 
 class WarehouseGraphQLService extends CoreGraphQLService
 {
-    protected $modelClassName = Warehouse::class;
+    protected $model = Warehouse::class;
     protected $serviceClassName = WarehouseService::class;
 }

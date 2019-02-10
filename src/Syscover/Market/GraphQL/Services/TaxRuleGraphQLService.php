@@ -8,7 +8,7 @@ use Syscover\ShoppingCart\Facades\CartProvider;
 
 class TaxRuleGraphQLService extends CoreGraphQLService
 {
-    protected $modelClassName = TaxRule::class;
+    protected $model = TaxRule::class;
     protected $serviceClassName = TaxRuleService::class;
 
     public function resolveCheckCustomerTaxRules($root, array $args)
@@ -38,7 +38,7 @@ class TaxRuleGraphQLService extends CoreGraphQLService
 
     public function delete($root, array $args)
     {
-        $object = SQLService::deleteRecord($args['id'], $this->modelClassName);
+        $object = SQLService::deleteRecord($args['id'], get_class($this->model));
 
         $object->tax_rate_zones()->detach();
         $object->customer_class_taxes()->detach();
