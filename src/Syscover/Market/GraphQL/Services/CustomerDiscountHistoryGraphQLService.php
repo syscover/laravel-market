@@ -7,5 +7,5 @@ use Syscover\Market\Services\CustomerDiscountHistoryService;
 class CustomerDiscountHistoryGraphQLService extends CoreGraphQLService
 {
     protected $model = CustomerDiscountHistory::class;
-    protected $serviceClassName = CustomerDiscountHistoryService::class;
+    protected $service = CustomerDiscountHistoryService::class;
 }

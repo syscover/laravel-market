@@ -9,7 +9,7 @@ use Syscover\ShoppingCart\Facades\CartProvider;
 class TaxRuleGraphQLService extends CoreGraphQLService
 {
     protected $model = TaxRule::class;
-    protected $serviceClassName = TaxRuleService::class;
+    protected $service = TaxRuleService::class;
 
     public function resolveCheckCustomerTaxRules($root, array $args)
     {

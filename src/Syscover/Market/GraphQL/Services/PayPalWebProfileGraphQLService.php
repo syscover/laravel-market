@@ -5,7 +5,7 @@ use Syscover\Market\Services\PayPalWebProfileService;
 
 class PayPalWebProfileGraphQLService extends CoreGraphQLService
 {
-    protected $serviceClassName = PayPalWebProfileService::class;
+    protected $service = PayPalWebProfileService::class;
 
     public function paginate($root, array $args)
     {

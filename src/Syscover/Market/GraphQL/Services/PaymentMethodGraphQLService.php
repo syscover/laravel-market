@@ -7,5 +7,5 @@ use Syscover\Market\Services\PaymentMethodService;
 class PaymentMethodGraphQLService extends CoreGraphQLService
 {
     protected $model = PaymentMethod::class;
-    protected $serviceClassName = PaymentMethodService::class;
+    protected $service = PaymentMethodService::class;
 }
