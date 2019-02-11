@@ -6,6 +6,9 @@ use Syscover\Market\Services\SectionService;
 
 class SectionGraphQLService extends CoreGraphQLService
 {
-    protected $model = Section::class;
-    protected $service = SectionService::class;
+    public function __construct(Section $model, SectionService $service)
+    {
+        $this->model = $model;
+        $this->service = $service;
+    }
 }

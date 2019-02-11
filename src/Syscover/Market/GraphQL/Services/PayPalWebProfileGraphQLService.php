@@ -5,7 +5,10 @@ use Syscover\Market\Services\PayPalWebProfileService;
 
 class PayPalWebProfileGraphQLService extends CoreGraphQLService
 {
-    protected $service = PayPalWebProfileService::class;
+    public function __construct(PayPalWebProfileService $service)
+    {
+        $this->service = $service;
+    }
 
     public function paginate($root, array $args)
     {

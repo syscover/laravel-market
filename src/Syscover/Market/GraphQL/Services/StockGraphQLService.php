@@ -6,8 +6,11 @@ use Syscover\Market\Services\StockService;
 
 class StockGraphQLService extends CoreGraphQLService
 {
-    protected $model = Stock::class;
-    protected $service = StockService::class;
+    public function __construct(Stock $model, StockService $service)
+    {
+        $this->model = $model;
+        $this->service = $service;
+    }
 
     public function resolveSetStock($root, array $args)
     {

@@ -11,8 +11,11 @@ use Syscover\Market\Services\TaxRuleService;
 
 class ProductGraphQLService extends CoreGraphQLService
 {
-    protected $model = Product::class;
-    protected $service = ProductService::class;
+    public function __construct(Product $model, ProductService $service)
+    {
+        $this->model = $model;
+        $this->service = $service;
+    }
 
     public function taxes($root, array $args)
     {

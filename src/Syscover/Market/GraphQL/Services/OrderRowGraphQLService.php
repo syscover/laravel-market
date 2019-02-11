@@ -6,6 +6,9 @@ use Syscover\Market\Services\OrderRowService;
 
 class OrderRowGraphQLService extends CoreGraphQLService
 {
-    protected $model = OrderRow::class;
-    protected $service = OrderRowService::class;
+    public function __construct(OrderRow $model, OrderRowService $service)
+    {
+        $this->model = $model;
+        $this->service = $service;
+    }
 }

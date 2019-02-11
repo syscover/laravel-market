@@ -6,8 +6,11 @@ use Syscover\Market\Services\CustomerGroupCustomerClassTaxService;
 
 class CustomerGroupCustomerClassTaxGraphQLService extends CoreGraphQLService
 {
-    protected $model = CustomerGroupCustomerClassTax::class;
-    protected $service = CustomerGroupCustomerClassTaxService::class;
+    public function __construct(CustomerGroupCustomerClassTax $model, CustomerGroupCustomerClassTaxService $service)
+    {
+        $this->model = $model;
+        $this->service = $service;
+    }
 
     public function update($root, array $args)
     {
