@@ -92,9 +92,10 @@ class RedsysService
                 $order = Order::find((int)$orderId);
 
                 // change order status
-                $paymentMethod      = $order->payment_methods->where('lang_id', user_lang())->first();
-                $order->status_id   = $paymentMethod->order_status_successful_id;
-                $order->save();
+                MarketableService::setOrderPaymentSuccessful($order);
+
+                // increment uses of price rule
+                CartPriceRuleService::incrementPriceRule($order);
 
                 // log register on order
                 OrderService::log($order->id, __('market::pulsar.message_redsys_payment_successful'));

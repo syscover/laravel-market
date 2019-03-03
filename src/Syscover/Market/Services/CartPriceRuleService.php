@@ -1,7 +1,7 @@
 <?php namespace Syscover\Market\Services;
 
 use Syscover\Market\Models\CartPriceRule;
-use Syscover\Market\Models\Category;
+use Syscover\Market\Models\Order;
 
 class CartPriceRuleService
 {
@@ -148,5 +148,20 @@ class CartPriceRuleService
     private static function checkUpdate($object)
     {
         if(empty($object['id'])) throw new \Exception('You have to define a id field to update a cart price rule');
+    }
+
+
+    public static function incrementPriceRule(Order $order)
+    {
+        foreach ($order->discounts as $discount)
+        {
+            if ($discount->rule_type === 'Syscover\Market\Models\CartPriceRule')
+            {
+                $cartPriceRule = CartPriceRule::find($discount->rule_id);
+                $cartPriceRule->increment('total_uses');
+
+            }
+            info('Increment cart price rule ' . $discount->rule_type . ' with id: ' . $discount->rule_id . ' in one use');
+        }
     }
 }

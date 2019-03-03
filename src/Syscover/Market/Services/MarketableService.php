@@ -1,5 +1,6 @@
 <?php namespace Syscover\Market\Services;
 
+use Syscover\Market\Models\Order;
 use Syscover\Market\Models\Product;
 use Syscover\Market\Models\ProductLang;
 
@@ -193,5 +194,19 @@ class MarketableService
     {
         if(empty($payload['id']))        throw new \Exception('You have to define a id field to update a product');
         if(empty($payload['lang_id']))   throw new \Exception('You have to define a lang_id field to update a product');
+    }
+
+
+    /**
+     * Set order like successful, when the payment is successful
+     *
+     * @param Order $order
+     */
+    public static function setOrderPaymentSuccessful(Order $order)
+    {
+        // change order status
+        $paymentMethod      = $order->payment_methods->where('lang_id', user_lang())->first();
+        $order->status_id   = $paymentMethod->order_status_successful_id;
+        $order->save();
     }
 }
