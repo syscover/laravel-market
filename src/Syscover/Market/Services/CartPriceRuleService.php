@@ -14,7 +14,7 @@ class CartPriceRuleService
             if(! empty($object['name']))        $object['names'] = [['id' => $object['lang_id'], 'value' => $object['name']]];
             if(! empty($object['description'])) $object['descriptions'] = [['id' => $object['lang_id'], 'value' => $object['description']]];
 
-            $object['data_lang'] = CartPriceRule::addDataLang($object['lang_id']);
+            $object['data_lang'] = CartPriceRule::getDataLang($object['lang_id']);
 
             return CartPriceRule::create(self::builder($object));
         }

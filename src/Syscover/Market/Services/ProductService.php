@@ -52,7 +52,7 @@ class ProductService
         ]));
 
         // product already is create, it's not necessary update product with data_lang value
-        Product::addDataLang($object['lang_id'], $object['id']);
+        Product::getDataLang($object['lang_id'], $object['id']);
 
         // get object with builder, to get every relations
         $product = Product::builder()

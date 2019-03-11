@@ -10,7 +10,7 @@ class OrderStatusService
 
         if(empty($object['id'])) $object['id'] = next_id(OrderStatus::class);
 
-        $object['data_lang'] = OrderStatus::addDataLang($object['lang_id'], $object['id']);
+        $object['data_lang'] = OrderStatus::getDataLang($object['lang_id'], $object['id']);
 
         return OrderStatus::create(self::builder($object));
     }

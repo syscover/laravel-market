@@ -10,7 +10,7 @@ class PaymentMethodService
 
         if(empty($object['id'])) $object['id'] = next_id(PaymentMethod::class);
 
-        $object['data_lang'] = PaymentMethod::addDataLang($object['lang_id'], $object['id']);
+        $object['data_lang'] = PaymentMethod::getDataLang($object['lang_id'], $object['id']);
         
         return PaymentMethod::create(self::builder($object));
     }

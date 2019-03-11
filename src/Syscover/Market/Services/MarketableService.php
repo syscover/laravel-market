@@ -62,7 +62,7 @@ class MarketableService
         ]));
 
         // product already is create, it's not necessary update product with data_lang value
-        Product::addDataLang($payload['lang_id'], $payload['id']);
+        Product::getDataLang($payload['lang_id'], $payload['id']);
 
         // get object with builder, to get every relations
         $product = Product::builder()

@@ -10,7 +10,7 @@ class CategoryService
 
         if(empty($object['id'])) $object['id'] = next_id(Category::class);
 
-        $object['data_lang'] = Category::addDataLang($object['lang_id'], $object['id']);
+        $object['data_lang'] = Category::getDataLang($object['lang_id'], $object['id']);
 
         return Category::create(self::builder($object));
     }

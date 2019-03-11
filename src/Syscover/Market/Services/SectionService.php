@@ -8,7 +8,7 @@ class SectionService
     {
         self::checkCreate($object);
 
-        $object['data_lang'] = Section::addDataLang($object['lang_id'], $object['id']);
+        $object['data_lang'] = Section::getDataLang($object['lang_id'], $object['id']);
 
         return Section::create(self::builder($object));
     }
