@@ -45,6 +45,11 @@ php artisan migrate --path=vendor/syscover/pulsar-market/src/database/migrations
 ],
 ```
 
+**6 - To run unit testing**
+```
+./vendor/bin/phpunit
+```
+
 
 ## General configuration environment values
 We indicate configuration variables available, to change them what you should do from the file environment variables .env
