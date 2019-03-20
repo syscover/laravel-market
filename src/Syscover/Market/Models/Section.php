@@ -16,15 +16,8 @@ class Section extends CoreModel
 	protected $table        = 'market_section';
     protected $primaryKey   = 'ix';
     protected $fillable     = ['ix', 'id', 'lang_id', 'name', 'slug', 'data_lang'];
+    protected $with         = ['lang'];
     protected $casts        = [
         'data_lang' => 'array'
     ];
-    public $with            = ['lang'];
-
-    private static $rules   = [];
-
-    public static function validate($data)
-    {
-        return Validator::make($data, static::$rules);
-	}
 }

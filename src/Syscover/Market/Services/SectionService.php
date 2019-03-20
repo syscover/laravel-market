@@ -1,49 +1,53 @@
 <?php namespace Syscover\Market\Services;
 
+use Syscover\Core\Services\Service;
+use Syscover\Core\Exceptions\ModelNotChangeException;
 use Syscover\Market\Models\Section;
 
-class SectionService
+class SectionService extends Service
 {
-    public static function create($object)
+    public function store(array $data)
     {
-        self::checkCreate($object);
+        $this->validate($data, [
+            'id'        => 'required|between:2,30',
+            'lang_id'   => 'required|size:2',
+            'name'      => 'required|between:2,255',
+            'slug'      => 'required|between:2,255',
+        ]);
 
-        $object['data_lang'] = Section::getDataLang($object['lang_id'], $object['id']);
+        $object['data_lang'] = Section::getDataLang($data['lang_id'], $data['id']);
 
-        return Section::create(self::builder($object));
+        return Section::create($data);
     }
 
-    public static function update($object)
+
+    public function update(array $data, int $ix)
     {
-        self::checkUpdate($object);
+        $this->validate($data, [
+            'ix'        => 'required|integer',
+            'id'        => 'required|between:2,30',
+            'lang_id'   => 'required|size:2',
+            'name'      => 'required|between:2,255',
+            'slug'      => 'required|between:2,255',
+        ]);
 
-        // get original id of section
-        $section = Section::find($object['ix']);
+        $object = Section::findOrFail($ix);
+        $oldId  = $object->id; // retrieve the id for common update
 
-        Section::where('id', $section->id)->update(self::builder($object, ['id']));
-        Section::where('ix', $object['ix'])->update(self::builder($object, ['lang_id', 'name', 'slug', 'data_lang']));
+        $object->fill($data);
 
-        return Section::find($object['ix']);
-    }
+        // check is model has changed
+        if ($object->isClean()) throw new ModelNotChangeException('At least one value must change');
 
-    private static function builder($object, $filterKeys = null)
-    {
-        $object = collect($object);
-        if($filterKeys) return $object->only($filterKeys)->toArray();
+        // save changes
+        $object->save();
 
-        return $object->only(['id', 'lang_id', 'name', 'slug', 'data_lang'])->toArray();
-    }
+        // save changes in all object, with the same id
+        // this method is exclusive form elements multi language
+        $commonData = $object->only('id');
 
-    private static function checkCreate($object)
-    {
-        if(empty($object['id']))        throw new \Exception('You have to define a id field to create a section');
-        if(empty($object['lang_id']))   throw new \Exception('You have to define a lang_id field to create a section');
-        if(empty($object['name']))      throw new \Exception('You have to define a name field to create a section');
-        if(empty($object['slug']))      throw new \Exception('You have to define a slug field to create a section');
-    }
+        Section::where('id', $oldId)->update($commonData);
 
-    private static function checkUpdate($object)
-    {
-        if(empty($object['ix']))     throw new \Exception('You have to define a id field to update a section');
+        return $object;
     }
 }
