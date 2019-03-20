@@ -34,7 +34,7 @@ marketUpdateProductClassTax(payload:MarketProductClassTaxInput!): MarketProductC
 marketDeleteProductClassTax(id:Int!): MarketProductClassTax @field(resolver: "Syscover\\Market\\GraphQL\\Services\\ProductClassTaxGraphQLService@delete")
 
 # Section
-marketCreateSection(payload:MarketSectionInput!): MarketSection @field(resolver: "Syscover\\Market\\GraphQL\\Services\\SectionGraphQLService@create")
+marketCreateSection(payload:MarketSectionInput!): MarketSection @field(resolver: "Syscover\\Market\\GraphQL\\Services\\SectionGraphQLService@store")
 marketUpdateSection(payload:MarketSectionInput!): MarketSection @field(resolver: "Syscover\\Market\\GraphQL\\Services\\SectionGraphQLService@update")
 marketDeleteSection(id:String! lang_id:String!): MarketSection @field(resolver: "Syscover\\Market\\GraphQL\\Services\\SectionGraphQLService@delete")
 

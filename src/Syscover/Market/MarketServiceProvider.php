@@ -31,6 +31,11 @@ class MarketServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__ . '/../../config/pulsar-market.php' => config_path('pulsar-market.php'),
         ]);
+
+        // register tests
+        $this->publishes([
+            __DIR__ . '/../../tests/Feature' => base_path('/tests/Feature')
+        ], 'tests');
 	}
 
 	/**
