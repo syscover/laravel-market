@@ -2,7 +2,7 @@
 
 use Syscover\Core\Models\CoreModel;
 use Illuminate\Support\Facades\Validator;
-use Syscover\Admin\Traits\Translatable;
+use Syscover\Admin\Traits\Langable;
 
 /**
  * Class OrderStatus
@@ -11,7 +11,7 @@ use Syscover\Admin\Traits\Translatable;
 
 class OrderStatus extends CoreModel
 {
-    use Translatable;
+    use Langable;
 
 	protected $table        = 'market_order_status';
     protected $primaryKey   = 'ix';

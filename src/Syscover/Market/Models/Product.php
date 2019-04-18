@@ -8,7 +8,7 @@ use Syscover\Core\Models\CoreModel;
 use Syscover\Market\Services\TaxRuleService;
 use Syscover\Admin\Traits\CustomizableFields;
 use Syscover\Admin\Traits\CustomizableValues;
-use Syscover\Admin\Traits\Translatable;
+use Syscover\Admin\Traits\Langable;
 
 /**
  * Class Product
@@ -20,7 +20,7 @@ class Product extends CoreModel
     use CustomizableValues {
         __get as traitGet;
     }
-    use CustomizableFields, Translatable;
+    use CustomizableFields, Langable;
 
 	protected $table        = 'market_product';
 	protected $fillable     = ['sku', 'field_group_id', 'parent_id', 'object_type', 'object_id', 'class_id', 'enable_from', 'enable_to', 'starts_at', 'ends_at', 'limited_capacity', 'fixed_cost', 'cost_per_sale', 'weight', 'active', 'sort', 'price_type_id', 'product_class_tax_id', 'cost', 'subtotal', 'data_lang', 'data'];

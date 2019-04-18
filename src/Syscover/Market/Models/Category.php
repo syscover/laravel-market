@@ -2,7 +2,7 @@
 
 use Syscover\Core\Models\CoreModel;
 use Illuminate\Support\Facades\Validator;
-use Syscover\Admin\Traits\Translatable;
+use Syscover\Admin\Traits\Langable;
 
 /**
  * Class Category
@@ -11,7 +11,7 @@ use Syscover\Admin\Traits\Translatable;
 
 class Category extends CoreModel
 {
-    use Translatable;
+    use Langable;
 
 	protected $table        = 'market_category';
     protected $primaryKey   = 'ix';

@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Validator;
 use Syscover\Admin\Traits\CustomizableValues;
 use Syscover\Core\Models\CoreModel;
-use Syscover\Admin\Traits\Translatable;
+use Syscover\Admin\Traits\Langable;
 
 /**
  * Class ProductLang
@@ -12,7 +12,7 @@ use Syscover\Admin\Traits\Translatable;
 
 class ProductLang extends CoreModel
 {
-    use CustomizableValues, Translatable;
+    use CustomizableValues, Langable;
 
 	protected $table        = 'market_product_lang';
     protected $primaryKey   = 'ix';
