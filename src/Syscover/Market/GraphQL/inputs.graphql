@@ -1,6 +1,6 @@
 input MarketCartPriceRuleInput {
     id: Int
-    lang_id: String
+    lang_id: Int
     name: String
     description: String
     active: Boolean
@@ -29,7 +29,7 @@ input MarketCartPriceRuleInput {
 input MarketCategoryInput {
     ix: Int
     id: Int
-    lang_id: String
+    lang_id: Int
     parent_id: Int
     name: String
     slug: String
@@ -133,7 +133,7 @@ input MarketOrderInput {
 
 input MarketOrderRowInput {
     id: Int
-    lang_id: String
+    lang_id: Int
     order_id: Int
     product_id: Int
 
@@ -178,7 +178,7 @@ input MarketOrderRowInput {
 input MarketOrderStatusInput {
     ix: Int
     id: Int
-    lang_id: String
+    lang_id: Int
     name: String
     active: Boolean
     data_lang: [String]
@@ -187,7 +187,7 @@ input MarketOrderStatusInput {
 input MarketPaymentMethodInput {
     ix: Int
     id: Int
-    lang_id: String
+    lang_id: Int
     name: String
     order_status_successful_id: Int
     minimum_price: Float
@@ -248,7 +248,7 @@ input MarketProductInput {
     enable_to: String
     ends_at: String
     fixed_cost: Float
-    lang_id: String
+    lang_id: Int
     limited_capacity: Int
     name: String
     parent_id: Int
@@ -272,7 +272,7 @@ input MarketProductClassTaxInput {
 input MarketSectionInput {
     ix: Int
     id: String
-    lang_id: String
+    lang_id: Int
     name: String!
     slug: String!
     data_lang: [String]
