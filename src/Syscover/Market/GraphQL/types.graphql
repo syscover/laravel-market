@@ -28,7 +28,7 @@ type MarketCartPriceRule {
 type MarketCategory {
     ix: Int
     id: Int
-    lang_id: Int
+    lang_id: String
     parent_id: Int
     name: String!
     slug: String
@@ -160,7 +160,7 @@ type MarketOrder {
 
 type MarketOrderRow {
     id: Int!
-    lang_id: Int!
+    lang_id: String!
     order_id: Int!
     product_id: Int
 
@@ -205,7 +205,7 @@ type MarketOrderRow {
 type MarketOrderStatus {
     ix: Int!
     id: Int!
-    lang_id: Int!
+    lang_id: String!
     name: String!
     active: Boolean
     data_lang: [String]
@@ -214,7 +214,7 @@ type MarketOrderStatus {
 type MarketPaymentMethod {
     ix: Int!
     id: Int!
-    lang_id: Int!
+    lang_id: String!
     name: String!
     order_status_successful_id: Int
     minimum_price: Float
@@ -274,7 +274,7 @@ type MarketProduct {
     enable_to: String
     ends_at: String
     fixed_cost: Float
-    lang_id: Int!
+    lang_id: String!
     limited_capacity: Int
     name: String!
     parent_id: Int
@@ -297,7 +297,7 @@ type MarketProductClassTax {
 type MarketSection {
     ix: Int!
     id: String!
-    lang_id: Int!
+    lang_id: String!
     name: String!
     slug: String!
     data_lang: [String]

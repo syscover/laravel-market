@@ -6,7 +6,7 @@ marketCartPriceRule(sql:[CoreSQLInput]): MarketCartPriceRule @field(resolver: "S
 """ Query to get cart price rules paginated """
 marketCartPriceRulesPagination(sql:[CoreSQLInput]): CorePagination! @field(resolver: "Syscover\\Market\\GraphQL\\Services\\CartPriceRuleGraphQLService@paginate")
 """ Query to get cart price rules list """
-marketCartPriceRuleCheckCoupon(coupon:String! lang_id:Int! guard:String instance:String): Object! @field(resolver: "Syscover\\Market\\GraphQL\\Services\\CartPriceRuleGraphQLService@checkCoupon")
+marketCartPriceRuleCheckCoupon(coupon:String! lang_id:String! guard:String instance:String): Object! @field(resolver: "Syscover\\Market\\GraphQL\\Services\\CartPriceRuleGraphQLService@checkCoupon")
 
 # Category
 """ Query to get categories list """

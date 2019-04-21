@@ -16,6 +16,8 @@ class CartPriceRuleController extends CoreController
 
     public function checkCoupon($guard = 'crm', $instance = 'default')
     {
-        return response()->json(CouponService::checkCoupon(request('coupon_code'), user_lang(), Auth::guard($guard), $instance));
+        return response()->json(
+            CouponService::checkCoupon(request('coupon_code'), user_lang(), Auth::guard($guard), $instance)
+        );
     }
 }

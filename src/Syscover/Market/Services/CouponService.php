@@ -12,8 +12,8 @@ class CouponService
 {
     /**
      * @param   string                          $coupon
-     * @param   string                          $lang           Check coupon code from this language
-     * @param   string                          $instance       Cart instance
+     * @param   int                             $langId         check coupon code from this language
+     * @param   string                          $instance       cart instance
      * @param   \Illuminate\Auth\SessionGuard   $sessionGuard   request session guard to check if user is authenticated, for cases necessary
      * @return array
      */
