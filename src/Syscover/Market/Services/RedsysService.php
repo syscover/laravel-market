@@ -107,7 +107,7 @@ class RedsysService
             }
             else
             {
-                Log::error('Error in api.market.redsys_async_response route whit parameters: ', $DsResponse);
+                Log::error('Error in api.market.redsys_async_response code error: ' . $DsResponse);
 
                 return [
                     'status'    => 'error',
@@ -118,7 +118,7 @@ class RedsysService
         }
         catch(\Exception $e)
         {
-            Log::error('Error exception in market.redsys.notification route', $e->getMessage());
+            Log::error('Error exception in market.redsys.notification route: ' . $e->getMessage());
 
             return [
                 'status'    => 'error',
