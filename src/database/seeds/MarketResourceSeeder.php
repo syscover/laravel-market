@@ -3,8 +3,8 @@
 use Illuminate\Database\Seeder;
 use Syscover\Admin\Models\Resource;
 
-class MarketResourceSeeder extends Seeder {
-
+class MarketResourceSeeder extends Seeder
+{
     public function run()
     {
         Resource::insert([
@@ -41,7 +41,6 @@ class MarketResourceSeeder extends Seeder {
             ['id' => 'market-preference',               'name' => 'Preferences',                                    'package_id' => 150],
             ['id' => 'market-payment-method',           'name' => 'Payment methods',                                'package_id' => 150],
             ['id' => 'market-order-status',             'name' => 'Order status',                                   'package_id' => 150],
-
         ]);
     }
 }
