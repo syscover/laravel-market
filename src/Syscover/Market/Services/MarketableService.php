@@ -52,6 +52,9 @@ class MarketableService
             $marketable->save();
         }
 
+        // if lang_id is empty, set lang_id with base_lang
+        if (empty($payload['lang_id'])) $payload['lang_id'] = config('pulsar-admin.base_lang');
+
         // create product lang
         $product = ProductLang::create(self::builder($payload, [
             'id',
@@ -109,6 +112,9 @@ class MarketableService
             'subtotal',
             'data_lang'
         ]));
+
+        // if lang_id is empty, set lang_id with base_lang
+        if (empty($payload['lang_id'])) $payload['lang_id'] = config('pulsar-admin.base_lang');
 
         // update product lang
         ProductLang::where('market_product_lang.id', $product->id)
@@ -178,7 +184,6 @@ class MarketableService
 
     private static function checkCreate($payload)
     {
-        if(empty($payload['lang_id']))       throw new \Exception('You have to define a lang_id field to create a product');
         if(empty($payload['name']))          throw new \Exception('You have to define a name field to create a product');
         if(empty($payload['slug']))          throw new \Exception('You have to define a slug field to create a product');
 
@@ -193,7 +198,6 @@ class MarketableService
     private static function checkUpdate($payload)
     {
         if(empty($payload['id']))        throw new \Exception('You have to define a id field to update a product');
-        if(empty($payload['lang_id']))   throw new \Exception('You have to define a lang_id field to update a product');
     }
 
 

@@ -31,12 +31,12 @@ class MarketCreateTableOrder extends Migration
                 //* amounts
                 //****************
                 $table->decimal('cart_items_total_without_discounts', 12, 4)->default(0);       // total of cart items. Amount with tax, without discount and without shipping
-				$table->decimal('subtotal', 12, 4)->default(0);					               // amount without tax, without shipping and without discounts
+				$table->decimal('subtotal', 12, 4)->default(0);					               	// amount without tax, without shipping and without discounts
                 $table->decimal('discount_amount', 12, 4)->default(0);                          // total amount to discount, fixed plus percentage discounts
 				$table->decimal('subtotal_with_discounts', 12, 4)->default(0);                  // subtotal with discounts applied
                 $table->decimal('tax_amount', 12, 4)->default(0);                               // total tax amount
-                $table->decimal('shipping_amount', 12, 4)->default(0);			               // shipping amount
-                $table->decimal('total', 12, 4)->default(0); 				                   // subtotal and shipping amount with tax
+                $table->decimal('shipping_amount', 12, 4)->default(0);			               	// shipping amount
+                $table->decimal('total', 12, 4)->default(0); 				                   	// subtotal and shipping amount with tax
 
                 //****************
                 //* customer
