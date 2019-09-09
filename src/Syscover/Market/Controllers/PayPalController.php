@@ -30,6 +30,15 @@ class PayPalController extends BaseController
             }
         }
 
+        // Check is response is a redirect
+        foreach ($responses as $response)
+        {
+            if (get_class($response) === 'Illuminate\Http\RedirectResponse')
+            {
+                return response;
+            }
+        }
+
         return null;
     }
 

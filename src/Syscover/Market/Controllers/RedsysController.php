@@ -28,6 +28,7 @@ class RedsysController extends BaseController
         $redsysResponses    = event(new RedsysResponseSuccessful($order));
         $responses          = array_merge($paymentResponses, $redsysResponses);
 
+        // check if response is a string route
         foreach ($responses as $response)
         {
             if(is_string($response) && Route::has($response))
@@ -37,6 +38,15 @@ class RedsysController extends BaseController
                     ->with([
                         'status' => 'successful'
                     ]);
+            }
+        }
+
+        // Check is response is a redirect
+        foreach ($responses as $response)
+        {
+            if (get_class($response) === 'Illuminate\Http\RedirectResponse')
+            {
+                return response;
             }
         }
 
