@@ -35,7 +35,7 @@ class PayPalController extends BaseController
         {
             if (get_class($response) === 'Illuminate\Http\RedirectResponse')
             {
-                return response;
+                return $response;
             }
         }
 
