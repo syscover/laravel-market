@@ -52,15 +52,17 @@ class StripePaymentService
 
         try 
         {
+            // https://stripe.com/docs/api/checkout/sessions/create
             Stripe::setApiKey(config('services.stripe.secret'));
             $stripe_session = StripeSession::create([
-                'payment_method_types'  => ['card'],
-                'locale'                => user_lang(),
-                'client_reference_id'   => $order->id,
-                'customer_email'        => $order->email,
-                'line_items'            => $lineItems,
-                'success_url'           => route('web.stripe.success').'?session_id={CHECKOUT_SESSION_ID}',
-                'cancel_url'            => route('web.stripe.cancel'),
+                'payment_method_types'          => ['card'],
+                'billing_address_collection'    => null,
+                'locale'                        => user_lang(),
+                'client_reference_id'           => $order->id,
+                'customer_email'                => $order->email,
+                'line_items'                    => $lineItems,
+                'success_url'                   => route('web.stripe.success').'?session_id={CHECKOUT_SESSION_ID}',
+                'cancel_url'                    => route('web.stripe.cancel'),
             ]);
 
             // log
