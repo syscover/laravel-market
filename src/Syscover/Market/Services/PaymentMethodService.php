@@ -64,7 +64,7 @@ class PaymentMethodService
         // Stripe Payment
         elseif((int) $paymentMethodId === 4)
         {
-
+            return StripePaymentService::createPayment($order, $xhr);
         }
 
         throw new \Exception('You have to define a payment method valid to manage payment method');
