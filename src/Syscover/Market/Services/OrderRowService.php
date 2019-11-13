@@ -126,21 +126,20 @@ class OrderRowService
         if(empty($object['id'])) throw new \Exception('You have to define a id field to update a order row');
     }
 
-    public static function getDataOrderRow(Order $order, string $instance = null)
+    public static function getDataOrderRow(Order $order, string $instance = null, $resolvers = [])
     {
         $items = [];
 
         // get cart instance
         foreach (CartProvider::instance($instance)->getCartItems() as $item)
         {
-
             $itemAux = [
                 'order_id'                              => $order->id,
                 'lang_id'                               => user_lang(),
 
                 // product
                 'product_id'                            => $item->id,
-                'name'                                  => $item->name,
+                'name'                                  => $resolvers['name']($item) ?? $item->name,
                 'description'                           => $item->options->product->description,
                 'data'                                  => ['product' => $item->options->product],
 
