@@ -30,6 +30,7 @@ return [
     'message_redsys_payment_successful'             => 'Pago en REDSYS TPV correcto',
     'message_stripe_payment_error'                  => 'Error en el pago con Stripe',
     'order_payment'                                 => 'Pago del pedido :order',
+    'order_status'                                  => 'Estado del pedido',
     'paypal_item_list_description'                  => 'Productos',
     'paypal_shipping_description'                   => 'Transporte',
     'service'                                       => 'Servicio',

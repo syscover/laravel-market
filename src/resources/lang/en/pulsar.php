@@ -30,6 +30,7 @@ return [
     'message_redsys_payment_successful'             => 'REDSYS TPV payment successful',
     'message_stripe_payment_error'                  => 'Redsys payment error',
     'order_payment'                                 => 'Order payment :order',
+    'order_status'                                  => 'Order status',
     'paypal_item_list_description'                  => 'Products',
     'paypal_shipping_description'                   => 'Shipping',
     'service'                                       => 'Service',
