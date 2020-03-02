@@ -39,7 +39,7 @@ class ProductService
         }
 
         // get custom fields
-        if(isset($object['field_group_id'])) $object['data']['custom_fields'] = $object['custom_fields'];
+        if(isset($object['custom_fields'])) $object['data']['custom_fields'] = $object['custom_fields'];
 
         // create product lang
         $product = ProductLang::create(self::builder($object, [
@@ -105,7 +105,7 @@ class ProductService
         ]));
 
         // set custom fields
-        if(! empty($object['field_group_id']))
+        if(! empty($object['custom_fields']))
         {
             $data = [];
             $data['custom_fields'] = $object['custom_fields'];
