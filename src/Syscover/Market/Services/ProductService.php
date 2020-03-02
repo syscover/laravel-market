@@ -129,10 +129,10 @@ class ProductService
             ->first();
 
         // set categories
-        if(is_array($object['categories_id'])) $product->categories()->sync($object['categories_id']);
+        if($object['categories_id'] ?? false && is_array($object['categories_id'])) $product->categories()->sync($object['categories_id']);
 
         // set sections
-        if(is_array($object['sections_id'])) $product->sections()->sync($object['sections_id']);
+        if($object['sections_id'] ?? false && is_array($object['sections_id'])) $product->sections()->sync($object['sections_id']);
 
         // set attachments
         if(isset($object['attachments']) && is_array($object['attachments']))
