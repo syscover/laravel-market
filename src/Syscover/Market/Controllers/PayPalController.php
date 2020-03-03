@@ -23,7 +23,10 @@ class PayPalController extends BaseController
             if(is_string($response) && Route::has($response))
             {
                 return redirect()
-                    ->route($response, ['id' => $order->id])
+                    ->route($response, [
+                        'id'        => $order->id,
+                        'referer'   => 'paypal'
+                    ])
                     ->with([
                         'status' => 'successful'
                     ]);
